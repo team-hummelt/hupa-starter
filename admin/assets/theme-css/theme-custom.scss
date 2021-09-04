@@ -1,0 +1,29 @@
+@import "theme-tools";
+#nav-main-starter .menu-item:last-child .nav-link {
+  padding-right: .5rem;
+}
+
+.navbar-root .logo.md {
+  max-width: 100%;
+  transition: all 450ms;
+}
+
+.navbar-root .logo.md.small-logo {
+  max-width: 90%;
+}
+
+.navbar-root .logo.sm {
+width: 50%;
+}
+
+.navbar-root  {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.hupa-box-shadow {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2)!important;
+}
+
+
+
+

@@ -1,0 +1,185 @@
+<?php
+
+
+namespace Hupa\StarterTheme;
+
+use stdClass;
+
+defined( 'ABSPATH' ) or die();
+
+/**
+ * ADMIN CSS GENERATOR
+ * @package Hummelt & Partner WordPress Theme
+ * Copyright 2021, Jens Wiecker
+ * License: Commercial - goto https://www.hummelt-werbeagentur.de/
+ * https://www.hummelt-werbeagentur.de/
+ */
+
+if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
+	add_action( 'after_setup_theme', array( 'Hupa\\StarterTheme\\HupaCarouselShortCode', 'init' ), 0 );
+
+	class HupaCarouselShortCode {
+
+		//INSTANCE
+		private static $carousel_shortcode_instance;
+        use HupaOptionTrait;
+		/**
+		 * @return static
+		 */
+		public static function init(): self {
+			if ( is_null( self::$carousel_shortcode_instance ) ) {
+				self::$carousel_shortcode_instance = new self;
+			}
+
+			return self::$carousel_shortcode_instance;
+		}
+
+		public function __construct() {
+			add_shortcode( 'carousel', array( $this, 'hupa_carousel_shortcode' ) );
+
+		}
+
+		public function hupa_carousel_shortcode( $atts, $content, $tag ): bool|string {
+
+			$a = shortcode_atts( array(
+				'id'       => ''
+
+			), $atts );
+
+			if ( ! $a['id'] ) {
+				return '';
+			}
+
+			$args         = sprintf( 'WHERE id=%d', $a['id'] );
+			$carouselData = apply_filters( 'get_carousel_data', 'hupa_carousel', $args, 'get_row' );
+			$args         = sprintf( 'WHERE carousel_id=%d AND aktiv=1 AND img_id > 0 ORDER BY position ASC', $a['id'] );
+			$sliderData   = apply_filters( 'get_carousel_data', 'hupa_slider', $args );
+
+			if ( ! $carouselData->status || ! $sliderData->status || $sliderData->count < 1 ) {
+				return '';
+			}
+			$carousel = $carouselData->record;
+			$slider   = $sliderData->record;
+
+			$carousel->data_autoplay ? $ride = 'carousel' : $ride = 'false';
+			$carousel->data_animate == 2 ? $slide = ' carousel-fade' : $slide = '';
+			$carousel->full_width ? $full_width = 'hupa-full-row' : $full_width = '';
+
+			$controlColor = match ( $carousel->select_bg ) {
+				'0' => '',
+				'1' => 'slider_navigation_light',
+				'2' => 'slider_navigation_dark',
+			};
+
+			$bgCaption = match ( $carousel->caption_bg ) {
+				'0' => '',
+				'1' => 'slider_caption_bg_light',
+				'2' => 'slider_caption_bg_dark',
+			};
+
+			ob_start();
+			?>
+            <div id="hupaCarousel<?= $carousel->id ?>" class="<?=$full_width?> carousel slide <?= $slide ?>"
+                 data-bs-ride="<?= $ride ?>">
+                <div class="<?=$carousel->indicator ? '' : 'd-none'?> carousel-indicators">
+					<?php for ( $i = 0; $i < count((array) $slider); $i ++ ) :
+						$i === 0 ? $active = 'class="active"' : $active = '';
+						?>
+                        <button type="button" data-bs-target="#hupaCarousel<?= $carousel->id ?>"
+                                data-bs-slide-to="<?= $i ?>"
+							<?= $active ?> ></button>
+					<?php endfor; ?>
+                </div>
+                <div class="carousel-inner">
+					<?php $x = 0;
+					foreach ( $slider as $tmp ):
+						$x === 0 ? $active = 'active' : $active = '';
+						$attach = apply_filters( 'wp_get_attachment', $tmp->img_id );
+						$tmp->data_alt ? $data_alt = $tmp->data_alt : $data_alt = $attach->alt;
+                        $tmp->caption_aktiv ? $caption_aktiv = '' : $caption_aktiv = 'd-none d-md-block';
+                        $firstFont = $this->get_slider_fonts($tmp->first_font, $tmp->first_style);
+						$secondFont = $this->get_slider_fonts($tmp->second_font, $tmp->second_style);
+						$selector =  apply_filters('get_container_selector',false);
+						$firstSelector = $selector->{$tmp->first_selector};
+
+					    $firstStyle = $firstFont->family . $firstFont->fontStyle . $firstFont->fontWeight
+                                      . 'font-size:'.$this->px_to_rem($tmp->first_size).'!important;'
+                                      . 'color: '.$tmp->font_color.'!important;'
+                                      . 'line-height: '.$tmp->first_height.'!important;';
+
+						$secondStyle = $secondFont->family . $secondFont->fontStyle . $secondFont->fontWeight
+						              . 'font-size:'.$this->px_to_rem($tmp->second_size).'!important;'
+						              . 'color: '.$tmp->font_color.'!important;'
+						              . 'line-height: '.$tmp->second_height.'!important;';
+
+						?>
+                        <div class="carousel-item <?=$active?>" data-bs-interval="<?=$tmp->data_interval?>">
+                            <img src="<?= $attach->src ?>" class="bgImage" alt="<?=$data_alt?>"
+                                 style="height: <?=$carousel->container_height?>;">
+                            <div class="carousel-caption <?= $bgCaption ?> <?= $caption_aktiv ?>">
+                                <<?=$firstSelector?> style="<?=$firstStyle?>"
+                                class="<?=$tmp->first_css?>  animate__animated animate__<?= $tmp->first_ani ?>">
+                                <?=$tmp->first_caption?>
+                                </<?=$firstSelector?>>
+                                <p style="<?=$secondStyle?>"
+                                class="<?=$tmp->second_css?>  animate__animated animate__<?= $tmp->second_ani ?>">
+                                <?=$tmp->second_caption?>
+                                </p>
+                            </div>
+                        </div>
+						<?php $x++; endforeach; ?>
+                </div>
+                <button class="<?=$carousel->controls ? '' : 'd-none '?> carousel-control-prev" type="button" data-bs-target="#hupaCarousel<?= $carousel->id ?>"
+                        data-bs-slide="prev">
+                    <span class="<?=$controlColor?> fa fa-chevron-left fa-2x" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="<?=$carousel->controls ? '' : 'd-none '?> carousel-control-next" type="button" data-bs-target="#hupaCarousel<?= $carousel->id ?>"
+                        data-bs-slide="next">
+                    <span class="<?=$controlColor?> fa fa-chevron-right fa-2x" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+			<?php
+			return ob_get_clean();
+		}//endCarouselOut
+
+        private function get_slider_fonts($family, $style):object {
+            $return = new stdClass();
+            $return->status = false;
+	        global $wpdb;
+	        $table  = $wpdb->prefix . $this->table_settings;
+	        $result = $wpdb->get_row( "SELECT hupa_fonts_src  FROM {$table}" );
+            if(!$result){
+               return $return;
+            }
+
+	        $fonts_src  = json_decode( $result->hupa_fonts_src);
+            foreach ($fonts_src as $tmp ){
+                if($tmp->fontFamily === $family) {
+	                $return->family    = 'font-family: '. $tmp->fontStill->fontFamily->{$style}.', sans-serif!important;';
+                    $return->fontStyle = $tmp->fontStill->fontStyle->{$style};
+	                $return->fontWeight = $tmp->fontStill->fontWeight->{$style};
+                }
+            }
+            $return->status = true;
+            return $return;
+        }
+
+		private function px_to_rem( $px ): string {
+			$record = 0.625 * $px / 10;
+			return $record . 'rem';
+		}
+
+		private function int_to_hex($number):string
+		{
+			$value =  $number * 255 / 100;
+			$opacity = dechex((int) $value);
+			return str_pad($opacity, 2, 0, STR_PAD_RIGHT);
+		}
+
+
+
+	}//endClass
+}

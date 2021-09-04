@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker Black'), local('Blinker-Black'),
+        url('Blinker-Black.woff2') format('woff2'),
+        url('Blinker-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker Bold'), local('Blinker-Bold'),
+        url('Blinker-Bold.woff2') format('woff2'),
+        url('Blinker-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker ExtraLight'), local('Blinker-ExtraLight'),
+        url('Blinker-ExtraLight.woff2') format('woff2'),
+        url('Blinker-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker ExtraBold'), local('Blinker-ExtraBold'),
+        url('Blinker-ExtraBold.woff2') format('woff2'),
+        url('Blinker-ExtraBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker'), local('Blinker-Regular'),
+        url('Blinker-Regular.woff2') format('woff2'),
+        url('Blinker-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker ExtraLight'), local('Blinker-ExtraLight'),
+        url('Blinker-ExtraLight.woff2') format('woff2'),
+        url('Blinker-ExtraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker Thin'), local('Blinker-Thin'),
+        url('Blinker-Thin.woff2') format('woff2'),
+        url('Blinker-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Blinker';
+    src: local('Blinker SemiBold'), local('Blinker-SemiBold'),
+        url('Blinker-SemiBold.woff2') format('woff2'),
+        url('Blinker-SemiBold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

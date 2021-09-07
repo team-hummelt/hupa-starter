@@ -87,5 +87,4 @@ define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
 
-//REGISTER THEME ADMIN OPTIONS
-require('inc/register-hupa-starter-optionen.php');
+

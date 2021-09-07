@@ -8,13 +8,36 @@
  */
 
 
+
+
 // WooCommerce
 //require get_template_directory() . '/woocommerce/woocommerce-functions.php';
 // WooCommerce END
 
+// THEME UPDATER
+require_once('admin/inc/update-checker/vendor/autoload.php');
+add_action( 'after_setup_theme','hupa_register_theme_updater');
+
+if ( ! function_exists( 'hupa_register_theme_updater' ) ) :
+function hupa_register_theme_updater(){
+    $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+        'https://github.com/team-hummelt/hupa-starter/',
+        __FILE__,
+        'hupa-starter'
+    );
+    $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+}
+endif;
 
 //REGISTER THEME ADMIN OPTIONS
 require_once('admin/hupa-starter-options-init.php');
+
+//REGISTER THEME ADMIN OPTIONS
+require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
+
+//TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
+require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
+
 
 // Register Bootstrap 5 Nav Walker
 if ( ! function_exists( 'register_navwalker' ) ) :

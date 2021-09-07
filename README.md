@@ -5,6 +5,9 @@ Hummelt & Partner
 ![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
 ![Hupa License](https://img.shields.io/github/license/team-hummelt/hupa-starter.svg)
 
+### \#1.0.2
+* GoogleMaps Fehler behoben 
+
 ### \#1.0.1 
 * Theme-Upload-Funktion hinzugefügt 
 * fixed Admin Toolbar

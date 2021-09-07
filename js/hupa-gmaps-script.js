@@ -14,23 +14,22 @@ function hupa_gmaps_data() {
     //Response
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-          //  console.log(this.responseText);
+            //  console.log(this.responseText);
             let data = JSON.parse(this.responseText);
 
             if(!gmaps_container){
                 return false;
             }
 
-          //  console.log (data);
+            //  console.log (data);
 
             let infowindow = new google.maps.InfoWindow();
-            let geocoder = new google.maps.Geocoder();
+            //let geocoder = new google.maps.Geocoder();
             let output = new Array();
             let map_container = document.getElementsByClassName('hupa-gmaps-container');
             let map_type_ids = ['roadmap'];
 
-
-            //Farbshema anlegen 
+            //Farbshema anlegen
             if (data.farbshema_aktiv && data.farbshema_aktiv != false ){
 
                 console.log('Benutzerdefiniertes Farbschema wird geladen.');
@@ -45,7 +44,7 @@ function hupa_gmaps_data() {
             //Karte definieren
             hupamap = new google.maps.Map(map_container[0], {
                 center: {lat:52.130958, lng:11.616186},
-                zoom: 11,
+                zoom: 15,
                 streetViewControl: false,
                 mapTypeControlOptions: {
                     mapTypeIds: map_type_ids
@@ -66,13 +65,12 @@ function hupa_gmaps_data() {
 
             let stdIcon = {
                 url: stdPinImg,
-                scaledSize: new google.maps.Size(data.std_pin_width, data.std_pin_height), 
+                scaledSize: new google.maps.Size(data.std_pin_width, data.std_pin_height),
             }
-            
+
             //Marker hinzufügen
             for (const [key, value] of Object.entries(data.pins)) {
 
-                console.log(value);
                 let lat = Number(value.coords.split(',')[0]);
                 let lng = Number(value.coords.split(',')[1]);
                 let pinadress = {lat: lat, lng: lng};
@@ -85,7 +83,7 @@ function hupa_gmaps_data() {
                         scaledSize: new google.maps.Size(value.custom_width, value.custom_height),
                     }
                 }
-                
+
 
                 var marker = new google.maps.Marker({
                     map: hupamap,
@@ -107,18 +105,23 @@ function hupa_gmaps_data() {
                         });
                     });
                 }
-
-                //gmaps_container.innerHTML = value.coords + '<br>';
             }
-            
-            let bounds = new google.maps.LatLngBounds();
 
-            for (var j=0; j<output.length; j++) {
-                if(output[j].getVisible()) {
-                    bounds.extend( output[j].getPosition() );
+            if( output.length < 1 ){
+
+                let bounds = new google.maps.LatLngBounds();
+
+                for (var j=0; j<output.length; j++) {
+                    if(output[j].getVisible()) {
+                        bounds.extend( output[j].getPosition() );
+                    }
                 }
+                hupamap.fitBounds(bounds);
+
             }
-            hupamap.fitBounds(bounds);
+            else{
+                hupamap.setCenter(output[0].position);
+            }
 
         }
     }
@@ -154,7 +157,7 @@ let googleMapsScriptIsInjected = false;
 const injectGoogleMapsApiScript = (options = {}) => {
     if (googleMapsScriptIsInjected) {
         //throw new Error('Google Maps Api is already loaded.');
-      //  console.log('Google Maps Api is already loaded.');
+        //  console.log('Google Maps Api is already loaded.');
         return false;
     }
 

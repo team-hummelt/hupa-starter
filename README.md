@@ -7,7 +7,8 @@ hummelt und partner | Werbeagentur GmbH
 
 
 ### \#1.0.2
-* GoogleMaps Fehler behoben 
+* GoogleMaps Fehler behoben
+* Funktion Theme aktivieren hinzugefügt
 
 ### \#1.0.1 
 * Theme-Upload-Funktion hinzugefügt 

@@ -7,7 +7,6 @@ defined('ABSPATH') or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  */
 
-
 /**============================================================
  * ============ REGISTER HUPA THEME ADMIN SETTINGS ============
  * ============================================================
@@ -41,8 +40,12 @@ const HUPA_STARTER_THEME_SETTINGS_ID = 1;
 
 const HUPA_CAROUSEL_SLIDER_CREATE = 3;
 
+//const PRODUKT_INSTALL_DIR = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . HUPA_THEME_SLUG . DIRECTORY_SEPARATOR;
+
 //ADMIN ROOT PATH
 define('THEME_ADMIN_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+
+define('HUPA_THEME_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
 //THEME SLUG
 define('HUPA_THEME_SLUG',  wp_basename(dirname(__DIR__)));
@@ -86,5 +89,17 @@ const HUPA_STARTER_THEME_QUERY = 'hupa';
 define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
+
+
+//TODO LICENSE
+require THEME_ADMIN_INC . 'license/license-init.php';
+
+if(get_option('hupa_starter_product_install_authorize')) {
+    require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
+    //TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
+    require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
+    add_action( 'after_setup_theme','hupa_register_theme_updater');
+}
+
 
 

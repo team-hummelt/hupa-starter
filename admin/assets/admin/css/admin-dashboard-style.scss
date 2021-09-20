@@ -10,6 +10,28 @@ body .wp-bs-starter-wrapper {
   font-size: 1rem;
 }
 
+.green_submenue {
+  //color: #ff5b5b;
+  color: greenyellow;
+}
+
+.small-title {
+  font-size: .8rem!important;
+  font-weight: 400!important;
+}
+
+.card {
+  position: relative;
+  margin-top: unset;
+  padding: unset;
+  min-width: auto;
+  max-width: 100%;
+  border: unset;
+  box-shadow: unset;
+  background: unset;
+  box-sizing: border-box;
+}
+
 //WRAPPER
 .wp-bs-starter-wrapper {
   padding: 2rem 0;

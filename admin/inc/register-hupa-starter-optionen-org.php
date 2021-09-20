@@ -141,6 +141,16 @@ final class HupaRegisterStarterTheme {
 
             add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
         }
+
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-home',
+            __('Licences', 'bootscore'),
+            __('<b class="green_submenue"> Licences ➤</b>', 'bootscore'),
+            'manage_options',
+            'hupa-active-license',
+            array($this, 'hupa_admin_starter_license'));
+
+        add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
     }
 
 
@@ -179,14 +189,14 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
 
-       /* $args[] = [
-            'id'     => 'hupa_updates',
-            'title'  => __( 'Theme updates', 'bootscore' ),
-            'parent' => 'hupa_options_page',
-            'meta'   => [
-                'class' => 'get_hupa_update'
-            ]
-        ];*/
+        /* $args[] = [
+             'id'     => 'hupa_updates',
+             'title'  => __( 'Theme updates', 'bootscore' ),
+             'parent' => 'hupa_options_page',
+             'meta'   => [
+                 'class' => 'get_hupa_update'
+             ]
+         ];*/
 
         $args[] = [
             'id'     => 'hupa_contact',
@@ -237,6 +247,12 @@ final class HupaRegisterStarterTheme {
     {
         wp_enqueue_media();
         require 'starter-admin-pages/admin-post-slider-options.php';
+    }
+
+    //Lizenzen
+    public function hupa_admin_starter_license(): void
+    {
+        require 'starter-admin-pages/hupa-starter-license.php';
     }
 
     //HUPA MAPS

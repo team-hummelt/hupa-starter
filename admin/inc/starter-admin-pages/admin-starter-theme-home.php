@@ -11,6 +11,11 @@ defined( 'ABSPATH' ) or die();
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
+<?php
+echo HUPA_THEME_SLUG;
+//define("API_PLUGIN_DIR", $plugin_folder_name);
+
+?>
         <div class="card shadow-sm">
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
                 <i class="icon-hupa-white d-block mt-2"

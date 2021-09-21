@@ -189,14 +189,14 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
 
-        /* $args[] = [
-             'id'     => 'hupa_updates',
-             'title'  => __( 'Theme updates', 'bootscore' ),
-             'parent' => 'hupa_options_page',
-             'meta'   => [
-                 'class' => 'get_hupa_update'
-             ]
-         ];*/
+       /* $args[] = [
+            'id'     => 'hupa_updates',
+            'title'  => __( 'Theme updates', 'bootscore' ),
+            'parent' => 'hupa_options_page',
+            'meta'   => [
+                'class' => 'get_hupa_update'
+            ]
+        ];*/
 
         $args[] = [
             'id'     => 'hupa_contact',

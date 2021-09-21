@@ -38,7 +38,7 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 
 			//HEADER SELECT
 			$headerArgs = array(
-				'post_type'      => 'starter-header',
+				'post_type'      => 'starter_header',
 				'post_status'    => 'publish',
 				'posts_per_page' => - 1
 			);
@@ -62,7 +62,7 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 
 			//FOOTER SELECT
 			$footerArgs = array(
-				'post_type'      => 'starter-footer',
+				'post_type'      => 'starter_footer',
 				'post_status'    => 'publish',
 				'posts_per_page' => - 1
 			);

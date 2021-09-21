@@ -11,7 +11,6 @@
      *
      * @package Bootscore
      */
-    
     get_header();
     ?>
 
@@ -25,11 +24,11 @@
             <div class="col-md-8 col-xxl-9">
 
                 <main id="main" class="site-main">
-
                     <header class="entry-header">
                         <?php the_post(); ?>
                         <!-- Title -->
                         <?php the_title('<h1>', '</h1>'); ?>
+
                         <!-- Featured Image-->
                         <?php bootscore_post_thumbnail(); ?>
                         <!-- .entry-header -->
@@ -37,7 +36,9 @@
 
                     <div class="entry-content">
                         <!-- Content -->
-                        <?php the_content(); ?>
+                        <?php
+                        the_content();
+                        ?>
                         <!-- .entry-content -->
                         <?php wp_link_pages( array(
 					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'bootscore' ),
@@ -45,9 +46,7 @@
 					) );
 					?>
                     </div>
-
                     <footer class="entry-footer">
-
                     </footer>
                     <!-- Comments -->
                     <?php comments_template(); ?>

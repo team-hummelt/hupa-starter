@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-const API_REQUEST_VALUE = 'aHVwYS1zdGFydGVy';
+
 require 'hupa_client_api_wp_remote.php';
 require 'register-hupa-theme.php';
 require 'load-style.php';

@@ -86,7 +86,10 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 			$response->status     = true;
 			$response->header     = $headerArr;
 			$response->footer     = $footerArr;
-			$response->topArea    = apply_filters('get_settings_menu_label','topArea');
+			$response->showTopAreaSelect    = apply_filters('get_settings_menu_label','showTopAreaSelect');
+            $response->selectConatinerTopArea    = apply_filters('get_settings_menu_label','selectTopAreaContainer');
+            $response->selectMenuContainer    = apply_filters('get_settings_menu_label','selectMenuContainer');
+            $response->selectMainContainer    = apply_filters('get_settings_menu_label','selectMainContainer');
 			$response->menuSelect = apply_filters('get_settings_menu_label','mainMenu');
 			$response->handyMenuSelect = apply_filters('get_settings_menu_label','handyMenu');
 			break;

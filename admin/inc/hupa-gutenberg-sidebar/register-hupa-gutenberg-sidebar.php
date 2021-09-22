@@ -158,6 +158,38 @@ final class HupaRegisterGutenbergSidebar {
 			)
 		);
 
+        //TODO CHECK SHOW TOP FOOTER
+        register_meta(
+            'post',
+            '_hupa_show_top_footer',
+            array(
+                'type'              => 'boolean',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO CHECK SHOW WIDGET FOOTER
+        register_meta(
+            'post',
+            '_hupa_show_widgets_footer',
+            array(
+                'type'              => 'boolean',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
 		//TODO SELECT HEADER
 		register_meta(
 			'post',
@@ -173,6 +205,54 @@ final class HupaRegisterGutenbergSidebar {
 				}
 			)
 		);
+
+        //TODO SELECT CONTAINER WIDTH
+        register_meta(
+            'post',
+            '_hupa_select_container',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO SELECT TOP AREA CONTAINER WIDTH
+        register_meta(
+            'post',
+            '_hupa_top_area_container',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO SELECT MAIN CONTAINER WIDTH
+        register_meta(
+            'post',
+            '_hupa_main_container',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
 
 		//TODO SELECT FOOTER
 		register_meta(
@@ -221,7 +301,8 @@ final class HupaRegisterGutenbergSidebar {
 
 		wp_register_script(
 			'plugin-sidebar-js',
-			THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/gutenberg-sidebar.js',
+			THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/index.js',
+              //THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js',
 			[
 				'wp-plugins',
 				'wp-edit-post',

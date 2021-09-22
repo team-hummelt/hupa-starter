@@ -53,23 +53,12 @@
 <div id="page" class="site">
     <header id="masthead" class="site-header">
 <?php
-$meta = get_post_meta( get_the_ID() );
-
-/*
-$meta_type  = 'post';           // since we are deleting data for CPT
-$object_id  = 0;                // no need to put id of object since we are deleting all
-$meta_key   = 'hupa_custom_description';    // Your target meta_key added using update_post_meta()
-$meta_value = '';               // No need to check for value since we are deleting all
-$delete_all = true;             // This is important to have TRUE to delete all post meta
-
-// This will delete all post meta data having the specified key
-delete_metadata( $meta_type, $object_id, $meta_key, $meta_value, $delete_all );
-*/
+$pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
 ?>
         <!--==================== TOP AREA ====================-->
         <?php if(get_hupa_option('top_aktiv')):?>
         <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
-            <div class="<?=get_hupa_option('top_container') == 1 ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-evenly align-items-center">
+            <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-evenly align-items-center">
 	            <?php if ( is_active_sidebar( 'top-menu-1' ) && get_hupa_tools('areainfo_')->aktiv) : ?>
                     <div class="py-2  order-<?=get_hupa_tools('areainfo_')->position?>  <?=get_hupa_tools('areainfo_')->css_class?>">
 			            <?php dynamic_sidebar( 'top-menu-1' ); ?>

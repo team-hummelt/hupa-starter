@@ -14,6 +14,51 @@ body .wp-bs-starter-wrapper {
     transition: transform .2s;
 }
 
+.components-panel__row.panel-row-column {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.font-weight {
+    font-weight: 500;
+    font-size: .915rem;
+    color: #2271b1;
+}
+/**
+.row-column-title::before {
+    font-family: dashicons;
+    content: "";
+    display: inline-block;
+    line-height: 1;
+    font-weight: 400;
+    font-style: normal;
+    speak: never;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    vertical-align: top;
+    text-align: center;
+    transition: color .1s ease-in;
+    color: #2271b1;
+}
+
+*/
+
+.margin-minus {
+    /*margin-top: 0;*/
+}
+
+.panel-row-column .row-column-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .components-button .dashicons-hupaIcon:hover:before {
     -moz-transform: scale(1.2);
     -webkit-transform: scale(1.2);

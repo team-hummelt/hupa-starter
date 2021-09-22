@@ -167,41 +167,99 @@ defined( 'ABSPATH' ) or die();
                                                     <h6>
                                                         <i class="font-blue fa fa-newspaper-o"></i>&nbsp;<?= __( 'Top Area', 'bootscore' ); ?>
                                                     </h6>
+
                                                     <hr>
                                                     <div class="form-check form-switch my-2 my-md-1 me-3">
                                                         <input class="form-check-input" name="top_aktiv"
                                                                type="checkbox"
                                                                id="CheckTopAreaActive" <?= ! get_hupa_option( 'top_aktiv' ) ?: 'checked' ?>>
                                                         <label class="form-check-label" for="CheckTopAreaActive">
-															<?= __( 'Top Area active', 'bootscore' ) ?>
+															<?= __( 'Top Area anzeigen', 'bootscore' ) ?>
                                                         </label>
                                                     </div>
+                                                    <hr>
+                                                    <h6 class="my-2">Top Area Container</h6>
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="form-check my-2 my-md-1 me-md-3">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="top_area_container"
+                                                                   id="radioTopAreaContainer1"
+                                                                   value="1" <?= get_hupa_option( 'top_area_container' ) == 1 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioTopAreaContainer1">
+                                                                <?= __( 'container', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check my-2 my-md-1 mx-3">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="top_area_container"
+                                                                   id="radioTopAreaContainer2"
+                                                                   value="2" <?= get_hupa_option( 'top_area_container' ) == 2 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioTopAreaContainer2">
+                                                                <?= __( 'container-fluid', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-text">
+                                                        <?= __( '<code>container-fluid</code>extends across the entire width of the browser.', 'bootscore' ) ?>
+                                                    </div>
 
+                                                    <hr>
+                                                    <h6>
+                                                        <i class="font-blue fa fa-navicon"></i>&nbsp;<?= __( 'Menu Container', 'bootscore' ); ?>
+                                                    </h6>
                                                     <hr>
                                                     <div class="d-flex flex-wrap">
                                                         <div class="form-check my-2 my-md-1 me-md-3">
                                                             <input class="form-check-input" type="radio"
-                                                                   name="top_container"
-                                                                   id="radioContainer1"
-                                                                   value="1" <?= get_hupa_option( 'top_container' ) == 1 ? 'checked' : '' ?>>
-                                                            <label class="form-check-label" for="radioContainer1">
+                                                                   name="menu_container"
+                                                                   id="radioMenuContainer1"
+                                                                   value="1" <?= get_hupa_option( 'menu_container' ) == 1 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMenuContainer1">
 																<?= __( 'container', 'bootscore' ); ?>
                                                             </label>
                                                         </div>
                                                         <div class="form-check my-2 my-md-1 mx-3">
                                                             <input class="form-check-input" type="radio"
-                                                                   name="top_container"
-                                                                   id="radioContainer2"
-                                                                   value="2" <?= get_hupa_option( 'top_container' ) == 2 ? 'checked' : '' ?>>
-                                                            <label class="form-check-label" for="radioContainer2">
+                                                                   name="menu_container"
+                                                                   id="radioMenuContainer2"
+                                                                   value="2" <?= get_hupa_option( 'menu_container' ) == 2 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMenuContainer2">
 																<?= __( 'container-fluid', 'bootscore' ); ?>
                                                             </label>
                                                         </div>
                                                     </div>
                                                     <div class="form-text">
-														<?= __( '<code>container-fluid</code>extends across the entire width of the browser.', 'bootscore' ) ?>
+                                                        <?= __( '<code>container-fluid</code>extends across the entire width of the browser.', 'bootscore' ) ?>
                                                     </div>
-                                                </div>
+                                                    <hr>
+                                                    <h6>
+                                                        <i class="font-blue fa fa-navicon"></i>&nbsp;<?= __( 'Main Container', 'bootscore' ); ?>
+                                                    </h6>
+                                                    <hr>
+                                                    <div class="d-flex flex-wrap">
+                                                        <div class="form-check my-2 my-md-1 me-md-3">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="main_container"
+                                                                   id="radioMainContainer1"
+                                                                   value="1" <?= get_hupa_option( 'main_container' ) == 1 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMainContainer1">
+                                                                <?= __( 'container', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check my-2 my-md-1 mx-3">
+                                                            <input class="form-check-input" type="radio"
+                                                                   name="main_container"
+                                                                   id="radioMainContainer2"
+                                                                   value="2" <?= get_hupa_option( 'main_container' ) == 2 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMainContainer2">
+                                                                <?= __( 'container-fluid', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-text">
+                                                        <?= __( '<code>container-fluid</code>extends across the entire width of the browser.', 'bootscore' ) ?>
+                                                    </div>
+                                               </div>
                                                 <hr>
                                                 <div class="col-lg-12 pt-2">
                                                     <h6>

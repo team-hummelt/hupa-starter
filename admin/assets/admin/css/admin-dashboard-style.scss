@@ -34,6 +34,17 @@ body .wp-bs-starter-wrapper {
 
 //WRAPPER
 .wp-bs-starter-wrapper {
+
+  input[type=radio]:checked::before {
+    content: "";
+    border-radius: unset;
+    width: unset;
+    height: unset;
+    margin: unset;
+    background-color: transparent!important;
+    line-height: unset;
+  }
+
   padding: 2rem 0;
 
   code {

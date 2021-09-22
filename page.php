@@ -11,15 +11,18 @@
      *
      * @package Bootscore
      */
-    get_header();
-    ?>
 
-<div id="content" class="site-content container py-5 mt-5">
+defined('ABSPATH')or die();
+$pageId = is_singular() ? get_the_ID() : 0;
+$pageSettings = apply_filters('get_page_meta_data', (int) $pageId);
+$pageSettings->title_css ? $titleCss = 'class="'.$pageSettings->title_css.'"' : $titleCss = '';
+get_header();
+?>
+<?=$pageSettings->custum_header;?>
+<div id="content" class="site-content <?=$pageSettings->main_container ? 'container' : 'container-fluid'?> pb-3">
     <div id="primary" class="content-area">
-
         <!-- Hook to add something nice -->
         <?php bs_after_primary(); ?>
-
         <div class="row">
             <div class="col-md-8 col-xxl-9">
 
@@ -27,8 +30,11 @@
                     <header class="entry-header">
                         <?php the_post(); ?>
                         <!-- Title -->
-                        <?php the_title('<h1>', '</h1>'); ?>
-
+                        <?php
+                            if($pageSettings->showTitle){
+                             echo $pageSettings->custom_title ? '<h1 '.$titleCss.'> '.$pageSettings->custom_title.'</h1>' : '<h1 '.$titleCss.'>'.get_the_title().'</h1>';
+                            }
+                        ?>
                         <!-- Featured Image-->
                         <?php bootscore_post_thumbnail(); ?>
                         <!-- .entry-header -->

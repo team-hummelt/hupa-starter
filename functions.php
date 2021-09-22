@@ -272,6 +272,8 @@ function bootscore_scripts() {
     $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/js/lib/bootstrap.bundle.min.js' ) );
     $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/css//hupa-theme/auto-generate-theme.css' ) );
     $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/css/hupa-theme/theme-custom.css' ) );
+    $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/js/lib/masonry.pkgd.min.js' ) );
+
 
 	// Style CSS
 	wp_enqueue_style( 'bootscore-style', get_stylesheet_uri(), array(), $modificated );
@@ -286,6 +288,8 @@ function bootscore_scripts() {
 
 	// Bootstrap JS
 	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array(), $modificated, true );
+
+    wp_enqueue_script( 'masonry-grid', get_template_directory_uri() . '/js/lib/masonry.pkgd.min.js', array(), $modificated, true );
 
 	// Theme JS
 	wp_enqueue_script( 'bootscore-script', get_template_directory_uri() . '/js/theme.js', array(), $modificated, true );

@@ -84,8 +84,13 @@ switch ( $method ) {
 				filter_input( INPUT_POST, 'scroll_top', FILTER_SANITIZE_STRING ) ? $record->scroll_top = 1 : $record->scroll_top = 0;
 				filter_input( INPUT_POST, 'edit_link', FILTER_SANITIZE_STRING ) ? $record->edit_link = 1 : $record->edit_link = 0;
 				filter_input( INPUT_POST, 'login_img_aktiv', FILTER_SANITIZE_STRING ) ? $record->login_img_aktiv = 1 : $record->login_img_aktiv = 0;
+
 				filter_input( INPUT_POST, 'top_aktiv', FILTER_SANITIZE_STRING ) ? $record->top_aktiv = 1 : $record->top_aktiv = 0;
-				$record->top_container = filter_input( INPUT_POST, 'top_container', FILTER_SANITIZE_NUMBER_INT );
+
+				$record->top_area_container = filter_input( INPUT_POST, 'top_area_container', FILTER_SANITIZE_NUMBER_INT );
+
+                $record->menu_container = filter_input( INPUT_POST, 'menu_container', FILTER_SANITIZE_NUMBER_INT );
+                $record->main_container = filter_input( INPUT_POST, 'main_container', FILTER_SANITIZE_NUMBER_INT );
 
 				$record->logo_size = filter_input( INPUT_POST, 'logo_size', FILTER_SANITIZE_NUMBER_INT );
 				$record->menu      = filter_input( INPUT_POST, 'menu', FILTER_SANITIZE_NUMBER_INT );

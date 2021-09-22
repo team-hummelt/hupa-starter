@@ -196,7 +196,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			//STANDARD INFO FOOTER
 			$footerFont = $this->css_styles_by_type( 'font', 'footer_font' );
-			$html .= 'footer .bootscore-info {'."\r\n";
+			$html .= '.footer.bootscore-info {'."\r\n";
 			$html .= $footerFont->family."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'footer_bg' ).'!important;'."\r\n";
 			$html .= $footerFont->fontSize."\r\n";

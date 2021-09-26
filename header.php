@@ -49,13 +49,14 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php
+$pageSettings = apply_filters('get_page_meta_data', get_the_ID());
+?>
 <div id="to-top"></div>
 <div id="page" class="site">
     <header id="masthead" class="site-header">
-<?php
-$pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
-?>
         <!--==================== TOP AREA ====================-->
+
         <?php if(get_hupa_option('top_aktiv')):?>
         <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
             <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-evenly align-items-center">
@@ -83,7 +84,7 @@ $pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
 						'walker'         => new Hupa_top_area_Walker()
 					) );
 					?>
-                </nav><!-- .top-area-navigation -->
+                </nav>
                 <?php endif; ?>
 	            <?php if ( is_active_sidebar( 'top-menu-3' ) &&  get_hupa_tools('areabtn_')->aktiv ) : ?>
                     <div class="py-2 order-<?=get_hupa_tools('areabtn_')->position?> <?=get_hupa_tools('areabtn_')->css_class?>">
@@ -93,6 +94,7 @@ $pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
             </div>
         </div>
         <?php endif; ?>
+
         <!--==================== TOP AREA END ====================-->
     <?php
     include 'navigation/standard-nav.php';

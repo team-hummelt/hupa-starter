@@ -126,7 +126,7 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
        		carousel_id int(11) NOT NULL,
        		position int(5) NOT NULL DEFAULT 0,
        		img_id int(12) NULL,
-       		img_size varchar(50) NULL,
+       		slide_button text NULL,
        		font_color varchar(21) NULL,
        		aktiv tinyint(1) NOT NULL,
        		caption_aktiv tinyint(1) NOT NULL,

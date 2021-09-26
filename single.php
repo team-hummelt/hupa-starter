@@ -33,9 +33,6 @@
                         </p>
                         <?php bootscore_post_thumbnail(); ?>
                     </header>
-<?php
-
-?>
                     <div class="entry-content">
                         <?php the_content(); ?>
                     </div>

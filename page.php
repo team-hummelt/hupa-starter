@@ -19,7 +19,7 @@ $pageSettings->title_css ? $titleCss = 'class="'.$pageSettings->title_css.'"' : 
 get_header();
 ?>
 <?=$pageSettings->custum_header;?>
-<div id="content" class="site-content <?=$pageSettings->main_container ? 'container' : 'container-fluid'?> pb-3">
+<div id="content" class="site-content pt-5 <?=$pageSettings->main_container ? 'container' : 'container-fluid'?> pb-3">
     <div id="primary" class="content-area">
         <!-- Hook to add something nice -->
         <?php bs_after_primary(); ?>

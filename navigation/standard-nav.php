@@ -13,7 +13,7 @@ $pageSettings->show_menu ? $show = '' : $show = 'd-none';
 ?>
 
 <nav id="nav-main-starter"
-     class="<?=$show?> hupa-box-shadow navbar-root navbar mb-4 navbar-expand-lg justify-content-center <?= ! get_hupa_option( 'fix_header' ) ?: 'has-sticky' ?>">
+     class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg justify-content-center <?= ! get_hupa_option( 'fix_header' ) ?: 'has-sticky' ?>">
 	<div class="<?=$pageSettings->menu_container ? 'container' : 'container-fluid'?>">
 		<?php if(get_hupa_frontend('nav-img')): ?>
 		<a class="navbar-brand d-none d-lg-block" href="<?php echo esc_url( home_url() ); ?>">

@@ -334,6 +334,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			//NAVBAR
 			$html .= '#nav-main-starter.navbar-root {'."\r\n";
+            $html .= 'z-index: 1;'."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).$this->make_transparent_hex(get_hupa_option( 'nav_bg_opacity' )).';'."\r\n";
 			$html .= '}'."\r\n";
 

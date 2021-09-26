@@ -705,13 +705,14 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $record->show_menu = get_post_meta($id, '_hupa_show_menu', true);
             $record->menuSelect = get_post_meta($id, '_hupa_select_menu', true);
             $record->handyMenuSelect = get_post_meta($id, '_hupa_select_handy_menu', true);
-            $record->topAreaSelect = get_post_meta($id, '_hupa_select_top_area', true);
+            //$record->topAreaSelect = get_post_meta($id, '_hupa_select_top_area', true);
             $record->show_bottom_footer = get_post_meta($id, '_hupa_show_bottom_footer', true);
             $record->select_header = get_post_meta($id, '_hupa_select_header', true);
             $record->select_footer = get_post_meta($id, '_hupa_select_footer', true);
 
             $record->show_widgets_footer = get_post_meta($id, '_hupa_show_widgets_footer', true);
             $record->show_top_widget_footer = get_post_meta($id, '_hupa_show_top_footer', true);
+
 
 
             //MAIN CONTAINER
@@ -728,7 +729,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     '2' => 0,
                 };
             }
-
+            ;
 
             //MENU CONTAINER
             $selectMenuContainer = get_post_meta($id, '_hupa_select_container', true);
@@ -766,6 +767,19 @@ if (!class_exists('HupaStarterOptionFilter')) {
             }
 
             if ($topAreaSelect != 0) {
+                switch ($topAreaSelect){
+                    case '1':
+                        $record->show_top_area = 1;
+                        break;
+                    case'2':
+                        $record->show_top_area = 0;
+                        break;
+                }
+            } else {
+                $record->show_top_area = $optionTopArea;
+            }
+
+          /*  if ($topAreaSelect != 0) {
                 $record->show_top_area = match ($topAreaSelect) {
                     '1' => 1,
                     '2' => 0,
@@ -773,12 +787,18 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
             } else {
                 $record->show_top_area = $optionTopArea;
-            }
+            }*/
 
             //TODO CUSTOM HEADER
             if ($record->select_header) {
                 $postHeader = get_post($record->select_header);
                 $record->custum_header = $postHeader->post_content;
+                $regEx = '/\[carousel.*\]/m';
+                preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                if(isset($matches)){
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_header = str_replace($matches[0][0],$doShortcode,$record->custum_header);
+                }
             } else {
                 $record->custum_header = false;
             }

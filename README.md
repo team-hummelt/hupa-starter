@@ -9,6 +9,7 @@ hummelt und partner | Werbeagentur GmbH
 ### \#1.0.2
 * GoogleMaps Fehler behoben
 * Funktion Theme aktivieren hinzugefügt
+* Sidebar-Funktionen eingebunden
 
 ### \#1.0.1 
 * Theme-Upload-Funktion hinzugefügt 

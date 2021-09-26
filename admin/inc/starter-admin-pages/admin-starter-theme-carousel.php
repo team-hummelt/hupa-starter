@@ -10,8 +10,24 @@ defined( 'ABSPATH' ) or die();
 
 ?>
 <div class="wp-bs-starter-wrapper">
+
     <div class="container">
+      <!--  <select name="page-dropdown"
+                onchange='document.location.href=this.options[this.selectedIndex].value;'>
+            <option value="">
+                <?php echo esc_attr( __( 'Select page' ) ); ?></option>
+            <?php
+            $pages = get_pages();
+            foreach ( $pages as $page ) {
+                $option = '<option value="' . get_page_link( $page->ID ) . '">';
+                $option .= $page->post_title;
+                $option .= '</option>';
+                echo $option;
+            }
+            ?>
+        </select>-->
         <div class="card shadow-sm">
+
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
                 <i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
 				<?= __( 'Theme Carousel', 'bootscore' ) ?> </h5>
@@ -89,4 +105,17 @@ defined( 'ABSPATH' ) or die();
             </div>
         </div>
     </div>
-</div>
+
+    <!--Modal-->
+    <div class="modal fade" id="dialog-add-icon" tabindex="-1" aria-labelledby="dialog-add-iconLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-fullscreen-xl-down modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-hupa">
+                    <h5 class="modal-title" id="exampleModalLabel"><?= __('Icon auswählen', 'bootscore');?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="icon-grid"></div>
+            </div>
+        </div>
+    </div>

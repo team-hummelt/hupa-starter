@@ -35,4 +35,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 
+    let slideContainer = document.querySelectorAll('.carousel.carousel-margin-top');
+    if(slideContainer){
+        let topNodes = Array.prototype.slice.call(slideContainer, 0);
+        topNodes.forEach(function (topNodes) {
+            topNodes.style.marginTop = -topNodes.offsetTop+'px';
+        });
+    }
+
+   // $('.hupa-full-row.carousel.slide').css('margin-top', -slidContainer.offsetTop+'px');
+
 });

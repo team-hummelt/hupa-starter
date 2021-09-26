@@ -124,10 +124,10 @@ jQuery(document).ready(function ($) {
     
     // Forms
     $('select, #billing_state').addClass('form-select');
-
-
     // Alert links
     $('.alert a').addClass('alert-link');
+
+
 
 
 }); // jQuery End

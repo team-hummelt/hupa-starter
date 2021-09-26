@@ -516,11 +516,8 @@ final class HupaRegisterStarterTheme {
         //TODO TOOLS
         wp_enqueue_script( 'js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
-        // TODO AJAX ADMIN XHR HANDLE
-        //wp_enqueue_script('admin-ajax-script', THEME_ADMIN_URL . 'assets/admin/js/theme-admin-backend.js', array(), $hupa_theme->get('Version'), true);
-
-        // TODO AJAX PUBLIC XHR HANDLE
-        //wp_enqueue_script('public-ajax-script', THEME_ADMIN_URL . 'assets/admin/js/theme-public-xhr.js', array(), $hupa_theme->get('Version'), true);
+        //TODO Color Picker
+        wp_enqueue_script( 'js-hupa-color-picker', THEME_ADMIN_URL . 'assets/admin/js/tools/pickr.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
         // TODO JS NO-jQUERY
         wp_enqueue_script( 'js-hupa-starter-script', THEME_ADMIN_URL . 'assets/admin/js/admin-no-jquery.js', array(), $hupa_theme->get( 'Version' ), true );
@@ -528,8 +525,6 @@ final class HupaRegisterStarterTheme {
         // TODO JS Google Maps
         wp_enqueue_script( 'js-hupa-google-maps-script', THEME_ADMIN_URL . 'assets/admin/js/admin-google-maps.js', array(), $hupa_theme->get( 'Version' ), true );
 
-        // TODO JS CAROUSEL MODUL
-        //wp_enqueue_script( 'js-hupa-carousel-modul', THEME_JS_MODUL_URL . 'carousel-modul.js', array(), $hupa_theme->get( 'Version' ), true );
         // TODO JS CAROUSEL
         wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), $hupa_theme->get( 'Version' ), true );
 

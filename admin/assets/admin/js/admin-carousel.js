@@ -15,6 +15,9 @@ function loadModulScript(src) {
     });
 }
 
+
+
+
 if (loadCarousel) {
     let loadCarouselModul = loadModulScript(hupa_starter.admin_js_module + 'carousel-modul.js');
     loadCarouselModul.then(
@@ -26,6 +29,7 @@ if (loadCarousel) {
         },
         error => console.log(`Error: ${error.message}`)
     );
+
 }
 
 /*============================================
@@ -34,12 +38,10 @@ if (loadCarousel) {
 */
 let themeSendBtnCarouselFormular = document.querySelectorAll(".sendAjaxCarouselBtnForm");
 if (themeSendBtnCarouselFormular) {
-
     let formNodes = Array.prototype.slice.call(themeSendBtnCarouselFormular, 0);
     formNodes.forEach(function (formNodes) {
         formNodes.addEventListener("submit", function (e) {
             e.preventDefault();
-
             send_xhr_carousel_data(formNodes);
         });
     });
@@ -81,10 +83,16 @@ function send_xhr_carousel_data(data, is_formular = true) {
                 reset_formular_input();
             }
 
+
+
+
+
+
             switch (data.render) {
                 case'carousel':
                     if (data.renderData.status) {
                         render_carousel(data.renderData);
+
                         carousel_autosave_events();
                     }
                     break;
@@ -97,6 +105,8 @@ function send_xhr_carousel_data(data, is_formular = true) {
     }
 }
 
+//document.addEventListener('DOMContentLoaded',loadPickrColor);
+
 
 function reset_formular_input() {
     let inputs = document.querySelectorAll('.sendAjaxCarouselBtnForm input.form-control');
@@ -104,6 +114,8 @@ function reset_formular_input() {
         inputs.forEach(input => input.value = '');
     }
 }
+
+
 
 
 /*=================================================
@@ -311,7 +323,6 @@ function add_carousel_slider(event, id){
     send_xhr_carousel_data(loadMethod, false);
 }
 
-
 /*==========================================
 ========== CHANGE ANIMATE SELECT ===========
 ============================================
@@ -319,6 +330,7 @@ function add_carousel_slider(event, id){
 
 
 function change_animate_select(id, event) {
+
     let aniPreview = document.querySelectorAll(".ani_preview");
     //aniPreview
     let aniEvent = Array.prototype.slice.call(aniPreview, 0);

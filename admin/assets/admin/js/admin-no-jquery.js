@@ -21,101 +21,6 @@ let clickAdminBarOptions = document.getElementById("wp-admin-bar-hupa_options_pa
 let resetMsgAlert = document.getElementById("reset-msg-alert");
 
 
-function get_pickr_color() {
-
-    const inputElement = document.querySelector('.pickr');
-    const pickr = Pickr.create({
-        el: inputElement,
-        theme: 'classic', // or 'monolith', or 'nano'
-        default: '#42445a',
-        useAsButton: false,
-        defaultRepresentation: 'RGBA',
-
-        swatches: [
-            '#F44336',
-            '#E91E63',
-            '#9C27B0',
-            '#673AB7',
-            '#3F51B5',
-            '#2196F3',
-            '#03A9F4',
-            '#00BCD4',
-            '#009688',
-            '#4CAF50',
-            '#8BC34A',
-            '#CDDC39',
-            '#FFEB3B',
-            '#FFC107',
-            'rgba(244, 67, 54, 1)',
-            'rgba(233, 30, 99, 0.95)',
-            'rgba(156, 39, 176, 0.9)',
-            'rgba(103, 58, 183, 0.85)',
-            'rgba(63, 81, 181, 0.8)',
-            'rgba(33, 150, 243, 0.75)',
-            'rgba(3, 169, 244, 0.7)',
-            'rgba(0, 188, 212, 0.7)',
-            'rgba(0, 150, 136, 0.75)',
-            'rgba(76, 175, 80, 0.8)',
-            'rgba(139, 195, 74, 0.85)',
-            'rgba(205, 220, 57, 0.9)',
-            'rgba(255, 235, 59, 0.95)',
-            'rgba(255, 193, 7, 1)'
-        ],
-
-        components: {
-
-            // Main components
-            preview: true,
-            opacity: true,
-            hue: true,
-
-            // Input / output Options
-            interaction: {
-                hex: true,
-                rgba: true,
-                hsla: true,
-                hsva: true,
-                cmyk: true,
-                input: true,
-                clear: false,
-                save: true
-            }
-        },
-        i18n: {
-
-            // Strings visible in the UI
-            'ui:dialog': 'color picker dialog',
-            'btn:toggle': 'toggle color picker dialog',
-            'btn:swatch': 'color swatch',
-            'btn:last-color': 'use previous color',
-            'btn:save': 'Speichern',
-            'btn:cancel': 'Cancel',
-            'btn:clear': 'Löschen',
-
-            // Strings used for aria-labels
-            'aria:btn:save': 'save and close',
-            'aria:btn:cancel': 'cancel and close',
-            'aria:btn:clear': 'clear and close',
-            'aria:input': 'color input field',
-            'aria:palette': 'color selection area',
-            'aria:hue': 'hue selection slider',
-            'aria:opacity': 'selection slider'
-        }
-    });
-
-
-    pickr.on('init', pickr => {
-
-        pickr.setColor('#f90000')
-        pickr.setColorRepresentation('#f90000');
-    });
-
-    pickr.on('save', color => {
-        console.log(color.toHEXA().toString(0))
-        pickr.hide();
-    });
-
-}
 
 /*=================================================
 ========== TOGGLE SETTINGS COLLAPSE BTN  ==========
@@ -197,11 +102,21 @@ function sync_font_folder(e) {
     send_xhr_form_data(data, false);
 }
 
+
+
 function after_sync_folder() {
     show_message_collapse('collapseSuccessMsg');
     message_fadeIn_opacity('collapseSuccessMsg');
 }
 
+
+function get_smtp_test(e){
+    this.blur();
+    const data = {
+        'method': 'get_smtp_test'
+    }
+    send_xhr_form_data(data, false);
+}
 
 let showMessageTimeOut;
 
@@ -268,6 +183,13 @@ function send_xhr_form_data(data, is_formular = true) {
                     return change_font_style_select_input(data);
                 case'sync_font_folder':
                     return after_sync_folder();
+                case'get_smtp_test':
+                    if(data.status){
+                        success_message(data.msg);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
             }
         }
     }
@@ -675,11 +597,6 @@ if (themeSortable) {
 function reload_settings_page() {
     location.reload();
 }
-
-
-
-
-
 
 /*==============================================
 ========== SERIALIZE FORMULAR INPUTS  ==========

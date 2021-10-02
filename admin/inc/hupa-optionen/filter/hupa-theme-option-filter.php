@@ -4,6 +4,7 @@
 namespace Hupa\StarterTheme;
 
 
+
 use stdClass;
 
 defined('ABSPATH') or die();
@@ -54,7 +55,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
             //TODO GET PAGE META DATA
             add_filter('get_page_meta_data', array($this, 'getHupaPageMetaDaten'));
 
-
             //GET FONT STYLE BY FONT-FAMILY
             add_filter('get_font_style_select', array($this, 'hupa_get_font_style_select'));
             //GET FONT FAMILY
@@ -87,6 +87,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $settings[] = json_decode($result->hupa_wp_option);
                 $settings[] = json_decode($result->hupa_colors);
                 $settings[] = json_decode($result->hupa_gmaps);
+
                 //$settings[] = json_decode( $result->hupa_top_area );
                 foreach ($settings as $key => $val) {
                     if (isset($val->$option)) {
@@ -190,6 +191,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
             switch ($type) {
                 case 'hupa_general':
+                case 'hupa_smtp':
                     $this->hupa_update_settings($type, $data);
                     break;
                 case 'update_social_media_data':
@@ -288,6 +290,9 @@ if (!class_exists('HupaStarterOptionFilter')) {
                         case'reset_gmaps':
                             $this->hupa_update_settings('hupa_gmaps', apply_filters('arrayToObject', $defaults['google_maps']));
                             break;
+                        case'reset_smtp_settings':
+                            //$this->hupa_update_settings('hupa_smtp', apply_filters('arrayToObject', $defaults['theme_email_settings']));
+                            break;
                         case'reset_social_media':
                             $this->reset_social_media_data();
                             break;
@@ -297,6 +302,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                             $this->hupa_update_settings('hupa_colors', apply_filters('arrayToObject', $defaults['theme_colors']));
                             $this->hupa_update_settings('hupa_wp_option', apply_filters('arrayToObject', $defaults['theme_wp_optionen']));
                             $this->hupa_update_settings('hupa_gmaps', apply_filters('arrayToObject', $defaults['google_maps']));
+                            //$this->hupa_update_settings('hupa_smtp', apply_filters('arrayToObject', $defaults['theme_email_settings']));
                             $this->reset_social_media_data();
                             apply_filters('generate_theme_css', false);
                             break;
@@ -376,6 +382,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $table,
                     array(
                         'hupa_general' => json_encode($defaults->theme_wp_general),
+                        //'hupa_smtp' => json_encode($defaults->theme_email_settings),
                         'hupa_fonts' => json_encode($defaults->theme_fonts),
                         'hupa_fonts_src' => apply_filters('get_install_fonts', 'json')->json,
                         'hupa_colors' => json_encode($defaults->theme_colors),
@@ -596,6 +603,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
         }
 
 
+
         public function hupa_get_animate_option(): object
         {
 
@@ -695,6 +703,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
             return apply_filters('arrayToObject', $ani_arr);
         }
 
+
         public function getHupaPageMetaDaten($id): object
         {
 
@@ -793,7 +802,16 @@ if (!class_exists('HupaStarterOptionFilter')) {
             if ($record->select_header) {
                 $postHeader = get_post($record->select_header);
                 $record->custum_header = $postHeader->post_content;
-                $regEx = '/\[carousel.*\]/m';
+                //TODO CAROUSEL Custom Header ShortCode
+                $regEx = '@\[carousel.*]@m';
+                preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                if(isset($matches)){
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_header = str_replace($matches[0][0],$doShortcode,$record->custum_header);
+                }
+
+                //TODO Formular Custom Header ShortCode
+                $regEx = '@\[bs-formular.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
                 if(isset($matches)){
                     $doShortcode = do_shortcode($matches[0][0]);
@@ -803,10 +821,26 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->custum_header = false;
             }
 
+
             //TODO CUSTOM FOOTER
             if ($record->select_footer) {
                 $postFooter = get_post($record->select_footer);
                 $record->custum_footer = $postFooter->post_content;
+                //TODO CAROUSEL Custom Footer ShortCode
+                $regEx = '@\[carousel.*]@m';
+                preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                if(isset($matches)){
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_footer = str_replace($matches[0][0],$doShortcode,$record->custum_footer);
+                }
+
+                //TODO Formular Custom Footer ShortCode
+                $regEx = '@\[bs-formular.*]@m';
+                preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                if(isset($matches)){
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_footer = str_replace($matches[0][0],$doShortcode,$record->custum_footer);
+                }
             } else {
                 $record->custum_footer = false;
             }
@@ -814,4 +848,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
         }
 
     }
+
+
 }

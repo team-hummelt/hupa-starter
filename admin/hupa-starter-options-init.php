@@ -24,7 +24,7 @@ if ( $child_data->exists() ) {
 }
 
 //JOB: DATENBANK VERSION:
-const HUPA_STARTER_THEME_DB_VERSION = '1.0.2';
+const HUPA_STARTER_THEME_DB_VERSION = '1.0.5';
 
 //JOB: THEME VERSION:
 define("THEME_VERSION", $theme_data->get('Version'));
@@ -68,6 +68,8 @@ const HUPA_MAPS = true;
 const CUSTOM_FOOTER = true;
 //SHOW CUSTOM HEADER
 const CUSTOM_HEADER = true;
+//SHOW FORMULARE
+const HUPA_FORMULARE = true;
 /**=================================HUPA OPTIONEN ======================================*/
 
 //ADMIN INC PATH
@@ -93,11 +95,11 @@ define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin
 
 //TODO LICENSE
 require THEME_ADMIN_INC . 'license/license-init.php';
-
 if(get_option('hupa_starter_product_install_authorize')) {
     require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
     //TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
     require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
+
     add_action( 'after_setup_theme','hupa_register_theme_updater');
 }
 

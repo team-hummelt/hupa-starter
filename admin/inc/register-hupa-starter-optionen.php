@@ -46,6 +46,8 @@ final class HupaRegisterStarterTheme {
 
         // TODO AJAX ADMIN AND PUBLIC RESPONSE HANDLE
         add_action( 'wp_ajax_HupaStarterHandle', array( $this, 'prefix_ajax_HupaStarterHandle' ) );
+        add_action( 'wp_ajax_HupaStarterForm', array( $this, 'prefix_ajax_HupaStarterForm' ) );
+
         add_action( 'wp_ajax_nopriv_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
         add_action( 'wp_ajax_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
 
@@ -154,6 +156,7 @@ final class HupaRegisterStarterTheme {
     }
 
 
+
     public function register_hupa_starter_maps_menu(): void {
         //GOOGLE MAPS SEITE
         $hook_suffix = add_menu_page(
@@ -189,14 +192,14 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
 
-       /* $args[] = [
-            'id'     => 'hupa_updates',
-            'title'  => __( 'Theme updates', 'bootscore' ),
-            'parent' => 'hupa_options_page',
-            'meta'   => [
-                'class' => 'get_hupa_update'
-            ]
-        ];*/
+        /* $args[] = [
+             'id'     => 'hupa_updates',
+             'title'  => __( 'Theme updates', 'bootscore' ),
+             'parent' => 'hupa_options_page',
+             'meta'   => [
+                 'class' => 'get_hupa_update'
+             ]
+         ];*/
 
         $args[] = [
             'id'     => 'hupa_contact',
@@ -290,6 +293,13 @@ final class HupaRegisterStarterTheme {
         $responseJson = null;
         check_ajax_referer( 'theme_admin_handle' );
         require THEME_AJAX_DIR . 'starter-backend-ajax.php';
+        wp_send_json( $responseJson );
+    }
+
+    public function prefix_ajax_HupaStarterForm(): void {
+        $responseJson = null;
+        check_ajax_referer( 'theme_admin_handle' );
+        require THEME_AJAX_DIR . 'starter-formulare-ajax.php';
         wp_send_json( $responseJson );
     }
 
@@ -407,6 +417,32 @@ final class HupaRegisterStarterTheme {
     }
 
     /**
+     * ===============================================
+     * =========== THEME PHP-MAILER CONFIG ===========
+     * ===============================================
+     */
+    public function hupa_starter_mailer_phpmailer_configure($phpmailer){
+        $phpmailer->isSMTP();
+        $phpmailer->Host = get_hupa_option('smtp_host');
+        $phpmailer->SMTPAuth = (bool) get_hupa_option('smtp_auth_check');
+        $phpmailer->Port = get_hupa_option('smtp_port');
+        $phpmailer->Username = get_hupa_option('email_benutzer');
+        $phpmailer->Password = get_hupa_option('email_passwort');
+        $phpmailer->SMTPSecure = get_hupa_option('smtp_secure');
+        $phpmailer->SMTPDebug = 0;
+        $phpmailer->CharSet = "utf-8";
+    }
+
+
+
+    public function starter_log_mailer_errors( $wp_error ){
+        $file = THEME_ADMIN_INC . 'log/mail-error.log';
+        $current = file_get_contents($file);
+        $current .= "Mailer Error: " . $wp_error->get_error_message() ."\n";
+        file_put_contents($file, $current, FILE_APPEND | LOCK_EX);
+    }
+
+    /**
      * =================================================
      * =========== THEME CREATE CUSTOM MENUS ===========
      * =================================================
@@ -416,6 +452,7 @@ final class HupaRegisterStarterTheme {
         // Register Menus
         register_nav_menu( 'top-area-menu', 'Top Area menu' );
     }
+
 
     /**
      * =====================================================
@@ -476,6 +513,7 @@ final class HupaRegisterStarterTheme {
 
     public function load_hupa_starter_theme_admin_style(): void {
         $hupa_theme = wp_get_theme();
+        $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
         if(!HUPA_SIDEBAR) {
             //TODO FontAwesome / Bootstrap
@@ -493,8 +531,6 @@ final class HupaRegisterStarterTheme {
         wp_enqueue_style( 'hupa-starter-admin-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
         //TODO DASHBOARD ADMIN JS FILES
-
-
         // TODO ADMIN localize Script
         wp_register_script( 'hupa-starter-admin-js-localize', '', [], '', true );
         wp_enqueue_script( 'hupa-starter-admin-js-localize' );
@@ -503,13 +539,15 @@ final class HupaRegisterStarterTheme {
             array(
                 'admin_js_module' => THEME_JS_MODUL_URL,
                 'admin_url'       => THEME_ADMIN_URL,
-                'data_table'      => THEME_ADMIN_URL . 'assets/admin/json/DataTablesGerman.json',
+                'data_table'      => THEME_ADMIN_URL . 'assets/json/DataTablesGerman.json',
                 'site_url'        => get_bloginfo( 'url' ),
                 'theme_language'  => apply_filters( 'get_theme_language', 'localize', '' )->language
             )
         );
 
         wp_enqueue_script( 'jquery' );
+
+
         // TODO Bootstrap JS
         wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
@@ -602,3 +640,4 @@ if ( ! empty( $hupa_register_starter_options ) ) {
 
 //TODO WORDPRESS DASHBOARD CSS
 require THEME_ADMIN_INC . 'enqueue.php';
+

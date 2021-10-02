@@ -1,7 +1,11 @@
+function load_color_pickr(addId = false) {
 
-
-function load_color_pickr() {
-    const clrPickrContainer = document.querySelectorAll('.colorPickers');
+    let clrPickrContainer;
+    if(addId){
+        clrPickrContainer = addId.querySelectorAll('.colorPickers');
+    } else {
+        clrPickrContainer = document.querySelectorAll('.colorPickers');
+    }
     if (clrPickrContainer) {
         let colorNode = Array.prototype.slice.call(clrPickrContainer, 0);
         colorNode.forEach(function (colorNode) {
@@ -371,7 +375,8 @@ function render_carousel(data, handle = false) {
         let btnAddNode = Array.prototype.slice.call(addBtnButton, 0);
         btnAddNode.forEach(function (btnAddNode) {
             btnAddNode.addEventListener("click", function (e) {
-                load_color_pickr();
+                let nextBox = btnAddNode.nextElementSibling.lastElementChild;
+                load_color_pickr(nextBox);
             });
         });
     }
@@ -478,7 +483,7 @@ function render_slider_items(slider, lang, id, record, method = '',) {
      </div>
      </div>
 
-     <div class="row row-cols-1 row-cols-lg-2 py-2 settings-box option align-items-center">
+     <div class="row row-cols-1 row-cols-xl-2 py-2 settings-box option align-items-center">
         <div class="col p-2">
 
         <label class="input-color-label d-block mb-3 ms-2">
@@ -836,25 +841,18 @@ function render_slider_items(slider, lang, id, record, method = '',) {
     if (method === 'add') {
         let carouselWrapper = document.querySelector("#sliderSettings" + id + ' .sliderSortable');
         carouselWrapper.insertAdjacentHTML('afterbegin', html);
-
         return false;
     }
     return html;
 }
-
-
 function get_caption_button(id, data, select, random, formRand) {
     return get_button_template(id, data, select, random, formRand);
 }
 
 function add_caption_button(e, id, btnRandom, formRand) {
-
+    btnRandom = createRandomInteger(5);
     let captionButton = e.childNodes[0].parentNode.nextElementSibling;
-    let count = e.childNodes[0].parentNode.nextElementSibling.childElementCount + 1;
-    if (count > 3) {
-        e.setAttribute('disabled', true);
-        return false;
-    }
+
     let html = get_button_template(id, '', '', btnRandom, formRand);
     captionButton.insertAdjacentHTML('beforeend', html);
     get_page_and_posts_select(btnRandom);
@@ -908,30 +906,30 @@ function get_button_template(id, data = false, select = false, btnRandom = false
     
     <!--Background-Color-->
      <div class="color-select-wrapper d-flex mb-2">
-       <div data-color="${data && data.bg_color ? data.bg_color : '#f0f0f0'}"  data-id="${formRand}" class="colorPickers">
-         <input id="InputBGButtonColor${btnRandom}" type="hidden" value="${data && data.bg_color ? data.bg_color : '#f0f0f0'}" name="button_bg_color_${btnRandom}">
+       <div data-color="${data && data.bg_color ? data.bg_color : '#ffffff00'}"  data-id="${formRand}" class="colorPickers">
+         <input id="InputBGButtonColor${btnRandom}" type="hidden" value="${data && data.bg_color ? data.bg_color : '#ffffff00'}" name="button_bg_color_${btnRandom}">
          </div>
          <h6 class="ms-2 mt-1"> <b>Hintergrund </b>Farbe</h6> 
      </div>
     <hr>
     <h6 class="font-blue"><i class="fa fa-paint-brush"></i> <b>Hover</b> Color</h6>
     <div class="color-select-wrapper d-flex mb-2">
-       <div data-color="${data && data.hover_color ? data.hover_color : '#ffffff00'}"  data-id="${formRand}" class="colorPickers">
-         <input id="inputColorHover${btnRandom}" type="hidden" value="${data && data.hover_color ? data.hover_color : '#ffffff00'}" name="color_hover_${btnRandom}">
+       <div data-color="${data && data.hover_color ? data.hover_color : '#3c434a'}"  data-id="${formRand}" class="colorPickers">
+         <input id="inputColorHover${btnRandom}" type="hidden" value="${data && data.hover_color ? data.hover_color : '#3c434a'}" name="color_hover_${btnRandom}">
          </div>
          <h6 class="ms-2 mt-1"> <b>Font Color </b>Hover</h6> 
      </div>
     
      <div class="color-select-wrapper d-flex mb-2">
-       <div data-color="${data && data.hover_border ? data.hover_border : '#ffffff00'}"  data-id="${formRand}" class="colorPickers">
-         <input id="inputBorderHover${btnRandom}" type="hidden" value="${data && data.hover_border ? data.hover_border : '#ffffff00'}" name="border_hover_${btnRandom}">
+       <div data-color="${data && data.hover_border ? data.hover_border : '#ffffff'}"  data-id="${formRand}" class="colorPickers">
+         <input id="inputBorderHover${btnRandom}" type="hidden" value="${data && data.hover_border ? data.hover_border : '#ffffff'}" name="border_hover_${btnRandom}">
          </div>
          <h6 class="ms-2 mt-1"><b>Border </b>Hover</h6>
      </div>
      
       <div class="color-select-wrapper d-flex mb-2">
-       <div data-color="${data && data.bg_hover ? data.bg_hover : '#ffffff00'}"  data-id="${formRand}" class="colorPickers">
-         <input id="inputBGHover${btnRandom}" type="hidden" value="${data && data.bg_hover ? data.bg_hover : '#ffffff00'}" name="bg_hover_${btnRandom}">
+       <div data-color="${data && data.bg_hover ? data.bg_hover : '#ffffff'}"  data-id="${formRand}" class="colorPickers">
+         <input id="inputBGHover${btnRandom}" type="hidden" value="${data && data.bg_hover ? data.bg_hover : '#ffffff'}" name="bg_hover_${btnRandom}">
          </div>
          <h6 class="ms-2 mt-1"><b>Background </b>Hover</h6> 
      </div>
@@ -1009,7 +1007,6 @@ function get_button_template(id, data = false, select = false, btnRandom = false
     for="checkUrlTarget${btnRandom}">Link im neuen Fenster öffnen</label>
     </div>
     </div>
-
     </div>
     `;
     return html;
@@ -1044,12 +1041,6 @@ let i = 1;
 function delete_slider_button(e) {
     let form = e.childNodes[0].parentNode.form;
     let btnWrapper = e.parentNode.parentNode;
-    let parent = e.parentNode.parentElement.parentNode;
-    let btn = parent.childNodes[3];
-    i--;
-    if (i < 4) {
-        btn.disabled = false;
-    }
     btnWrapper.remove();
     send_xhr_carousel_data(form);
 }

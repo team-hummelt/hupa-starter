@@ -76,15 +76,53 @@ body .wp-bs-starter-wrapper {
   border: 1px solid #bbb;
 }
 
+.table {
+  color: #3c434a!important;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+ // color: #3c434a!important;
+}
+
+
 .green_submenue {
   //color: #ff5b5b;
   color: greenyellow;
+}
+
+textarea#InputText {
+  overflow-y: scroll !important;
+}
+
+table.dataTable.table-striped>tbody>tr.odd {
+background-color: #fdfdfd!important;
+}
+
+.paginate_button.page-item.active .page-link {
+  background-color: $wp-blue;
+  border-color: #dadada;
 }
 
 .small-title {
   font-size: .8rem !important;
   font-weight: 400 !important;
 }
+
+
+
+
+.placeholder {
+  display: inline-block;
+  padding: .2rem .1rem;
+  font-weight: 700;
+  transition: all 250ms;
+  font-size: 14px;
+  &:hover {
+    transform: scale(1.06);
+    color:rgb(64, 64, 64)!important;
+  }
+}
+
+
 
 .card {
   position: relative;
@@ -384,6 +422,13 @@ body .wp-bs-starter-wrapper {
     }
   }
 
+  .btn-blue-outline:disabled {
+    color: #969696;
+    background-color: transparent;
+    border-color: #969696;
+    cursor: not-allowed;
+  }
+
   .cursor-pointer {
     cursor: pointer;
   }
@@ -458,6 +503,11 @@ body .wp-bs-starter-wrapper {
       border: none;
     }
   }
+
+  .strong-font-weight {
+    font-weight: 500;
+  }
+
 
   .input-color-label {
     cursor: pointer;

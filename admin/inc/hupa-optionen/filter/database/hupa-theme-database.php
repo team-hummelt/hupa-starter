@@ -53,6 +53,7 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
 			$sql = "CREATE TABLE {$table} (
     		`id` int(11) NOT NULL AUTO_INCREMENT,
             `hupa_general` text NULL,
+            `hupa_smtp` text NULL,
             `hupa_fonts` text NULL,
             `hupa_fonts_src` text NULL,
             `hupa_colors` text NULL,
@@ -63,7 +64,6 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
             PRIMARY KEY (id)
      ) $charset_collate;";
 			dbDelta($sql);
-
 
 			$table = $wpdb->prefix . $this->table_social;
 			$charset_collate = $wpdb->get_charset_collate();
@@ -155,6 +155,8 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
      ) $charset_collate;";
 			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta($sql);
+
+
 		}
 	}
 }

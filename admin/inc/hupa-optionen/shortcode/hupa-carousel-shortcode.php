@@ -79,12 +79,9 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 
 			$carousel->margin_aktiv ? $marginTop = 'carousel-margin-top' : $marginTop = '';
             $countS = count((array) $slider);
-
 			ob_start();
-
 			?>
             <div id="hupaCarousel<?= $carousel->id ?>" class="<?=$full_width?> carousel <?=$marginTop?> slide <?= $slide ?>"
-
                  data-bs-ride="<?= $ride ?>">
                 <?php if($countS > 1): ?>
                 <div class="<?=$carousel->indicator ? '' : 'd-none'?> carousel-indicators">
@@ -235,8 +232,5 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 			$opacity = dechex((int) $value);
 			return str_pad($opacity, 2, 0, STR_PAD_RIGHT);
 		}
-
-
-
 	}//endClass
 }

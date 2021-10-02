@@ -22,7 +22,8 @@ trait HupaOptionTrait
     protected string $table_tools = 'hupa_tools';
     protected string $table_carousel = 'hupa_carousel';
     protected string $table_slider = 'hupa_slider';
-
+    //protected string $table_formulare = 'hupa_formulare';
+    //protected string $table_form_message = 'hupa_form_message';
 
     protected array $settings_default_values;
     /*=================================================
@@ -230,7 +231,7 @@ trait HupaOptionTrait
                 $this->fw_bottom => 0,
                 $this->fw_left => 0,
                 $this->fw_right => 0,
-                $this->login_logo_url => 'https://www.hummelt-werbeagentur.de/'
+                $this->login_logo_url => 'https://www.hummelt-werbeagentur.de/',
             ],
 
             /*============================================================

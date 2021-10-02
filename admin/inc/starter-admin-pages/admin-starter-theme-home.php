@@ -3379,7 +3379,7 @@ defined( 'ABSPATH' ) or die();
                             </div>
                             <hr>
                             <div class="settings-btn-group">
-                                <button class="btn btn-primary btn-sm" onclick="reload_settings_page();">
+                                <button class="btn btn-hupa btn-sm" onclick="reload_settings_page();">
                                     <i class="fa fa-refresh"></i>&nbsp;
 									<?= __( 'Reload page', 'bootscore' ) ?>
                                 </button>
@@ -3392,12 +3392,8 @@ defined( 'ABSPATH' ) or die();
 								<?= __( 'The changes are visible after reloading the page.', 'bootscore' ) ?>
                             </small>
                         </div>
-
-
                     </div>
-
                 </div><!--PARENT COLLAPSE-->
-
             </div>
         </div>
     </div>

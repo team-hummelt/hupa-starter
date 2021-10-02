@@ -2,6 +2,7 @@
 
 namespace Hupa\StarterTheme;
 
+use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 
 defined( 'ABSPATH' ) or die();
@@ -42,7 +43,7 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 			add_filter( 'px_to_rem', array( $this, 'hupa_px_to_rem' ));
 			add_filter( 'hupa_integer_to_hex', array( $this, 'hupa_integer_to_hex' ));
 			add_filter( 'wp_get_attachment', array( $this, 'hupa_wp_get_attachment' ));
-
+            add_filter( 'hupa_get_random_string', array( $this, 'load_random_string' ));
 		}
 
 		/**
@@ -99,5 +100,22 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 
 			return (object) $attach;
 		}
+
+        /**
+         * @throws Exception
+         */
+        function load_random_string($args = null): string
+        {
+            if (function_exists('random_bytes')) {
+                $bytes = random_bytes(16);
+                $str = bin2hex($bytes);
+            } elseif (function_exists('openssl_random_pseudo_bytes')) {
+                $bytes = openssl_random_pseudo_bytes(16);
+                $str = bin2hex($bytes);
+            } else {
+                $str = md5(uniqid('hupa_wp_starter_theme', true));
+            }
+            return $str;
+        }
 	}
 }

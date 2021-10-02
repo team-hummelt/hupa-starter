@@ -16,6 +16,7 @@ $method = filter_input(INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG
 
 switch ($method) {
     case 'theme_form_handle':
+
         $handle = filter_input(INPUT_POST, 'handle', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         if (!$handle) {
             $responseJson->spinner = true;
@@ -75,6 +76,34 @@ switch ($method) {
                     ],
                 ];
                 apply_filters('update_hupa_options', apply_filters('arrayToObject', $topArea), 'update_top_area_data');
+                $responseJson->spinner = true;
+                break;
+
+            case'smtp_settings':
+                $email_abs_name = filter_input(INPUT_POST, 'email_abs_name', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                $email_adresse = filter_input(INPUT_POST, 'email_adresse', FILTER_VALIDATE_EMAIL);
+                $smtp_host = filter_input(INPUT_POST, 'smtp_host', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                $smtp_port = filter_input(INPUT_POST, 'smtp_port', FILTER_SANITIZE_NUMBER_INT);
+                $smtp_secure = filter_input(INPUT_POST, 'smtp_secure', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                $email_benutzer = filter_input(INPUT_POST, 'email_benutzer', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                $email_passwort = filter_input(INPUT_POST, 'email_passwort', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                filter_input(INPUT_POST, 'smtp_auth_check', FILTER_SANITIZE_STRING) ? $smtp_auth_check = 1 : $smtp_auth_check = 0;
+
+                if(!$email_passwort){
+                    $email_passwort = get_hupa_option('email_passwort');
+                }
+
+                $theme_email_settings = [
+                'email_abs_name' => $email_abs_name,
+                'email_adresse' => $email_adresse,
+                'smtp_host' => $smtp_host,
+                'smtp_port' => $smtp_port,
+                'smtp_secure' => $smtp_secure,
+                'email_benutzer' => $email_benutzer,
+                'email_passwort' => $email_passwort,
+                'smtp_auth_check' => $smtp_auth_check
+            ];
+                apply_filters('update_hupa_options', apply_filters('arrayToObject', $theme_email_settings), 'hupa_smtp');
                 $responseJson->spinner = true;
                 break;
 
@@ -425,8 +454,8 @@ switch ($method) {
                 $responseJson->status = true;
                 $responseJson->delete_carousel = true;
                 break;
-            case'slider':
 
+            case'slider':
                 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
                 $cid = explode('_', $id);
                 $sliderId = $cid[1];
@@ -436,8 +465,9 @@ switch ($method) {
                 $responseJson->delete_slider = true;
                 break;
         }
-
         break;
+
+
 
     case'reset_settings':
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
@@ -446,8 +476,8 @@ switch ($method) {
         $responseJson->resetMsg = true;
         break;
 
-    case'theme_google_maps':
 
+    case'theme_google_maps':
         $data = json_decode(stripslashes_deep($_POST['daten']));
         $record->map_apikey = filter_var($data->map_apikey, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         filter_var($data->map_datenschutz, FILTER_SANITIZE_STRING) ? $record->map_datenschutz = 1 : $record->map_datenschutz = 0;

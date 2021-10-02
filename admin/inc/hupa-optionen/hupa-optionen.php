@@ -9,6 +9,7 @@ defined( 'ABSPATH' ) or die();
 * https://www.hummelt-werbeagentur.de/
 */
 
+
 //TODO HUPA OPTION TRAIT
 require 'traits/HupaOptionTrait.php';
 //TODO HUPA CAROUSEL TRAIT
@@ -19,6 +20,7 @@ require 'filter/database/hupa-theme-database.php';
 require 'filter/hupa-theme-option-filter.php';
 //TODO CAROUSEL CLASS
 require 'filter/hupa-carousel-filter.php';
+
 //TODO FONT HANDLE CLASS
 require 'font-handle/theme-fonts-handler.php';
 //TODO AJAX LANGUAGE HANDLE CLASS
@@ -29,6 +31,17 @@ require 'filter/css-generator/css-generator-class.php';
 require 'filter/frontend/frontend-filter-class.php';
 //TODO THEME HELPER
 require 'filter/theme-helper.php';
+
+
+
+//TODO FORMULAR CLASS
+//require 'filter/hupa-formular-filter.php';
+//TODO SMTP TEST
+//require THEME_ADMIN_INC .'Mailer/smtp-test.php';
+//TODO GET PAGE META DATA
+//add_filter('hupa_get_smtp_test', 'hupa_load_smtp_test');
+
+
 
 //TODO JOB THEME WIDGETS
 require 'widgets/social-media-widget.php';
@@ -44,6 +57,7 @@ if(HUPA_SIDEBAR) {
 }
 //TODO JOB SHORTCODES
 require  'shortcode/hupa-carousel-shortcode.php';
+//require  'shortcode/hupa-formular-shortcode.php';
 
 //TODO WARNING JOB AKTIONEN
 

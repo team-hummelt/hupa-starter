@@ -7,7 +7,6 @@ defined('ABSPATH') or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  * https://www.hummelt-werbeagentur.de/
  */
-
 ?>
 
 <div class="wp-bs-starter-wrapper">
@@ -34,13 +33,6 @@ defined('ABSPATH') or die();
                                 class="fa fa-share-alt"></i>&nbsp;
                         Hupa <?= __('Lizenzen', 'bootscore') ?>
                     </button>
-
-                    <!--<button onclick="changeRangeUpdate();" data-site="<?= __('Manage pins', 'bootscore') ?>" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#collapseSettingsPinsSite"
-                                aria-expanded="false" aria-controls="collapseSettingsPinsSite"
-                                class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-map"></i>&nbsp;
-                            <?= __('Manage pins', 'bootscore') ?>
-                        </button>-->
                 </div>
                 <hr>
                 <div id="licence_display_data">
@@ -59,34 +51,18 @@ defined('ABSPATH') or die();
                                     ?>
                                     <h5>HUPA Theme <small class="d-block small-title">aktiviert am <?=$formDate?></small></h5>
                                     <hr>
-                                       <!-- <div class="row row-cols-1 row-cols-xl-2 g-2">
-                                            <div class="col">
-                                                <div class="mb-3">
-                                                    <label for="ClientIDInput" class="form-label">
-                                                        <?= __('Client ID', 'bootscore') ?> <span
-                                                                class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control"
-                                                           value="<?= get_option('hupa_product_client_id') ?>"
-                                                           id="ClientIDInput" autocomplete="cc-number" disabled required>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="mb-3">
-                                                    <label for="clientSecretInput" class="form-label">
-                                                        <?= __('Client secret', 'bootscore') ?> <span
-                                                                class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control"
-                                                           value="<?= get_option('hupa_product_client_secret') ?>"
-                                                           id="clientSecretInput" autocomplete="cc-number" disabled required>
-                                                </div>
-                                            </div>
-                                        </div>-->
-                                        <!--<div class="mb-3">
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp;
-                                                Lizenz löschen
-                                            </button>
-                                            <span id="activateBtn"></span>
-                                        </div>-->
+                                    <?php if(POST_SELECT_ACTIVE):
+                                        $postDate = date('d.m.Y \u\m H:i:s', strtotime(get_option('post_selector_install_time')));
+                                        ?>
+                                        <h5>Plugin WP Post-Selector <small class="d-block small-title">aktiviert am <?=$postDate?></small></h5>
+                                        <hr>
+                                    <?php endif;?>
+                                    <?php if(BS_FORMULAR_ACTIVE):
+                                        $bsFormDate = date('d.m.Y \u\m H:i:s', strtotime(get_option('bs_formular_install_time')));
+                                        ?>
+                                        <h5>Plugin BS-Formular <small class="d-block small-title">aktiviert am <?=$bsFormDate?></small></h5>
+                                        <hr>
+                                    <?php endif;?>
                                 </div>
                             </div>
                         </div>

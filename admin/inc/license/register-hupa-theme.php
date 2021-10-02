@@ -38,6 +38,7 @@ final class RegisterHupaStarter
         add_action('wp_ajax_HupaLicenceHandle', array($this, 'prefix_ajax_HupaLicenceHandle'));
         add_action( 'after_setup_theme', array( $this, 'hupa_starter_license_site_trigger_check' ) );
         add_action( 'template_redirect',array($this, 'hupa_starter_theme_license_callback_trigger_check' ));
+        add_action('admin_notices', array($this, 'showThemeLizenzInfo'));
     }
 
     /**
@@ -112,25 +113,31 @@ final class RegisterHupaStarter
     }
 
     public function hupa_starter_theme_activation_hook() {
-        if(!get_option('hupa_starter_product_install_authorize') && !get_option('hupa_product_client_id')) {
+        if(!get_option('hupa_starter_product_install_authorize')) {
             $file = THEME_ADMIN_INC . 'register-hupa-starter-optionen.php';
             if(is_file($file)) {
                unlink($file);
             }
-
             delete_option('hupa_starter_product_install_authorize');
             delete_option('hupa_product_client_id');
             delete_option('hupa_product_client_secret');
+            delete_option('hupa_access_token');
+            set_transient('show_theme_lizenz_info', true, 5);
         }
-        delete_option('hupa_starter_product_install_authorize');
-        delete_option('hupa_product_client_secret');
-    }
+   }
 
     public function hupa_starter_theme_deactivated() {
-        delete_option('hupa_starter_product_install_authorize');
-        delete_option('hupa_product_client_secret');
+       // delete_option('hupa_starter_product_install_authorize');
+       // delete_option('hupa_product_client_secret');
     }
 
+    public function showThemeLizenzInfo() {
+        if(get_transient('show_theme_lizenz_info')) {
+            echo '<div class="error"><p>' .
+                'HUPA Theme ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.'.
+                '</p></div>';
+        }
+    }
 
     /**
      * ======================================================

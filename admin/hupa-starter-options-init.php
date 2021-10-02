@@ -51,9 +51,10 @@ define('HUPA_THEME_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('HUPA_THEME_SLUG',  wp_basename(dirname(__DIR__)));
 
 is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
-
+is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
 //if Post-Select Installiert
 define("POST_SELECT_ACTIVE", $postSelect);
+define("BS_FORMULAR_ACTIVE", $bsFormular);
 
 /**=================================HUPA OPTIONEN ======================================*/
 //SHOW SIDEBAR
@@ -102,6 +103,5 @@ if(get_option('hupa_starter_product_install_authorize')) {
 
     add_action( 'after_setup_theme','hupa_register_theme_updater');
 }
-
 
 

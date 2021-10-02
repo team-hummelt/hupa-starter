@@ -484,7 +484,7 @@ function render_slider_items(slider, lang, id, record, method = '',) {
      </div>
 
      <div class="row row-cols-1 row-cols-xl-2 py-2 settings-box option align-items-center">
-        <div class="col p-2">
+        <div class="col flex-fill p-2">
 
         <label class="input-color-label d-block mb-3 ms-2">
          <h5><b>Button</b> hinzufügen</h5>
@@ -573,17 +573,12 @@ function render_slider_items(slider, lang, id, record, method = '',) {
      <div class="row row-cols-1 row-cols-lg-2 py-4 settings-box option align-items-center">
      <div class="col">
      <div class="col-xl-6 col-lg-8 col-12 p-2">
-     <div class="d-flex align-items-center">
-     <div class="input-color-container">
-     <input id="InputFontColor${cid}"
-     value="${val.font_color}"
-     name="font_color"
-     class="input-color" type="color">
-     </div>
-     <label class="input-color-label ms-2"
-     for="InputFontColor${cid}">
-     ${lang.lbl_color}
-     </label>
+     
+     <div class="color-select-wrapper align-items-center d-flex mb-2">
+      <div data-color="${val.font_color}" class="colorPickers">
+       <input id="InputButtonColor${cid}" type="hidden" value="${val.font_color}" name="font_color">
+       </div>
+       <h6 class="ms-2 mt-1"> <b>Schrift und Symbol</b><samll class="small d-block"> Farbe</samll></h6> 
      </div>
      </div>
      </div>
@@ -868,11 +863,11 @@ function get_button_template(id, data = false, select = false, btnRandom = false
     <hr>
     <h6><i class="font-blue fa fa-caret-down"></i>&nbsp; <b>Button</b> Einstellungen</h6>
        <!-- HOVER -->
-   <div class="d-flex flex-wrap">    
+   <div class="d-xl-flex d-block flex-wrap">    
    
     <button onclick="toggle_hover_btn(this)" data-bs-toggle="collapse" 
      data-bs-target="#collapseBTNSettings${btnRandom}" type="button" 
-     class="showColorPicker btn btn-outline-success btn-sm me-1 mt-2">
+     class="showColorPicker btn btn-outline-success btn-sm me-1 mt-2 d-md-block">
     <i class="fa fa-caret-right"></i>&nbsp; Button Einstellungen
     </button>
     
@@ -885,7 +880,8 @@ function get_button_template(id, data = false, select = false, btnRandom = false
     <button onclick="delete_slider_button(this);" type="button" class="btn btn-outline-danger ms-auto me-1 mx-1 btn-sm mt-2">
     <i class="fa fa-trash-o"></i> Button löschen</button>
     </div>
-    <div class="collapse mb-3" id="collapseHoverSettings${btnRandom}">
+    <div id="btnParrent${btnRandom}">
+    <div class="collapse mb-3" data-bs-parent="#btnParrent${btnRandom}" id="collapseHoverSettings${btnRandom}">
     <hr>
     <h6 class="font-blue"><i class="fa fa-paint-brush"></i> <b>Button</b> Color</h6>
     
@@ -936,7 +932,7 @@ function get_button_template(id, data = false, select = false, btnRandom = false
       
     </div><!--collapse-->
 
-     <div class="collapse" id="collapseBTNSettings${btnRandom}">
+     <div class="collapse" data-bs-parent="#btnParrent${btnRandom}" id="collapseBTNSettings${btnRandom}">
      <hr>
      <h6 class="mt-2"> <b>Button </b>| Icon | Beschriftung | Url</h6> 
     <!--BUTTON TEXT -->
@@ -1005,6 +1001,7 @@ function get_button_template(id, data = false, select = false, btnRandom = false
     id="checkUrlTarget${btnRandom}" ${data && data.btn_target ? 'checked' : ''}>
     <label class="form-check-label"
     for="checkUrlTarget${btnRandom}">Link im neuen Fenster öffnen</label>
+    </div>
     </div>
     </div>
     </div>

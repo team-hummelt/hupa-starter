@@ -30,8 +30,6 @@ function hupa_register_theme_updater(){
 //TODO WARNING JOB THEME INIT
 require_once('admin/hupa-starter-options-init.php');
 
-
-
 // Register Bootstrap 5 Nav Walker
 if ( ! function_exists( 'register_navwalker' ) ) :
     function register_navwalker(){

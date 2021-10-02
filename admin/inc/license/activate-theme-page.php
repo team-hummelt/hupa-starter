@@ -22,6 +22,7 @@ if ($code) {
             file_put_contents($file, $response->install_datei);
         }
         update_option('hupa_starter_product_install_authorize', true);
+        update_option('hupa_product_install_time', current_time('mysql'));
         delete_option('hupa_starter_message');
 
     } else {

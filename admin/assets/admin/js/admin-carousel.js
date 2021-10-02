@@ -15,9 +15,6 @@ function loadModulScript(src) {
     });
 }
 
-
-
-
 if (loadCarousel) {
     let loadCarouselModul = loadModulScript(hupa_starter.admin_js_module + 'carousel-modul.js');
     loadCarouselModul.then(
@@ -82,12 +79,6 @@ function send_xhr_carousel_data(data, is_formular = true) {
             if (data.reset_form) {
                 reset_formular_input();
             }
-
-
-
-
-
-
             switch (data.render) {
                 case'carousel':
                     if (data.renderData.status) {
@@ -114,9 +105,6 @@ function reset_formular_input() {
         inputs.forEach(input => input.value = '');
     }
 }
-
-
-
 
 /*=================================================
 ========== TOGGLE SETTINGS COLLAPSE BTN  ==========

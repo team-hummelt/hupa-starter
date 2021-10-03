@@ -10,7 +10,7 @@
 	get_header();
 	?>
 
-<div id="content" class="site-content container py-5 mt-5">
+<div id="content" class="site-content container">
     <div id="primary" class="content-area">
         
         <!-- Hook to add something nice -->
@@ -18,7 +18,6 @@
 
         <div class="row">
             <div class="col">
-
                 <main id="main" class="site-main">
 
                     <!-- Title & Description -->

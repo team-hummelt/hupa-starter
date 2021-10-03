@@ -461,7 +461,7 @@ final class HupaRegisterStarterTheme {
      */
     public function register_hupa_starter_widgets(): void {
         register_sidebar( array(
-            'name'          => __( 'Top Menu Info text', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Info text', 'bootscore' ),
             'id'            => 'top-menu-1',
             'description'   => __( 'Area for info or contact information.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
@@ -471,7 +471,7 @@ final class HupaRegisterStarterTheme {
         ) );
 
         register_sidebar( array(
-            'name'          => __( 'Top Menu Social media', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Social media', 'bootscore' ),
             'id'            => 'top-menu-2',
             'description'   => __( 'Area for social media icons.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
@@ -481,7 +481,7 @@ final class HupaRegisterStarterTheme {
         ) );
 
         register_sidebar( array(
-            'name'          => __( 'Top Menu Button', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Button', 'bootscore' ),
             'id'            => 'top-area-3',
             'description'   => __( 'Area for button or search field.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',

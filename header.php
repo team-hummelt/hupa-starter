@@ -40,6 +40,23 @@
     <meta name="msapplication-TileImage" content="<?php echo get_stylesheet_directory_uri(); ?>/img/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+   <!-- <div class="loader-wrapper">
+        <i class="fa fa-spinner fa-spin fa-4x"></i>
+    </div>
+-->
+    <div class="preloader">
+        <div class="preloder-wrap">
+            <div class="preloder-inner">
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+                <div class="ball"></div>
+            </div>
+        </div>
+    </div>
 
 
     <title> <?php bloginfo('name'); wp_title( '|', true, 'left' );  ?> </title>
@@ -51,6 +68,7 @@
 <body <?php body_class(); ?>>
 <?php
 $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
+
 ?>
 <div id="to-top"></div>
 <div id="page" class="site">
@@ -79,7 +97,7 @@ $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
 						'container'      => false,
 						'menu_class'     => '',
 						'fallback_cb'    => '__return_false',
-						'items_wrap'     => '<ul id="top-area-navbar" class="justify-content-center navbar-nav %2$s">%3$s</ul>',
+						'items_wrap'     => '<ul id="top-area-navbar" class="justify-content-start navbar-nav %2$s">%3$s</ul>',
 						'depth'          => 2,
 						'walker'         => new Hupa_top_area_Walker()
 					) );

@@ -172,7 +172,7 @@ defined( 'ABSPATH' ) or die();
                                                     <div class="form-check form-switch my-2 my-md-1 me-3">
                                                         <input class="form-check-input" name="top_aktiv"
                                                                type="checkbox"
-                                                               id="CheckTopAreaActive" <?= ! get_hupa_option( 'top_aktiv' ) ?: 'checked' ?>>
+                                                               id="CheckTopAreaActive" <?= ! get_hupa_option( 'top_aktiv' ) ?: 'checked' ?> disabled>
                                                         <label class="form-check-label" for="CheckTopAreaActive">
 															<?= __( 'Top Area anzeigen', 'bootscore' ) ?>
                                                         </label>
@@ -260,8 +260,9 @@ defined( 'ABSPATH' ) or die();
                                                         <?= __( '<code>container-fluid</code>extends across the entire width of the browser.', 'bootscore' ) ?>
                                                     </div>
                                                </div>
-                                                <hr>
-                                                <div class="col-lg-12 pt-2">
+
+                                                <div class="col-lg-12">
+                                                    <hr>
                                                     <h6>
                                                         <i class="font-blue fa fa-tasks"></i>&nbsp;<?= __( 'Main menu Settings', 'bootscore' ); ?>
                                                     </h6>
@@ -272,7 +273,7 @@ defined( 'ABSPATH' ) or die();
                                                                    id="radioMenu1"
                                                                    value="1" <?= get_hupa_option( 'menu' ) == 1 ? 'checked' : '' ?>>
                                                             <label class="form-check-label" for="radioMenu1">
-																<?= __( 'Standard menu', 'bootscore' ); ?>
+																<?= __( 'Menü Center', 'bootscore' ); ?>
                                                             </label>
                                                         </div>
                                                         <div class="form-check my-2 my-md-1 mx-3">
@@ -280,7 +281,7 @@ defined( 'ABSPATH' ) or die();
                                                                    id="radioMenu2"
                                                                    value="2" <?= get_hupa_option( 'menu' ) == 2 ? 'checked' : '' ?>>
                                                             <label class="form-check-label" for="radioMenu2">
-																<?= __( 'Main menu', 'bootscore' ); ?> 2
+																<?= __( 'Menü links', 'bootscore' ); ?>
                                                             </label>
                                                         </div>
                                                         <div class="form-check my-2 my-md-1 mx-3">
@@ -288,7 +289,25 @@ defined( 'ABSPATH' ) or die();
                                                                    id=radioMenu3
                                                                    value="3" <?= get_hupa_option( 'menu' ) == 3 ? 'checked' : '' ?>>
                                                             <label class="form-check-label" for="radioMenu3">
-																<?= __( 'Main menu', 'bootscore' ); ?> 3
+																<?= __( 'Menü rechts', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check my-2 my-md-1 mx-3">
+                                                            <input class="form-check-input" type="radio" name="menu"
+                                                                   id=radioMenu4
+                                                                   value="4" <?= get_hupa_option( 'menu' ) == 4 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMenu4">
+                                                                <?= __( 'Menü unter Logo', 'bootscore' ); ?>
+                                                            </label>
+                                                        </div>
+
+                                                        <div class="form-check my-2 my-md-1 mx-3">
+                                                            <input class="form-check-input" type="radio" name="menu"
+                                                                   id=radioMenu5
+                                                                   value="5" <?= get_hupa_option( 'menu' ) == 5 ? 'checked' : '' ?>>
+                                                            <label class="form-check-label" for="radioMenu5">
+                                                                <?= __( 'Logo mitte', 'bootscore' ); ?>
                                                             </label>
                                                         </div>
                                                     </div>

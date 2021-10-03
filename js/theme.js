@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
     $(window).on('resize', function () {
         $('[data-bs-hideresize="true"]').offcanvas('hide');
     });
-    
+
 
     // Close offcanvas on click a, keep .dropdown-menu open
     $('.offcanvas a:not(.dropdown-toggle):not(a.remove_from_cart_button), a.dropdown-item').on('click', function () {

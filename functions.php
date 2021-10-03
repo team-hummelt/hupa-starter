@@ -122,10 +122,6 @@ function bootscore_content_width() {
 }
 add_action( 'after_setup_theme', 'bootscore_content_width', 0 );
 
-
-
-
-
 /**
  * Register widget area.
  *
@@ -138,7 +134,7 @@ if ( ! function_exists( 'bootscore_widgets_init' ) ) :
         
         // Top Nav
         register_sidebar(array(
-            'name' => esc_html__('Top Nav', 'bootscore' ),
+            'name' => esc_html__('Main Nav right', 'bootscore' ),
             'id' => 'top-nav',
             'description' => esc_html__('Add widgets here.', 'bootscore' ),
             'before_widget' => '<div class="ms-3">',
@@ -149,7 +145,7 @@ if ( ! function_exists( 'bootscore_widgets_init' ) ) :
         // Top Nav End
 
         // Top Nav Search
-        register_sidebar(array(
+       /* register_sidebar(array(
             'name' => esc_html__('Top Nav Search', 'bootscore' ),
             'id' => 'top-nav-search',
             'description' => esc_html__('Add widgets here.', 'bootscore' ),
@@ -157,7 +153,7 @@ if ( ! function_exists( 'bootscore_widgets_init' ) ) :
             'after_widget' => '</div>',
             'before_title' => '<div class="widget-title d-none">',
             'after_title' => '</div>'
-        ));
+        ));*/
         // Top Nav Search End
 
         // Sidebar

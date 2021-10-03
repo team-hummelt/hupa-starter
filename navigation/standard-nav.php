@@ -10,25 +10,27 @@ defined( 'ABSPATH' ) or die();
  */
 $pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
 $pageSettings->show_menu ? $show = '' : $show = 'd-none';
-?>
 
+$menu = apply_filters('get_menu_auswahl', get_hupa_option('menu'));
+//print_r($menu);
+?>
 <nav id="nav-main-starter"
-     class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg justify-content-center <?= ! get_hupa_option( 'fix_header' ) ?: 'has-sticky' ?>">
-	<div class="<?=$pageSettings->menu_container ? 'container' : 'container-fluid'?>">
-		<?php if(get_hupa_frontend('nav-img')): ?>
-		<a class="navbar-brand d-none d-lg-block" href="<?php echo esc_url( home_url() ); ?>">
+     class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg <?=$menu->height?>  <?= ! get_hupa_option( 'fix_header' ) ?: 'fixed-top' ?>">
+	<div class=" position-relative <?=$pageSettings->menu_container ? 'container-lg ' . $menu->container . '' : 'container-fluid ' . $menu->container?>">
+		<?php if(get_hupa_frontend('nav-img') && $menu->show_img): ?>
+           <a class="navbar-brand d-none d-xl-block <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?= get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>" class="logo md"
 			     width="<?= get_hupa_frontend('nav-img')->width?>">
 		</a>
-		<a class="navbar-brand img-fluid d-md-block d-lg-none" href="<?php echo esc_url( home_url() ); ?>">
+		<a class="navbar-brand img-fluid d-lg-block d-xl-none <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?=get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>"
 			     class="logo sm">
 		</a>
         <?php endif; ?>
 		<!-- Top Nav Widget -->
-		<div class="top-nav order-lg-3 flex-lg-grow-0 d-none d-sm-flex justify-content-end">
+		<div class="top-nav main-widget order-lg-3  d-none d-sm-flex justify-content-end  <?=$menu->widget?>">
 			<?php if ( is_active_sidebar( 'top-nav' ) ) : ?>
 				<div>
 					<?php dynamic_sidebar( 'top-nav' ); ?>
@@ -44,7 +46,7 @@ $pageSettings->show_menu ? $show = '' : $show = 'd-none';
 			     data-bs-dismiss="offcanvas">
 				<i class="fas fa-chevron-left"></i> <?php esc_html_e( 'Close menu', 'bootscore' ); ?>
 			</div>
-			<div class="offcanvas-body justify-content-center">
+			<div class="offcanvas-body justify-content-<?=$menu->block?>">
 				<!-- Bootstrap 5 Nav Walker Main Menu -->
 				<?php
 				wp_nav_menu( array(
@@ -52,7 +54,7 @@ $pageSettings->show_menu ? $show = '' : $show = 'd-none';
 					'container'      => false,
 					'menu_class'     => '',
 					'fallback_cb'    => '__return_false',
-					'items_wrap'     => '<ul id="bootscore-navbar" class="navbar-nav %2$s">%3$s</ul>',
+					'items_wrap'     => '<ul id="bootscore-navbar" class="navbar-nav align-items-center %2$s">%3$s</ul>',
 					'depth'          => 2,
 					'walker'         => new bootstrap_5_wp_nav_menu_walker()
 				) );

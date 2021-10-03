@@ -74,6 +74,8 @@ if (!class_exists('HupaStarterOptionFilter')) {
             //SETTINGS MENU LABEL
             add_filter('get_settings_menu_label', array($this, 'hupa_get_settings_menu_label'));
 
+            //MENU AUSWAHL
+            add_filter('get_menu_auswahl', array($this, 'hupa_get_menu_auswahl'));
         }
 
         final public function hupa_get_hupa_option($option): string|array|object
@@ -602,11 +604,59 @@ if (!class_exists('HupaStarterOptionFilter')) {
             );
         }
 
+        public function hupa_get_menu_auswahl($args):object{
+            $return = [];
+            switch ($args){
+                case 1:
+                    $return['block'] = 'center';
+                    $return['logo'] = 'position-absolute';
+                    $return['widget'] = 'position-absolute';
+                    $return['container'] = '';
+                    $return['height'] = '';
+                    $return['show_img'] = true;
+                    break;
+                case 2:
+                    $return['block'] = 'start ps-lg-4';
+                    $return['logo'] = '';
+                    $return['widget'] = 'position-absolute';
+                    $return['container'] = '';
+                    $return['height'] = '';
+                    $return['show_img'] = true;
+                    break;
+                case 3:
+                    $return['block'] = 'end';
+                    $return['logo'] = '';
+                    $return['widget'] = '';
+                    $return['container'] = '';
+                    $return['height'] = '';
+                    $return['show_img'] = true;
+                    break;
+                case 4:
+                    $return['block'] = 'start';
+                    $return['logo'] = '';
+                    $return['widget'] = 'position-absolute top-0';
+                    $return['container'] = 'd-block';
+                    $return['height'] = 'py-3';
+                    $return['show_img'] = true;
+                    break;
+                case 5:
+                    $return['block'] = 'center';
+                    $return['logo'] = '';
+                    $return['widget'] = '';
+                    $return['container'] = '';
+                    $return['height'] = '';
+                    $return['show_img'] = false;
+                    break;
+                default:
+                    return (object) [];
+            }
+            return (object) $return;
+        }
+
 
 
         public function hupa_get_animate_option(): object
         {
-
             $seekers = array("bounce", "flash", "pulse", "rubberBand", "shakeX", "headShake", "swing", "tada", "wobble", "jello", "heartBeat");
             $entrances = array("backInDown", "backInLeft", "backInRight", "backInUp");
             //$back_exits = array("backOutDown","backOutLeft","backOutRight","backOutUp");

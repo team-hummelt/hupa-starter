@@ -20,13 +20,10 @@ let clickAdminBarOptions = document.getElementById("wp-admin-bar-hupa_options_pa
 //RESET MESSAGE ALERT
 let resetMsgAlert = document.getElementById("reset-msg-alert");
 
-
-
 /*=================================================
 ========== TOGGLE SETTINGS COLLAPSE BTN  ==========
 ===================================================
 */
-
 let settingsColBtn = document.querySelectorAll("button.btn-collapse");
 if (settingsColBtn) {
     let CollapseEvent = Array.prototype.slice.call(settingsColBtn, 0);
@@ -47,7 +44,16 @@ if (settingsColBtn) {
             this.blur();
             if (this.classList.contains("active")) return false;
             let siteTitle = document.getElementById("currentSideTitle");
-            siteTitle.innerText = this.getAttribute('data-site');
+            let target = this.getAttribute('data-bs-target');
+            let dataSite = this.getAttribute('data-site');
+            let dataLoad = this.getAttribute('data-load');
+            switch (dataLoad){
+                case 'aktuell':
+
+                    break;
+
+            }
+            siteTitle.innerText = dataSite;
             remove_active_btn();
             this.classList.add('active');
             this.setAttribute('disabled', true);
@@ -61,6 +67,7 @@ if (settingsColBtn) {
         }
     }
 }
+
 
 /*=========================================
 ========== AJAX FORMS AUTO SAVE  ==========

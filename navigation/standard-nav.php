@@ -12,18 +12,25 @@ $pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
 $pageSettings->show_menu ? $show = '' : $show = 'd-none';
 
 $menu = apply_filters('get_menu_auswahl', get_hupa_option('menu'));
-//print_r($menu);
+get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 ?>
 <nav id="nav-main-starter"
      class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg <?=$menu->height?>  <?= ! get_hupa_option( 'fix_header' ) ?: 'fixed-top' ?>">
-	<div class=" position-relative <?=$pageSettings->menu_container ? 'container-lg ' . $menu->container . '' : 'container-fluid ' . $menu->container?>">
-		<?php if(get_hupa_frontend('nav-img') && $menu->show_img): ?>
+	<div class="position-relative  <?=$pageSettings->menu_container ? 'container-lg ' . $menu->container . '' : 'container-fluid ' . $menu->container?>">
+		<?php if (!$menu->show_img):?>
+            <a class="middle-image-nav-sm" href="<?php echo esc_url( home_url() ); ?>">
+                <img src="<?=get_hupa_frontend('nav-img')->url?>"
+                     alt="<?=get_bloginfo('name')?>"
+                     class="img-fluid">
+            </a>
+        <?php endif; ?>
+        <?php if(get_hupa_frontend('nav-img') && $menu->show_img): ?>
            <a class="navbar-brand d-none d-xl-block <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?= get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>" class="logo md"
 			     width="<?= get_hupa_frontend('nav-img')->width?>">
 		</a>
-		<a class="navbar-brand img-fluid d-lg-block d-xl-none <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
+		<a class="navbar-brand  ps-2 img-fluid d-lg-block d-xl-none <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?=get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>"
 			     class="logo sm">
@@ -41,11 +48,13 @@ $menu = apply_filters('get_menu_auswahl', get_hupa_option('menu'));
 		        data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar">
 			<i class="text-secondary fas fa-bars"></i>
 		</button>
-		<div class="offcanvas offcanvas-end" tabindex="-1" data-bs-hideresize="true" id="offcanvas-navbar">
-			<div class="offcanvas-header hover cursor-pointer bg-light text-primary"
+		<div class="offcanvas <?=$handyMenu?> offcanvas-end" tabindex="-1" data-bs-hideresize="true" id="offcanvas-navbar">
+			<div class="offcanvas-header hover cursor-pointer"
 			     data-bs-dismiss="offcanvas">
-				<i class="fas fa-chevron-left"></i> <?php esc_html_e( 'Close menu', 'bootscore' ); ?>
-			</div>
+				<i class="fas fa-chevron-left"></i> <span class="handy-link-font">
+               <?php esc_html_e( 'Menü schließen', 'bootscore' ); ?>
+                </span>
+            </div>
 			<div class="offcanvas-body justify-content-<?=$menu->block?>">
 				<!-- Bootstrap 5 Nav Walker Main Menu -->
 				<?php

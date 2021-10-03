@@ -27,7 +27,7 @@ $header = new WP_Query( $args );
 
 
 //print_r($header->posts);
-
+echo get_hupa_option( 'menu_btn_bg_color' );
 ?>
 <div class="wp-bs-starter-wrapper my3">
     <div class="container">

@@ -410,7 +410,7 @@ if ( ! function_exists( 'the_breadcrumb' ) ) :
     function the_breadcrumb() {
         if(!is_home()) {
             echo '<nav class="breadcrumb mb-4 mt-2 bg-light py-1 px-2 rounded">';
-            echo '<a href="'.home_url('/').'">'.('<i class="fas fa-home"></i>').'</a><span class="divider">&nbsp;/&nbsp;</span>';
+            echo '<a href="'.home_url('/').'">'.('<i class="fa fa-home"></i>').'</a><span class="divider">&nbsp;/&nbsp;</span>';
             if (is_category() || is_single()) {
                 the_category(' <span class="divider">&nbsp;/&nbsp;</span> ');
                 if (is_single()) {
@@ -430,7 +430,7 @@ endif;
 
 // Comment Button
 function bootscore_comment_form( $args ) {
-    $args['class_submit'] = 'btn btn-outline-primary'; // since WP 4.1    
+    $args['class_submit'] = 'btn btn-outline-secondary'; // since WP 4.1
     return $args;    
 }
 add_filter( 'comment_form_defaults', 'bootscore_comment_form' );
@@ -442,7 +442,7 @@ function bootscore_pw_form () {
 	$output = '
 		  <form action="'.get_option('siteurl').'/wp-login.php?action=postpass" method="post" class="form-inline">'."\n"
 		.'<input name="post_password" type="password" size="" class="form-control me-2 my-1" placeholder="' . __('Password', 'bootscore') . '"/>'."\n"
-		.'<input type="submit" class="btn btn-outline-primary my-1" name="Submit" value="' . __('Submit', 'bootscore') . '" />'."\n"
+		.'<input type="submit" class="btn btn-outline-secondary my-1" name="Submit" value="' . __('Submit', 'bootscore') . '" />'."\n"
 		.'</p>'."\n"
 		.'</form>'."\n";
 	return $output;

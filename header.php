@@ -44,6 +44,7 @@
         <i class="fa fa-spinner fa-spin fa-4x"></i>
     </div>
 -->
+    <?php if(get_hupa_option('preloader_aktiv')): ?>
     <div class="preloader">
         <div class="preloder-wrap">
             <div class="preloder-inner">
@@ -57,7 +58,7 @@
             </div>
         </div>
     </div>
-
+<?php endif; ?>
 
     <title> <?php bloginfo('name'); wp_title( '|', true, 'left' );  ?> </title>
     <!-- Loads the internal WP jQuery. Required if a 3rd party plugin loads jQuery in header instead in footer -->

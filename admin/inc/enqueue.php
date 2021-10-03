@@ -47,7 +47,6 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 				'admin_url' => THEME_ADMIN_URL,
 				'site_url'  => get_bloginfo( 'url' ),
 				'key' => base64_encode( get_hupa_option( 'map_apikey' ) ),
-                'menu' => (bool) get_hupa_option('menu') == 5,
                 'img_width' => get_hupa_frontend('nav-img')->width,
                 'img' => $img
 			)

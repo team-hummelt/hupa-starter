@@ -20,8 +20,6 @@ get_header();
 ?>
     <div class="site-content">
         <?= $pageSettings->custum_header; ?>
-
-
         <div id="content" class="<?= $pageSettings->main_container ? 'container' : 'container-fluid' ?> pb-3">
             <div id="primary" class="content-area">
                 <!-- Hook to add something nice -->

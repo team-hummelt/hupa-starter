@@ -87,7 +87,12 @@ $pageBottomFooter = $pageSettings->show_bottom_footer;
 <?php  if($pageSettings->show_bottom_footer): ?>
 <div class="footer bootscore-info border-top py-2 text-center <?=!get_hupa_option( 'fix_footer' ) ?: 'fixed-bottom'?>">
     <div class="container">
-        &copy;&nbsp;<?php echo Date('Y'); ?> - <?php bloginfo('name'); ?>
+      &nbsp;<?php
+        $footerTxt = str_replace('###YEAR###', date('Y'), get_hupa_option('bottom_area_text'));
+        $footerTxt = htmlspecialchars_decode($footerTxt);
+        $footerTxt = stripslashes_deep($footerTxt);
+        echo $footerTxt;
+        ?>
     </div>
 </div>
 <?php endif; ?>

@@ -111,7 +111,6 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 						$secondFont = $this->get_slider_fonts($tmp->second_font, $tmp->second_style);
 						$selector =  apply_filters('get_container_selector',false);
 						$firstSelector = $selector->{$tmp->first_selector};
-
 					    $firstStyle = $firstFont->family . $firstFont->fontStyle . $firstFont->fontWeight
                                       . 'font-size:'.$this->px_to_rem($tmp->first_size).'!important;'
                                       . 'color: '.$tmp->font_color.'!important;'
@@ -123,24 +122,31 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 						              . 'color: '.$tmp->font_color.'!important;'
                                       . 'padding: 0 .5rem .5rem .5rem;'
 						              . 'line-height: '.$tmp->second_height.'!important;';
-
+                            if(!$tmp->first_caption && !$tmp->second_caption) {
+                                $btnPadding = 'style="padding: 1.5rem 0;"';
+                            }else{
+                                $btnPadding = 'class="slider-button-wrapper"';
+                            }
 						?>
                         <div class="carousel-item <?=$active?>" data-bs-interval="<?=$tmp->data_interval?>">
                             <img src="<?= $attach->src ?>" class="bgImage" alt="<?=$data_alt?>"
                                  style="height: <?=$carousel->container_height?>;">
                             <div class="carousel-caption <?= $caption_aktiv ?>">
                                 <div class="caption-wrapper col-12 col-xxl-4 col-xl-6 col-lg-8 <?= $bgCaption ?>">
+                                 <?php if($tmp->first_caption): ?>
                                 <<?=$firstSelector?> style="<?=$firstStyle?>"
                                 class="<?=$tmp->first_css?>  animate__animated animate__<?= $tmp->first_ani ?>">
                                 <?=$tmp->first_caption?>
                                 </<?=$firstSelector?>>
+                                <?php endif; if($tmp->second_caption): ?>
                                 <p style="<?=$secondStyle?>"
                                 class="<?=$tmp->second_css?>  animate__animated animate__<?= $tmp->second_ani ?>">
                                 <?=$tmp->second_caption?>
                                 </p>
+                                <?php endif; ?>
                                 <!--Button-->
                                 <?php if($btn): ?>
-                                <div class="slider-button-wrapper">
+                                <div <?=$btnPadding?>>
                                     <?php $links = []; foreach ($btn as $bt):
                                     if(!$bt->if_url) {
                                         $links = explode('#', $bt->btn_link);

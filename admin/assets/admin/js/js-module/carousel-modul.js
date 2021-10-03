@@ -898,7 +898,7 @@ function get_button_template(id, data = false, select = false, btnRandom = false
        <input id="InputBorderColor${btnRandom}" type="hidden" value="${data && data.border_color ? data.border_color : '#ffffff'}" name="border_color_${btnRandom}">
        </div>
        <h6 class="ms-2 mt-1"> <b>Border </b>Farbe</h6> 
-     </div>
+     </div> 
     
     <!--Background-Color-->
      <div class="color-select-wrapper d-flex mb-2">

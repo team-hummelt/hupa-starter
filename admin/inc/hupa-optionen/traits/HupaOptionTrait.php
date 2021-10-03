@@ -49,6 +49,8 @@ trait HupaOptionTrait
     protected string $fw_left = 'fw_left';
     protected string $fw_right = 'fw_right';
     protected string $login_logo_url = 'login_logo_url';
+    protected string $bottom_area_text = 'bottom_area_text';
+    protected string $preloader_aktiv = 'preloader_aktiv';
 
 
     /*========================================================
@@ -232,6 +234,8 @@ trait HupaOptionTrait
                 $this->fw_left => 0,
                 $this->fw_right => 0,
                 $this->login_logo_url => 'https://www.hummelt-werbeagentur.de/',
+                $this->bottom_area_text => '© <b>###YEAR###</b> - hummelt und partner | Werbeagentur GmbH',
+                $this->preloader_aktiv => 1
             ],
 
             /*============================================================
@@ -404,21 +408,21 @@ trait HupaOptionTrait
             'theme_colors' => [
                 //SITE
                 $this->site_bg => '#ffffff',
-                $this->nav_bg => '#e6e6e6',
+                $this->nav_bg => '#e6e6e6cf',
                 $this->footer_bg => '#e11d2a',
-                $this->nav_bg_opacity => 95,
+                $this->nav_bg_opacity => 100,
                 //MENU
                 $this->menu_uppercase => 0,
-                $this->menu_btn_bg_color => '#e6e6e6',
-                $this->menu_btn_bg_opacity => 0,
+                $this->menu_btn_bg_color => '#e6e6e600',
+                $this->menu_btn_bg_opacity => 100,
                 $this->menu_btn_color => '#474747',
                 //BTN Active
-                $this->menu_btn_active_bg => '#e6e6e6',
-                $this->menu_btn_active_bg_opacity => 0,
+                $this->menu_btn_active_bg => '#e6e6e600',
+                $this->menu_btn_active_bg_opacity => 100,
                 $this->menu_btn_active_color => '#990000',
                 //BTN HOVER
-                $this->menu_btn_hover_bg => '#ededed',
-                $this->menu_btn_hover_bg_opacity => 0,
+                $this->menu_btn_hover_bg => '#ededed00',
+                $this->menu_btn_hover_bg_opacity => 100,
                 $this->menu_btn_hover_color => '#800000',
                 //DropDown
                 $this->menu_dropdown_bg => '#e6e6e6',

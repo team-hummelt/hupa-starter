@@ -16,9 +16,7 @@
 	?>
 <div id="content" class="site-content container">
     <div id="primary" class="content-area">
-
         <main id="main" class="site-main">
-
             <!-- Header -->
             <div class="bootstore-header py-3 py-md-5 text-center">
                 <h1 class="display-1"><?php bloginfo('name'); ?></h1>

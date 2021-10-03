@@ -25,7 +25,9 @@ defined( 'ABSPATH' ) or die();
                 </div>
                 <hr>
                 <div class="settings-btn-group">
-                    <button data-site="<?= __( 'actual', 'bootscore' ) ?>" type="button"
+                    <button data-site="<?= __( 'actual', 'bootscore' ) ?>"
+                            data-load="aktuell"
+                            type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseSettingsHomeSite"
                             aria-expanded="true" aria-controls="collapseSettingsHomeSite"
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm active" disabled><i
@@ -40,14 +42,18 @@ defined( 'ABSPATH' ) or die();
 						<?= __( 'General', 'bootscore' ) ?>
                     </button>
 
-                    <button data-site="<?= __( 'Fonts', 'bootscore' ) ?>" type="button"
+                    <button data-site="<?= __('Font', 'bootscore' ) ?>"
+                            data-load="Fonts"
+                            type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseSettingsFontsSite"
                             aria-expanded="false" aria-controls="collapseSettingsFontsSite"
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-font"></i>&nbsp;
 						<?= __( 'Fonts', 'bootscore' ) ?>
                     </button>
 
-                    <button data-site="<?= __( 'Colors', 'bootscore' ) ?>" type="button"
+                    <button data-site="<?= __( 'Colors', 'bootscore' ) ?>"
+                            data-load="Colors"
+                            type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseSettingsColorSite"
                             aria-expanded="false" aria-controls="collapseSettingsColorSite"
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-magic"></i>&nbsp;
@@ -295,15 +301,6 @@ defined( 'ABSPATH' ) or die();
 
                                                         <div class="form-check my-2 my-md-1 mx-3">
                                                             <input class="form-check-input" type="radio" name="menu"
-                                                                   id=radioMenu4
-                                                                   value="4" <?= get_hupa_option( 'menu' ) == 4 ? 'checked' : '' ?>>
-                                                            <label class="form-check-label" for="radioMenu4">
-                                                                <?= __( 'Menü unter Logo', 'bootscore' ); ?>
-                                                            </label>
-                                                        </div>
-
-                                                        <div class="form-check my-2 my-md-1 mx-3">
-                                                            <input class="form-check-input" type="radio" name="menu"
                                                                    id=radioMenu5
                                                                    value="5" <?= get_hupa_option( 'menu' ) == 5 ? 'checked' : '' ?>>
                                                             <label class="form-check-label" for="radioMenu5">
@@ -312,7 +309,7 @@ defined( 'ABSPATH' ) or die();
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12 pt-2">
+                                                <div class="col-lg-12 ">
                                                     <h6>
                                                         <i class="font-blue fa fa-bars"></i>&nbsp;<?= __( 'Handy Menu Settings', 'bootscore' ); ?>
                                                     </h6>
@@ -336,6 +333,30 @@ defined( 'ABSPATH' ) or die();
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-12 pt-2">
+                                                    <hr>
+                                                    <h6>
+                                                        <i class="font-blue fa fa-gear"></i>&nbsp;<?= __( 'Sonstige Einstellungen', 'bootscore' ); ?>
+                                                    </h6>
+                                                    <hr>
+
+                                                    <div class="form-check form-switch my-2 my-md-1 me-md-3">
+                                                        <input class="form-check-input" name="preloader_aktiv"
+                                                               type="checkbox"
+                                                               id="CheckPreloaderActive" <?=!get_hupa_option('preloader_aktiv') ?: 'checked'?>>
+                                                        <label class="form-check-label" for="CheckPreloaderActive">
+                                                            <?= __( 'Preloader aktiv', 'bootscore' ) ?>
+                                                        </label>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="mb-3">
+                                                        <label for="BottomTextarea" class="form-label">Bottom Footer Text</label>
+                                                        <textarea class="form-control" name="bottom_area_text" id="BottomTextarea" rows="3"><?=get_hupa_option('bottom_area_text')?></textarea>
+                                                        <div class="form-text">Das Aktuelle Jahr kann mit den Platzhalter <span class="text-danger"> ###YEAR### </span>ausgegeben werden. Auch HTML eingaben sind möglich</div>
+
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                         <!--//TODO JOB BILDUPLOAD LOGO AND LOGIN -->
@@ -689,7 +710,7 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                             </div>
                                             <hr>
-                                            <div class="d-flex align-items-center">
+                                            <!--<div class="d-flex align-items-center">
                                                 <div class="input-color-container">
                                                     <input id="InputColorH1"
                                                            value="<?= get_hupa_option( 'h1_font_color' ) ?>"
@@ -700,8 +721,16 @@ defined( 'ABSPATH' ) or die();
                                                     <b>H1</b> <?= __( 'Font colour', 'bootscore' ); ?>
                                                 </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                            </div>-->
+                                            <div class="d-flex align-items-center">
+                                            <div class="color-select-wrapper d-flex mb-2">
+                                                <div data-color="<?= get_hupa_option( 'h1_font_color' ) ?>" class="colorPickers">
+                                                    <input id="InputColorH1T" type="hidden" value="<?= get_hupa_option( 'h1_font_color' ) ?>" name="font_color">
+                                                </div>
+                                                <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H1 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                             </div>
-
+                                                <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                          </div>
                                         </div>
                                     </div>
                                 </form>
@@ -805,15 +834,12 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorH2"
-                                                           value="<?= get_hupa_option( 'h2_font_color' ) ?>"
-                                                           name="font_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'h2_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorH2T" type="hidden" value="<?= get_hupa_option( 'h2_font_color' ) ?>" name="font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H2 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorH2">
-                                                    <b>H2</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                             </div>
                                         </div>
@@ -920,15 +946,12 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorH3"
-                                                           value="<?= get_hupa_option( 'h3_font_color' ) ?>"
-                                                           name="font_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'h3_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorH3T" type="hidden" value="<?= get_hupa_option( 'h3_font_color' ) ?>" name="font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H3 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorH3">
-                                                    <b>H3</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                             </div>
                                         </div>
@@ -1035,15 +1058,12 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorH4"
-                                                           value="<?= get_hupa_option( 'h4_font_color' ) ?>"
-                                                           name="font_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'h4_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorH4T" type="hidden" value="<?= get_hupa_option( 'h4_font_color' ) ?>" name="font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H4 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorH4">
-                                                    <b>H4</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                             </div>
                                         </div>
@@ -1150,15 +1170,12 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorH5"
-                                                           value="<?= get_hupa_option( 'h5_font_color' ) ?>"
-                                                           name="font_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'h5_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorH5T" type="hidden" value="<?= get_hupa_option( 'h5_font_color' ) ?>" name="font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H5 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorH5">
-                                                    <b>H5</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                             </div>
                                         </div>
@@ -1264,15 +1281,12 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorH6"
-                                                           value="<?= get_hupa_option( 'h6_font_color' ) ?>"
-                                                           name="font_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'h6_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorH6T" type="hidden" value="<?= get_hupa_option( 'h6_font_color' ) ?>" name="font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">H5 </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorH6">
-                                                    <b>H6</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                </label>
                                                 <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                             </div>
                                         </div>
@@ -1385,15 +1399,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorWidget"
-                                                               value="<?= get_hupa_option( 'widget_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'widget_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorWidget" type="hidden" value="<?= get_hupa_option( 'widget_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Widget </b><?= __( 'Headline', 'bootscore' ); ?> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2" for="InputColorWidget">
-                                                        <b>Widget </b> <?= __( 'Headline', 'bootscore' ); ?> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -1499,15 +1510,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorBody"
-                                                               value="<?= get_hupa_option( 'body_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'body_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorBody" type="hidden" value="<?= get_hupa_option( 'body_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Body </b><?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2" for="InputColorBody">
-                                                        <b>Body</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2030,17 +2038,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorTopFooterHeadline"
-                                                               value="<?= get_hupa_option( 'top_footer_headline_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'top_footer_headline_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorTopFooterHeadline" type="hidden" value="<?= get_hupa_option( 'top_footer_headline_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Top Footer <?= __( 'Headline', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2"
-                                                           for="InputColorTopFooterHeadline">
-                                                        <b>Top Footer
-															<?= __( 'Headline', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2146,17 +2149,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorTopFooterBody"
-                                                               value="<?= get_hupa_option( 'top_footer_body_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'top_footer_body_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorTopFooterBody" type="hidden" value="<?= get_hupa_option( 'top_footer_body_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Top Footer <?= __( 'Body', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2"
-                                                           for="InputColorTopFooterBody">
-                                                        <b>Top Footer
-															<?= __( 'Body', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2252,17 +2250,13 @@ defined( 'ABSPATH' ) or die();
                                                     </div>
                                                 </fieldset>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorFooterHeadline"
-                                                               value="<?= get_hupa_option( 'footer_headline_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'footer_headline_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorFooterHeadline" type="hidden" value="<?= get_hupa_option( 'footer_headline_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Footer
+                                                                Widget <?= __( 'Headline', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2"
-                                                           for="InputColorFooterHeadline">
-                                                        <b>Footer
-                                                            Widget <?= __( 'Headline', 'bootscore' ); ?></b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2370,15 +2364,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorFooterWidget"
-                                                               value="<?= get_hupa_option( 'footer_widget_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'footer_widget_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorFooterWidget" type="hidden" value="<?= get_hupa_option( 'footer_widget_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Footer Widget</b> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2" for="InputColorFooterWidget">
-                                                        <b>Footer Widget</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2483,15 +2474,12 @@ defined( 'ABSPATH' ) or die();
                                                 </div>
                                                 <hr>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="input-color-container">
-                                                        <input id="InputColorFooter"
-                                                               value="<?= get_hupa_option( 'footer_font_color' ) ?>"
-                                                               name="font_color"
-                                                               class="input-color" type="color">
+                                                    <div class="color-select-wrapper d-flex mb-2">
+                                                        <div data-color="<?= get_hupa_option( 'footer_font_color' ) ?>" class="colorPickers">
+                                                            <input id="InputColorFooter" type="hidden" value="<?= get_hupa_option( 'footer_font_color' ) ?>" name="font_color">
+                                                        </div>
+                                                        <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Footer</b> <?= __( 'Font colour', 'bootscore' ); ?></h6>
                                                     </div>
-                                                    <label class="input-color-label ms-2" for="InputColorFooter">
-                                                        <b>Footer</b> <?= __( 'Font colour', 'bootscore' ); ?>
-                                                    </label>
                                                     <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                                 </div>
                                             </div>
@@ -2533,18 +2521,15 @@ defined( 'ABSPATH' ) or die();
                                                 </h6>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorSiteBG"
-                                                           value="<?= get_hupa_option( 'site_bg' ) ?>"
-                                                           name="site_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'site_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorSiteBG" type="hidden" value="<?= get_hupa_option( 'site_bg' ) ?>" name="site_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Seiten</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorSiteBG">
-													<?= __( '<b>Page</b> background colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
-                                            <div class="d-flex align-items-center pb-1">
+                                           <!-- <div class="d-flex align-items-center pb-1">
                                                 <div class="input-color-container">
                                                     <input id="InputColorNavBG"
                                                            value="<?= get_hupa_option( 'nav_bg' ) ?>"
@@ -2554,10 +2539,18 @@ defined( 'ABSPATH' ) or die();
                                                 <label class="input-color-label ms-2" for="InputColorNavBG">
 													<?= __( '<b>Navigation</b> background colour', 'bootscore' ); ?>
                                                 </label>
+                                            </div>-->
+
+                                            <div class="d-flex align-items-center mb-1">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'nav_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorNavBG" type="hidden" value="<?= get_hupa_option( 'nav_bg' ) ?>" name="nav_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Navigation</b> Hintergrundfarbe</h6>
+                                                </div>
                                             </div>
-                                            <hr>
                                             <div id="nav-bg-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeNavOpacity"
                                                        class="form-label"><b><?= __( 'Navigation Background Opacity', 'bootscore' ); ?>
                                                         ( <span class="show-range-value">
@@ -2571,24 +2564,23 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'nav_bg_opacity' ) ?>"
                                                        step="1" id="RangeNavOpacity">
                                             </div>
-                                            <hr>
+
                                             <!--//TODO JOB Footer BG TRENNER-->
                                             <div class="bg-custom-yellow mb-3">
                                                 <h6 class="card-title px-3 py-2">
 													<?= __( 'Footer colour', 'bootscore' ) ?>
                                                 </h6>
                                             </div>
-                                            <div class="d-flex align-items-center pb-4">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorFooterBG"
-                                                           value="<?= get_hupa_option( 'footer_bg' ) ?>"
-                                                           name="footer_bg"
-                                                           class="input-color" type="color">
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'footer_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorFooterBG" type="hidden" value="<?= get_hupa_option( 'footer_bg' ) ?>" name="footer_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Footer</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorFooterBG">
-													<?= __( '<b>Footer</b> background colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div><!--ITEM-END-->
@@ -2612,32 +2604,27 @@ defined( 'ABSPATH' ) or die();
                                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
 
                                             <!--//TODO JOB Menu Hover TRENNER-->
+
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorTOPBG"
-                                                           value="<?= get_hupa_option( 'top_bg_color' ) ?>"
-                                                           name="top_bg_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'top_bg_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorTOPBG" type="hidden" value="<?= get_hupa_option( 'top_bg_color' ) ?>" name="top_bg_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Top Area</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorTOPBG">
-													<?= __( '<b>Top Area</b> background colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
-                                            <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorTopFont"
-                                                           value="<?= get_hupa_option( 'top_font_color' ) ?>"
-                                                           name="top_font_color"
-                                                           class="input-color" type="color">
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'top_font_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorTopFont" type="hidden" value="<?= get_hupa_option( 'top_font_color' ) ?>" name="top_font_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Top Area</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorTopFont">
-													<?= __( '<b>Top Area</b> Font color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
-                                            <hr>
+
                                             <div id="top-area-bg-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeTopBgOpacity"
                                                        class="form-label"><b><?= __( 'Top Area Background Opacity', 'bootscore' ); ?>
                                                         ( <span class="show-range-value">
@@ -2651,7 +2638,7 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'top_bg_opacity' ) ?>"
                                                        step="1" id="RangeTopBgOpacity">
                                             </div>
-                                            <hr>
+
                                         </div>
                                     </div>
                                 </div><!--ITEM-END-->
@@ -2688,31 +2675,26 @@ defined( 'ABSPATH' ) or die();
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnBG"
-                                                           value="<?= get_hupa_option( 'menu_btn_bg_color' ) ?>"
-                                                           name="menu_btn_bg_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_bg_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnBG" type="hidden" value="<?= get_hupa_option( 'menu_btn_bg_color' ) ?>" name="menu_btn_bg_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorMenuBtnBG">
-													<?= __( 'Menu Button Background Colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnColor"
-                                                           value="<?= get_hupa_option( 'menu_btn_color' ) ?>"
-                                                           name="menu_btn_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnColor" type="hidden" value="<?= get_hupa_option( 'menu_btn_color' ) ?>" name="menu_btn_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorMenuBtnColor">
-													<?= __( 'Font colour main menu', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div id="nav-btn-bg-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeMenuBtnOpacity"
                                                        class="form-label"><b><?= __( 'Menu Button Background Opacity', 'bootscore' ); ?>
                                                         (
@@ -2726,7 +2708,7 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'menu_btn_bg_opacity' ) ?>"
                                                        step="1" id="RangeMenuBtnOpacity">
                                             </div>
-                                            <hr>
+
 
                                             <!--//TODO JOB Menu ACTIVE TRENNER-->
                                             <div class="bg-custom-yellow mb-3">
@@ -2734,33 +2716,28 @@ defined( 'ABSPATH' ) or die();
 													<?= __( 'Menu Button active', 'bootscore' ) ?>
                                                 </h6>
                                             </div>
+
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnAktivBGColor"
-                                                           value="<?= get_hupa_option( 'menu_btn_active_bg' ) ?>"
-                                                           name="menu_btn_active_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_active_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnAktivBGColor" type="hidden" value="<?= get_hupa_option( 'menu_btn_active_bg' ) ?>" name="menu_btn_active_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button aktiv</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuBtnAktivBGColor">
-													<?= __( 'Menu Button active Background colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnAktivColor"
-                                                           value="<?= get_hupa_option( 'menu_btn_active_color' ) ?>"
-                                                           name="menu_btn_active_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_active_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnAktivColor" type="hidden" value="<?= get_hupa_option( 'menu_btn_active_color' ) ?>" name="menu_btn_active_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button aktiv</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorMenuBtnAktivColor">
-													<?= __( 'Menu Button active colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div id="nav-btn-bg-aktiv-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeMenuBtnAktivOpacity"
                                                        class="form-label"><b><?= __( 'Menu Button active Background Opacity', 'bootscore' ); ?>
                                                         (
@@ -2774,40 +2751,36 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'menu_btn_active_bg_opacity' ) ?>"
                                                        step="1" id="RangeMenuBtnAktivOpacity">
                                             </div>
-                                            <hr>
+
                                             <!--//TODO JOB Menu Hover TRENNER-->
                                             <div class="bg-custom-yellow mb-3">
                                                 <h6 class="card-title px-3 py-2">
 													<?= __( 'Menu Button hover', 'bootscore' ) ?>
                                                 </h6>
                                             </div>
+
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnHoverBGColor"
-                                                           value="<?= get_hupa_option( 'menu_btn_hover_bg' ) ?>"
-                                                           name="menu_btn_hover_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_hover_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnHoverBGColor" type="hidden" value="<?= get_hupa_option( 'menu_btn_hover_bg' ) ?>" name="menu_btn_hover_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button hover</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuBtnHoverBGColor">
-													<?= __( 'Menu Button hover Background colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuBtnHoverColor"
-                                                           value="<?= get_hupa_option( 'menu_btn_hover_color' ) ?>"
-                                                           name="menu_btn_hover_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_btn_hover_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuBtnHoverColor" type="hidden" value="<?= get_hupa_option( 'menu_btn_hover_color' ) ?>" name="menu_btn_hover_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Menü Button hover</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2" for="InputColorMenuBtnHoverColor">
-													<?= __( 'Menu Button hover colour', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                             <div id="nav-btn-bg-hover-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeMenuBtnHoverOpacity"
                                                        class="form-label"><b><?= __( 'Menu Button hover Background Opacity', 'bootscore' ); ?>
                                                         (
@@ -2821,7 +2794,6 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'menu_btn_hover_bg_opacity' ) ?>"
                                                        step="1" id="RangeMenuBtnHoverOpacity">
                                             </div>
-                                            <hr>
 
                                             <!--//TODO JOB Menu DropDown TRENNER-->
                                             <div class="bg-custom-green mb-3">
@@ -2831,33 +2803,26 @@ defined( 'ABSPATH' ) or die();
                                             </div>
 
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownBGColor"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_bg' ) ?>"
-                                                           name="menu_dropdown_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownBGColor" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_bg' ) ?>" name="menu_dropdown_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownBGColor">
-													<?= __( 'Background colour main menu dropdown', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownColor"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_color' ) ?>"
-                                                           name="menu_dropdown_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownColor" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_color' ) ?>" name="menu_dropdown_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown </b>Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownColor">
-													<?= __( 'Dropdown Color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div id="nav-dropdown-bg-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeDropDownBGOpacity"
                                                        class="form-label"><b><?= __( 'DropDown Background Opacity', 'bootscore' ); ?>
                                                         (
@@ -2871,41 +2836,34 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'menu_dropdown_bg_opacity' ) ?>"
                                                        step="1" id="RangeDropDownBGOpacity">
                                             </div>
-                                            <hr>
+
                                             <!--//TODO JOB Menu DropDown Aktiv TRENNER-->
                                             <div class="bg-custom-green mb-3">
                                                 <h6 class="card-title px-3 py-2">
 													<?= __( 'Dropdown active', 'bootscore' ) ?>
                                                 </h6>
                                             </div>
+
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownBGAktive"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_active_bg' ) ?>"
-                                                           name="menu_dropdown_active_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_active_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownBGAktive" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_active_bg' ) ?>" name="menu_dropdown_active_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown aktiv</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownBGAktive">
-													<?= __( 'Background Dropdown active', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownAktivColor"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_active_color' ) ?>"
-                                                           name="menu_dropdown_active_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_active_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownAktivColor" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_active_color' ) ?>" name="menu_dropdown_active_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown aktiv</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownAktivColor">
-													<?= __( 'Dropdown active Color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div id="nav-dropdown-bg-aktiv-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeDropDownAkivBGOpacity"
                                                        class="form-label"><b><?= __( 'DropDown Background active Opacity', 'bootscore' ); ?>
                                                         (
@@ -2920,7 +2878,7 @@ defined( 'ABSPATH' ) or die();
                                                        value="<?= get_hupa_option( 'menu_dropdown_active_bg_opacity' ) ?>"
                                                        step="1" id="RangeDropDownAkivBGOpacity">
                                             </div>
-                                            <hr>
+
                                             <!--//TODO JOB Menu DropDown Hover TRENNER-->
                                             <div class="bg-custom-green mb-3">
                                                 <h6 class="card-title px-3 py-2">
@@ -2928,33 +2886,25 @@ defined( 'ABSPATH' ) or die();
                                                 </h6>
                                             </div>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownBGHover"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_hover_bg' ) ?>"
-                                                           name="menu_dropdown_hover_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_hover_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownBGHover" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_hover_bg' ) ?>" name="menu_dropdown_hover_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown aktiv hover</b> Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownBGHover">
-													<?= __( 'Background Dropdown hover', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputColorMenuDropDownHoverColor"
-                                                           value="<?= get_hupa_option( 'menu_dropdown_hover_color' ) ?>"
-                                                           name="menu_dropdown_hover_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'menu_dropdown_hover_color' ) ?>" class="colorPickers">
+                                                        <input id="InputColorMenuDropDownHoverColor" type="hidden" value="<?= get_hupa_option( 'menu_dropdown_hover_color' ) ?>" name="menu_dropdown_hover_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Dropdown aktiv hover</b> Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputColorMenuDropDownHoverColor">
-													<?= __( 'Dropdown hover color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div id="nav-dropdown-bg-hover-opacity"
-                                                 class="col-lg-5 col-md-6 col-12">
+                                                 class="col-lg-5 col-md-6 col-12 d-none">
                                                 <label for="RangeDropDownHoverBGOpacity"
                                                        class="form-label"><b><?= __( 'DropDown Background hover Opacity', 'bootscore' ); ?>
                                                         (
@@ -2962,14 +2912,13 @@ defined( 'ABSPATH' ) or die();
                                                         - 100 % )</b>
                                                 </label>
                                                 <input data-container="nav-dropdown-bg-hover-opacity" type="range"
-                                                       class="form-range sizeRange"
+                                                       class="form-range sizeRange "
                                                        name="menu_dropdown_hover_bg_opacity"
                                                        min="0"
                                                        max="100"
                                                        value="<?= get_hupa_option( 'menu_dropdown_hover_bg_opacity' ) ?>"
                                                        step="1" id="RangeDropDownHoverBGOpacity">
                                             </div>
-                                            <hr>
                                         </div>
                                     </div>
                                 </div>
@@ -2997,29 +2946,21 @@ defined( 'ABSPATH' ) or die();
                                                 </h6>
                                             </div>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLoginBG"
-                                                           value="<?= get_hupa_option( 'login_bg' ) ?>"
-                                                           name="login_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'login_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputLoginBG" type="hidden" value="<?= get_hupa_option( 'login_bg' ) ?>" name="login_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Hintergrundfarbe</b></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLoginBG">
-													<?= __( 'Background color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLoginColor"
-                                                           value="<?= get_hupa_option( 'login_color' ) ?>"
-                                                           name="login_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'login_color' ) ?>" class="colorPickers">
+                                                        <input id="InputLoginColor" type="hidden" value="<?= get_hupa_option( 'login_color' ) ?>" name="login_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Schriftfarbe</b></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLoginColor">
-													<?= __( 'Font color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="bg-custom-yellow mb-3">
@@ -3028,29 +2969,21 @@ defined( 'ABSPATH' ) or die();
                                                 </h6>
                                             </div>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLoginButtonBG"
-                                                           value="<?= get_hupa_option( 'login_btn_bg' ) ?>"
-                                                           name="login_btn_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'login_btn_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputLoginButtonBG" type="hidden" value="<?= get_hupa_option( 'login_btn_bg' ) ?>" name="login_btn_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Button </b>Hintergrundfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLoginButtonBG">
-													<?= __( 'Button Background color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLoginButtonColor"
-                                                           value="<?= get_hupa_option( 'login_btn_color' ) ?>"
-                                                           name="login_btn_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'login_btn_color' ) ?>" class="colorPickers">
+                                                        <input id="InputLoginButtonColor" type="hidden" value="<?= get_hupa_option( 'login_btn_color' ) ?>" name="login_btn_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"> <b class="fw-bold">Button </b>Schriftfarbe</h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLoginButtonColor">
-													<?= __( 'Button Font color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
 
@@ -3074,44 +3007,34 @@ defined( 'ABSPATH' ) or die();
                                          data-bs-parent="#accordionColorSettings">
 
                                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
+
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLinkColor"
-                                                           value="<?= get_hupa_option( 'link_color' ) ?>"
-                                                           name="link_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'link_color' ) ?>" class="colorPickers">
+                                                        <input id="InputLinkColor" type="hidden" value="<?= get_hupa_option( 'link_color' ) ?>" name="link_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1"> <?= __( 'Link color', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLinkColor">
-													<?= __( 'Link color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLinkAktivColor"
-                                                           value="<?= get_hupa_option( 'link_aktiv_color' ) ?>"
-                                                           name="link_aktiv_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'link_aktiv_color' ) ?>" class="colorPickers">
+                                                        <input id="InputLinkAktivColor" type="hidden" value="<?= get_hupa_option( 'link_aktiv_color' ) ?>" name="link_aktiv_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1"> <?= __( 'Link active color', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLinkAktivColor">
-													<?= __( 'Link active color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputLinkHoverColor"
-                                                           value="<?= get_hupa_option( 'link_hover_color' ) ?>"
-                                                           name="link_hover_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'link_hover_color' ) ?>" class="colorPickers">
+                                                        <input id="InputLinkHoverColor" type="hidden" value="<?= get_hupa_option( 'link_hover_color' ) ?>" name="link_hover_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1"> <?= __( 'Link hover color', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputLinkHoverColor">
-													<?= __( 'Link hover color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
+
                                             <hr>
                                         </div>
                                     </div>
@@ -3132,30 +3055,23 @@ defined( 'ABSPATH' ) or die();
                                          data-bs-parent="#accordionColorSettings">
 
                                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
+
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputScrollTopBG"
-                                                           value="<?= get_hupa_option( 'scroll_btn_bg' ) ?>"
-                                                           name="scroll_btn_bg"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'scroll_btn_bg' ) ?>" class="colorPickers">
+                                                        <input id="InputScrollTopBG" type="hidden" value="<?= get_hupa_option( 'scroll_btn_bg' ) ?>" name="scroll_btn_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1"> <?= __( 'Background color', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputScrollTopBG">
-													<?= __( 'Background color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                             <div class="d-flex align-items-center pb-1">
-                                                <div class="input-color-container">
-                                                    <input id="InputScrollTopColor"
-                                                           value="<?= get_hupa_option( 'scroll_btn_color' ) ?>"
-                                                           name="scroll_btn_color"
-                                                           class="input-color" type="color">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option( 'scroll_btn_color' ) ?>" class="colorPickers">
+                                                        <input id="InputScrollTopColor" type="hidden" value="<?= get_hupa_option( 'scroll_btn_color' ) ?>" name="scroll_btn_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1"> <?= __( 'Icon color', 'bootscore' ); ?></h6>
                                                 </div>
-                                                <label class="input-color-label ms-2"
-                                                       for="InputScrollTopColor">
-													<?= __( 'Icon color', 'bootscore' ); ?>
-                                                </label>
                                             </div>
                                             <hr>
                                         </div>
@@ -3434,6 +3350,7 @@ defined( 'ABSPATH' ) or die();
             </div>
         </div>
     </div>
+
 </div><!--Wrapper-->
 <div id="snackbar-success"></div>
 <div id="snackbar-warning"></div>

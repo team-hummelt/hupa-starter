@@ -318,8 +318,8 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			//NAVBAR ROOT (1)
 			$html .= '.navbar-root {'."\r\n";
-			$html .= 'padding-top: 2rem ;'."\r\n";
-			$html .= 'padding-bottom: 2rem ;'."\r\n";
+			$html .= 'padding-top: 1.5rem ;'."\r\n";
+			$html .= 'padding-bottom: 1.5rem ;'."\r\n";
 			$html .= '-webkit-transition: all 450ms;'."\r\n";
 			$html .= '-moz-transition: all 450ms;'."\r\n";
 			$html .= '-o-transition: all 450ms;'."\r\n";
@@ -335,16 +335,17 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			//NAVBAR
 			$html .= '#nav-main-starter.navbar-root {'."\r\n";
             $html .= 'z-index: 1;'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).$this->make_transparent_hex(get_hupa_option( 'nav_bg_opacity' )).';'."\r\n";
+            //$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).$this->make_transparent_hex(get_hupa_option( 'nav_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root .dropdown-toggle:active,#nav-main-starter.navbar-root .open .dropdown-toggle,#nav-main-starter.navbar-root .dropdown-toggle:focus {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_hover_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link {'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_bg_color' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_bg_color' ).';'."\r\n";
 			$html .= $menuBtn->family."\r\n";
 			$html .= $menuBtn->fontSize."\r\n";
 			$html .= $menuBtn->fontStyle."\r\n";
@@ -399,7 +400,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root .dropdown-menu .dropdown-item:hover,#nav-main-starter.navbar-root .dropdown-item:focus,#nav-main-starter .navbar-root .dropdown-item:active {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_hover_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_dropdown_hover_bg_opacity' )).'!important;'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_hover_bg' ).'!important;'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_dropdown_hover_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
@@ -417,7 +418,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root li.current_page_item a,#nav-main-starter.navbar-root li.current-menu-parent.active a,#nav-main-starter.navbar-root li.current-menu-item.active a,#nav-main-starter.navbar-root li.current-menu-item a.active {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_active_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_active_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_active_bg' ).';'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_btn_active_color' ).';'."\r\n";
 			$html .= 'border-bottom: 1px solid '.get_hupa_option( 'menu_btn_color' ).'65;'."\r\n";
 			$html .= '}'."\r\n";
@@ -438,13 +439,13 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			$html .= '#nav-main-starter.navbar-root .dropdown-menu a.dropdown-item.active {'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_dropdown_active_color' ).'!important;'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_active_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_dropdown_active_bg_opacity' )).'!important;'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_active_bg' ).'!important;'."\r\n";
 			$html .= '}'."\r\n";
 
 			//TOP AREA
 			$topArea = $this->css_styles_by_type( 'font', 'top_font' );
 			$html .= '#top-area-wrapper {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'top_bg_color' ).$this->make_transparent_hex(get_hupa_option( 'top_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'top_bg_color' ).';'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'top_font_color' ).';'."\r\n";
 			$html .= 'text-align: center;'."\r\n";
 			$html .= 'min-height: 50px;'."\r\n";
@@ -481,7 +482,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= '}'."\r\n";
 
 			$html .= '#top-area-wrapper #top-area-nav .navbar-nav ul.sub-menu,#top-area-wrapper #top-area-nav .navbar-nav .ul.sub-menu li {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'top_bg_color' ).$this->make_transparent_hex(get_hupa_option( 'top_bg_opacity' )).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'top_bg_color' ).';'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'top_font_color' ).';'."\r\n";
 			$html .= 'border: 1px solid '.get_hupa_option( 'top_font_color' ).'26'."\r\n";
 			$html .= '}'."\r\n";

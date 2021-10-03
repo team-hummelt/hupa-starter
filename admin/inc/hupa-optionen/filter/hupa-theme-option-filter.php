@@ -610,7 +610,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 case 1:
                     $return['block'] = 'center';
                     $return['logo'] = 'position-absolute';
-                    $return['widget'] = 'position-absolute';
+                    $return['widget'] = 'position-absolute  me-4 me-lg-0';
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
@@ -618,7 +618,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 case 2:
                     $return['block'] = 'start ps-lg-4';
                     $return['logo'] = '';
-                    $return['widget'] = 'position-absolute';
+                    $return['widget'] = 'position-absolute me-4 me-lg-0';
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
@@ -635,7 +635,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['block'] = 'start';
                     $return['logo'] = '';
                     $return['widget'] = 'position-absolute top-0';
-                    $return['container'] = 'd-block';
+                    $return['container'] = '';
                     $return['height'] = 'py-3';
                     $return['show_img'] = true;
                     break;

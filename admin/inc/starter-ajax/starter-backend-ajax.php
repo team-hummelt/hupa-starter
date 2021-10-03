@@ -89,20 +89,20 @@ switch ($method) {
                 $email_passwort = filter_input(INPUT_POST, 'email_passwort', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
                 filter_input(INPUT_POST, 'smtp_auth_check', FILTER_SANITIZE_STRING) ? $smtp_auth_check = 1 : $smtp_auth_check = 0;
 
-                if(!$email_passwort){
+                if (!$email_passwort) {
                     $email_passwort = get_hupa_option('email_passwort');
                 }
 
                 $theme_email_settings = [
-                'email_abs_name' => $email_abs_name,
-                'email_adresse' => $email_adresse,
-                'smtp_host' => $smtp_host,
-                'smtp_port' => $smtp_port,
-                'smtp_secure' => $smtp_secure,
-                'email_benutzer' => $email_benutzer,
-                'email_passwort' => $email_passwort,
-                'smtp_auth_check' => $smtp_auth_check
-            ];
+                    'email_abs_name' => $email_abs_name,
+                    'email_adresse' => $email_adresse,
+                    'smtp_host' => $smtp_host,
+                    'smtp_port' => $smtp_port,
+                    'smtp_secure' => $smtp_secure,
+                    'email_benutzer' => $email_benutzer,
+                    'email_passwort' => $email_passwort,
+                    'smtp_auth_check' => $smtp_auth_check
+                ];
                 apply_filters('update_hupa_options', apply_filters('arrayToObject', $theme_email_settings), 'hupa_smtp');
                 $responseJson->spinner = true;
                 break;
@@ -141,6 +141,10 @@ switch ($method) {
                 if (!$record->logo_image) {
                     $record->logo_size = 200;
                 }
+                //Sonstige Settings
+                filter_input(INPUT_POST, 'preloader_aktiv', FILTER_SANITIZE_STRING) ? $record->preloader_aktiv = 1 : $record->preloader_aktiv = 0;
+                $bottom_area_text = filter_input(INPUT_POST, 'bottom_area_text');
+                $record->bottom_area_text = esc_textarea($bottom_area_text);
 
                 apply_filters('update_hupa_options', $record, 'hupa_general');
                 //TODO JOB WARNING UPDATE CSS FILE
@@ -466,7 +470,6 @@ switch ($method) {
                 break;
         }
         break;
-
 
 
     case'reset_settings':
@@ -810,9 +813,9 @@ switch ($method) {
             }
 
             if ($icon) {
-                $iconData = explode('#',$icon);
+                $iconData = explode('#', $icon);
                 $icon = '<i class="' . $iconData[0] . ' me-1"></i>';
-                $icon_value =$iconData[0] .'#'.$iconData[1];
+                $icon_value = $iconData[0] . '#' . $iconData[1];
                 $iconUnicode = $iconData[1];
             } else {
                 $icon = false;
@@ -830,7 +833,7 @@ switch ($method) {
                 'border_color' => $border_color,
                 'bg_color' => $bg_color,
                 'hover_color' => $hover_color,
-                'hover_border'=> $hover_border,
+                'hover_border' => $hover_border,
                 'bg_hover' => $bg_hover,
                 'btn_text' => $btn_text,
                 'icon' => $icon,
@@ -958,4 +961,5 @@ switch ($method) {
     case'get_maps_language':
         $responseJson->lang = apply_filters('get_theme_language', 'gmaps_pin_form')->language;
         break;
+
 }

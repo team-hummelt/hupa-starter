@@ -1,11 +1,12 @@
 @import "theme-tools";
+
 #nav-main-starter .menu-item:last-child .nav-link {
   padding-right: .5rem;
 }
 
 .loader-wrapper {
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
@@ -14,9 +15,63 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   .fa {
     color: #e2e2e2;
   }
+}
+
+#nav-main-starter  .offcanvas.menu1.show {
+  background-color: rgba(255,255,255,.9);
+}
+
+#nav-main-starter  .offcanvas.menu1 .offcanvas-header {
+  background-color: rgba(221,221,221,.95);
+}
+
+#nav-main-starter  .offcanvas.menu2.show {
+  background-color: rgba(0,0,0,.6);
+
+  ul#bootscore-navbar.navbar-nav .nav-link {
+    color: #fff!important;
+
+  }
+}
+
+#nav-main-starter .offcanvas.menu2.show ul#bootscore-navbar.navbar-nav .nav-link:hover{
+  color: #c1c1c1!important;
+}
+
+#nav-main-starter .offcanvas.menu2 .offcanvas-header {
+  background-color: rgba(0,0,0,.95);
+}
+
+.font-blue {
+  color: #246dab;
+}
+
+#nav-main-starter .offcanvas.menu1 .offcanvas-header .handy-link-font {
+  font-size: 1rem;
+  color: #246dab;
+  transition: all 350ms;
+}
+
+#nav-main-starter .offcanvas.menu1 .offcanvas-header:hover .handy-link-font{
+  transition: all 350ms;
+  transform: scale(1.1);
+}
+
+#nav-main-starter .offcanvas.menu2 .offcanvas-header .handy-link-font,  .offcanvas.menu2 .offcanvas-header i{
+
+  font-size: 1rem;
+  color: #ffffff!important;
+  opacity: 1;
+  transition: all 350ms;
+}
+
+#nav-main-starter .offcanvas.menu2 .offcanvas-header:hover .handy-link-font{
+  transition: all 350ms;
+  transform: scale(1.1);
 }
 
 #wp-calendar.wp-calendar-table {
@@ -36,8 +91,16 @@
   right: 20px;
 }
 
+.navbar-root .logo.md {
+  transition: all 450ms;
+}
+
 .navbar-root .logo.md.small-logo {
-  max-width: 90%;
+  //max-width: 90%;
+  height: 46px;
+ // -o-object-fit: cover;
+ // object-fit: cover;
+  transition: all 450ms;
 }
 
 .carousel-caption {
@@ -45,24 +108,34 @@
   margin-bottom: 3rem;
 }
 
+.widget-area .searchform.input-group {
+  z-index: 0;
+}
+
 .navbar-root .logo.sm {
-width: 70%;
+  //width: 70%;
+  //transform: scale(.65);
+  height: 46px;
+  -o-object-fit: cover;
+  object-fit: cover
 }
 
 .middle-img {
-  transition:  all 450ms;
-}
-.middle-img-sm {
-  //transition: all 450ms;
-  transform: scale(.65);
+  transition: all 450ms;
 }
 
-.navbar-root  {
+.middle-img-sm {
+  //transition: all 450ms;
+  //transform: scale(.65);
+  height: 46px;
+}
+
+.navbar-root {
   border-bottom: 1px solid #d0d0d0;
 }
 
 .hupa-box-shadow {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2)!important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
 .slider_navigation_light {
@@ -92,10 +165,11 @@ width: 70%;
 }
 
 .slider-button-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
   .btn {
     margin: 0 .25rem 1.5rem .25rem;
   }
@@ -103,16 +177,16 @@ width: 70%;
 
 .carousel {
   i.fa {
-    font-family: "FontAwesome", sans-serif!important;
-    font-weight: normal!important;
-    font-variant: normal!important;
+    font-family: "FontAwesome", sans-serif !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
   }
 }
 
 .bgImage {
   z-index: 0;
   width: 100%;
- // height: 50vh;
+  // height: 50vh;
   -o-object-fit: cover;
   object-fit: cover
 }
@@ -154,8 +228,8 @@ width: 70%;
   border-radius: 50%;
 }
 
-.carousel-indicators button.active{
-background-color: #ebebeb;
+.carousel-indicators button.active {
+  background-color: #ebebeb;
 }
 
 @media (max-width: 768px) {
@@ -164,18 +238,45 @@ background-color: #ebebeb;
   }
 }
 
-.preloader{
+.middle-image-nav-sm{
+  display: none;
+}
+
+@media (max-width: 978px) {
+  .menu-logo {
+    display: none;
+    position: absolute;
+    //transform: scale(.8);
+    height: 46px;
+    top: 0;
+    left: 2rem;
+  }
+
+  .middle-image-nav-sm {
+    position: relative;
+    display: block;
+    img {
+      //width: 2.5rem;
+      height: 46px;
+      //height: auto;
+      -o-object-fit: cover;
+      object-fit: cover;
+    }
+  }
+}
+
+.preloader {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   display: table;
-  background: rgba(255,255,255,.95);
+  background: rgba(255, 255, 255, .95);
   z-index: 9999;
 }
 
-.preloder-wrap{
+.preloder-wrap {
   display: table-cell;
   vertical-align: middle;
 }
@@ -244,39 +345,75 @@ background-color: #ebebeb;
 
 
 @-webkit-keyframes right {
-  0%   { -webkit-transform: translate(-15px);   }
-  50%  { -webkit-transform: translate(15px);    }
-  100% { -webkit-transform: translate(-15px);   }
+  0% {
+    -webkit-transform: translate(-15px);
+  }
+  50% {
+    -webkit-transform: translate(15px);
+  }
+  100% {
+    -webkit-transform: translate(-15px);
+  }
 }
 
 @-webkit-keyframes left {
-  0%   { -webkit-transform: translate(15px);    }
-  50%  { -webkit-transform: translate(-15px);   }
-  100% { -webkit-transform: translate(15px);    }
+  0% {
+    -webkit-transform: translate(15px);
+  }
+  50% {
+    -webkit-transform: translate(-15px);
+  }
+  100% {
+    -webkit-transform: translate(15px);
+  }
 }
 
 @-moz-keyframes right {
-  0%   { -moz-transform: translate(-15px);   }
-  50%  { -moz-transform: translate(15px);    }
-  100% { -moz-transform: translate(-15px);   }
+  0% {
+    -moz-transform: translate(-15px);
+  }
+  50% {
+    -moz-transform: translate(15px);
+  }
+  100% {
+    -moz-transform: translate(-15px);
+  }
 }
 
 @-moz-keyframes left {
-  0%   { -moz-transform: translate(15px);    }
-  50%  { -moz-transform: translate(-15px);   }
-  100% { -moz-transform: translate(15px);    }
+  0% {
+    -moz-transform: translate(15px);
+  }
+  50% {
+    -moz-transform: translate(-15px);
+  }
+  100% {
+    -moz-transform: translate(15px);
+  }
 }
 
 @keyframes right {
-  0%   { transform: translate(-15px);  }
-  50%  { transform: translate(15px);   }
-  100% { transform: translate(-15px);  }
+  0% {
+    transform: translate(-15px);
+  }
+  50% {
+    transform: translate(15px);
+  }
+  100% {
+    transform: translate(-15px);
+  }
 }
 
 @keyframes left {
-  0%   { transform: translate(15px);   }
-  50%  { transform: translate(-15px);  }
-  100% { transform: translate(15px);   }
+  0% {
+    transform: translate(15px);
+  }
+  50% {
+    transform: translate(-15px);
+  }
+  100% {
+    transform: translate(15px);
+  }
 }
 
 

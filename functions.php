@@ -7,6 +7,8 @@
  * @package Bootscore
  */
 
+//TODO WARNING JOB THEME INIT
+require_once('admin/hupa-starter-options-init.php');
 
 //TODO THEME UPDATER
 //delete_option('hupa_starter_product_install_authorize');
@@ -22,8 +24,7 @@ function hupa_register_theme_updater()
     $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
 }
 
-//TODO WARNING JOB THEME INIT
-require_once('admin/hupa-starter-options-init.php');
+
 
 
 

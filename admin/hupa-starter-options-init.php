@@ -93,13 +93,12 @@ define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
 
 
+//TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
+require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
 //TODO LICENSE
 require THEME_ADMIN_INC . 'license/license-init.php';
 if(get_option('hupa_starter_product_install_authorize')) {
     require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
-    //TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
-    require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
-
     add_action( 'after_setup_theme','hupa_register_theme_updater');
 }
 

@@ -29,7 +29,7 @@
                             <?php echo get_avatar( get_the_author_meta('email'), '80', $default='', $alt='', array( 'class' => array( 'img-thumbnail rounded-circle' ) ) ); ?>
                         </div>
                         <div class="author-bio">
-                            <h1><?php the_author(); ?></h1>
+                            <h1 class="fs-2"><?php the_author(); ?></h1>
                             <?php the_author_meta('description'); ?>
                         </div>
                     </header>
@@ -37,32 +37,35 @@
                     <!-- .page-header -->
                     <!-- Grid Layout -->
                     <?php if (have_posts() ) : ?>
-                    <?php while (have_posts() ) : the_post(); ?>
+                    <?php while (have_posts() ) : the_post();
+                    $pageSettings = apply_filters('get_page_meta_data', (int)get_the_ID());?>
                     <div class="card horizontal mb-4">
                         <div class="row">
                             <!-- Featured Image-->
+                            <?php if(get_hupa_option('author_image')):?>
                             <?php if (has_post_thumbnail() )
 							echo '<div class="card-img-left-md col-lg-5">' . get_the_post_thumbnail(null, 'medium') . '</div>';
-							?>
+							endif;?>
                             <div class="col">
                                 <div class="card-body">
-
-                                    <?php bootscore_category_badge(); ?>
-
+                                    <?php !get_hupa_option('post_kategorie') ?: bootscore_category_badge() ; ?>
                                     <!-- Title -->
-                                    <h2 class="blog-post-title">
+                                    <h4 class="blog-post-title">
                                         <a href="<?php the_permalink(); ?>">
-                                            <?php the_title(); ?>
+                                            <?php
+                                            if ($pageSettings->showTitle) {
+                                                echo $pageSettings->custom_title ?: get_the_title();
+                                            } ?>
                                         </a>
-                                    </h2>
+                                    </h4>
                                     <!-- Meta -->
                                     <?php if ( 'post' === get_post_type() ) : ?>
                                     <small class="text-muted mb-2">
                                         <?php
-									bootscore_date();
-									bootscore_author();
-									bootscore_comments();
-									bootscore_edit();
+                                        !get_hupa_option('post_date') ?: bootscore_date();
+                                        !get_hupa_option('post_autor') ?: the_author_posts_link();
+                                        !get_hupa_option('post_kommentar') ?: bootscore_comment_count();
+                                        !get_hupa_option('edit_link') ?:bootscore_edit();
 									?>
                                     </small>
                                     <?php endif; ?>
@@ -70,11 +73,12 @@
                                     <div class="card-text mt-auto">
                                         <?php the_excerpt(); ?> <a class="read-more" href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                     </div>
+                                     <?php if(get_hupa_option('social_author')): ?>
                                     <footer <?php post_class("entry-footer autor") ?>>
                                         <?php hupa_social_media(); ?>
-                                    </footer>
+                                    </footer><?php endif; ?>
                                     <!-- Tags -->
-                                    <?php bootscore_tags(); ?>
+                                    <?php !get_hupa_option('post_tags') ?: bootscore_tags(); ?>
                                 </div>
                             </div>
                         </div>

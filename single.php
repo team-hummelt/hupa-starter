@@ -14,15 +14,16 @@ get_header(); ?>
             <!-- Hook to add something nice -->
             <?php bs_after_primary(); ?>
 
-            <?php the_breadcrumb(); ?>
+            <?php !get_hupa_option('post_breadcrumb') ?: the_breadcrumb(); ?>
 
             <div class="row">
                 <div class="col-md-8 col-xxl-9">
                     <main id="main" class="site-main">
 
-                        <header class="entry-header">
+                        <header <?php post_class("entry-header") ?> >
                             <?php the_post(); ?>
-                            <?php bootscore_category_badge(); ?>
+
+                            <?php !get_hupa_option('post_kategorie') ?: bootscore_category_badge() ; ?>
                             <?php
                             if ($pageSettings->showTitle) {
                                 echo $pageSettings->custom_title ? '<h1 ' . $titleCss . '> ' . $pageSettings->custom_title . '</h1>' : '<h1 ' . $titleCss . '>' . get_the_title() . '</h1>';
@@ -31,22 +32,23 @@ get_header(); ?>
                             <p class="entry-meta">
                                 <small class="text-muted">
                                     <?php
-                                    bootscore_date();
-                                    _e(' by ', 'bootscore');
-                                    the_author_posts_link();
-                                    bootscore_comment_count();
+                                  !get_hupa_option('post_date') ?: bootscore_date();
+                                  !get_hupa_option('post_date') ?: _e(' by ', 'bootscore');
+                                  !get_hupa_option('post_autor') ?: the_author_posts_link();
+                                  !get_hupa_option('post_kommentar') ?: bootscore_comment_count();
                                     ?>
                                 </small>
                             </p>
                             <?php bootscore_post_thumbnail(); ?>
                         </header>
-                        <div class="entry-content">
+                        <div <?php post_class("entry-content") ?>>
                             <?php the_content(); ?>
                         </div>
 
-                        <footer class="entry-footer clear-both">
+                        <footer <?php post_class("entry-footer clear-both") ?>>
+                            <?php hupa_social_media(); ?>
                             <div class="mb-4">
-                                <?php bootscore_tags(); ?>
+                                <?php !get_hupa_option('post_tags') ?: bootscore_tags(); ?>
                             </div>
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination justify-content-center">
@@ -59,7 +61,6 @@ get_header(); ?>
                                 </ul>
                             </nav>
                         </footer>
-
                         <?php comments_template(); ?>
 
                     </main> <!-- #main -->

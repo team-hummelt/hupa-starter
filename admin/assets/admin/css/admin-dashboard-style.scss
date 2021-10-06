@@ -11,6 +11,13 @@ body .wp-bs-starter-wrapper {
   font-size: 1rem;
 }
 
+.bg-settings {
+  background-color: #e0e0e0;
+  border-top: 1px solid #a5a5a5;
+  border-bottom: 1px solid #a5a5a5;
+  margin: 1.5rem -1rem;
+}
+
 .pcr-app .pcr-interaction .pcr-type.active {
   color: #fff;
   background: #4996d4;
@@ -352,6 +359,7 @@ background-color: #fdfdfd!important;
 
   .bg-custom-gray {
     background-color: $bg-gray;
+    overflow: hidden;
   }
 
   .bg-custom-yellow {

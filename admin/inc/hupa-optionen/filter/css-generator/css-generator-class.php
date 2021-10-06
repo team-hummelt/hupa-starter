@@ -287,13 +287,16 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			//FULLWIDTH CONTAINER
 			$html .= '.container-fullwidth {'."\r\n";
-			$html .= 'width: 100%;'."\r\n";
+			$html .= 'width: 100vw!important;'."\r\n";
+            $html .= 'position: relative!important;'."\r\n";
+            $html .= 'left: 50%!important;'."\r\n";
+            $html .= 'margin-left: -50vw!important;'."\r\n";
 			$html .= 'padding-right: '.$this->px_to_rem(get_hupa_option( 'fw_right' )).'!important;'."\r\n";
 			$html .= 'padding-left: '.$this->px_to_rem(get_hupa_option( 'fw_left' )).'!important;'."\r\n";
 			$html .= 'padding-top: '.$this->px_to_rem(get_hupa_option( 'fw_top' )).'!important;'."\r\n";
 			$html .= 'padding-bottom: '.$this->px_to_rem(get_hupa_option( 'fw_bottom' )).'!important;'."\r\n";
-			$html .= 'margin-right: auto;'."\r\n";
-			$html .= 'margin-left: auto;'."\r\n";
+			$html .= 'margin-bottom: 0!important;'."\r\n";
+            $html .= 'margin-top: 0!important;'."\r\n";
 			$html .= '}'."\r\n";
 
 
@@ -334,7 +337,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 			//NAVBAR
 			$html .= '#nav-main-starter.navbar-root {'."\r\n";
-            $html .= 'z-index: 1;'."\r\n";
+            //$html .= 'z-index: 1;'."\r\n";
             //$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).$this->make_transparent_hex(get_hupa_option( 'nav_bg_opacity' )).';'."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";

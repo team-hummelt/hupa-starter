@@ -28,7 +28,7 @@ get_header();
                     <div class="col-md-8 col-xxl-9">
 
                         <main id="main" class="site-main">
-                            <header class="entry-header">
+                            <header <?php post_class("entry-header") ?> >
                                 <?php the_post(); ?>
                                 <!-- Title -->
                                 <?php
@@ -41,7 +41,7 @@ get_header();
                                 <!-- .entry-header -->
                             </header>
 
-                            <div class="entry-content">
+                            <div  <?php post_class("entry-content") ?>>
                                 <!-- Content -->
                                 <?php
                                 the_content();
@@ -53,7 +53,10 @@ get_header();
                                 ));
                                 ?>
                             </div>
-                            <footer class="entry-footer">
+                            <footer <?php post_class("entry-footer") ?> >
+                                <?php
+                                hupa_social_media();
+                                ?>
                             </footer>
                             <!-- Comments -->
                             <?php comments_template(); ?>

@@ -16,7 +16,6 @@ $args = array(
 );
 $footer = new WP_Query( $args );
 
-//print_r($footer->posts);
 
 $args = array(
 	'post_type' => 'starter-header',
@@ -26,8 +25,6 @@ $args = array(
 $header = new WP_Query( $args );
 
 
-//print_r($header->posts);
-echo get_hupa_option( 'menu_btn_bg_color' );
 ?>
 <div class="wp-bs-starter-wrapper my3">
     <div class="container">
@@ -118,14 +115,14 @@ echo get_hupa_option( 'menu_btn_bg_color' );
                                                                        placeholder="<?= __( 'Look what I found:', 'bootscore' ); ?>"
                                                                        class="form-control" id="Share<?= $tmp->id ?>">
                                                             </div>
-                                                            <div class="my-1">
+                                                            <!--<div class="my-1">
                                                                 <label for="Url<?= $tmp->id ?>"
                                                                        class="form-label mb-0"><small
                                                                             class="text-muted"><?= __( 'Url for Top Area or Widget', 'bootscore' ); ?></small></label>
                                                                 <input type="text" name="<?= $tmp->slug ?>url"
                                                                        class="form-control" value="<?= $tmp->url ?>"
                                                                        id="Url<?= $tmp->id ?>">
-                                                            </div>
+                                                            </div>-->
 														<?php endif; ?>
                                                     </div>
                                                 </div>

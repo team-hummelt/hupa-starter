@@ -33,16 +33,14 @@ get_header(); ?>
                 <div class="container pb-5">
 
                     <div class="entry-content">
-
-                        <?php bootscore_category_badge(); ?>
-
+                        <?php !get_hupa_option('post_kategorie') ?: bootscore_category_badge() ; ?>
                         <p class="entry-meta">
                             <small class="text-muted">
                                 <?php
-                                bootscore_date();
-                                _e(' by ', 'bootscore');
-                                the_author_posts_link();
-                                bootscore_comment_count();
+                                !get_hupa_option('post_date') ?: bootscore_date();
+                                !get_hupa_option('post_date') ?: _e(' by ', 'bootscore');
+                                !get_hupa_option('post_autor') ?: the_author_posts_link();
+                                !get_hupa_option('post_kommentar') ?: bootscore_comment_count();
                                 ?>
                             </small>
                         </p>
@@ -53,7 +51,8 @@ get_header(); ?>
 
                     <footer class="entry-footer clear-both">
                         <div class="mb-4">
-                            <?php bootscore_tags(); ?>
+                            <?php hupa_social_media(); ?>
+                            <?php !get_hupa_option('post_tags') ?: bootscore_tags(); ?>
                         </div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">

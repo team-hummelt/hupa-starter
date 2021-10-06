@@ -2,6 +2,12 @@
   width: 32px;
 }
 
+.hr-social {
+  background-color: #bbb;
+  margin-bottom: 1rem;
+  margin-top: .25rem;
+}
+
 .terms, .add_repeat {
   display: none;
 }
@@ -161,9 +167,10 @@
 //===========================SYMBOL===============================
 #share-symbol {
   .btn-widget {
-    width: 28px;
-    height: 28px;
-    font-size: 1.5rem;
+    width: 19px;
+    height: 20px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
   }
 
   .gray {

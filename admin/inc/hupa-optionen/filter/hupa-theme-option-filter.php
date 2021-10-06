@@ -4,7 +4,6 @@
 namespace Hupa\StarterTheme;
 
 
-
 use stdClass;
 
 defined('ABSPATH') or die();
@@ -76,6 +75,20 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
             //MENU AUSWAHL
             add_filter('get_menu_auswahl', array($this, 'hupa_get_menu_auswahl'));
+            // Social Button URL
+            add_filter('get_social_button_url', array($this, 'hupa_get_social_button_url'),10 ,2);
+
+            // TODO SITEMAP ERSTELLEN
+            if (get_hupa_option('sitemap_post')) {
+                add_action('publish_post', array($this, 'hupa_starter_create_sitemap'));
+            }
+            if (get_hupa_option('sitemap_page')) {
+                add_action('publish_page', array($this, 'hupa_starter_create_sitemap'));
+            }
+
+            // ALL Sidebars
+            add_filter('get_registered_sidebar', array($this, 'hupa_get_registered_sidebar'));
+
         }
 
         final public function hupa_get_hupa_option($option): string|array|object
@@ -105,84 +118,22 @@ if (!class_exists('HupaStarterOptionFilter')) {
             return $this->db_get_hupa_option($option);
         }
 
-
-        final public function hupa_get_settings_menu_label($args): array
+        final public function hupa_get_registered_sidebar($args): array
         {
-            $return = [];
-            switch ($args) {
-                case 'mainMenu':
-                    $return = [
-                        '0' => [
-                            'value' => 1,
-                            'label' => __('Preset', 'bootscore')
-                        ],
-                        '1' => [
-                            'value' => 2,
-                            'label' => __('Standard Menu', 'bootscore')
-                        ],
-                        '2' => [
-                            'value' => 3,
-                            'label' => 'Menu 2'
-                        ],
-                        '3' => [
-                            'value' => 4,
-                            'label' => 'Menu 3'
-                        ]
+            global $wp_registered_sidebars;
+            $regEx = '/(sidebar)-(\d{1,3})/i';
+            $sidArr = [];
+            foreach ($wp_registered_sidebars as $key => $val) {
+                preg_match($regEx, $val['id'], $matches);
+                if ($matches) {
+                    $sid_item = [
+                        'value' => $matches[2],
+                        'label' => $val['name']
                     ];
-                    break;
-
-                case'handyMenu':
-                    $return = [
-                        '0' => [
-                            'value' => 1,
-                            'label' => __('Preset', 'bootscore')
-                        ],
-                        '1' => [
-                            'value' => 2,
-                            'label' => 'Menu 1'
-                        ],
-                        '2' => [
-                            'value' => 3,
-                            'label' => 'Menu 2'
-                        ]
-                    ];
-                    break;
-                case'showTopAreaSelect':
-                    $return = [
-                        '0' => [
-                            'value' => 1,
-                            'label' => __('Preset', 'bootscore')
-                        ],
-                        '1' => [
-                            'value' => 2,
-                            'label' => __('show', 'bootscore')
-                        ],
-                        '2' => [
-                            'value' => 3,
-                            'label' => __('hide', 'bootscore')
-                        ]
-                    ];
-                    break;
-                case'selectMenuContainer':
-                case'selectTopAreaContainer':
-                case'selectMainContainer':
-                    $return = [
-                        '0' => [
-                            'value' => 0,
-                            'label' => __('Preset', 'bootscore')
-                        ],
-                        '1' => [
-                            'value' => 1,
-                            'label' => __('Container', 'bootscore')
-                        ],
-                        '2' => [
-                            'value' => 2,
-                            'label' => __('Container-Fluid', 'bootscore')
-                        ]
-                    ];
-                    break;
+                    $sidArr[] = $sid_item;
+                }
             }
-            return $return;
+            return $sidArr;
         }
 
         final public function hupa_update_hupa_options($data, $type): bool
@@ -604,9 +555,10 @@ if (!class_exists('HupaStarterOptionFilter')) {
             );
         }
 
-        public function hupa_get_menu_auswahl($args):object{
+        public function hupa_get_menu_auswahl($args): object
+        {
             $return = [];
-            switch ($args){
+            switch ($args) {
                 case 1:
                     $return['block'] = 'center';
                     $return['logo'] = 'position-absolute';
@@ -648,11 +600,137 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['show_img'] = false;
                     break;
                 default:
-                    return (object) [];
+                    return (object)[];
             }
-            return (object) $return;
+            return (object)$return;
         }
 
+        final public function hupa_get_settings_menu_label($args): array
+        {
+            $return = [];
+            switch ($args) {
+                case 'mainMenu':
+                    $return = [
+                        '0' => [
+                            'value' => 1,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 2,
+                            'label' => __('Standard Menu', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 3,
+                            'label' => 'Menu 2'
+                        ],
+                        '3' => [
+                            'value' => 4,
+                            'label' => 'Menu 3'
+                        ]
+                    ];
+                    break;
+
+                case'handyMenu':
+                    $return = [
+                        '0' => [
+                            'value' => 1,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 2,
+                            'label' => 'Menu 1'
+                        ],
+                        '2' => [
+                            'value' => 3,
+                            'label' => 'Menu 2'
+                        ]
+                    ];
+                    break;
+                case'showTopAreaSelect':
+                    $return = [
+                        '0' => [
+                            'value' => 1,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 2,
+                            'label' => __('show', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 3,
+                            'label' => __('hide', 'bootscore')
+                        ]
+                    ];
+                    break;
+                case'showStickyFooterSelect':
+                    $return = [
+                        '0' => [
+                            'value' => 1,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 2,
+                            'label' => __('aktiv', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 3,
+                            'label' => __('nicht aktiv', 'bootscore')
+                        ]
+                    ];
+                    break;
+                case'selectMenuContainer':
+                case'selectTopAreaContainer':
+                case'selectMainContainer':
+                    $return = [
+                        '0' => [
+                            'value' => 0,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 1,
+                            'label' => __('Container', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 2,
+                            'label' => __('Container-Fluid', 'bootscore')
+                        ]
+                    ];
+                    break;
+                case'selectSocialType':
+                    $return = [
+                        '0' => [
+                            'value' => 0,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 1,
+                            'label' => __('Symbole', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 2,
+                            'label' => __('Button', 'bootscore')
+                        ]
+                    ];
+                    break;
+                case'selectSocialColor':
+                    $return = [
+                        '0' => [
+                            'value' => 0,
+                            'label' => __('Preset', 'bootscore')
+                        ],
+                        '1' => [
+                            'value' => 1,
+                            'label' => __('farbig', 'bootscore')
+                        ],
+                        '2' => [
+                            'value' => 2,
+                            'label' => __('neutral', 'bootscore')
+                        ]
+                    ];
+                    break;
+            }
+            return $return;
+        }
 
 
         public function hupa_get_animate_option(): object
@@ -773,7 +851,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $record->show_top_widget_footer = get_post_meta($id, '_hupa_show_top_footer', true);
 
 
-
             //MAIN CONTAINER
             $mainSelectContainer = get_post_meta($id, '_hupa_main_container', true);
             $optionOptionContainer = get_hupa_option('main_container');
@@ -787,8 +864,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     '1' => 1,
                     '2' => 0,
                 };
-            }
-            ;
+            };
 
             //MENU CONTAINER
             $selectMenuContainer = get_post_meta($id, '_hupa_select_container', true);
@@ -812,6 +888,9 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $optionTopArea = get_hupa_option('top_aktiv');
             $topAreaContainerSelect = get_post_meta($id, '_hupa_top_area_container', true);
             $topAreaContainerOption = get_hupa_option('top_area_container');
+
+            $stickyFooterOption = get_hupa_option('fix_footer');
+            $stickyFooterSelect = get_post_meta($id, '_hupa_sticky_widgets_footer', true);
             //TOP AREA
             if ($topAreaContainerSelect != 0) {
                 $record->top_area_container = match ($topAreaContainerSelect) {
@@ -825,8 +904,54 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 };
             }
 
+            $selectSocialColor = get_post_meta($id, '_hupa_select_social_color', true);
+            $optionSocialColor = get_hupa_option('social_symbol_color');
+
+            if ($selectSocialColor != 0) {
+                switch ($selectSocialColor) {
+                    case '1':
+                        $record->social_symbol_color = 1;
+                        break;
+                    case'2':
+                        $record->social_symbol_color = 0;
+                        break;
+                }
+            } else {
+                $record->social_symbol_color = $optionSocialColor;
+            }
+
+
+            $selectSocialType = get_post_meta($id, '_hupa_select_social_type', true);
+            $optionSocialType = get_hupa_option('social_type');
+
+            if ($selectSocialType != 0) {
+                switch ($selectSocialType) {
+                    case '1':
+                        $record->social_symbol_type = 0;
+                        break;
+                    case'2':
+                        $record->social_symbol_type = 1;
+                        break;
+                }
+            } else {
+                $record->social_symbol_type = $optionSocialType;
+            }
+
+            if ($stickyFooterSelect != 1) {
+                switch ($stickyFooterSelect) {
+                    case '2':
+                        $record->fixed_footer = 1;
+                        break;
+                    case'3':
+                        $record->fixed_footer = 0;
+                        break;
+                }
+            } else {
+                $record->fixed_footer = $stickyFooterOption;
+            }
+
             if ($topAreaSelect != 0) {
-                switch ($topAreaSelect){
+                switch ($topAreaSelect) {
                     case '1':
                         $record->show_top_area = 1;
                         break;
@@ -838,15 +963,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->show_top_area = $optionTopArea;
             }
 
-          /*  if ($topAreaSelect != 0) {
-                $record->show_top_area = match ($topAreaSelect) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+            /*  if ($topAreaSelect != 0) {
+                  $record->show_top_area = match ($topAreaSelect) {
+                      '1' => 1,
+                      '2' => 0,
+                  };
 
-            } else {
-                $record->show_top_area = $optionTopArea;
-            }*/
+              } else {
+                  $record->show_top_area = $optionTopArea;
+              }*/
 
             //TODO CUSTOM HEADER
             if ($record->select_header) {
@@ -855,17 +980,17 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 //TODO CAROUSEL Custom Header ShortCode
                 $regEx = '@\[carousel.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if(isset($matches)){
+                if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_header = str_replace($matches[0][0],$doShortcode,$record->custum_header);
+                    $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
                 }
 
                 //TODO Formular Custom Header ShortCode
                 $regEx = '@\[bs-formular.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if(isset($matches)){
+                if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_header = str_replace($matches[0][0],$doShortcode,$record->custum_header);
+                    $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
                 }
             } else {
                 $record->custum_header = false;
@@ -879,22 +1004,85 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 //TODO CAROUSEL Custom Footer ShortCode
                 $regEx = '@\[carousel.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if(isset($matches)){
+                if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_footer = str_replace($matches[0][0],$doShortcode,$record->custum_footer);
+                    $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
                 }
 
                 //TODO Formular Custom Footer ShortCode
                 $regEx = '@\[bs-formular.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if(isset($matches)){
+                if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_footer = str_replace($matches[0][0],$doShortcode,$record->custum_footer);
+                    $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
                 }
             } else {
                 $record->custum_footer = false;
             }
             return $record;
+        }
+
+        public function hupa_get_social_button_url($data):string
+        {
+            switch ($data->btn) {
+                case 'btn-twitter':
+                    return 'https://twitter.com/intent/tweet?text=' . $data->share_subject . ' ' . $data->share_title . '&amp;url=' . $data->share_url;
+                case 'btn-facebook':
+                    return 'https://www.facebook.com/sharer/sharer.php?u=' . $data->share_url;
+                case'btn-whatsapp':
+                    return 'whatsapp://send?text=' . $data->share_subject . ' ' . $data->share_title . ' ' . $data->share_url;
+                case'btn-linkedin':
+                    return 'https://www.linkedin.com/shareArticle?mini=true&url=' . $data->share_url . '&amp;title=' . $data->share_title;
+                case'btn-reddit':
+                    return 'https://reddit.com/submit?url=' . $data->share_url . '&amp;title=' . $data->share_title;
+                case'btn-tumblr':
+                    return 'https://www.tumblr.com/share/link?url=' . $data->share_url . '&amp;title=' . $data->share_title;
+                case'btn-buffer':
+                    return 'https://bufferapp.com/add?url=' . $data->share_url . '&amp;text=' . $data->share_title;
+                case'btn-mix':
+                    return 'https://www.stumbleupon.com/submit?url=' . $data->share_url . '&amp;text=' . $data->share_title;
+                case'btn-vk':
+                    return 'https://vkontakte.ru/share.php?url=' . $data->share_url . '&amp;text=' . $data->share_title;
+                case 'btn-mail':
+                    return 'mailto:?Subject=' . $data->share_subject . ' ' . $data->share_title . '&amp;Body=' . $data->share_title . ' ' . $data->share_ur . '';
+                case 'btn-pinterest':
+                    $data->share_thumb = get_the_post_thumbnail_src(get_the_post_thumbnail());
+                    if (!empty($data->share_thumb)) {
+                        $pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $data->share_url . '&amp;media=' . $data->share_thumb[0] . '&amp;description=' . $data->share_title;
+                    } else {
+                        $pinterestURL = 'https://pinterest.com/pin/create/button/?url=' . $data->share_url . '&amp;description=' . $data->share_title;
+                    }
+                    // Based on popular demand added Pinterest too
+                    // $pinterestURL = 'https://pinterest.com/pin/create/button/?url='.$data->share_url.'&amp;media='.$data->share_thumb[0].'&amp;description='.$data->share_title;
+                    return $pinterestURL;
+            }
+            return '';
+        }
+
+
+        public function hupa_starter_create_sitemap()
+        {
+            $posts_for_sitemap = get_posts(array(
+                'numberposts' => -1,
+                'orderby' => 'modified',
+                'order' => 'DESC',
+                'post_type' => array('post', 'page')
+            ));
+            $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+            foreach ($posts_for_sitemap as $post) {
+                setup_postdata($post);
+                $postdate = explode(" ", $post->post_modified);
+                $sitemap .= "\t" . '<url>' . "\n" .
+                    "\t\t" . '<loc>' . get_permalink($post->ID) . '</loc>' .
+                    "\n\t\t" . '<lastmod>' . $postdate[0] . '</lastmod>' .
+                    "\n\t\t" . '<changefreq>monthly</changefreq>' .
+                    "\n\t" . '</url>' . "\n";
+            }
+            $sitemap .= '</urlset>';
+
+            $fp = fopen(ABSPATH . "sitemap.xml", 'w');
+            fwrite($fp, $sitemap);
+            fclose($fp);
         }
 
     }

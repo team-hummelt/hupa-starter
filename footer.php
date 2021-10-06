@@ -15,7 +15,7 @@ $pageBottomFooter = $pageSettings->show_bottom_footer;
 ?>
 <small class="d-block text-center py-2 <?=get_hupa_option( 'edit_link' ) ?'': 'd-none'?>"><?php edit_post_link();?> </small>
 
-<footer>
+<div class="footer">
     <div class="bootscore-footer">
         <div class="<?=$pageSettings->main_container ? 'container' : 'container-fluid'?>">
             <!-- Top Footer Widget -->
@@ -79,13 +79,13 @@ $pageBottomFooter = $pageSettings->show_bottom_footer;
             <!-- Bootstrap 5 Nav Walker Footer Menu End -->
         </div>
     </div>
-</footer>
+</div>
 
 <div class="custom-footer-wrapper">
     <?=$pageSettings->custum_footer?>
 </div>
 <?php  if($pageSettings->show_bottom_footer): ?>
-<div class="footer bootscore-info border-top py-2 text-center <?=!get_hupa_option( 'fix_footer' ) ?: 'fixed-bottom'?>">
+<div class="footer bootscore-info border-top py-2 text-center <?=!$pageSettings->fixed_footer ?: 'fixed-bottom'?>">
     <div class="container">
       &nbsp;<?php
         $footerTxt = str_replace('###YEAR###', date('Y'), get_hupa_option('bottom_area_text'));

@@ -16,7 +16,6 @@ defined( 'ABSPATH' ) or die();
 				<i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
 				<?= __( 'Post Select Slider', 'bootscore' ) ?> </h5>
 			<div class="card-body pb-4" style="min-height: 72vh">
-
 				<div class="d-flex align-items-center">
 					<h5 class="card-title"><i
 							class="hupa-color fa fa-arrow-circle-right"></i> <?= __( 'Post Slider', 'bootscore' ) ?>

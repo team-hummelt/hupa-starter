@@ -146,6 +146,42 @@ switch ($method) {
                 $bottom_area_text = filter_input(INPUT_POST, 'bottom_area_text');
                 $record->bottom_area_text = esc_textarea($bottom_area_text);
 
+                // Sitemap
+                filter_input(INPUT_POST, 'sitemap_post', FILTER_SANITIZE_STRING) ? $record->sitemap_post = 1 : $record->sitemap_post = 0;
+                filter_input(INPUT_POST, 'sitemap_page', FILTER_SANITIZE_STRING) ? $record->sitemap_page = 1 : $record->sitemap_page = 0;
+
+                //WooCommerce
+                filter_input(INPUT_POST, 'woocommerce_aktiv', FILTER_SANITIZE_STRING) ? $record->woocommerce_aktiv = 1 : $record->woocommerce_aktiv = 0;
+                filter_input(INPUT_POST, 'woocommerce_sidebar', FILTER_SANITIZE_STRING) ? $record->woocommerce_sidebar = 1 : $record->woocommerce_sidebar = 0;
+
+                //Soziale Medien
+                filter_input(INPUT_POST, 'social_symbol_color', FILTER_SANITIZE_STRING) ? $record->social_symbol_color = 1 : $record->social_symbol_color = 0;
+                $record->social_type = filter_input(INPUT_POST, 'social_type', FILTER_SANITIZE_NUMBER_INT);
+                $record->social_extra_css = filter_input(INPUT_POST, 'social_extra_css', FILTER_SANITIZE_STRING);
+
+                // Soziale ARCHIV SEITEN
+                filter_input(INPUT_POST, 'social_kategorie', FILTER_SANITIZE_STRING) ? $record->social_kategorie = 1 : $record->social_kategorie = 0;
+                filter_input(INPUT_POST, 'social_author', FILTER_SANITIZE_STRING) ? $record->social_author = 1 : $record->social_author = 0;
+                filter_input(INPUT_POST, 'social_archiv', FILTER_SANITIZE_STRING) ? $record->social_archiv = 1 : $record->social_archiv = 0;
+                filter_input(INPUT_POST, 'social_farbig', FILTER_SANITIZE_STRING) ? $record->social_farbig = 1 : $record->social_farbig = 0;
+
+                // Template Vorlagen
+                $record->kategorie_template = filter_input(INPUT_POST, 'kategorie_template', FILTER_SANITIZE_NUMBER_INT);
+                $record->archiv_template = filter_input(INPUT_POST, 'archiv_template', FILTER_SANITIZE_NUMBER_INT);
+                $record->autoren_template = filter_input(INPUT_POST, 'autoren_template', FILTER_SANITIZE_NUMBER_INT);
+
+                filter_input(INPUT_POST, 'kategorie_image', FILTER_SANITIZE_STRING) ? $record->kategorie_image = 1 : $record->kategorie_image = 0;
+                filter_input(INPUT_POST, 'archiv_image', FILTER_SANITIZE_STRING) ? $record->archiv_image = 1 : $record->archiv_image = 0;
+                filter_input(INPUT_POST, 'author_image', FILTER_SANITIZE_STRING) ? $record->author_image = 1 : $record->author_image = 0;
+
+                //Post Info Settings
+                filter_input(INPUT_POST, 'post_kategorie', FILTER_SANITIZE_STRING) ? $record->post_kategorie = 1 : $record->post_kategorie = 0;
+                filter_input(INPUT_POST, 'post_date', FILTER_SANITIZE_STRING) ? $record->post_date = 1 : $record->post_date = 0;
+                filter_input(INPUT_POST, 'post_autor', FILTER_SANITIZE_STRING) ? $record->post_autor = 1 : $record->post_autor = 0;
+                filter_input(INPUT_POST, 'post_kommentar', FILTER_SANITIZE_STRING) ? $record->post_kommentar = 1 : $record->post_kommentar = 0;
+                filter_input(INPUT_POST, 'post_tags', FILTER_SANITIZE_STRING) ? $record->post_tags = 1 : $record->post_tags = 0;
+                filter_input(INPUT_POST, 'post_breadcrumb', FILTER_SANITIZE_STRING) ? $record->post_breadcrumb = 1 : $record->post_breadcrumb = 0;
+
                 apply_filters('update_hupa_options', $record, 'hupa_general');
                 //TODO JOB WARNING UPDATE CSS FILE
                 apply_filters('generate_theme_css', '');
@@ -955,11 +991,17 @@ switch ($method) {
         $responseJson->slider = $sliderArr;
         $responseJson->status = true;
         $responseJson->render = 'slider';
-
         break;
 
     case'get_maps_language':
         $responseJson->lang = apply_filters('get_theme_language', 'gmaps_pin_form')->language;
+        break;
+
+    case'change_beitragslisten_template':
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+        $responseJson->status = true;
+        do_action('change_beitragslisten_template',$id, $type);
         break;
 
 }

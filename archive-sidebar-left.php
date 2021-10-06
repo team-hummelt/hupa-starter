@@ -64,6 +64,9 @@
                                     <div class="card-text mt-auto">
                                         <?php the_excerpt(); ?> <a class="read-more" href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                     </div>
+                                    <footer <?php post_class("entry-footer archive") ?>>
+                                        <?php hupa_social_media(); ?>
+                                    </footer>
                                     <!-- Tags -->
                                     <?php bootscore_tags(); ?>
                                 </div>

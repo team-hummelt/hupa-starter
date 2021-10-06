@@ -51,6 +51,32 @@ trait HupaOptionTrait
     protected string $login_logo_url = 'login_logo_url';
     protected string $bottom_area_text = 'bottom_area_text';
     protected string $preloader_aktiv = 'preloader_aktiv';
+    protected string $sitemap_post = 'sitemap_post';
+    protected string $sitemap_page = 'sitemap_page';
+    protected string $woocommerce_aktiv ='woocommerce_aktiv';
+    protected string $woocommerce_sidebar ='woocommerce_sidebar';
+    protected string $social_type ='social_type';
+    protected string $social_symbol_color ='social_symbol_color';
+    protected string $social_extra_css ='social_extra_css';
+    protected string $social_kategorie ='social_kategorie';
+    protected string $social_author ='social_author';
+    protected string $social_archiv ='social_archiv';
+    protected string $social_farbig ='social_farbig';
+
+    protected string $kategorie_template ='kategorie_template';
+    protected string $archiv_template ='archiv_template';
+    protected string $autoren_template ='autoren_template';
+
+    protected string $post_kategorie ='post_kategorie';
+    protected string $post_date ='post_date';
+    protected string $post_autor ='post_author';
+    protected string $post_kommentar ='post_kommentar';
+    protected string $post_tags ='post_tags';
+    protected string $post_breadcrumb ='post_breadcrumb';
+
+    protected string $kategorie_image ='kategorie_image';
+    protected string $archiv_image ='archiv_image';
+    protected string $author_image ='author_image';
 
 
     /*========================================================
@@ -235,7 +261,30 @@ trait HupaOptionTrait
                 $this->fw_right => 0,
                 $this->login_logo_url => 'https://www.hummelt-werbeagentur.de/',
                 $this->bottom_area_text => '© <b>###YEAR###</b> - hummelt und partner | Werbeagentur GmbH',
-                $this->preloader_aktiv => 1
+                $this->preloader_aktiv => 1,
+                $this->sitemap_post => 1,
+                $this->sitemap_page => 1,
+                $this->woocommerce_aktiv => 0,
+                $this->woocommerce_sidebar => 0,
+                $this->social_type => 1,
+                $this->social_symbol_color => 0,
+                $this->social_extra_css => '',
+                $this->social_kategorie => 1,
+                $this->social_author => 1,
+                $this->kategorie_template => 1,
+                $this->archiv_template => 1,
+                $this->autoren_template => 1,
+                $this->post_kategorie => 1,
+                $this->post_date => 1,
+                $this->post_autor => 1,
+                $this->post_kommentar => 1,
+                $this->post_tags => 1,
+                $this->post_breadcrumb => 1,
+                $this->social_archiv => 1,
+                $this->social_farbig => 1,
+                $this->kategorie_image => 1,
+                $this->archiv_image => 1,
+                $this->author_image => 1
             ],
 
             /*============================================================

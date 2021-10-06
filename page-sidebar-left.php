@@ -50,7 +50,7 @@ get_header();
                             </div>
 
                             <footer class="entry-footer">
-
+                                <?php hupa_social_media(); ?>
                             </footer>
 
                             <?php comments_template(); ?>

@@ -32,7 +32,6 @@ jQuery(document).ready(function ($) {
         }
     }
 
-
     let header = $('#nav-main-starter');
     let siteContent = $('.site-content');
     let navLogo = $('.navbar-root .logo.md');
@@ -40,48 +39,42 @@ jQuery(document).ready(function ($) {
     let middleLogo = $('.middle-img');
     let topArea = $('#top-area-wrapper');
     let isFixedHeader;
-
     if (header.hasClass('fixed-top')) {
         if (topArea[0]) {
-
             isFixedHeader = true;
             header.removeClass('fixed-top');
         } else {
             isFixedHeader = false;
+            siteContent.css('margin-top', (header.outerHeight()) + 'px');
+            header.addClass('fixed-top');
         }
-        siteContent.css('margin-top', (header.outerHeight()) + 'px');
     }
 
     if (carousel.hasClass('carousel-margin-top')) {
-
         carousel.css('margin-top', -header.outerHeight() + 'px');
+        header.css('z-index', 1);
+    } else {
+        header.css('z-index', 'unset');
     }
 
     $(window).on("resize", function (event) {
         //console.log( $(this).width() );
-        siteContent.css('margin-top', header.outerHeight() + 'px');
         if (header.hasClass('fixed-top')) {
-            siteContent.css('margin-top', header.outerHeight() + 'px');
+            if (topArea[0]) {
+                isFixedHeader = true;
+                header.removeClass('fixed-top');
+            } else {
+                isFixedHeader = false;
+                siteContent.css('margin-top', (header.outerHeight()) + 'px');
+                header.addClass('fixed-top');
+            }
         }
 
         if (carousel.hasClass('carousel-margin-top')) {
             carousel.css('margin-top', -header.outerHeight() + 'px');
-        }
-
-        let scroll = $(window).scrollTop();
-        if (scroll > 150) {
-            header.addClass("navbar-small");
-
-            if (navLogo) {
-                navLogo.addClass('small-logo');
-                middleLogo.addClass('middle-img-sm')
-            }
+            header.css('z-index', 1);
         } else {
-            header.removeClass("navbar-small");
-            if (navLogo) {
-                navLogo.removeClass('small-logo');
-                middleLogo.removeClass('middle-img-sm')
-            }
+            header.css('z-index', 'unset');
         }
     });
 
@@ -89,13 +82,14 @@ jQuery(document).ready(function ($) {
         let scroll = $(window).scrollTop();
         if (topArea[0] && isFixedHeader) {
             if (scroll > topArea.outerHeight()) {
-                header.addClass('fixed-top')
+                header.addClass('fixed-top');
+                header.css('z-index', 1);
             } else {
-                header.removeClass('fixed-top')
+               header.removeClass('fixed-top');
             }
         }
 
-        if (scroll > 150) {
+        if (scroll > 200) {
             header.addClass("navbar-small");
             if (navLogo) {
                 navLogo.addClass('small-logo');
@@ -115,5 +109,9 @@ jQuery(document).ready(function ($) {
     jQuery(window).load(function () {
         $(".preloader").delay(1600).fadeOut('easing').remove();
     });
+
+ // Load Social Media ICON
+
+
 });
 

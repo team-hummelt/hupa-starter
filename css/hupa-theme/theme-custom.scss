@@ -1,5 +1,11 @@
 @import "theme-tools";
 
+body .bs-formular-wrapper {
+  i.fa {
+    font-family: FontAwesome, serif!important;
+  }
+}
+
 #nav-main-starter .menu-item:last-child .nav-link {
   padding-right: .5rem;
 }
@@ -20,6 +26,8 @@
     color: #e2e2e2;
   }
 }
+
+
 
 #nav-main-starter  .offcanvas.menu1.show {
   background-color: rgba(255,255,255,.9);
@@ -79,7 +87,7 @@
 }
 
 #content {
-  padding-top: 1.5rem;
+  padding-top: 2.5rem;
 }
 
 .navbar-root .logo.md {
@@ -110,6 +118,14 @@
 
 .widget-area .searchform.input-group {
   z-index: 0;
+}
+
+.searchform.woocommerce-product-search {
+ z-index: 1;
+}
+
+.cart-footer {
+  right: 0;
 }
 
 .navbar-root .logo.sm {
@@ -186,7 +202,6 @@
 .bgImage {
   z-index: 0;
   width: 100%;
-  // height: 50vh;
   -o-object-fit: cover;
   object-fit: cover
 }

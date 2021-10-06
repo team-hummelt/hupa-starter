@@ -88,6 +88,7 @@ final class HupaRegisterStarterTheme {
         // TODO THEME UPDATE DATABASE BY VERSION
         add_action( 'after_setup_theme', array( $this, 'hupa_starter_theme_update_database_columns' ) );
 
+
     }
 
     /**
@@ -516,11 +517,9 @@ final class HupaRegisterStarterTheme {
         $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
 
+        //TODO FontAwesome / Bootstrap
+        wp_enqueue_style( 'hupa-starter-admin-bs-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
-        if(!HUPA_SIDEBAR) {
-            //TODO FontAwesome / Bootstrap
-            wp_enqueue_style( 'hupa-starter-admin-bs-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
-        }
         wp_enqueue_style( 'admin-fontawesome-5', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $hupa_theme );
 
         // TODO ADMIN ICONS
@@ -549,7 +548,6 @@ final class HupaRegisterStarterTheme {
 
         wp_enqueue_script( 'jquery' );
 
-
         // TODO Bootstrap JS
         wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
@@ -568,10 +566,6 @@ final class HupaRegisterStarterTheme {
         // TODO JS CAROUSEL
         wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), $hupa_theme->get( 'Version' ), true );
 
-
-        if($page == 'hupa-starter-home'){
-            wp_enqueue_script( 'js-hupa-load-colorpickr', THEME_ADMIN_URL . 'assets/admin/js/color-pickr.js', array(), $hupa_theme->get( 'Version' ), true );
-        }
     }
 
     // TODO THEME BRANDING ACTIONS
@@ -612,6 +606,8 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
     }
+
+
 
     /**
      * ==================================================================

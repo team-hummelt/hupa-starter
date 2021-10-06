@@ -20,6 +20,14 @@ body .wp-bs-starter-wrapper {
     justify-content: center;
 }
 
+.components-panel__row.panel-row-column p{
+    padding: .3rem 0;
+}
+
+.components-panel__row.panel-row-column p:first-child{
+    padding: .5rem 0 0.3rem 0;
+}
+
 .font-weight {
     font-weight: 500;
     font-size: .915rem;
@@ -106,7 +114,7 @@ body .wp-bs-starter-wrapper {
 }
 
 .hupa-block-sidebar .hupa-sidebar-content h2.components-panel__body-title {
-    background-color: #f0f0f0;;
+    background-color: #f9f9f9;
 }
 
 .hupa-block-sidebar .hupa-sidebar-content h2.components-panel__body-title:hover {

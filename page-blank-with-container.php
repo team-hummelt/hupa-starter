@@ -25,6 +25,7 @@ get_header();
                         ));
                         ?>
                     </div>
+                    <footer <?php post_class("entry-footer") ?>></footer>
                 </main><!-- #main -->
             </div><!-- #primary -->
         </div><!-- #content -->

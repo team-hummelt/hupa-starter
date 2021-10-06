@@ -32,9 +32,11 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 		], 400 );
 	}
 	$response = new stdClass();
-
+//selectSidebar
 	switch ( $method ) {
 		case 'get_hupa_post_sidebar':
+
+
 
 			//HEADER SELECT
 			$headerArgs = array(
@@ -82,16 +84,29 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 			$footerArr[] = $footerItem;
 			sort( $footerArr );
 
+			//showStickyFooterSelect
+
+            $sidebarSelect =  apply_filters('get_registered_sidebar', false);
+            $sidebarItem  = [
+                'value' => 0,
+                'label' => __( 'select', 'bootscore' ) .' ...'
+            ];
+            //$sidebarSelect[] = $sidebarItem;
+            //sort($sidebarSelect);
 
 			$response->status     = true;
 			$response->header     = $headerArr;
 			$response->footer     = $footerArr;
+			$response->selectSidebars   = $sidebarSelect;
+			$response->selectSocialColor = apply_filters('get_settings_menu_label','selectSocialColor');
+			$response->selectSocialType = apply_filters('get_settings_menu_label','selectSocialType');
 			$response->showTopAreaSelect    = apply_filters('get_settings_menu_label','showTopAreaSelect');
+            $response->showStickyFooterSelect    = apply_filters('get_settings_menu_label','showStickyFooterSelect');
             $response->selectConatinerTopArea    = apply_filters('get_settings_menu_label','selectTopAreaContainer');
             $response->selectMenuContainer    = apply_filters('get_settings_menu_label','selectMenuContainer');
             $response->selectMainContainer    = apply_filters('get_settings_menu_label','selectMainContainer');
-			$response->menuSelect = apply_filters('get_settings_menu_label','mainMenu');
-			$response->handyMenuSelect = apply_filters('get_settings_menu_label','handyMenu');
+			//$response->menuSelect = apply_filters('get_settings_menu_label','mainMenu');
+			//$response->handyMenuSelect = apply_filters('get_settings_menu_label','handyMenu');
 			break;
 	}
 

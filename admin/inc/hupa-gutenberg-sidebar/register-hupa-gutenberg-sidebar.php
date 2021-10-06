@@ -38,7 +38,7 @@ final class HupaRegisterGutenbergSidebar {
 		//TODO REMOVE REST BY NOT LOGGED IN
 		add_action( 'init', array( $this, 'hupa_removes_api_endpoints_for_not_logged_in' ) );
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'gutenberg_load_text_domain' ), 100 );
+		//add_action( 'wp_enqueue_scripts', array( $this, 'gutenberg_load_text_domain' ), 100 );
 	}
 
 	/**
@@ -109,6 +109,85 @@ final class HupaRegisterGutenbergSidebar {
 				}
 			)
 		);
+
+        //TODO SELECT SIDEBAR
+        register_meta(
+            'post',
+            '_hupa_select_sidebar',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 1,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO CHECK SOZIAL MEDIA SHOW
+        register_meta(
+            'post',
+            '_hupa_show_social_media',
+            array(
+                'type'              => 'boolean',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO SELECT SOCIAL TYPE
+        register_meta(
+            'post',
+            '_hupa_select_social_type',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO CHECK BOTTOM FOOTER
+        register_meta(
+            'post',
+            '_hupa_select_social_color',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO SOCIAL MEDIA CUSTOM CSS
+        register_meta(
+            'post',
+            '_hupa_social_media_css',
+            array(
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
 
 		//TODO SELECT HANDY MENU
 		register_meta(
@@ -183,6 +262,22 @@ final class HupaRegisterGutenbergSidebar {
                 'single'            => true,
                 'show_in_rest'      => true,
                 'default'           => 0,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+
+        //TODO CHECK STICKY WIDGET FOOTER
+        register_meta(
+            'post',
+            '_hupa_sticky_widgets_footer',
+            array(
+                'type'              => 'number',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => 1,
                 'sanitize_callback' => 'sanitize_text_field',
                 'auth_callback'     => function () {
                     return current_user_can( 'edit_posts' );
@@ -270,7 +365,6 @@ final class HupaRegisterGutenbergSidebar {
 			)
 		);
 
-
 		//TODO CHECK SHOW MENU
 		register_meta(
 			'post',
@@ -296,13 +390,12 @@ final class HupaRegisterGutenbergSidebar {
 	public function hupa_sidebar_plugin_register(): void {
 		$hupa_theme = wp_get_theme();
 		//CSS
-		wp_enqueue_style( 'hupa-sidebar-style', THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/css/gutenberg-sidebar.css',
-			[], $hupa_theme->get( 'Version' ) );
+
 
 		wp_register_script(
 			'plugin-sidebar-js',
-			THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/index.js',
-              //THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js',
+			//THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/index.js',
+              THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js',
 			[
 				'wp-plugins',
 				'wp-edit-post',
@@ -313,7 +406,7 @@ final class HupaRegisterGutenbergSidebar {
 
 
 		//TODO FontAwesome / Bootstrap
-		wp_enqueue_style( 'hupa-starter-meta-box-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
+		//wp_enqueue_style( 'hupa-starter-meta-box-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
 		wp_register_script( 'hupa-rest-gutenberg-js-localize', '', [], $hupa_theme->get( 'Version' ), true );
 		wp_enqueue_script( 'hupa-rest-gutenberg-js-localize' );
@@ -328,6 +421,9 @@ final class HupaRegisterGutenbergSidebar {
 
 	public function hupa_sidebar_script_enqueue() {
 		wp_enqueue_script( 'plugin-sidebar-js' );
+        wp_enqueue_style( 'hupa-sidebar-style');
+        wp_enqueue_style( 'hupa-sidebar-style', THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/css/gutenberg-sidebar.css',
+            [], '' );
 	}
 
 	function gutenberg_load_text_domain() {

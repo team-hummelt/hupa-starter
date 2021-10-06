@@ -7,7 +7,7 @@
  * @package Bootscore
  */
 $pageId = is_singular() ? get_the_ID() : 0;
-$pageSettings = apply_filters('get_page_meta_data', (int)$pageId);
+$pageSettings = apply_filters('get_page_meta_data', (int)get_the_ID());
 $pageSettings->title_css ? $titleCss = 'class="' . $pageSettings->title_css . '"' : $titleCss = '';
 get_header();
 ?>
@@ -18,7 +18,6 @@ get_header();
 
                 <!-- Hook to add something nice -->
                 <?php bs_after_primary(); ?>
-
                 <main id="main" class="site-main">
 
                     <header class="entry-header">
@@ -43,8 +42,8 @@ get_header();
                         ));
                         ?>
                     </div>
-                    <footer class="entry-footer">
-
+                    <footer <?php post_class("entry-footer") ?>>
+                        <?php hupa_social_media(); ?>
                     </footer>
                     <!-- Comments -->
                     <?php comments_template(); ?>

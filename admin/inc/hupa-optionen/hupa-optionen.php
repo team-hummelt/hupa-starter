@@ -31,8 +31,11 @@ require 'filter/css-generator/css-generator-class.php';
 require 'filter/frontend/frontend-filter-class.php';
 //TODO THEME HELPER
 require 'filter/theme-helper.php';
-
-
+// TODO SOCIAL MEDIA HOOK
+require 'action/social-media-hook.php';
+//TODO CHANGE BEITRAGSLISTEN TEMPLATE AKTION
+require 'action/change-beitragslisten-template.php';
+add_action('change_beitragslisten_template', 'changeBeitragsListenTemplate',10,2);
 
 //TODO FORMULAR CLASS
 //require 'filter/hupa-formular-filter.php';
@@ -55,9 +58,10 @@ if(HUPA_SIDEBAR) {
 //TODO JOB CLASSIC METABOX
 	require THEME_ADMIN_INC . 'hupa-gutenberg-sidebar/classic-meta-box/classic-meta-box.php';
 }
+
 //TODO JOB SHORTCODES
 require  'shortcode/hupa-carousel-shortcode.php';
-//require  'shortcode/hupa-formular-shortcode.php';
+require  'shortcode/hupa-social-button.php';
 
 //TODO WARNING JOB AKTIONEN
 

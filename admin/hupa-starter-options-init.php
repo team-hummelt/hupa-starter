@@ -24,7 +24,7 @@ if ( $child_data->exists() ) {
 }
 
 //JOB: DATENBANK VERSION:
-const HUPA_STARTER_THEME_DB_VERSION = '1.0.5';
+const HUPA_STARTER_THEME_DB_VERSION = '1.0.7';
 
 //JOB: THEME VERSION:
 define("THEME_VERSION", $theme_data->get('Version'));
@@ -40,7 +40,6 @@ const HUPA_STARTER_THEME_SETTINGS_ID = 1;
 
 const HUPA_CAROUSEL_SLIDER_CREATE = 3;
 
-//const PRODUKT_INSTALL_DIR = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . HUPA_THEME_SLUG . DIRECTORY_SEPARATOR;
 
 //ADMIN ROOT PATH
 define('THEME_ADMIN_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
@@ -53,8 +52,8 @@ define('HUPA_THEME_SLUG',  wp_basename(dirname(__DIR__)));
 is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
 is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
 //if Post-Select Installiert
-define("POST_SELECT_ACTIVE", $postSelect);
-define("BS_FORMULAR_ACTIVE", $bsFormular);
+define("POST_SELECT_ACTIVE", false);
+//define("BS_FORMULAR_ACTIVE", $bsFormular);
 
 /**=================================HUPA OPTIONEN ======================================*/
 //SHOW SIDEBAR
@@ -103,5 +102,10 @@ if(get_option('hupa_starter_product_install_authorize')) {
 
     add_action( 'after_setup_theme','hupa_register_theme_updater');
 }
+
+//wp-content/themes/hupa-starter/css/hupa-theme/theme-custom.css
+//require 'minify/config.php';
+
+//echo get_template_directory_uri() . '/css/hupa-theme/theme-custom.css';
 
 

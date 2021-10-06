@@ -11,11 +11,11 @@ defined('ABSPATH') or die();
 $status = false;
 $loginAktiv = false;
 $ifUrl = true;
-$licenseInfo = apply_filters('post_scope_resource', 'license');
+$licenseInfo = apply_filters('post_scope_resource', 'license/'.site_url());
 
 if($licenseInfo->status && $licenseInfo->success) {
     $status = true;
-    if(site_url() !== $licenseInfo->install_url){
+    if(site_url() !== $licenseInfo->install_url || !$licenseInfo->license){
         $msg = 'Die URL der Installation ist <b>nicht</b> bekannt. Theme wurde <b>deaktiviert</b>.';
         delete_option( "hupa_product_client_id" );
         delete_option( "hupa_product_client_secret" );

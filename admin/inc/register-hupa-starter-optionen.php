@@ -133,27 +133,17 @@ final class HupaRegisterStarterTheme {
             add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
         }
 
-        if (POST_SELECT_ACTIVE) {
+        if(HUPA_SHOW_LICENSE_DATA) {
             $hook_suffix = add_submenu_page(
                 'hupa-starter-home',
-                __('Post Select Slider', 'bootscore'),
-                __('Post Select Slider', 'bootscore'),
+                __('Licences', 'bootscore'),
+                __('<b class="green_submenue"> Licences ➤</b>', 'bootscore'),
                 'manage_options',
-                'post-slider',
-                array($this, 'hupa_admin_starter_theme_slider'));
+                'hupa-active-license',
+                array($this, 'hupa_admin_starter_license'));
 
             add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
         }
-
-        $hook_suffix = add_submenu_page(
-            'hupa-starter-home',
-            __('Licences', 'bootscore'),
-            __('<b class="green_submenue"> Licences ➤</b>', 'bootscore'),
-            'manage_options',
-            'hupa-active-license',
-            array($this, 'hupa_admin_starter_license'));
-
-        add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
     }
 
 

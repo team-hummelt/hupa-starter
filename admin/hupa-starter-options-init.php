@@ -23,6 +23,9 @@ if ( $child_data->exists() ) {
     $ifChild =  false;
 }
 
+// TODO SHOW LIZENZ PAGE
+const HUPA_SHOW_LICENSE_DATA = true;
+
 //JOB: DATENBANK VERSION:
 const HUPA_STARTER_THEME_DB_VERSION = '1.0.7';
 
@@ -40,7 +43,6 @@ const HUPA_STARTER_THEME_SETTINGS_ID = 1;
 
 const HUPA_CAROUSEL_SLIDER_CREATE = 3;
 
-
 //ADMIN ROOT PATH
 define('THEME_ADMIN_DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 
@@ -51,9 +53,6 @@ define('HUPA_THEME_SLUG',  wp_basename(dirname(__DIR__)));
 
 is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
 is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
-//if Post-Select Installiert
-define("POST_SELECT_ACTIVE", false);
-//define("BS_FORMULAR_ACTIVE", $bsFormular);
 
 /**=================================HUPA OPTIONEN ======================================*/
 //SHOW SIDEBAR
@@ -92,11 +91,10 @@ define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
 
-
-//TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
-require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
 //TODO LICENSE
 require THEME_ADMIN_INC . 'license/license-init.php';
+//TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN
+require THEME_ADMIN_INC . 'hupa-optionen/hupa-optionen.php';
 if(get_option('hupa_starter_product_install_authorize')) {
     require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
     add_action( 'after_setup_theme','hupa_register_theme_updater');

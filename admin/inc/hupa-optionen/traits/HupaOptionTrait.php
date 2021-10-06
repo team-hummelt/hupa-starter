@@ -266,7 +266,7 @@ trait HupaOptionTrait
                 $this->sitemap_page => 1,
                 $this->woocommerce_aktiv => 0,
                 $this->woocommerce_sidebar => 0,
-                $this->social_type => 1,
+                $this->social_type => 0,
                 $this->social_symbol_color => 0,
                 $this->social_extra_css => '',
                 $this->social_kategorie => 1,

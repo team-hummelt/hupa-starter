@@ -67,8 +67,7 @@ const HUPA_MAPS = true;
 const CUSTOM_FOOTER = true;
 //SHOW CUSTOM HEADER
 const CUSTOM_HEADER = true;
-//SHOW FORMULARE
-const HUPA_FORMULARE = true;
+
 /**=================================HUPA OPTIONEN ======================================*/
 
 //ADMIN INC PATH

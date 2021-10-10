@@ -46,7 +46,7 @@ final class HupaRegisterStarterTheme {
 
         // TODO AJAX ADMIN AND PUBLIC RESPONSE HANDLE
         add_action( 'wp_ajax_HupaStarterHandle', array( $this, 'prefix_ajax_HupaStarterHandle' ) );
-        add_action( 'wp_ajax_HupaStarterForm', array( $this, 'prefix_ajax_HupaStarterForm' ) );
+        //add_action( 'wp_ajax_HupaStarterForm', array( $this, 'prefix_ajax_HupaStarterForm' ) );
 
         add_action( 'wp_ajax_nopriv_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
         add_action( 'wp_ajax_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
@@ -87,7 +87,6 @@ final class HupaRegisterStarterTheme {
 
         // TODO THEME UPDATE DATABASE BY VERSION
         add_action( 'after_setup_theme', array( $this, 'hupa_starter_theme_update_database_columns' ) );
-
 
     }
 
@@ -236,13 +235,6 @@ final class HupaRegisterStarterTheme {
         require 'starter-admin-pages/admin-starter-theme-carousel.php';
     }
 
-    //POST SLIDER
-    public function hupa_admin_starter_theme_slider(): void
-    {
-        wp_enqueue_media();
-        require 'starter-admin-pages/admin-post-slider-options.php';
-    }
-
     //Lizenzen
     public function hupa_admin_starter_license(): void
     {
@@ -287,12 +279,6 @@ final class HupaRegisterStarterTheme {
         wp_send_json( $responseJson );
     }
 
-    public function prefix_ajax_HupaStarterForm(): void {
-        $responseJson = null;
-        check_ajax_referer( 'theme_admin_handle' );
-        require THEME_AJAX_DIR . 'starter-formulare-ajax.php';
-        wp_send_json( $responseJson );
-    }
 
     public function hupa_starter_theme_public_one_trigger_check(): void {
         $title_nonce = wp_create_nonce( 'theme_public_handle' );

@@ -37,15 +37,6 @@ require 'action/social-media-hook.php';
 require 'action/change-beitragslisten-template.php';
 add_action('change_beitragslisten_template', 'changeBeitragsListenTemplate',10,2);
 
-//TODO FORMULAR CLASS
-//require 'filter/hupa-formular-filter.php';
-//TODO SMTP TEST
-//require THEME_ADMIN_INC .'Mailer/smtp-test.php';
-//TODO GET PAGE META DATA
-//add_filter('hupa_get_smtp_test', 'hupa_load_smtp_test');
-
-
-
 //TODO JOB THEME WIDGETS
 require 'widgets/social-media-widget.php';
 

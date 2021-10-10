@@ -24,10 +24,6 @@ function hupa_register_theme_updater()
     $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
 }
 
-
-
-
-
 function load_woocommerce_function(){
     if (get_hupa_option('woocommerce_aktiv')) {
 // WooCommerce

@@ -10,6 +10,19 @@ hummelt und partner | Werbeagentur GmbH
 * GoogleMaps Fehler behoben
 * Funktion Theme aktivieren hinzugefügt
 * Sidebar-Funktionen eingebunden
+* Carousel hinzugefügt
+* Auswahl für Beitragslisten hinzugefügt
+* Menü-Optionen hinzugefügt
+* Sitemaps-Optionen hinzugefügt
+* WooCommerce-Optionen hinzugefügt
+* Soziale Medien für Seiten und Beiträge hinzugefügt
+* Informationen für Beiträge und Beitragslisten Einstellungen hinzugefügt
+* Container-Auswahl für Menüs und Main-Content hinzugefügt
+* Preloader-Option hinzugefügt
+* Footer Texteingabe hinzugefügt
+* Gutenberg-Sidebar angepasst
+* Handymenüs hinzugefügt
+* Lizenz Übersicht hinzugefügt
 
 ### \#1.0.1 
 * Theme-Upload-Funktion hinzugefügt 

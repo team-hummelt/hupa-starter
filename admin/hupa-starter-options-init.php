@@ -25,6 +25,7 @@ if ( $child_data->exists() ) {
 
 // TODO SHOW LIZENZ PAGE
 const HUPA_SHOW_LICENSE_DATA = true;
+const HUPA_SHOW_USER_LICENSE_INFO = true;
 
 //JOB: DATENBANK VERSION:
 const HUPA_STARTER_THEME_DB_VERSION = '1.0.7';
@@ -98,10 +99,3 @@ if(get_option('hupa_starter_product_install_authorize')) {
     require(THEME_ADMIN_INC. 'register-hupa-starter-optionen.php');
     add_action( 'after_setup_theme','hupa_register_theme_updater');
 }
-
-//wp-content/themes/hupa-starter/css/hupa-theme/theme-custom.css
-//require 'minify/config.php';
-
-//echo get_template_directory_uri() . '/css/hupa-theme/theme-custom.css';
-
-

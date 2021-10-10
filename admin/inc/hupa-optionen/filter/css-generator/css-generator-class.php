@@ -573,6 +573,16 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= '#top-area-wrapper #share-symbol {'."\r\n";
 			$html .= 'justify-content: center;'."\r\n";
 			$html .= '}'."\r\n";
+
+            $html .= '.widget-sidebar {'."\r\n";
+            $html .= 'background-color: '.get_hupa_option('widget_bg').'!important;'."\r\n";
+            if(get_hupa_option('widget_border_aktiv')){
+                $html .= 'border: 1px solid '.get_hupa_option('widget_border_color').'!important;'."\r\n";
+            } else {
+                $html .= 'border: 0!important;'."\r\n";
+            }
+            $html .= '}'."\r\n";
+
 			return $html;
 		}
 

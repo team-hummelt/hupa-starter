@@ -2975,6 +2975,53 @@ defined('ABSPATH') or die();
                                                 </div>
                                             </div>
 
+                                            <!--//TODO JOB Menu WIDGET TRENNER-->
+                                            <div class="bg-custom-yellow mb-3">
+                                                <h6 class="card-title px-3 py-2">
+                                                    <?= __('Widget Sidebar', 'bootscore') ?>
+                                                </h6>
+                                            </div>
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-select-wrapper d-flex">
+                                                    <div data-color="<?= get_hupa_option('widget_bg') ?>"
+                                                         class="colorPickers">
+                                                        <input id="InputColorWidgetBG" type="hidden"
+                                                               value="<?= get_hupa_option('widget_bg') ?>"
+                                                               name="widget_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Widget</b>
+                                                        Hintergrundfarbe</h6>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="widget_border_aktiv" type="checkbox"
+                                                       id="CheckWidgetBorderActive"
+                                                       aria-describedby="CheckWidgetBorderActiveHelp" <?= (int)!get_hupa_option('widget_border_aktiv') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckWidgetBorderActive">
+                                                    <?= __('active', 'bootscore') ?></label>
+                                                <div id="CheckWidgetBorderActiveHelp" class="form-text">
+                                                    <?= __('Widget Border anzeigen. ', 'bootscore') ?>
+                                                </div>
+                                            </div>
+                                            <hr>
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option('widget_border_color') ?>"
+                                                         class="colorPickers">
+                                                        <input id="InputColorWidgetBorder" type="hidden"
+                                                               value="<?= get_hupa_option('widget_border_color') ?>"
+                                                               name="widget_border_color">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Widget</b>
+                                                        Border-Farbe</h6>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
                                 </div><!--ITEM-END-->

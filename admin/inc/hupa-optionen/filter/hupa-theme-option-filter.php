@@ -566,6 +566,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
+                    $return['relative'] = 'position-relative ';
                     break;
                 case 2:
                     $return['block'] = 'start ps-lg-4';
@@ -574,6 +575,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
+                    $return['relative'] = 'position-relative ';
                     break;
                 case 3:
                     $return['block'] = 'end';
@@ -582,6 +584,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
+                    $return['relative'] = ' ';
                     break;
                 case 4:
                     $return['block'] = 'start';
@@ -590,14 +593,16 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = 'py-3';
                     $return['show_img'] = true;
+                    $return['relative'] = 'position-relative ';
                     break;
                 case 5:
                     $return['block'] = 'center';
                     $return['logo'] = '';
-                    $return['widget'] = '';
+                    $return['widget'] = 'position-absolute me-4 me-lg-0';
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = false;
+                    $return['relative'] = 'position-relative' ;
                     break;
                 default:
                     return (object)[];

@@ -16,7 +16,7 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 ?>
 <nav id="nav-main-starter"
      class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg <?=$menu->height?>  <?= ! get_hupa_option( 'fix_header' ) ?: 'fixed-top' ?>">
-	<div class="position-relative  <?=$pageSettings->menu_container ? 'container-lg ' . $menu->container . '' : 'container-fluid ' . $menu->container?>">
+	<div class="<?=$menu->relative?>  <?=$pageSettings->menu_container ? 'container-lg ' . $menu->container . '' : 'container-fluid ' . $menu->container?>">
 		<?php if (!$menu->show_img):?>
             <a class="middle-image-nav-sm" href="<?php echo esc_url( home_url() ); ?>">
                 <img src="<?=get_hupa_frontend('nav-img')->url?>"
@@ -39,7 +39,7 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 		<!-- Top Nav Widget -->
 		<div class="top-nav main-widget order-lg-3  d-none d-sm-flex justify-content-end  <?=$menu->widget?>">
 			<?php if ( is_active_sidebar( 'top-nav' ) ) : ?>
-				<div>
+				<div class="widget-navigation">
 					<?php dynamic_sidebar( 'top-nav' ); ?>
 				</div>
 			<?php endif; ?>

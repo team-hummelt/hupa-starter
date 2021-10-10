@@ -78,7 +78,7 @@ $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
 
         <?php if(get_hupa_option('top_aktiv')):?>
         <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
-            <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-evenly align-items-center">
+            <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-center align-items-center">
 	            <?php if ( is_active_sidebar( 'top-menu-1' ) && get_hupa_tools('areainfo_')->aktiv) : ?>
                     <div class="py-2  order-<?=get_hupa_tools('areainfo_')->position?>  <?=get_hupa_tools('areainfo_')->css_class?>">
 			            <?php dynamic_sidebar( 'top-menu-1' ); ?>

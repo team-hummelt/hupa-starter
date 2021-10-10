@@ -101,6 +101,10 @@ trait HupaOptionTrait
     protected string $nav_bg = 'nav_bg';
     protected string $nav_bg_opacity = 'nav_bg_opacity';
     protected string $footer_bg = 'footer_bg';
+
+    protected string $widget_bg = 'widget_bg';
+    protected string $widget_border_aktiv = 'widget_border_aktiv';
+    protected string $widget_border_color = 'widget_border_color';
     //MENU
     protected string $menu_uppercase = 'menu_uppercase';
     protected string $menu_btn_bg_color = 'menu_btn_bg_color';
@@ -460,6 +464,12 @@ trait HupaOptionTrait
                 $this->nav_bg => '#e6e6e6cf',
                 $this->footer_bg => '#e11d2a',
                 $this->nav_bg_opacity => 100,
+
+                //WIDGET BG
+                $this->widget_bg => '#F7F7F700',
+                $this->widget_border_color => '#dee2e6',
+                $this->widget_border_aktiv => 1,
+
                 //MENU
                 $this->menu_uppercase => 0,
                 $this->menu_btn_bg_color => '#e6e6e600',

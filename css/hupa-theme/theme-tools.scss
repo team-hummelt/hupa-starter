@@ -25,6 +25,22 @@
   align-items: center;
 }
 
+.top-nav #share-symbol .btn-widget {
+  //align-items: unset;
+  margin-top: unset;
+  z-index: 1;
+}
+
+#top-area-wrapper .btn-widget {
+  // align-items: unset;
+}
+
+#top-area-wrapper #share-symbol {
+  .btn-widget {
+    margin-top: unset;
+  }
+}
+
 #share-buttons .btn-xxl {
   width: 84px;
   height: 84px;

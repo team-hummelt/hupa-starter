@@ -276,6 +276,11 @@ switch ($method) {
                 $record->scroll_btn_bg = filter_input(INPUT_POST, 'scroll_btn_bg', FILTER_SANITIZE_STRING);
                 $record->scroll_btn_color = filter_input(INPUT_POST, 'scroll_btn_color', FILTER_SANITIZE_STRING);
 
+                //WIDGET BACKGROUND COLOR
+                $record->widget_bg = filter_input(INPUT_POST, 'widget_bg', FILTER_SANITIZE_STRING);
+                $record->widget_border_color = filter_input(INPUT_POST, 'widget_border_color', FILTER_SANITIZE_STRING);
+                filter_input(INPUT_POST, 'widget_border_aktiv', FILTER_SANITIZE_STRING) ? $record->widget_border_aktiv = 1 : $record->widget_border_aktiv = 0;
+
                 apply_filters('update_hupa_options', $record, 'theme_colors');
 
                 //TODO JOB WARNING UPDATE CSS FILE

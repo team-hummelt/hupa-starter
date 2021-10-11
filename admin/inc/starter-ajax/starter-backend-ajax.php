@@ -749,6 +749,8 @@ switch ($method) {
         $record->select_bg = filter_input(INPUT_POST, 'select_bg', FILTER_SANITIZE_NUMBER_INT);
 
         $container_height = filter_input(INPUT_POST, 'container_height', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $record->carousel_image_size = filter_input(INPUT_POST, 'carousel_image_size', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+
         $containerHeight = preg_replace('/\s+/', '', $container_height);
 
         preg_match('/(vh|px|rem)/i', $containerHeight, $matches);

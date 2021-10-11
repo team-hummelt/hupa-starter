@@ -105,6 +105,8 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
                     }
 						$x === 0 ? $active = 'active' : $active = '';
 						$attach = apply_filters( 'wp_get_attachment', $tmp->img_id );
+                        $image = wp_get_attachment_image_src($tmp->img_id, $carousel->carousel_image_size);
+
 						$tmp->data_alt ? $data_alt = $tmp->data_alt : $data_alt = $attach->alt;
                         $tmp->caption_aktiv ? $caption_aktiv = '' : $caption_aktiv = 'd-none d-md-block';
                         $firstFont = $this->get_slider_fonts($tmp->first_font, $tmp->first_style);
@@ -129,7 +131,7 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
                             }
 						?>
                         <div class="carousel-item <?=$active?>" data-bs-interval="<?=$tmp->data_interval?>">
-                            <img src="<?= $attach->src ?>" class="bgImage" alt="<?=$data_alt?>"
+                            <img src="<?= $image = $image[0] ?>" class="bgImage" alt="<?=$data_alt?>"
                                  style="height: <?=$carousel->container_height?>;">
                             <div class="carousel-caption <?= $caption_aktiv ?>">
                                 <div class="caption-wrapper col-12 col-xxl-4 col-xl-6 col-lg-8 <?= $bgCaption ?>">

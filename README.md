@@ -1,9 +1,28 @@
-# Hupa Starter
-Hummelt & Partner 
+# HUPA Theme
+hummelt und partner | Werbeagentur GmbH
 
-![Hupa Starter](https://img.shields.io/badge/Hupa%20Starter%20Theme-v1.0.1-brightgreen.svg)
+![release](https://img.shields.io/github/v/release/team-hummelt/hupa-starter)
 ![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
-![Hupa License](https://img.shields.io/github/license/team-hummelt/hupa-starter.svg)
+![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
+
+
+### \#1.0.2
+* GoogleMaps Fehler behoben
+* Funktion Theme aktivieren hinzugefügt
+* Sidebar-Funktionen eingebunden
+* Carousel hinzugefügt
+* Auswahl für Beitragslisten hinzugefügt
+* Menü-Optionen hinzugefügt
+* Sitemaps-Optionen hinzugefügt
+* WooCommerce-Optionen hinzugefügt
+* Soziale Medien für Seiten und Beiträge hinzugefügt
+* Informationen für Beiträge und Beitragslisten Einstellungen hinzugefügt
+* Container-Auswahl für Menüs und Main-Content hinzugefügt
+* Preloader-Option hinzugefügt
+* Footer Texteingabe hinzugefügt
+* Gutenberg-Sidebar angepasst
+* Handymenüs hinzugefügt
+* Lizenz Übersicht hinzugefügt
 
 ### \#1.0.1 
 * Theme-Upload-Funktion hinzugefügt 
@@ -11,6 +30,5 @@ Hummelt & Partner
 * fixed Installations Fehler
 
 ### \#1.0.0
-* Hupa-Starter release. Included basic plugin features.
-
+* Hupa-Theme release. Included basic plugin features.
 

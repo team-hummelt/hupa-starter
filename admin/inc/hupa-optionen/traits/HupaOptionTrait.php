@@ -91,6 +91,8 @@ trait HupaOptionTrait
     protected string $emoji = 'emoji';
     protected string $block_css = 'block_css';
     protected string $optimize = 'optimize';
+    protected string $lizenz_page_aktiv = 'lizenz_page_aktiv';
+    protected string $lizenz_login_aktiv = 'lizenz_login_aktiv';
 
 
     /*=============================================
@@ -302,6 +304,8 @@ trait HupaOptionTrait
                 $this->emoji => 0,
                 $this->block_css => 0,
                 $this->optimize => 0,
+                $this->lizenz_page_aktiv => 0,
+                $this->lizenz_login_aktiv => 0
             ],
 
             /*=============================================

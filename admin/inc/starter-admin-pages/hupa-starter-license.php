@@ -68,9 +68,9 @@ if($status && $licenseInfo->login_aktiv) {
                             <?php else: ?>
                             <div class="d-flex flex-wrap align-items-center">
                             <h5 class="card-title">
-                                <i class="font-blue fa fa-wordpress"></i>&nbsp;aktive Lizenzen <small class="small font-blue"><?= $loginAktiv && HUPA_SHOW_USER_LICENSE_INFO ? '('.$licenseInfo->email.')' : ''?></small>
+                                <i class="font-blue fa fa-wordpress"></i>&nbsp;aktive Lizenzen <small class="small font-blue"><?= get_hupa_option('lizenz_login_aktiv') ? '('.$licenseInfo->email.')' : ''?></small>
                             </h5>
-                                <?php if($loginAktiv && HUPA_SHOW_USER_LICENSE_INFO): ?>
+                                <?php if(get_hupa_option('lizenz_login_aktiv')): ?>
                                 <div class="ms-auto">
                                     <a target="_blank" href="<?=$licenseInfo->login_url?>" style="color: #6c757d"
                                        class="text-decoration-none"> <i class="font-blue fa fa-sign-in"></i>&nbsp; Account Login</a>

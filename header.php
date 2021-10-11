@@ -69,14 +69,13 @@
 <body <?php body_class(); ?>>
 <?php
 $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
-
 ?>
 <div id="to-top"></div>
 <div id="page" class="site">
     <header id="masthead" class="site-header">
         <!--==================== TOP AREA ====================-->
 
-        <?php if(get_hupa_option('top_aktiv')):?>
+        <?php if($pageSettings->show_top_area):?>
         <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
             <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-center align-items-center">
 	            <?php if ( is_active_sidebar( 'top-menu-1' ) && get_hupa_tools('areainfo_')->aktiv) : ?>

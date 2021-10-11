@@ -34,6 +34,10 @@ switch ($method) {
                 filter_input(INPUT_POST, 'css_aktiv', FILTER_SANITIZE_STRING) ? $record->block_css = 1 : $record->block_css = 0;
                 filter_input(INPUT_POST, 'optimize', FILTER_SANITIZE_STRING) ? $record->optimize = 1 : $record->optimize = 0;
                 filter_input(INPUT_POST, 'gb_widget_aktiv', FILTER_SANITIZE_STRING) ? $record->gb_widget = 1 : $record->gb_widget = 0;
+
+                filter_input(INPUT_POST, 'lizenz_login_aktiv', FILTER_SANITIZE_STRING) ? $record->lizenz_login_aktiv = 1 : $record->lizenz_login_aktiv = 0;
+                filter_input(INPUT_POST, 'lizenz_page_aktiv', FILTER_SANITIZE_STRING) ? $record->lizenz_page_aktiv = 1 : $record->lizenz_page_aktiv = 0;
+
                 apply_filters('update_hupa_options', $record, 'wp_optionen');
                 $responseJson->spinner = true;
                 break;

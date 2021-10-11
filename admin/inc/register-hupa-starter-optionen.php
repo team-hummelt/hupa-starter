@@ -132,7 +132,7 @@ final class HupaRegisterStarterTheme {
             add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
         }
 
-        if(HUPA_SHOW_LICENSE_DATA) {
+        if(get_hupa_option('lizenz_page_aktiv')) {
             $hook_suffix = add_submenu_page(
                 'hupa-starter-home',
                 __('Licences', 'bootscore'),
@@ -144,8 +144,6 @@ final class HupaRegisterStarterTheme {
             add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
         }
     }
-
-
 
     public function register_hupa_starter_maps_menu(): void {
         //GOOGLE MAPS SEITE

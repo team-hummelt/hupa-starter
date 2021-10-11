@@ -3729,6 +3729,31 @@ defined('ABSPATH') or die();
                                             <?= __('If this option is activated, the CSS Gutenberg editor source code and WooCommerce CSS code is removed from the front end.', 'bootscore') ?>
                                         </div>
                                     </div>
+
+                                    <hr>
+                                    <div class="col-lg-12 pt-2">
+                                        <h6>
+                                            <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Lizenz Seite anzeigen ', 'bootscore'); ?>
+                                        </h6>
+                                        <hr>
+                                        <div class="d-flex flex-wrap">
+                                        <div class="form-check form-switch me-3">
+                                            <input class="form-check-input" name="lizenz_page_aktiv" type="checkbox"
+                                                   id="CheckLizenzPageActive"
+                                                    <?= (int)!get_hupa_option('lizenz_page_aktiv') ?: 'checked' ?>>
+                                            <label class="form-check-label" for="CheckLizenzPageActive">
+                                                <?= __('Seite anzeigen', 'bootscore') ?></label>
+                                        </div>
+                                            <div class="form-check form-switch me-3">
+                                                <input class="form-check-input" name="lizenz_login_aktiv" type="checkbox"
+                                                       id="CheckLoginPageActive"
+                                                       <?= (int)!get_hupa_option('lizenz_login_aktiv') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckLoginPageActive">
+                                                    <?= __('Login anzeigen', 'bootscore') ?></label>
+                                            </div>
+                                        </div>
+                                               </div>
+
                                     <hr>
                                     <div class="col-lg-12 pt-2">
                                         <h6>

@@ -847,7 +847,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $record->show_menu = get_post_meta($id, '_hupa_show_menu', true);
             $record->menuSelect = get_post_meta($id, '_hupa_select_menu', true);
             $record->handyMenuSelect = get_post_meta($id, '_hupa_select_handy_menu', true);
-            //$record->topAreaSelect = get_post_meta($id, '_hupa_select_top_area', true);
+            $record->topAreaSelect = get_post_meta($id, '_hupa_select_top_area', true);
             $record->show_bottom_footer = get_post_meta($id, '_hupa_show_bottom_footer', true);
             $record->select_header = get_post_meta($id, '_hupa_select_header', true);
             $record->select_footer = get_post_meta($id, '_hupa_select_footer', true);
@@ -955,12 +955,12 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->fixed_footer = $stickyFooterOption;
             }
 
-            if ($topAreaSelect != 0) {
+            if ($topAreaSelect != 1) {
                 switch ($topAreaSelect) {
-                    case '1':
+                    case '2':
                         $record->show_top_area = 1;
                         break;
-                    case'2':
+                    case'3':
                         $record->show_top_area = 0;
                         break;
                 }
@@ -968,15 +968,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->show_top_area = $optionTopArea;
             }
 
-            /*  if ($topAreaSelect != 0) {
-                  $record->show_top_area = match ($topAreaSelect) {
-                      '1' => 1,
-                      '2' => 0,
-                  };
 
-              } else {
-                  $record->show_top_area = $optionTopArea;
-              }*/
 
             //TODO CUSTOM HEADER
             if ($record->select_header) {

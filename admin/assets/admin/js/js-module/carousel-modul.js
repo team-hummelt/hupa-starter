@@ -185,6 +185,27 @@ function render_carousel(data, handle = false) {
     <small class="small d-block p-2">${lang.help_bezeichnung}</small>
     </div>
     </div>
+    
+    <div class="row row-cols-1 row-cols-lg-2 py-2 settings-box option first-box align-items-center">
+    <div class="col">
+    <div class="col-xl-6 col-lg-8 col-12 p-2">
+    <div class="mb-3">
+    <label for="selectCarouselImageSize${val.id}"
+    class="form-label">Bildgröße auswählen</label>
+    <select id="selectCarouselImageSize${val.id}" class="form-select"
+    name="carousel_image_size">
+    <option value="medium" ${val.carousel_image_size === 'medium' ? ' selected' : ''}>medium</option>
+    <option value="large" ${val.carousel_image_size === 'large' ? ' selected' : ''}>large</option>
+    <option value="full" ${val.carousel_image_size === 'full' ? ' selected' : ''}>full</option>
+    </select>
+    </div>
+    </div>
+    </div>
+    <div class="col">
+    </div>
+    </div>
+    
+    
     <div class="row row-cols-1 row-cols-lg-2 py-2 settings-box option first-box align-items-center">
     <div class="col">
     <div class="col-xl-8 col-lg-8 col-12 p-2">

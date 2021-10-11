@@ -23,12 +23,9 @@ if ( $child_data->exists() ) {
     $ifChild =  false;
 }
 
-// TODO SHOW LIZENZ PAGE
-const HUPA_SHOW_LICENSE_DATA = true;
-const HUPA_SHOW_USER_LICENSE_INFO = true;
 
 //JOB: DATENBANK VERSION:
-const HUPA_STARTER_THEME_DB_VERSION = '1.0.7';
+const HUPA_STARTER_THEME_DB_VERSION = '1.0.8';
 
 //JOB: THEME VERSION:
 define("THEME_VERSION", $theme_data->get('Version'));

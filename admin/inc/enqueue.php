@@ -29,16 +29,30 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 		// TODO HUPA-STARTER-THEME Theme JS
 		wp_enqueue_script( 'hupa-starter-script', THEME_ADMIN_URL . 'assets/theme-scripte/hupa-starter-theme.js', array(), $modificated, true );
 
+		if( get_hupa_option('menu') == 5){
+            $img = wp_get_attachment_image_src(  get_hupa_option('logo_image'), 'large' );
+            $img = $img[0];
+        } else {
+		    $img = false;
+        }
+
+
 		// TODO PUBLIC localize Script
-		wp_register_script( 'hupa-starter-public-js-localize', '', [], $hupa_version->get( 'Version' ), true );
+        global $post;
+        wp_register_script( 'hupa-starter-public-js-localize', '', [], $hupa_version->get( 'Version' ), true );
 		wp_enqueue_script( 'hupa-starter-public-js-localize' );
 		wp_localize_script( 'hupa-starter-public-js-localize',
 			'get_hupa_option',
 			array(
+                'postID' => $post->ID,
+                'post_type' => $post->post_type,
 				'ds_maps'   => get_hupa_frontend('ds-gmaps'),
 				'admin_url' => THEME_ADMIN_URL,
 				'site_url'  => get_bloginfo( 'url' ),
-				'key' => base64_encode( get_hupa_option( 'map_apikey' ) )
+				'key' => base64_encode( get_hupa_option( 'map_apikey' ) ),
+                'img_width' => get_hupa_frontend('nav-img')->width,
+                'img' => $img
+
 			)
 		);
 	}

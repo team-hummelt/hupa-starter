@@ -31,6 +31,7 @@ class HupaSocialMediaWidget extends WP_Widget {
 	 *
 	 */
 	function widget( $args, $instance ) {
+        global $post;
 		$args     = (object) $args;
 		$instance = (object) $instance;
 		$header   = empty( $instance->header ) ? ' ' : apply_filters( 'widget_title', $instance->header );
@@ -43,8 +44,17 @@ class HupaSocialMediaWidget extends WP_Widget {
 			'2' => 'share-buttons',
 		};
 
-		!$isColor && $btnId == 'share-symbol'  ? $color = 'gray' : $color = '';
 
+        $shareData = new stdClass();
+        $shareData->share_url = urlencode(get_permalink());
+        $metaTitle = get_post_meta( $post->ID , '_hupa_custom_title', true);
+        if($metaTitle){
+            $shareData->share_title = $metaTitle;
+        } else {
+            $shareData->share_title = str_replace( ' ', '%20', get_the_title());
+        }
+
+		!$isColor && $btnId == 'share-symbol'  ? $color = 'gray' : $color = '';
 		echo( $args->before_widget ?? '' );
 		echo $args->before_title . $header . $args->after_title;
 
@@ -55,7 +65,9 @@ class HupaSocialMediaWidget extends WP_Widget {
 			if ( ! $tmp->top_check ) {
 				continue;
 			}
-			$tmp->url ? $url = $tmp->url : $url = '#';
+            $tmp->share_txt ? $shareData->share_subject = $tmp->share_txt : $shareData->share_subject = __( 'Look what I found: ', 'bootscore' );
+            $shareData->btn = $tmp->btn;
+            $url = apply_filters('get_social_button_url', $shareData);
 			$tmp->slug === 'print_' ? $href = 'javascript:;" onclick="window.print()' : $href = $url;
 			$html .= '<a class="btn-widget  '.  $tmp->btn . ' '.$color. ' '.$cssClass. ' " title="' . $tmp->bezeichnung . '" href="' . $href . '" target="_blank" rel="nofollow"><i class="' . $tmp->icon . '"></i></a> ';
 		}
@@ -153,3 +165,5 @@ add_action( 'widgets_init', 'hupa_register_social_media_widget' );
 function hupa_register_social_media_widget(): void {
 	register_widget( 'HupaSocialMediaWidget' );
 }
+
+

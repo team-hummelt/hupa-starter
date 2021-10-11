@@ -46,6 +46,8 @@ final class HupaRegisterStarterTheme {
 
         // TODO AJAX ADMIN AND PUBLIC RESPONSE HANDLE
         add_action( 'wp_ajax_HupaStarterHandle', array( $this, 'prefix_ajax_HupaStarterHandle' ) );
+        //add_action( 'wp_ajax_HupaStarterForm', array( $this, 'prefix_ajax_HupaStarterForm' ) );
+
         add_action( 'wp_ajax_nopriv_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
         add_action( 'wp_ajax_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
 
@@ -130,19 +132,18 @@ final class HupaRegisterStarterTheme {
             add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
         }
 
-        if (POST_SELECT_ACTIVE) {
+        if(get_hupa_option('lizenz_page_aktiv')) {
             $hook_suffix = add_submenu_page(
                 'hupa-starter-home',
-                __('Post Select Slider', 'bootscore'),
-                __('Post Select Slider', 'bootscore'),
+                __('Licences', 'bootscore'),
+                __('<b class="green_submenue"> Licences ➤</b>', 'bootscore'),
                 'manage_options',
-                'post-slider',
-                array($this, 'hupa_admin_starter_theme_slider'));
+                'hupa-active-license',
+                array($this, 'hupa_admin_starter_license'));
 
             add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
         }
     }
-
 
     public function register_hupa_starter_maps_menu(): void {
         //GOOGLE MAPS SEITE
@@ -179,14 +180,14 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
 
-       /* $args[] = [
-            'id'     => 'hupa_updates',
-            'title'  => __( 'Theme updates', 'bootscore' ),
-            'parent' => 'hupa_options_page',
-            'meta'   => [
-                'class' => 'get_hupa_update'
-            ]
-        ];*/
+        /* $args[] = [
+             'id'     => 'hupa_updates',
+             'title'  => __( 'Theme updates', 'bootscore' ),
+             'parent' => 'hupa_options_page',
+             'meta'   => [
+                 'class' => 'get_hupa_update'
+             ]
+         ];*/
 
         $args[] = [
             'id'     => 'hupa_contact',
@@ -232,11 +233,10 @@ final class HupaRegisterStarterTheme {
         require 'starter-admin-pages/admin-starter-theme-carousel.php';
     }
 
-    //POST SLIDER
-    public function hupa_admin_starter_theme_slider(): void
+    //Lizenzen
+    public function hupa_admin_starter_license(): void
     {
-        wp_enqueue_media();
-        require 'starter-admin-pages/admin-post-slider-options.php';
+        require 'starter-admin-pages/hupa-starter-license.php';
     }
 
     //HUPA MAPS
@@ -276,6 +276,7 @@ final class HupaRegisterStarterTheme {
         require THEME_AJAX_DIR . 'starter-backend-ajax.php';
         wp_send_json( $responseJson );
     }
+
 
     public function hupa_starter_theme_public_one_trigger_check(): void {
         $title_nonce = wp_create_nonce( 'theme_public_handle' );
@@ -391,6 +392,32 @@ final class HupaRegisterStarterTheme {
     }
 
     /**
+     * ===============================================
+     * =========== THEME PHP-MAILER CONFIG ===========
+     * ===============================================
+     */
+    public function hupa_starter_mailer_phpmailer_configure($phpmailer){
+        $phpmailer->isSMTP();
+        $phpmailer->Host = get_hupa_option('smtp_host');
+        $phpmailer->SMTPAuth = (bool) get_hupa_option('smtp_auth_check');
+        $phpmailer->Port = get_hupa_option('smtp_port');
+        $phpmailer->Username = get_hupa_option('email_benutzer');
+        $phpmailer->Password = get_hupa_option('email_passwort');
+        $phpmailer->SMTPSecure = get_hupa_option('smtp_secure');
+        $phpmailer->SMTPDebug = 0;
+        $phpmailer->CharSet = "utf-8";
+    }
+
+
+
+    public function starter_log_mailer_errors( $wp_error ){
+        $file = THEME_ADMIN_INC . 'log/mail-error.log';
+        $current = file_get_contents($file);
+        $current .= "Mailer Error: " . $wp_error->get_error_message() ."\n";
+        file_put_contents($file, $current, FILE_APPEND | LOCK_EX);
+    }
+
+    /**
      * =================================================
      * =========== THEME CREATE CUSTOM MENUS ===========
      * =================================================
@@ -401,6 +428,7 @@ final class HupaRegisterStarterTheme {
         register_nav_menu( 'top-area-menu', 'Top Area menu' );
     }
 
+
     /**
      * =====================================================
      * =========== REGISTER SIDEBARS AND WIDGETS ===========
@@ -408,7 +436,7 @@ final class HupaRegisterStarterTheme {
      */
     public function register_hupa_starter_widgets(): void {
         register_sidebar( array(
-            'name'          => __( 'Top Menu Info text', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Info text', 'bootscore' ),
             'id'            => 'top-menu-1',
             'description'   => __( 'Area for info or contact information.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
@@ -418,7 +446,7 @@ final class HupaRegisterStarterTheme {
         ) );
 
         register_sidebar( array(
-            'name'          => __( 'Top Menu Social media', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Social media', 'bootscore' ),
             'id'            => 'top-menu-2',
             'description'   => __( 'Area for social media icons.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
@@ -428,7 +456,7 @@ final class HupaRegisterStarterTheme {
         ) );
 
         register_sidebar( array(
-            'name'          => __( 'Top Menu Button', 'bootscore' ),
+            'name'          => __( 'Top Area Menu Button', 'bootscore' ),
             'id'            => 'top-area-3',
             'description'   => __( 'Area for button or search field.', 'bootscore' ),
             'before_widget' => '<div id="%1$s" class="widget %2$s">',
@@ -460,11 +488,12 @@ final class HupaRegisterStarterTheme {
 
     public function load_hupa_starter_theme_admin_style(): void {
         $hupa_theme = wp_get_theme();
+        $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_STRING);
 
-        if(!HUPA_SIDEBAR) {
-            //TODO FontAwesome / Bootstrap
-            wp_enqueue_style( 'hupa-starter-admin-bs-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
-        }
+
+        //TODO FontAwesome / Bootstrap
+        wp_enqueue_style( 'hupa-starter-admin-bs-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
+
         wp_enqueue_style( 'admin-fontawesome-5', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $hupa_theme );
 
         // TODO ADMIN ICONS
@@ -477,8 +506,6 @@ final class HupaRegisterStarterTheme {
         wp_enqueue_style( 'hupa-starter-admin-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
         //TODO DASHBOARD ADMIN JS FILES
-
-
         // TODO ADMIN localize Script
         wp_register_script( 'hupa-starter-admin-js-localize', '', [], '', true );
         wp_enqueue_script( 'hupa-starter-admin-js-localize' );
@@ -487,24 +514,22 @@ final class HupaRegisterStarterTheme {
             array(
                 'admin_js_module' => THEME_JS_MODUL_URL,
                 'admin_url'       => THEME_ADMIN_URL,
-                'data_table'      => THEME_ADMIN_URL . 'assets/admin/json/DataTablesGerman.json',
+                'data_table'      => THEME_ADMIN_URL . 'assets/json/DataTablesGerman.json',
                 'site_url'        => get_bloginfo( 'url' ),
                 'theme_language'  => apply_filters( 'get_theme_language', 'localize', '' )->language
             )
         );
 
         wp_enqueue_script( 'jquery' );
+
         // TODO Bootstrap JS
         wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
         //TODO TOOLS
         wp_enqueue_script( 'js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
-        // TODO AJAX ADMIN XHR HANDLE
-        //wp_enqueue_script('admin-ajax-script', THEME_ADMIN_URL . 'assets/admin/js/theme-admin-backend.js', array(), $hupa_theme->get('Version'), true);
-
-        // TODO AJAX PUBLIC XHR HANDLE
-        //wp_enqueue_script('public-ajax-script', THEME_ADMIN_URL . 'assets/admin/js/theme-public-xhr.js', array(), $hupa_theme->get('Version'), true);
+        //TODO Color Picker
+        wp_enqueue_script( 'js-hupa-color-picker', THEME_ADMIN_URL . 'assets/admin/js/tools/pickr.min.js', array(), $hupa_theme->get( 'Version' ), true );
 
         // TODO JS NO-jQUERY
         wp_enqueue_script( 'js-hupa-starter-script', THEME_ADMIN_URL . 'assets/admin/js/admin-no-jquery.js', array(), $hupa_theme->get( 'Version' ), true );
@@ -512,8 +537,6 @@ final class HupaRegisterStarterTheme {
         // TODO JS Google Maps
         wp_enqueue_script( 'js-hupa-google-maps-script', THEME_ADMIN_URL . 'assets/admin/js/admin-google-maps.js', array(), $hupa_theme->get( 'Version' ), true );
 
-        // TODO JS CAROUSEL MODUL
-        //wp_enqueue_script( 'js-hupa-carousel-modul', THEME_JS_MODUL_URL . 'carousel-modul.js', array(), $hupa_theme->get( 'Version' ), true );
         // TODO JS CAROUSEL
         wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), $hupa_theme->get( 'Version' ), true );
 
@@ -558,6 +581,8 @@ final class HupaRegisterStarterTheme {
         $wp_admin_bar->add_node( $args );
     }
 
+
+
     /**
      * ==================================================================
      * =========== THEME DATABASE UPDATE BY CHANGE DB-VERSION ===========
@@ -591,3 +616,4 @@ if ( ! empty( $hupa_register_starter_options ) ) {
 
 //TODO WORDPRESS DASHBOARD CSS
 require THEME_ADMIN_INC . 'enqueue.php';
+

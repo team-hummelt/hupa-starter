@@ -77,10 +77,13 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 				'2' => 'slider_caption_bg_dark',
 			};
 
+			$carousel->margin_aktiv ? $marginTop = 'carousel-margin-top' : $marginTop = '';
+            $countS = count((array) $slider);
 			ob_start();
 			?>
-            <div id="hupaCarousel<?= $carousel->id ?>" class="<?=$full_width?> carousel slide <?= $slide ?>"
+            <div id="hupaCarousel<?= $carousel->id ?>" class="<?=$full_width?> carousel <?=$marginTop?> slide <?= $slide ?>"
                  data-bs-ride="<?= $ride ?>">
+                <?php if($countS > 1): ?>
                 <div class="<?=$carousel->indicator ? '' : 'd-none'?> carousel-indicators">
 					<?php for ( $i = 0; $i < count((array) $slider); $i ++ ) :
 						$i === 0 ? $active = 'class="active"' : $active = '';
@@ -90,9 +93,16 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 							<?= $active ?> ></button>
 					<?php endfor; ?>
                 </div>
+            <?php endif; ?>
                 <div class="carousel-inner">
 					<?php $x = 0;
+
 					foreach ( $slider as $tmp ):
+					if($tmp->slide_button){
+					    $btn = json_decode($tmp->slide_button);
+                    } else {
+					    $btn = false;
+                    }
 						$x === 0 ? $active = 'active' : $active = '';
 						$attach = apply_filters( 'wp_get_attachment', $tmp->img_id );
 						$tmp->data_alt ? $data_alt = $tmp->data_alt : $data_alt = $attach->alt;
@@ -101,34 +111,83 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 						$secondFont = $this->get_slider_fonts($tmp->second_font, $tmp->second_style);
 						$selector =  apply_filters('get_container_selector',false);
 						$firstSelector = $selector->{$tmp->first_selector};
-
 					    $firstStyle = $firstFont->family . $firstFont->fontStyle . $firstFont->fontWeight
                                       . 'font-size:'.$this->px_to_rem($tmp->first_size).'!important;'
                                       . 'color: '.$tmp->font_color.'!important;'
+                                      . 'padding: 1rem 1rem 0;'
                                       . 'line-height: '.$tmp->first_height.'!important;';
 
 						$secondStyle = $secondFont->family . $secondFont->fontStyle . $secondFont->fontWeight
 						              . 'font-size:'.$this->px_to_rem($tmp->second_size).'!important;'
 						              . 'color: '.$tmp->font_color.'!important;'
+                                      . 'padding: 0 .5rem .5rem .5rem;'
 						              . 'line-height: '.$tmp->second_height.'!important;';
-
+                            if(!$tmp->first_caption && !$tmp->second_caption) {
+                                $btnPadding = 'style="padding: 1.5rem 0;"';
+                            }else{
+                                $btnPadding = 'class="slider-button-wrapper"';
+                            }
 						?>
                         <div class="carousel-item <?=$active?>" data-bs-interval="<?=$tmp->data_interval?>">
                             <img src="<?= $attach->src ?>" class="bgImage" alt="<?=$data_alt?>"
                                  style="height: <?=$carousel->container_height?>;">
-                            <div class="carousel-caption <?= $bgCaption ?> <?= $caption_aktiv ?>">
+                            <div class="carousel-caption <?= $caption_aktiv ?>">
+                                <div class="caption-wrapper col-12 col-xxl-4 col-xl-6 col-lg-8 <?= $bgCaption ?>">
+                                 <?php if($tmp->first_caption): ?>
                                 <<?=$firstSelector?> style="<?=$firstStyle?>"
                                 class="<?=$tmp->first_css?>  animate__animated animate__<?= $tmp->first_ani ?>">
                                 <?=$tmp->first_caption?>
                                 </<?=$firstSelector?>>
+                                <?php endif; if($tmp->second_caption): ?>
                                 <p style="<?=$secondStyle?>"
                                 class="<?=$tmp->second_css?>  animate__animated animate__<?= $tmp->second_ani ?>">
                                 <?=$tmp->second_caption?>
                                 </p>
+                                <?php endif; ?>
+                                <!--Button-->
+                                <?php if($btn): ?>
+                                <div <?=$btnPadding?>>
+                                    <?php $links = []; foreach ($btn as $bt):
+                                    if(!$bt->if_url) {
+                                        $links = explode('#', $bt->btn_link);
+                                        switch ($links[0]) {
+                                            case 'page':
+                                                 $link = get_page_link( $links[1] );
+                                                break;
+                                            case 'post':
+                                                 $link = get_permalink($links[1]);
+                                                break;
+                                            default:
+                                                $link = '';
+                                        }
+                                    } else {
+                                        $link = $bt->btn_link;
+                                    }
+                                      $style = 'style=
+                                                "color: '.$bt->button_color.';
+                                                 border-color:'.$bt->button_color.';
+                                                 background-color: '.$bt->bg_color.' ; "';
+                                        $style = preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $style));
+                                    ?>
+                                    <a <?=$bt->btn_target ? 'target="_blank"' : ''?> href="<?=$link?>" class="btn"
+                                        <?=$style?>
+                                     onmouseover="this.style.background='<?=$bt->bg_hover?>';
+                                     this.style.color='<?=$bt->hover_color?>';
+                                     this.style.borderColor='<?=$bt->hover_border?>';"
+                                     onmouseout="this.style.background='<?=$bt->bg_color?>';
+                                     this.style.color='<?=$bt->button_color?>';
+                                     this.style.borderColor='<?=$bt->border_color?>';" title="<?=get_the_title($links[1])?>">
+                                       <?=$bt->icon?> <?=$bt->btn_text?>
+                                    </a>
+                                   <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                             </div>
+                          </div>
                         </div>
 						<?php $x++; endforeach; ?>
                 </div>
+                <?php if ($countS > 1): ?>
                 <button class="<?=$carousel->controls ? '' : 'd-none '?> carousel-control-prev" type="button" data-bs-target="#hupaCarousel<?= $carousel->id ?>"
                         data-bs-slide="prev">
                     <span class="<?=$controlColor?> fa fa-chevron-left fa-2x" aria-hidden="true"></span>
@@ -139,6 +198,7 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
                     <span class="<?=$controlColor?> fa fa-chevron-right fa-2x" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
+            <?php endif; ?>
             </div>
 
 			<?php
@@ -178,8 +238,5 @@ if ( ! class_exists( 'HupaCarouselShortCode' ) ) {
 			$opacity = dechex((int) $value);
 			return str_pad($opacity, 2, 0, STR_PAD_RIGHT);
 		}
-
-
-
 	}//endClass
 }

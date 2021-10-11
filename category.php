@@ -10,7 +10,7 @@
 	get_header();
 	?>
 
-<div id="content" class="site-content container py-5 mt-5">
+<div id="content" class="site-content container">
     <div id="primary" class="content-area">
 
         <!-- Hook to add something nice -->
@@ -60,6 +60,10 @@
                                     <div class="card-text mt-auto">
                                         <?php the_excerpt(); ?> <a class="read-more" href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                     </div>
+
+                                    <footer <?php post_class("entry-footer category") ?>>
+                                        <?php hupa_social_media(); ?>
+                                    </footer>
                                     <!-- Tags -->
                                     <?php bootscore_tags(); ?>
                                 </div>

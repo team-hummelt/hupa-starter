@@ -14,6 +14,10 @@
   max-width: 85vw;
 }
 
+#toplevel_page_post-selector-settings div.wp-menu-image.dashicons-before.dashicons-slides::before {
+  color: #82e8ff !important;
+}
+
 #menu-posts-starter_footer div.wp-menu-image.dashicons-before.dashicons-welcome-widgets-menus::before {
   color: greenyellow !important;
 }
@@ -37,6 +41,24 @@
 #menu-posts-facebook_posts div.wp-menu-image.dashicons-before.dashicons-facebook::before {
   color: #00acf5 !important;
 }
+
+#toplevel_page_hupa-starter-home ~ .green_submenue{
+  color: greenyellow!important;
+}
+
+#menu-posts-starter_footer div.wp-menu-image.dashicons-before.dashicons-welcome-widgets-menus::before {
+  color: greenyellow !important;
+}
+
+#toplevel_page_hupa-starter-form div.wp-menu-image.dashicons-before.dashicons-email-alt::before {
+  color: #2bff76 !important;
+}
+
+//
+div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
+  color: red !important;
+}
+
 
 #wp-admin-bar-hupa_page {
   .hupa-toolbar-page {

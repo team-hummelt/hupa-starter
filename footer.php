@@ -8,22 +8,24 @@
  *
  * @package Bootscore
  */
-
+$pageId = is_singular() ? get_the_ID() : 0;
+$pageSettings = apply_filters('get_page_meta_data', (int) $pageId);
+$settingBottomFooter = get_hupa_option( 'fix_footer' );
+$pageBottomFooter = $pageSettings->show_bottom_footer;
 ?>
 <small class="d-block text-center py-2 <?=get_hupa_option( 'edit_link' ) ?'': 'd-none'?>"><?php edit_post_link();?> </small>
-<footer>
-    <div class="bootscore-footer bg-light pt-5 <?=get_hupa_option( 'fix_footer' ) ? 'pb-5': 'pb-3'?>">
-        <div class="container">
-            
+
+<div class="footer">
+    <div class="bootscore-footer">
+        <div class="<?=$pageSettings->main_container ? 'container' : 'container-fluid'?>">
             <!-- Top Footer Widget -->
-            <?php if ( is_active_sidebar( 'top-footer' )) : ?>
+            <?php if ( is_active_sidebar( 'top-footer' ) && $pageSettings->show_top_widget_footer) : ?>
                 <div>
                     <?php dynamic_sidebar( 'top footer' ); ?>
                 </div>
-            <?php endif; ?>            
-            
-            <div class="row">
-
+            <?php endif; ?>
+            <?php if($pageSettings->show_widgets_footer): ?>
+            <div class="row <?=get_hupa_option( 'fix_footer' ) && $pageSettings->show_bottom_footer ? 'mb-5' : 'mb-2'?> ">
                 <!-- Footer 1 Widget -->
                 <div class="col-md-6 col-lg-3">
                     <?php if ( is_active_sidebar( 'footer-1' )) : ?>
@@ -32,7 +34,6 @@
                         </div>
                     <?php endif; ?>
                 </div>
-
                 <!-- Footer 2 Widget -->
                 <div class="col-md-6 col-lg-3">
                     <?php if ( is_active_sidebar( 'footer-2' )) : ?>
@@ -60,8 +61,8 @@
                     <?php endif; ?>
                 </div>
                 <!-- Footer Widgets End -->
-
             </div>
+            <?php endif; ?>
             
             <!-- Bootstrap 5 Nav Walker Footer Menu -->
             <?php
@@ -76,17 +77,25 @@
                 ));
             ?>
             <!-- Bootstrap 5 Nav Walker Footer Menu End -->
-            
         </div>
     </div>
-    
-    <div class="bootscore-info bg-light text-muted border-top py-2 text-center <?=!get_hupa_option( 'fix_footer' ) ?: 'fixed-bottom'?>">
-        <div class="container">
-            &copy;&nbsp;<?php echo Date('Y'); ?> - <?php bloginfo('name'); ?>
-        </div>
-    </div>
+</div>
 
-</footer>
+<div class="custom-footer-wrapper">
+    <?=$pageSettings->custum_footer?>
+</div>
+<?php  if($pageSettings->show_bottom_footer): ?>
+<div class="footer bootscore-info border-top py-2 text-center <?=!$pageSettings->fixed_footer ?: 'fixed-bottom'?>">
+    <div class="container">
+      &nbsp;<?php
+        $footerTxt = str_replace('###YEAR###', date('Y'), get_hupa_option('bottom_area_text'));
+        $footerTxt = htmlspecialchars_decode($footerTxt);
+        $footerTxt = stripslashes_deep($footerTxt);
+        echo $footerTxt;
+        ?>
+    </div>
+</div>
+<?php endif; ?>
 
 <div class="top-button <?=get_hupa_option( 'scroll_top' ) ?'':'d-none'?>">
     <a href="#to-top" class="btn btn-scroll-to-top shadow"><i class="fas fa-chevron-up"></i></a>
@@ -95,6 +104,10 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter="">
+    <h3 class="title text-white fs-4"></h3>
+    <a class="close">×</a>
+    <div class="slides"></div>
+</div>
 </body>
 </html>

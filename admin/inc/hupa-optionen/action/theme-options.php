@@ -49,7 +49,11 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
 
 			//REDIRECT ADMIN LOGIN
 			add_filter( 'login_redirect', function ( $url, $query, $user ) {
-				return admin_url( 'admin.php?page=hupa-starter-home' );
+                if(get_option('hupa_starter_product_install_authorize')) {
+                    return admin_url('admin.php?page=hupa-starter-home');
+                } else {
+                    return admin_url();
+                }
 			}, 10, 3 );
 
 			//TODO HTML OPTIMIZE

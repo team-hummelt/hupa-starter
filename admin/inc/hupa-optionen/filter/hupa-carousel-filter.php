@@ -68,6 +68,10 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 			add_filter( 'get_container_selector', array( $this, 'hupa_get_container_selector' ) );
 			//GET SELECTOR
 			add_filter( 'get_select_bg_carousel', array( $this, 'hupa_get_select_bg_carousel' ) );
+			//GET THEME PAGES
+            add_filter( 'get_theme_pages', array( $this, 'hupa_get_theme_pages' ) );
+            //GET THEME POSTS
+            add_filter( 'get_theme_posts', array( $this, 'hupa_get_theme_posts' ) );
 		}
 
 		final public function hupa_set_carousel_defaults( $record ): object {
@@ -127,7 +131,6 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 				$table,
 				array(
 					'img_id'        => $record->img_id,
-					'img_size'      => $record->img_size,
 					'font_color'    => $record->font_color,
 					'aktiv'         => $record->aktiv,
 					'caption_aktiv' => $record->caption_aktiv,
@@ -150,14 +153,14 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 					'second_size'    => $record->second_size,
 					'second_height'  => $record->second_height,
 					'second_caption' => $record->second_caption,
-					'second_css'     => $record->second_css
+					'second_css'     => $record->second_css,
+                    'slide_button'   => $record->slider_button,
 
 				),
 				array( 'id' => $record->id ),
 				array(
 					'%d',
 					'%s',
-					'%s',
 					'%d',
 					'%d',
 					'%d',
@@ -176,7 +179,8 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 					'%d',
 					'%s',
 					'%s',
-					'%s'
+					'%s',
+                    '%s'
 				),
 				array( '%d' )
 			);
@@ -282,6 +286,15 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 				return $responseJson;
 			}
 
+            $selectPages = [];
+            $pages = apply_filters('get_theme_pages', false);
+            $post = apply_filters('get_theme_posts', false);
+            if ($post) {
+                $selectPages = array_merge_recursive($pages, $post);
+            } else {
+                $selectPages = $pages;
+            }
+
 			$retArr = [];
 			foreach ( $carousel->record as $tmp ) {
 				$retItem  = [
@@ -297,7 +310,8 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 					'select_bg'        => $tmp->select_bg,
 					'caption_bg'       => $tmp->caption_bg,
 					'container_height' => $tmp->container_height,
-					'slider'           => $this->render_slider_data( $tmp->id, $tmp->bezeichnung )
+					'slider'           => $this->render_slider_data( $tmp->id, $tmp->bezeichnung ),
+
 				];
 				$retArr[] = $retItem;
 			}
@@ -307,6 +321,7 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 			$responseJson->familySelect = apply_filters( 'get_font_family_select', false );
 			$responseJson->language     = apply_filters( 'get_theme_language', 'carousel' )->language;
 			$responseJson->select_bg    = apply_filters( 'get_select_bg_carousel', false );
+            $responseJson->selectPages  = $selectPages;
 			$responseJson->record       = $retArr;
 			$responseJson->status       = true;
 
@@ -370,6 +385,8 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 
 		final public function hupa_create_slider_array( $val, $img, $carousel ): array {
 
+
+            $val->slide_button ? $slideButton =  json_decode($val->slide_button) : $slideButton = false;
 			return [
 				'id'                  => $val->id,
 				'img_id'              => html_entity_decode( $val->img_id ),
@@ -398,7 +415,8 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 				'second_caption'      => html_entity_decode( $val->second_caption ),
 				'second_css'          => html_entity_decode( $val->second_css ),
 				'first_style_select'  => apply_filters( 'get_font_style_select', $val->first_font ),
-				'second_style_select' => apply_filters( 'get_font_style_select', $val->second_font )
+				'second_style_select' => apply_filters( 'get_font_style_select', $val->second_font ),
+                'slide_button'       => $slideButton
 			];
 		}
 
@@ -425,5 +443,43 @@ if ( ! class_exists( 'HupaStarterCarouselFilter' ) ) {
 
 			return (object) $selector;
 		}
+
+		final public function hupa_get_theme_pages($args):array {
+            $pages = get_pages();
+            $retArr = [];
+            foreach ( $pages as $page ) {
+                $ret_item = [
+                    'name' => $page->post_title,
+                    'id' => $page->ID,
+                    'type' => 'page'
+                ];
+               $retArr[] = $ret_item;
+            }
+            return $retArr;
+        }
+
+        final public function hupa_get_theme_posts($args):array {
+            $args=array(
+                'post_type'      => 'post',
+                'post_status'    => 'publish',
+                'posts_per_page' => -1
+            );
+
+            $posts = get_posts( $args );
+            $retArr = [];
+            $i=1;
+            foreach ($posts as $post){
+
+                $ret_item = [
+                    'name' => $post->post_title,
+                    'id' => $post->ID,
+                    'type' => 'post',
+                    'first' => $i === 1
+                ];
+                $retArr[] = $ret_item;
+                $i++;
+            }
+            return  $retArr;
+        }
 	}
 }

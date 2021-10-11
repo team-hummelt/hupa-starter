@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
     $(window).on('resize', function () {
         $('[data-bs-hideresize="true"]').offcanvas('hide');
     });
-    
+
 
     // Close offcanvas on click a, keep .dropdown-menu open
     $('.offcanvas a:not(.dropdown-toggle):not(a.remove_from_cart_button), a.dropdown-item').on('click', function () {
@@ -29,12 +29,12 @@ jQuery(document).ready(function ($) {
     // Dropdown menu animation
     // Add slideDown animation to Bootstrap dropdown when expanding.
     $('.dropdown').on('show.bs.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+      //  $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
     });
 
     // Add slideUp animation to Bootstrap dropdown when collapsing.
     $('.dropdown').on('hide.bs.dropdown', function () {
-        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+       // $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
     });
     
 
@@ -124,10 +124,10 @@ jQuery(document).ready(function ($) {
     
     // Forms
     $('select, #billing_state').addClass('form-select');
-
-
     // Alert links
     $('.alert a').addClass('alert-link');
+
+
 
 
 }); // jQuery End

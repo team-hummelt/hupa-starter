@@ -6,6 +6,10 @@ hummelt und partner | Werbeagentur GmbH
 ![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
 
 
+### \#1.0.3
+* Carousel Settings für Bildergröße hinzugefügt
+* Sidebar gefixt
+
 ### \#1.0.2
 * GoogleMaps Fehler behoben
 * Funktion Theme aktivieren hinzugefügt

@@ -394,8 +394,8 @@ final class HupaRegisterGutenbergSidebar {
 
 		wp_register_script(
 			'plugin-sidebar-js',
-			//THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/index.js',
-              THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js',
+			THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/js/index.js',
+              //THEME_ADMIN_URL . 'inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js',
 			[
 				'wp-plugins',
 				'wp-edit-post',

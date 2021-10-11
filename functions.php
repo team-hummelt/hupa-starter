@@ -1,3 +1,36 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Marketplace
+Explore
+ 
+@team-hummelt 
+team-hummelt
+/
+hupa-starter
+Public
+1
+00
+Code
+Issues
+Pull requests
+1
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+hupa-starter/functions.php /
+@jensen1206
+jensen1206 #7 Finale änderungen
+Latest commit e43f754 14 hours ago
+ History
+ 2 contributors
+@jensen1206@team-hummelt
+561 lines (456 sloc)  19.4 KB
+   
 <?php
 /**
  * Bootscore functions and definitions
@@ -558,4 +591,16 @@ if (!function_exists('bs_comment_links_in_new_tab')) :
     add_filter('comment_text', 'bs_comment_links_in_new_tab');
 endif;
 // Open links in comments in new tab END
-
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+Loading complete

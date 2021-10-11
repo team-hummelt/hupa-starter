@@ -30,6 +30,4 @@ hummelt und partner | Werbeagentur GmbH
 * fixed Installations Fehler
 
 ### \#1.0.0
-* Hupa-Theme release. Included basic plugin features.
-
-
+* Hupa-Theme release. Included basic plugin features

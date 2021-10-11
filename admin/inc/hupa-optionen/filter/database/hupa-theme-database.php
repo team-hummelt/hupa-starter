@@ -160,4 +160,3 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
 		}
 	}
 }
-

@@ -5,7 +5,6 @@ hummelt und partner | Werbeagentur GmbH
 ![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
 ![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
 
-
 ### \#1.0.4
 * Update auf Bootstrap 5.1.1
 * Bootstrap negative margin aktiviert

@@ -756,6 +756,8 @@ switch ($method) {
         preg_match('/(vh|px|rem)/i', $containerHeight, $matches);
         $matches ? $record->container_height = $containerHeight : $record->container_height = '65vh';
 
+        filter_input(INPUT_POST, 'carousel_lazy_load', FILTER_SANITIZE_STRING) ? $record->carousel_lazy_load = 1 : $record->carousel_lazy_load = 0;
+
         apply_filters('update_hupa_carousel', $record);
         $responseJson->status = true;
         $responseJson->spinner = true;

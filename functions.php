@@ -41,6 +41,7 @@ if (!function_exists('register_navwalker')) :
         // Register Menus
         register_nav_menu('main-menu', 'Main menu');
         register_nav_menu('footer-menu', 'Footer menu');
+        register_nav_menu('footer-widget-menu', 'Footer Widget menu');
     }
 endif;
 add_action('after_setup_theme', 'register_navwalker');

@@ -206,6 +206,22 @@ function render_carousel(data, handle = false) {
     </div>
     
     
+    <div class="row row-cols-1 row-cols-lg-2 py-2 settings-box option align-items-center">
+    <div class="col">
+    <div class="col-xl-6 col-lg-8 col-12 p-2">
+    <div class="form-check form-switch py-3">
+    <input onclick="this.blur()" class="form-check-input" name="carousel_lazy_load" type="checkbox"
+    id="checkLazyLoad${val.id}" ${val.carousel_lazy_load ? 'checked' : ''}>
+    <label class="form-check-label"
+    for="checkLazyLoad${val.id}">lazy load aktiv</label>
+    </div>
+    </div>
+    </div>
+    <div class="col">
+    </div>
+    </div>
+    
+    
     <div class="row row-cols-1 row-cols-lg-2 py-2 settings-box option first-box align-items-center">
     <div class="col">
     <div class="col-xl-8 col-lg-8 col-12 p-2">

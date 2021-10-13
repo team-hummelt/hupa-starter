@@ -111,7 +111,19 @@ jQuery(document).ready(function ($) {
     });
 
  // Load Social Media ICON
-
+    $(function() {
+        return $(".carousel.lazy").on("slid.bs.carousel", function(ev) {
+            let lazy;
+            let next;
+            lazy = $(ev.relatedTarget).find("img[data-src]");
+            next = $(ev.relatedTarget.nextElementSibling).find("img[data-src]");
+            lazy.attr("src", lazy.data('src'));
+            next.attr("src", next.data('src'));
+            lazy.removeAttr("data-src");
+            next.removeAttr("data-src");
+        });
+    });
 
 });
+
 

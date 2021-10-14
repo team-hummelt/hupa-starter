@@ -13,14 +13,6 @@ hummelt und partner | Werbeagentur GmbH
 * Update auf Bootstrap 5.1.1
 * Bootstrap negative margin aktiviert
 
-### \#1.0.5
-* Footer Widget Menü hinzugefügt
-* Carousel lazy load Option hinzugefügt
-
-### \#1.0.4
-* Update auf Bootstrap 5.1.1
-* Bootstrap negative margin aktiviert
-
 ### \#1.0.3
 * Carousel Settings für Bildergröße hinzugefügt
 * Sidebar gefixt

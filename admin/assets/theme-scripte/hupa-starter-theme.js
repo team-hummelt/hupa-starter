@@ -85,7 +85,7 @@ jQuery(document).ready(function ($) {
                 header.addClass('fixed-top');
                 header.css('z-index', 1);
             } else {
-               header.removeClass('fixed-top');
+                header.removeClass('fixed-top');
             }
         }
 
@@ -110,20 +110,60 @@ jQuery(document).ready(function ($) {
         $(".preloader").delay(1600).fadeOut('easing').remove();
     });
 
- // Load Social Media ICON
-    $(function() {
+    // Load Social Media ICON
+    /*$(function() {
         return $(".carousel.lazy").on("slid.bs.carousel", function(ev) {
-            let lazy;
+            //let lazy;
             let next;
-            lazy = $(ev.relatedTarget).find("img[data-src]");
-            next = $(ev.relatedTarget.nextElementSibling).find("img[data-src]");
-            lazy.attr("src", lazy.data('src'));
-            next.attr("src", next.data('src'));
-            lazy.removeAttr("data-src");
-            next.removeAttr("data-src");
+            //lazy = $(ev.relatedTarget).find("img[data-src]");
+           // next = $(ev.relatedTarget.nextElementSibling).find("img[data-src]");
+           // lazy.attr("src", lazy.data('src'));
+           // next.attr("src", next.data('src'));
+            //lazy.removeAttr("data-src");
+          //  next.removeAttr("data-src");
         });
     });
-
+    */
 });
 
+/*===============================================
+========== CAROUSEL LAZY LOAD FUNCTION ==========
+=================================================
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    let themeCarouselTimeout;
+    let themeCarouselEvents = document.querySelectorAll(".carousel.lazy .carousel-item");
+    if (themeCarouselEvents) {
+        let themeCarouselNextEvents = document.querySelectorAll(".carousel.lazy");
+        let carouselNextNodes = Array.prototype.slice.call(themeCarouselNextEvents, 0);
+        let nextElm;
+        let nextCarousel;
+        let carouselNodes = Array.prototype.slice.call(themeCarouselEvents, 0);
+        carouselNodes.forEach(function (carouselNodes) {
+            let carousel = new bootstrap.Carousel(carouselNodes);
+            let active = carousel._element;
+            if (active.classList.contains('active')) {
+                clearTimeout(themeCarouselTimeout);
+                themeCarouselTimeout = setTimeout(function () {
+                    nextElm = carouselNodes.nextElementSibling.children[0];
+                    let lazy = nextElm.getAttribute('data-src');
+                    nextElm.setAttribute('src', lazy);
+                    nextElm.removeAttribute('data-src');
+                }, 8000);
+            }
+        });
 
+        carouselNextNodes.forEach(function (carouselNextNodes) {
+            carouselNextNodes.addEventListener("slid.bs.carousel", function (e) {
+                if (e.relatedTarget.nextElementSibling) {
+                    nextCarousel = e.relatedTarget.nextElementSibling.children[0];
+                    let lazy = nextCarousel.getAttribute('data-src');
+                    if(lazy){
+                        nextCarousel.setAttribute('src', lazy);
+                        nextCarousel.removeAttribute('data-src');
+                    }
+                }
+            })
+        });
+    }
+})

@@ -103,9 +103,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                 <?php endif; ?>
                 <div class="carousel-inner">
                     <?php $x = 0;
-                    $k = 1;
                     foreach ($slider
-
                     as $tmp):
                     if ($tmp->slide_button) {
                         $btn = json_decode($tmp->slide_button);
@@ -148,7 +146,7 @@ if (!class_exists('HupaCarouselShortCode')) {
 
                         <?php endif;
                         if ($carousel->carousel_lazy_load && !$active) :?>
-                            <img data-src="<?= $image[0] ?>" <?=$x==1 ? '<img src="'.$image[0].'"' : ''?> class="bgImage" alt="<?= $data_alt ?>"
+                            <img data-src="<?= $image[0] ?>" class="bgImage" alt="<?= $data_alt ?>"
                                  style="height: <?= $carousel->container_height ?>;">
                         <?php endif;
 

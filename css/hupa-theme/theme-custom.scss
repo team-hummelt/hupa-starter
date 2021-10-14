@@ -27,8 +27,6 @@ body .bs-formular-wrapper {
   }
 }
 
-
-
 #nav-main-starter  .offcanvas.menu1.show {
   background-color: rgba(255,255,255,.9);
 }
@@ -42,7 +40,6 @@ body .bs-formular-wrapper {
 
   ul#bootscore-navbar.navbar-nav .nav-link {
     color: #fff!important;
-
   }
 }
 
@@ -97,6 +94,7 @@ body .bs-formular-wrapper {
 
 .top-nav.main-widget {
   right: 20px;
+  z-index: 1021;
 }
 
 .navbar-root .logo.md {
@@ -245,6 +243,11 @@ body .bs-formular-wrapper {
 
 .carousel-indicators button.active {
   background-color: #ebebeb;
+}
+
+.opacity-hide {
+  opacity: 0;
+  //transition: opacity 450ms;
 }
 
 @media (max-width: 768px) {

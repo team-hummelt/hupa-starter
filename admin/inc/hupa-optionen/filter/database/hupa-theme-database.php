@@ -112,7 +112,8 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
        		select_bg mediumint(1) NOT NULL DEFAULT 0,
        		caption_bg mediumint(1) NOT NULL DEFAULT 0,
        		container_height varchar(16) NOT NULL DEFAULT '65vh',
-       		carousel_image_size varchar(64) NOT NULL DEFAULT 'large',
+       		carousel_image_size varchar(64) NOT NULL DEFAULT 'large',	
+       		carousel_lazy_load mediumint(1) NOT NULL DEFAULT 1,
        		created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
        		PRIMARY KEY (id)
      ) $charset_collate;";

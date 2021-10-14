@@ -123,9 +123,10 @@ if (!class_exists('HupaStarterCarouselFilter')) {
                     'caption_bg' => $record->caption_bg,
                     'container_height' => $record->container_height,
                     'carousel_image_size' => $record->carousel_image_size,
+                    'carousel_lazy_load' => $record->carousel_lazy_load,
                 ),
                 array('id' => $record->id),
-                array('%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%s'),
+                array('%s', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%s', '%d'),
                 array('%d')
             );
         }
@@ -321,6 +322,7 @@ if (!class_exists('HupaStarterCarouselFilter')) {
                     'margin_aktiv' => (bool)$tmp->margin_aktiv,
                     'full_width' => (bool)$tmp->full_width,
                     'carousel_image_size' => $tmp->carousel_image_size,
+                    'carousel_lazy_load' => (bool) $tmp->carousel_lazy_load,
                     'select_bg' => $tmp->select_bg,
                     'caption_bg' => $tmp->caption_bg,
                     'container_height' => $tmp->container_height,

@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     let lazy = nextElm.getAttribute('data-src');
                     nextElm.setAttribute('src', lazy);
                     nextElm.removeAttribute('data-src');
-                }, 8000);
+                }, 2500);
             }
         });
 

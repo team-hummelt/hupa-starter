@@ -25,7 +25,7 @@ if ( $child_data->exists() ) {
 
 
 //JOB: DATENBANK VERSION:
-const HUPA_STARTER_THEME_DB_VERSION = '1.0.8';
+const HUPA_STARTER_THEME_DB_VERSION = '1.0.9';
 
 //JOB: THEME VERSION:
 define("THEME_VERSION", $theme_data->get('Version'));

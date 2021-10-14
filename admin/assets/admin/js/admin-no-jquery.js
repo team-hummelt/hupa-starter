@@ -118,8 +118,6 @@ function sync_font_folder(e) {
     send_xhr_form_data(data, false);
 }
 
-
-
 function after_sync_folder() {
     show_message_collapse('collapseSuccessMsg');
     message_fadeIn_opacity('collapseSuccessMsg');

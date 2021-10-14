@@ -27,6 +27,7 @@ trait HupaCarouselTrait
     protected int $carousel_caption_bg = 0;
     protected string $carousel_container_height = '65vh';
     protected string $carousel_image_size = 'large';
+    protected int $carousel_lazy_load = 1;
 
     //Slider
     protected int $carousel_id;
@@ -73,7 +74,8 @@ trait HupaCarouselTrait
                 'select_bg' => $this->carousel_select_bg,
                 'caption_bg' => $this->carousel_caption_bg,
                 'container_height' => $this->carousel_container_height,
-                'carousel_image_size' => $this->carousel_image_size
+                'carousel_image_size' => $this->carousel_image_size,
+                'carousel_lazy_load' => $this->carousel_lazy_load
             ],
             'slider' => [
                 'slider_position' => $this->slider_position,

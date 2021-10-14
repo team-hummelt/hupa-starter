@@ -5,6 +5,7 @@ hummelt und partner | Werbeagentur GmbH
 ![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
 ![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
 
+
 ### \#1.0.5
 * Footer Widget Menü hinzugefügt
 * Carousel lazy load Option hinzugefügt

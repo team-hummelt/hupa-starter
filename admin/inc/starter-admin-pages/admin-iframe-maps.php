@@ -14,7 +14,6 @@ defined('ABSPATH') or die();
     <div class="container">
 
         <div class="card shadow-sm">
-
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
                 <i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
                 <?= __('Theme Google Maps', 'bootscore') ?> </h5>

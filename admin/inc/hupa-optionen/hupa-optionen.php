@@ -64,6 +64,8 @@ require  'shortcode/hupa-theme-google-maps.php';
 require 'action/theme-options.php';
 //TODO HTML Compression
 require 'action/hupa-html-compression.php';
+//TODO UPDATE OPTIONEN CLASS
+require 'action/hupa-update-action.php';
 
 //Starter Theme GET HUPA THEME FUNCTION
 function get_hupa_option($option)
@@ -82,6 +84,8 @@ function get_hupa_frontend($type, $args = '')
 {
 	return apply_filters('get_hupa_frontend',$type, $args);
 }
+
+
 
 
 

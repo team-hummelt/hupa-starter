@@ -89,6 +89,8 @@ if (!class_exists('HupaStarterOptionFilter')) {
             // ALL Sidebars
             add_filter('get_registered_sidebar', array($this, 'hupa_get_registered_sidebar'));
 
+
+
         }
 
         final public function hupa_get_hupa_option($option): string|array|object

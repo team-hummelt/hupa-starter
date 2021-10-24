@@ -508,6 +508,11 @@ final class HupaRegisterStarterTheme {
             apply_filters( 'set_database_defaults', false );
             update_option( "theme_db_version", HUPA_STARTER_THEME_DB_VERSION );
         }
+
+        if(get_option("hupa_theme_version") !== THEME_VERSION){
+            do_action('validate_install_optionen');
+            update_option('hupa_theme_version', THEME_VERSION);
+        }
     }
 
     /**
@@ -630,7 +635,8 @@ final class HupaRegisterStarterTheme {
 
     public function hupa_starter_theme_update_database_columns(): void {
         global $wpdb;
-        switch ( HUPA_STARTER_THEME_DB_VERSION ) {
+        $table =  $wpdb->prefix . 'lva_settings';
+        /*switch ( HUPA_STARTER_THEME_DB_VERSION ) {
             case'10.0.4':
                 //ADD
                 //$table = $wpdb->prefix . 'lva_settings';
@@ -643,7 +649,7 @@ final class HupaRegisterStarterTheme {
                 //$table = $wpdb->prefix . 'lva_templates';
                 //$wpdb->query( "ALTER TABLE {$table} DROP COLUMN form_test" );
                 break;
-        }
+        }*/
     }
 }
 

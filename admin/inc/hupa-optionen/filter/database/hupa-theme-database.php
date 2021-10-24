@@ -60,6 +60,7 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
             `hupa_wp_option` text NULL,
             `hupa_gmaps` text NULL,
             `hupa_top_area` text NULL,
+            `google_maps_placeholder` text NULL,
             
             PRIMARY KEY (id)
      ) $charset_collate;";
@@ -117,7 +118,6 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
        		created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
        		PRIMARY KEY (id)
      ) $charset_collate;";
-			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta($sql);
 
 			$table = $wpdb->prefix . $this->table_slider;
@@ -154,9 +154,20 @@ if ( ! class_exists( 'HupaStarterOptionsHandle' ) ) {
        		created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
        PRIMARY KEY (id)
      ) $charset_collate;";
-			require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 			dbDelta($sql);
 
+            $table = $wpdb->prefix . $this->table_iframes;
+            $charset_collate = $wpdb->get_charset_collate();
+            $sql = "CREATE TABLE {$table} (
+    		`id` int(11) NOT NULL AUTO_INCREMENT,
+    		`bezeichnung` varchar (128) NOT NULL,
+    		`shortcode` varchar (128) NOT NULL,
+            `iframe` text NULL,
+            `datenschutz` mediumint(1) NOT NULL DEFAULT 1,
+            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id)
+     ) $charset_collate;";
+            dbDelta($sql);
 
 		}
 	}

@@ -594,6 +594,88 @@ if (smallThemeSendModalBtn) {
     });
 }
 
+
+let iconModal = document.getElementById('dialog-add-icon');
+if (iconModal) {
+    iconModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget;
+        let type = button.getAttribute('data-bs-type');
+        let formId = button.getAttribute('data-bs-id');
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+        xhr.open('POST', theme_ajax_obj.ajax_url, true);
+        formData.append('_ajax_nonce', theme_ajax_obj.nonce);
+        formData.append('action', 'HupaStarterHandle');
+        formData.append('method', 'get_fa_icons');
+        formData.append('type', type);
+        xhr.send(formData);
+
+        //Response
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                if (data.status) {
+                    let iconGrid = document.getElementById('icon-grid');
+                    let icons = data.record;
+                    let html = '<div class="icon-wrapper">';
+                    icons.forEach(function (icons) {
+                        html += `<div onclick="set_select_info_icon('${icons.title}', '${icons.code}', '${icons.icon}');"
+                              data-bs-dismiss="modal"   class="info-icon-item" title="${icons.code} | ${icons.title}">`;
+                        html += `<i  class="${icons.icon}"></i><small class="sm-icon">${icons.icon}</small>`;
+                        html += '</div>';
+                    });
+                    html += '</div>';
+                    iconGrid.innerHTML = html;
+                }
+            }
+        }
+    });
+}
+
+function set_select_info_icon(title, unicode, icon){
+    let html = `
+        <i class="${icon} fa-4x d-block mb-2"></i>
+       <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon i="${title}"]</span>
+       <span class="d-block"><b class="text-danger d-inline-block" style="min-width: 6rem;">Unicode:</b> ${unicode}</span> 
+        <hr class="mt-2 mb-1">
+        <div class="form-text my-2"><i class="font-blue fa fa-info-circle"></i>
+            Es können noch weitere Klassen hinzugefügt werden. Für den <i><b>Unicode</b></i>
+            kann als zusätzliches Argument <i class="code text-danger">code="true"</i>
+            hinzugefügt werden. 
+        </div> <hr class="mt-1 mb-2">
+        <b class="d-block">Beispiele</b>
+        <hr class="mt-2 mb-2">
+        <div class="d-flex flex-wrap">
+           <div class="d-block text-center me-2">
+               <i class="${icon} fa-2x d-block mb-1"></i>
+               [icon i="${title}"]     
+            </div>
+             <div class="d-block text-center me-2">
+               <i class="${icon} fa-spin fa-2x d-block mb-1"></i>
+               [icon i="${title} fa-spin"]  
+            </div>
+              <div class="d-block text-center me-2">
+               <i class="${icon} text-danger fa-spin fa-2x d-block mb-1"></i>
+               [icon i="${title} fa-spin text-danger"]     
+            </div>
+             <div class="d-block mt-2 text-center me-2">
+               <b class="d-block" style="margin-bottom: .65rem">${unicode}</b>
+               [icon i="${title}" code="true"]     
+            </div>
+             
+        </div>
+        `;
+
+       document.getElementById('shortcode-info').innerHTML = html;
+       document.getElementById('resetIcons').classList.remove('d-none');
+      //shortWrapper.innerHTML = html;
+}
+
+function reset_show_theme_icons(e,id){
+       document.getElementById(id).innerHTML = '';
+       e.classList.add('d-none')
+}
+
 let themeSortable = document.querySelectorAll(".hupaSortable");
 if (themeSortable) {
     let sortNodes = Array.prototype.slice.call(themeSortable, 0);

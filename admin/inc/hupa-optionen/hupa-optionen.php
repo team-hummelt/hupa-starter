@@ -20,6 +20,8 @@ require 'filter/database/hupa-theme-database.php';
 require 'filter/hupa-theme-option-filter.php';
 //TODO CAROUSEL CLASS
 require 'filter/hupa-carousel-filter.php';
+//TODO TOOLS CLASS
+require 'filter/hupa-theme-tools-filter.php';
 
 //TODO FONT HANDLE CLASS
 require 'font-handle/theme-fonts-handler.php';
@@ -53,6 +55,8 @@ if(HUPA_SIDEBAR) {
 //TODO JOB SHORTCODES
 require  'shortcode/hupa-carousel-shortcode.php';
 require  'shortcode/hupa-social-button.php';
+require  'shortcode/hupa-icon-shortcode.php';
+require  'shortcode/hupa-theme-google-maps.php';
 
 //TODO WARNING JOB AKTIONEN
 

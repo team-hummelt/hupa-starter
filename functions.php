@@ -16,12 +16,14 @@ require_once('admin/inc/update-checker/vendor/autoload.php');
 
 function hupa_register_theme_updater()
 {
-    $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://github.com/team-hummelt/hupa-starter/',
-        __FILE__,
-        'hupa-starter'
-    );
-    $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+    if(get_hupa_option('update_aktiv')) {
+        $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+            'https://github.com/team-hummelt/hupa-starter/',
+            __FILE__,
+            'hupa-starter'
+        );
+        $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+    }
 }
 
 function load_woocommerce_function(){
@@ -546,6 +548,16 @@ function hupa_social_media()
 function bs_after_primary()
 {
     do_action('bs_after_primary');
+}
+
+
+if ( ! function_exists( 'hupa_theme_register_nav_menu' ) ) {
+    function hupa_theme_register_nav_menu(){
+        register_nav_menus( array(
+            'hupa_footer_widget_menu' => __( 'Hupa Footer Widget Menu', 'bootscore' ),
+        ));
+    }
+    add_action( 'after_setup_theme', 'hupa_theme_register_nav_menu', 0 );
 }
 
 

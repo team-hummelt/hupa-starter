@@ -102,7 +102,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $settings[] = json_decode($result->hupa_wp_option);
                 $settings[] = json_decode($result->hupa_colors);
                 $settings[] = json_decode($result->hupa_gmaps);
-
+                $settings[] = json_decode($result->google_maps_placeholder);
                 //$settings[] = json_decode( $result->hupa_top_area );
                 foreach ($settings as $key => $val) {
                     if (isset($val->$option)) {
@@ -220,8 +220,16 @@ if (!class_exists('HupaStarterOptionFilter')) {
                         $fonts[$data->fontType . '_txt_decoration'] = $data->font_txt_decoration;
                     }
                     $this->hupa_update_settings('hupa_fonts', apply_filters('arrayToObject', $fonts));
-
                     break;
+
+                case'google_maps':
+                    $this->hupa_update_settings('hupa_gmaps', $data);
+                    break;
+
+                case'google_maps_settings':
+                    $this->hupa_update_settings('google_maps_placeholder', $data);
+                    break;
+
                 case 'reset_settings':
                     $defaults = $this->get_theme_default_settings();
                     switch ($data) {
@@ -243,6 +251,9 @@ if (!class_exists('HupaStarterOptionFilter')) {
                         case'reset_gmaps':
                             $this->hupa_update_settings('hupa_gmaps', apply_filters('arrayToObject', $defaults['google_maps']));
                             break;
+                        case'reset_gmaps_settings':
+                            $this->hupa_update_settings('google_maps_placeholder', apply_filters('arrayToObject', $defaults['google_maps_placeholder']));
+                            break;
                         case'reset_smtp_settings':
                             //$this->hupa_update_settings('hupa_smtp', apply_filters('arrayToObject', $defaults['theme_email_settings']));
                             break;
@@ -255,14 +266,12 @@ if (!class_exists('HupaStarterOptionFilter')) {
                             $this->hupa_update_settings('hupa_colors', apply_filters('arrayToObject', $defaults['theme_colors']));
                             $this->hupa_update_settings('hupa_wp_option', apply_filters('arrayToObject', $defaults['theme_wp_optionen']));
                             $this->hupa_update_settings('hupa_gmaps', apply_filters('arrayToObject', $defaults['google_maps']));
+                            $this->hupa_update_settings('google_maps_placeholder', apply_filters('arrayToObject', $defaults['google_maps_placeholder']));
                             //$this->hupa_update_settings('hupa_smtp', apply_filters('arrayToObject', $defaults['theme_email_settings']));
                             $this->reset_social_media_data();
                             apply_filters('generate_theme_css', false);
                             break;
                     }
-                    break;
-                case'google_maps':
-                    $this->hupa_update_settings('hupa_gmaps', $data);
                     break;
             }
 
@@ -340,9 +349,10 @@ if (!class_exists('HupaStarterOptionFilter')) {
                         'hupa_fonts_src' => apply_filters('get_install_fonts', 'json')->json,
                         'hupa_colors' => json_encode($defaults->theme_colors),
                         'hupa_wp_option' => json_encode($defaults->theme_wp_optionen),
-                        'hupa_gmaps' => json_encode($defaults->google_maps)
+                        'hupa_gmaps' => json_encode($defaults->google_maps),
+                        'google_maps_placeholder' => json_encode($defaults->google_maps),
                     ),
-                    array('%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                    array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
                 );
             }
 
@@ -989,6 +999,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
                 }
+
+                //TODO ICONS Custom Header ShortCode
+                $regEx = '@\[hupa-icon.*]@m';
+                preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                if (isset($matches)) {
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
+                }
+
             } else {
                 $record->custum_header = false;
             }
@@ -1008,6 +1027,14 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
                 //TODO Formular Custom Footer ShortCode
                 $regEx = '@\[bs-formular.*]@m';
+                preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                if (isset($matches)) {
+                    $doShortcode = do_shortcode($matches[0][0]);
+                    $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
+                }
+
+                //TODO ICONS Custom Footer ShortCode
+                $regEx = '@\[hupa-icon.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
                 if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);

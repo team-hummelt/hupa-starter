@@ -27,6 +27,7 @@ switch ($method) {
         switch ($handle) {
 
             case'theme_optionen':
+                filter_input(INPUT_POST, 'update_aktiv', FILTER_SANITIZE_STRING) ? $record->update_aktiv = 1 : $record->update_aktiv = 0;
                 filter_input(INPUT_POST, 'svg_aktiv', FILTER_SANITIZE_STRING) ? $record->svg = 1 : $record->svg = 0;
                 filter_input(INPUT_POST, 'gb_aktiv', FILTER_SANITIZE_STRING) ? $record->gutenberg = 1 : $record->gutenberg = 0;
                 filter_input(INPUT_POST, 'version_aktiv', FILTER_SANITIZE_STRING) ? $record->version = 1 : $record->version = 0;
@@ -443,6 +444,45 @@ switch ($method) {
                 apply_filters('update_hupa_options', apply_filters('arrayToObject', $media), 'update_social_media_data');
                 $responseJson->spinner = true;
                 break;
+
+            case 'theme_map_placeholder':
+                $map_img_id = filter_input(INPUT_POST, 'map_img_id', FILTER_SANITIZE_NUMBER_INT);
+                $map_ds_page = filter_input(INPUT_POST, 'map_ds_page', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'map_bg_grayscale', FILTER_SANITIZE_STRING) ? $map_bg_grayscale = 1 : $map_bg_grayscale = 0;
+                $map_btn_bg = filter_input(INPUT_POST, 'map_btn_bg', FILTER_SANITIZE_STRING);
+                $map_btn_color = filter_input(INPUT_POST, 'map_btn_color', FILTER_SANITIZE_STRING);
+                $map_btn_border_color = filter_input(INPUT_POST, 'map_btn_border_color', FILTER_SANITIZE_STRING);
+                $map_btn_hover_bg = filter_input(INPUT_POST, 'map_btn_hover_bg', FILTER_SANITIZE_STRING);
+                $map_btn_hover_color = filter_input(INPUT_POST, 'map_btn_hover_color', FILTER_SANITIZE_STRING);
+                $map_btn_hover_border = filter_input(INPUT_POST, 'map_btn_hover_border', FILTER_SANITIZE_STRING);
+                $map_box_bg = filter_input(INPUT_POST, 'map_box_bg', FILTER_SANITIZE_STRING);
+                $map_box_color = filter_input(INPUT_POST, 'map_box_color', FILTER_SANITIZE_STRING);
+                $map_box_border = filter_input(INPUT_POST, 'map_box_border', FILTER_SANITIZE_STRING);
+                filter_input(INPUT_POST, 'map_link_uppercase', FILTER_SANITIZE_STRING) ? $map_link_uppercase = 1 : $map_link_uppercase = 0;
+                filter_input(INPUT_POST, 'map_link_underline', FILTER_SANITIZE_STRING) ? $map_link_underline = 1 : $map_link_underline = 0;
+                $map_link_color = filter_input(INPUT_POST, 'map_link_color', FILTER_SANITIZE_STRING);
+
+
+                $google_maps_placeholder = [
+                'map_img_id' => $map_img_id,
+                'map_bg_grayscale' => $map_bg_grayscale,
+                'map_btn_bg' => $map_btn_bg,
+                'map_btn_color' => $map_btn_color,
+                'map_btn_border_color' => $map_btn_border_color,
+                'map_btn_hover_bg' => $map_btn_hover_bg,
+                'map_btn_hover_color' => $map_btn_hover_color,
+                'map_btn_hover_border' => $map_btn_hover_border,
+                'map_box_bg' => $map_box_bg,
+                'map_box_color' => $map_box_color,
+                'map_box_border' => $map_box_border,
+                'map_link_uppercase' => $map_link_uppercase,
+                'map_link_underline' => $map_link_underline,
+                'map_link_color' => $map_link_color,
+                'map_ds_page' => $map_ds_page
+            ];
+                apply_filters('update_hupa_options', apply_filters('arrayToObject', $google_maps_placeholder), 'google_maps_settings');
+                $responseJson->spinner = true;
+                break;
         }
 
         $responseJson->status = true;
@@ -470,6 +510,7 @@ switch ($method) {
             case 'reset_wp_optionen':
             case 'reset_all_settings':
             case 'reset_gmaps':
+            case 'reset_gmaps_settings':
             case 'reset_social_media':
                 $responseJson->language = apply_filters('get_theme_language', 'ajax_reset_modal')->language;
                 $responseJson->btn_typ = 'btn-danger';
@@ -1014,7 +1055,133 @@ switch ($method) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
         $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
         $responseJson->status = true;
-        do_action('change_beitragslisten_template',$id, $type);
+        do_action('change_beitragslisten_template', $id, $type);
+        break;
+
+    case 'iframe_data_table':
+        $query = '';
+        $columns = array(
+            "bezeichnung",
+            "shortcode",
+            "datenschutz",
+            "created_at",
+            "",
+            ""
+        );
+
+        if (isset($_POST['search']['value'])) {
+            $query = 'WHERE bezeichnung LIKE "%' . $_POST['search']['value'] . '%"
+         OR shortcode LIKE "%' . $_POST['search']['value'] . '%"
+         OR created_at LIKE "%' . $_POST['search']['value'] . '%"
+         ';
+        }
+
+        if (isset($_POST['order'])) {
+            $query .= ' ORDER BY ' . $columns[$_POST['order']['0']['column']] . ' ' . $_POST['order']['0']['dir'] . ' ';
+        } else {
+            $query .= ' ORDER BY created_at DESC';
+        }
+
+        $limit = '';
+        if ($_POST["length"] != -1) {
+            $limit = ' LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+        }
+
+       $table = apply_filters('get_gmaps_iframe', $query . $limit);
+        $data_arr = array();
+        if (!$table->status) {
+            return $responseJson = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => 0,
+                "recordsFiltered" => 0,
+                "data" => $data_arr
+            );
+        }
+        foreach ($table->record as $tmp) {
+            $date = explode(' ', $tmp->created);
+            $tmp->datenschutz ? $datenschutz = '<b class="text-success">ja</b>' : $datenschutz = '<b class="text-danger">nein</b>';
+            $data_item = array();
+            $data_item[] = '<b>'.$tmp->bezeichnung.'</b>';
+            $data_item[] = ' [gmaps id="'.$tmp->shortcode.'"]';
+            $data_item[] = '<span class="d-none">'.$tmp->datenschutz.'</span>'.$datenschutz;
+            $data_item[] = '<span class="d-none">' . $tmp->created_at . '</span><b class="strong-font-weight">' . $date[0] . '</b><small style="font-size: .9rem" class="d-block">' . $date[1] . ' Uhr</small>';
+            $data_item[] = '<button data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#addIframeMapsModal" data-bs-type="update" class="btn btn-blue-outline btn-sm"><i class="fa fa-edit"></i>&nbsp; Bearbeiten</button>';
+            $data_item[] = '<button type="button" data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#iframeDeleteModal" class="btn_delete_iframe btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp; löschen</button>';
+            $data_arr[] = $data_item;
+        }
+
+        $tbCount = apply_filters('get_gmaps_iframe', false);
+        $responseJson = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $tbCount->count,
+            "recordsFiltered" => $tbCount->count,
+            "data" => $data_arr,
+        );
+
+        break;
+
+    case 'gmaps_iframe_handle':
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+        $bezeichnung = filter_input(INPUT_POST, 'bezeichnung', FILTER_SANITIZE_STRING);
+        $iframe = esc_html($_POST['iframe']);
+        filter_input(INPUT_POST, 'datenschutz', FILTER_SANITIZE_STRING) ? $record->datenschutz = true : $record->datenschutz = false;
+
+        if (!$iframe) {
+            $responseJson->msg = 'Keine Daten gespeichert! I-Frame eingabe ist leer.';
+            return $responseJson;
+        }
+
+        if (!$bezeichnung) {
+            $rand = apply_filters('get_hupa_random_id', 4, 0, 4);
+            $bezeichnung = 'Google I-Frame-' . $rand;
+        }
+
+        $record->bezeichnung = trim(sanitize_text_field($bezeichnung));
+        $record->iframe = trim($iframe);
+
+        switch ($type) {
+            case 'insert':
+                $record->shortcode = apply_filters('get_hupa_random_id', 12, 0, 4);
+                $insert = apply_filters('set_gmaps_iframe', $record);
+                $responseJson->status = $insert->status;
+                $responseJson->msg = $insert->msg;
+                break;
+            case'update':
+                $record->id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+                if(!$record->id){
+                    $responseJson->msg = 'Ein Fehler ist aufgetreten!';
+                    return $responseJson;
+                }
+                apply_filters('update_gmaps_iframe', $record);
+                $responseJson->status = true;
+                $responseJson->msg = 'Änderungen gespeichert!';
+                break;
+        }
+
+        break;
+
+    case'get_iframe_modal_data':
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+        $args = sprintf('WHERE id=%d', $id);
+        $iframe =  $table = apply_filters('get_gmaps_iframe', $args, false);
+        if(!$iframe->status){
+            $responseJson->msg = 'keine Daten gefunden!';
+            return $responseJson;
+        }
+
+        $iframe->record->iframe = html_entity_decode($iframe->record->iframe);
+        $iframe->record->iframe = stripslashes_deep($iframe->record->iframe);
+        $responseJson->record = $iframe->record;
+        $responseJson->status = true;
+        break;
+
+    case 'delete_gmaps_iframe':
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        apply_filters('delete_gmaps_iframe', $id);
+        $responseJson->status = true;
+        $responseJson->msg = 'I-Frame gelöscht!';
         break;
 
 }

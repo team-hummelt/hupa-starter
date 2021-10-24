@@ -82,6 +82,13 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= $bodyFont->fontColor."\r\n";
 			$html .= '}'."\r\n";
 
+
+            //HUPA ICONS
+            $html .= '.hupa-icon.fa {'."\r\n";
+            $html .= 'font-family: "FontAwesome", sans-serif!important;'."\r\n";
+            $html .= 'font-weight: normal!important;'."\r\n";
+            $html .= '}'."\r\n";
+
 			//LINK COLOR
 			$html .= 'a {'."\r\n";
 			$html .= 'color: '. get_hupa_option('link_color').';'."\r\n";

@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
         carousel.css('margin-top', -header.outerHeight() + 'px');
         header.css('z-index', 1);
     } else {
-        header.css('z-index', 'unset');
+       // header.css('z-index', 'unset');
     }
 
     $(window).on("resize", function (event) {
@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
             carousel.css('margin-top', -header.outerHeight() + 'px');
             header.css('z-index', 1);
         } else {
-            header.css('z-index', 'unset');
+           // header.css('z-index', 'unset');
         }
     });
 
@@ -104,6 +104,54 @@ jQuery(document).ready(function ($) {
         }
     });
 
+    $(document).on('click', '.api-karte-check', function () {
+        let check = $(this).children('input');
+        let btn = $('.hupa-gmaps-btn');
+        if(check.prop('checked')){
+            check.prop('checked', false);
+            btn.addClass('disabled');
+            return false;
+        } else {
+            check.prop('checked', true);
+            btn.removeClass('disabled');
+            return false;
+        }
+    });
+
+    $(document).on('click', '.iframe-karte-check', function () {
+        let code = $(this).attr('data-id');
+        let check = $('.check'+code);
+        let btn = $('.btn'+code);
+        if(check.prop('checked')){
+            check.prop('checked', false);
+            btn.addClass('disabled');
+            return false;
+        } else {
+            check.prop('checked', true);
+            btn.removeClass('disabled');
+            return false;
+        }
+    });
+
+    $(document).on('click', '.hupa-iframe-btn', function () {
+        $(this).trigger('blur');
+        let code = $(this).attr('data-id');
+        if($('.check'+code).prop('checked')) {
+            $.post(theme_ajax_obj.ajax_url, {
+                '_ajax_nonce': theme_ajax_obj.nonce,
+                'action': 'HupaStarterNoAdmin',
+                'method': 'get_iframe_card',
+                'code': code,
+                'width': $(this).attr('data-width'),
+                'height': $(this).attr('data-height'),
+            }, function (data) {
+                if(data.status){
+                    sessionStorage.setItem('gmaps', true);
+                    $('.iframe'+data.code).html(data.iframe);
+                }
+            });
+        }
+    });
 
 // Preloader script
     jQuery(window).load(function () {

@@ -148,15 +148,35 @@ final class HupaRegisterStarterTheme {
     public function register_hupa_starter_maps_menu(): void {
         //GOOGLE MAPS SEITE
         $hook_suffix = add_menu_page(
-            __( 'Theme Maps', 'bootscore' ),
-            __( 'Theme Maps', 'bootscore' ),
+            __( 'Google API Maps', 'bootscore' ),
+            __( 'Google Maps', 'bootscore' ),
             'manage_options',
             'hupa-starter-maps',
             array( $this, 'hupa_admin_starter_theme_maps' ),
-            'dashicons-location-alt', 5
+            'dashicons-location-alt', 8
         );
 
         add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
+
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-maps',
+            __('Google Maps I-Frame', 'bootscore'),
+            __('Google Maps I-Frame', 'bootscore'),
+            'manage_options',
+            'hupa-starter-iframe-maps',
+            array($this, 'hupa_admin_starter_iframe_maps'));
+
+        add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
+
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-maps',
+            __('Google Maps Settings', 'bootscore'),
+            __('Google Maps Settings', 'bootscore'),
+            'manage_options',
+            'hupa-starter-maps-settings',
+            array($this, 'hupa_admin_starter_maps_settings'));
+
+        add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
     }
 
     /**
@@ -245,6 +265,16 @@ final class HupaRegisterStarterTheme {
         require 'starter-admin-pages/admin-starter-theme-maps.php';
     }
 
+    //HUPA IFRAME MAPS
+    public function hupa_admin_starter_iframe_maps(): void {
+      require 'starter-admin-pages/admin-iframe-maps.php';
+    }
+
+    //HUPA IFRAME MAPS
+    public function hupa_admin_starter_maps_settings(): void {
+        wp_enqueue_media();
+        require 'starter-admin-pages/admin-gmaps-settings.php';
+    }
 
     /**
      * =========================================
@@ -523,23 +553,32 @@ final class HupaRegisterStarterTheme {
         wp_enqueue_script( 'jquery' );
 
         // TODO Bootstrap JS
-        wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), THEME_VERSION, true );
 
         //TODO TOOLS
-        wp_enqueue_script( 'js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), THEME_VERSION, true );
 
         //TODO Color Picker
-        wp_enqueue_script( 'js-hupa-color-picker', THEME_ADMIN_URL . 'assets/admin/js/tools/pickr.min.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'js-hupa-color-picker', THEME_ADMIN_URL . 'assets/admin/js/tools/pickr.min.js', array(), THEME_VERSION, true );
 
         // TODO JS NO-jQUERY
-        wp_enqueue_script( 'js-hupa-starter-script', THEME_ADMIN_URL . 'assets/admin/js/admin-no-jquery.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'js-hupa-starter-script', THEME_ADMIN_URL . 'assets/admin/js/admin-no-jquery.js', array(), THEME_VERSION, true );
 
         // TODO JS Google Maps
-        wp_enqueue_script( 'js-hupa-google-maps-script', THEME_ADMIN_URL . 'assets/admin/js/admin-google-maps.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'js-hupa-google-maps-script', THEME_ADMIN_URL . 'assets/admin/js/admin-google-maps.js', array(), THEME_VERSION, true );
 
         // TODO JS CAROUSEL
-        wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), $hupa_theme->get( 'Version' ), true );
+        wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), THEME_VERSION, true );
 
+        if($page == 'hupa-starter-iframe-maps') {
+            wp_enqueue_style( 'hupa-starter-admin-bs-data-table', THEME_ADMIN_URL . 'assets/admin/css/tools/dataTables.bootstrap5.min.css', array(), $hupa_theme->get( 'Version' ), false );
+            wp_enqueue_script( 'js-hupa-data-table', THEME_ADMIN_URL . 'assets/admin/js/tools/data-table/jquery.dataTables.min.js', array(), THEME_VERSION, true );
+            wp_enqueue_script( 'js-hupa-bs-data-table', THEME_ADMIN_URL . 'assets/admin/js/tools/data-table/dataTables.bootstrap5.min.js', array(), THEME_VERSION, true );
+            wp_enqueue_script( 'js-hupa-maps-iframe', THEME_ADMIN_URL . 'assets/admin/js/google-iframe-jquery.js', array(), THEME_VERSION, true );
+        }
+        if($page == 'hupa-starter-maps-settings'){
+            wp_enqueue_script( 'js-hupa-maps-settings', THEME_ADMIN_URL . 'assets/admin/js/google-maps-settings.js', array(), THEME_VERSION, true );
+        }
     }
 
     // TODO THEME BRANDING ACTIONS

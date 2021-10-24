@@ -68,6 +68,14 @@ defined('ABSPATH') or die();
                     </button>
 
                     <div class="ms-auto">
+                        <button data-site="<?= __('Infos', 'bootscore') ?>" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseSettingsInfoOption"
+                                aria-expanded="true" aria-controls="collapseSettingsInfoOption"
+                                class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i
+                                    class="fa fa-info-circle"></i>&nbsp;
+                            <?= __('Infos', 'bootscore') ?>
+                        </button>
+
                         <button data-site="<?= __('Reset', 'bootscore') ?>" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseSettingsResetOption"
                                 aria-expanded="true" aria-controls="collapseSettingsResetOption"
@@ -249,7 +257,7 @@ defined('ABSPATH') or die();
                                                             <i class="font-blue fa fa-navicon"></i>&nbsp; <?= __('Main Container', 'bootscore'); ?>
                                                         </h5>
                                                     </div>
-                                                     <div class="d-flex flex-wrap">
+                                                    <div class="d-flex flex-wrap">
                                                         <div class="form-check my-2 my-md-1 me-md-3">
                                                             <input class="form-check-input" type="radio"
                                                                    name="main_container"
@@ -537,122 +545,161 @@ defined('ABSPATH') or die();
 
                                                 <h6>Vorlage für Kategorie Beitragslisten auswählen</h6>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie" class="form-check-input change-template" type="radio"
+                                                    <input data-type="kategorie"
+                                                           class="form-check-input change-template" type="radio"
                                                            name="kategorie_template" id="radioKategorieType1"
                                                            value="1" <?= get_hupa_option('kategorie_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType1">Sidebar rechts</label>
+                                                    <label class="form-check-label" for="radioKategorieType1">Sidebar
+                                                        rechts</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie" class="form-check-input change-template" type="radio"
+                                                    <input data-type="kategorie"
+                                                           class="form-check-input change-template" type="radio"
                                                            name="kategorie_template" id="radioKategorieType2"
                                                            value="2" <?= get_hupa_option('kategorie_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType2">Sidebar links</label>
+                                                    <label class="form-check-label" for="radioKategorieType2">Sidebar
+                                                        links</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie" class="form-check-input change-template" type="radio"
+                                                    <input data-type="kategorie"
+                                                           class="form-check-input change-template" type="radio"
                                                            name="kategorie_template" id="radioKategorieType3"
                                                            value="3" <?= get_hupa_option('kategorie_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType3">Grid Sidebar rechts gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioKategorieType3">Grid
+                                                        Sidebar rechts gleiche Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie" class="form-check-input change-template" type="radio"
+                                                    <input data-type="kategorie"
+                                                           class="form-check-input change-template" type="radio"
                                                            name="kategorie_template" id="radioKategorieType4"
                                                            value="4" <?= get_hupa_option('kategorie_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType4">Grid gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioKategorieType4">Grid
+                                                        gleiche Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie" class="form-check-input change-template" type="radio"
+                                                    <input data-type="kategorie"
+                                                           class="form-check-input change-template" type="radio"
                                                            name="kategorie_template" id="radioKategorieType5"
                                                            value="5" <?= get_hupa_option('kategorie_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType5">Masonry</label>
+                                                    <label class="form-check-label"
+                                                           for="radioKategorieType5">Masonry</label>
                                                 </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind, zeigt sie die Beitragsliste in 100% Breite an.</div>
+                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                    zeigt sie die Beitragsliste in 100% Breite an.
+                                                </div>
 
                                                 <div class="form-check form-switch mt-3 me-3">
                                                     <input class="form-check-input" type="checkbox"
                                                            name="kategorie_image"
-                                                           id="kategorieShowImg" <?=!get_hupa_option('kategorie_image') ?: 'checked'?>>
-                                                    <label class="form-check-label" for="kategorieShowImg">Beitragsbild anzeigen</label>
+                                                           id="kategorieShowImg" <?= !get_hupa_option('kategorie_image') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="kategorieShowImg">Beitragsbild
+                                                        anzeigen</label>
                                                 </div>
                                                 <hr>
                                                 <h6>Vorlage für Archiv Beitragslisten auswählen</h6>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template" type="radio"
+                                                    <input data-type="archiv" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="archiv_template" id="radioArchivType1"
                                                            value="1" <?= get_hupa_option('archiv_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType1">Sidebar rechts</label>
+                                                    <label class="form-check-label" for="radioArchivType1">Sidebar
+                                                        rechts</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template" type="radio"
+                                                    <input data-type="archiv" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="archiv_template" id="radioArchivType2"
                                                            value="2" <?= get_hupa_option('archiv_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType2">Sidebar links</label>
+                                                    <label class="form-check-label" for="radioArchivType2">Sidebar
+                                                        links</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template" type="radio"
+                                                    <input data-type="archiv" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="archiv_template" id="radioArchivType3"
                                                            value="3" <?= get_hupa_option('archiv_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType3">Grid Sidebar rechts gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioArchivType3">Grid Sidebar
+                                                        rechts gleiche Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template" type="radio"
+                                                    <input data-type="archiv" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="archiv_template" id="radioArchivType4"
                                                            value="4" <?= get_hupa_option('archiv_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType4">Grid gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioArchivType4">Grid gleiche
+                                                        Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template" type="radio"
+                                                    <input data-type="archiv" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="archiv_template" id="radioArchivType5"
                                                            value="5" <?= get_hupa_option('archiv_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType5">Masonry</label>
+                                                    <label class="form-check-label"
+                                                           for="radioArchivType5">Masonry</label>
                                                 </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind, zeigt sie die Beitragsliste in 100% Breite an.</div>
+                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                    zeigt sie die Beitragsliste in 100% Breite an.
+                                                </div>
 
                                                 <div class="form-check form-switch mt-3 me-3">
                                                     <input class="form-check-input" type="checkbox"
                                                            name="archiv_image"
-                                                           id="archivShowImg" <?=!get_hupa_option('archiv_image') ?: 'checked'?>>
-                                                    <label class="form-check-label" for="archivShowImg">Beitragsbild anzeigen</label>
+                                                           id="archivShowImg" <?= !get_hupa_option('archiv_image') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="archivShowImg">Beitragsbild
+                                                        anzeigen</label>
                                                 </div>
                                                 <hr>
 
                                                 <h6>Vorlage für Autoren Beitragslisten auswählen</h6>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template" type="radio"
+                                                    <input data-type="autor" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="autoren_template" id="radioAutorType1"
                                                            value="1" <?= get_hupa_option('autoren_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType1">Sidebar rechts</label>
+                                                    <label class="form-check-label" for="radioAutorType1">Sidebar
+                                                        rechts</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template" type="radio"
+                                                    <input data-type="autor" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="autoren_template" id="radioAutorType2"
                                                            value="2" <?= get_hupa_option('autoren_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType2">Sidebar links</label>
+                                                    <label class="form-check-label" for="radioAutorType2">Sidebar
+                                                        links</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template" type="radio"
+                                                    <input data-type="autor" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="autoren_template" id="radioAuthorType3"
                                                            value="3" <?= get_hupa_option('autoren_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAuthorType3">Grid Sidebar rechts gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioAuthorType3">Grid Sidebar
+                                                        rechts gleiche Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template" type="radio"
+                                                    <input data-type="autor" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="autoren_template" id="radioAutorType4"
                                                            value="4" <?= get_hupa_option('autoren_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType4">Grid gleiche Höhe</label>
+                                                    <label class="form-check-label" for="radioAutorType4">Grid gleiche
+                                                        Höhe</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template" type="radio"
+                                                    <input data-type="autor" class="form-check-input change-template"
+                                                           type="radio"
                                                            name="autoren_template" id="radioAutorType5"
                                                            value="5" <?= get_hupa_option('autoren_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType5">Masonry</label>
+                                                    <label class="form-check-label"
+                                                           for="radioAutorType5">Masonry</label>
                                                 </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind, zeigt sie die Beitragsliste in 100% Breite an.</div>
+                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                    zeigt sie die Beitragsliste in 100% Breite an.
+                                                </div>
                                                 <div class="form-check form-switch mt-3 me-3">
                                                     <input class="form-check-input" type="checkbox"
                                                            name="author_image"
-                                                           id="authorShowImg" <?=!get_hupa_option('author_image') ?: 'checked'?>>
-                                                    <label class="form-check-label" for="authorShowImg">Beitragsbild anzeigen</label>
+                                                           id="authorShowImg" <?= !get_hupa_option('author_image') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="authorShowImg">Beitragsbild
+                                                        anzeigen</label>
                                                 </div>
                                                 <hr>
                                                 <h6>Informationen für Beiträge und Beitragslisten anzeigen</h6>
@@ -660,36 +707,41 @@ defined('ABSPATH') or die();
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="post_kategorie"
-                                                               id="postKategorieCheck" <?=!get_hupa_option('post_kategorie') ?: 'checked'?>>
-                                                        <label class="form-check-label" for="postKategorieCheck">Kategorien anzeigen</label>
+                                                               id="postKategorieCheck" <?= !get_hupa_option('post_kategorie') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKategorieCheck">Kategorien
+                                                            anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="post_date"
-                                                               id="postDateCheck" <?=!get_hupa_option('post_date') ?: 'checked'?>>
-                                                        <label class="form-check-label" for="postDateCheck">Datum anzeigen</label>
+                                                               id="postDateCheck" <?= !get_hupa_option('post_date') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postDateCheck">Datum
+                                                            anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="post_autor"
-                                                               id="postAuthorCheck" <?=!get_hupa_option('post_autor') ?: 'checked'?>>
-                                                        <label class="form-check-label" for="postAuthorCheck">Author anzeigen</label>
+                                                               id="postAuthorCheck" <?= !get_hupa_option('post_autor') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAuthorCheck">Author
+                                                            anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="post_kommentar"
-                                                               id="postKommentarCheck" <?=!get_hupa_option('post_kommentar') ?: 'checked'?>>
-                                                        <label class="form-check-label" for="postKommentarCheck">Kommentar anzeigen</label>
+                                                               id="postKommentarCheck" <?= !get_hupa_option('post_kommentar') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKommentarCheck">Kommentar
+                                                            anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="post_tags"
-                                                               id="postTagsCheck" <?=!get_hupa_option('post_tags') ?: 'checked'?>>
-                                                        <label class="form-check-label" for="postTagsCheck">Schlagworte anzeigen</label>
+                                                               id="postTagsCheck" <?= !get_hupa_option('post_tags') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postTagsCheck">Schlagworte
+                                                            anzeigen</label>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -698,17 +750,18 @@ defined('ABSPATH') or die();
                                                 <div class="form-check form-switch me-3">
                                                     <input class="form-check-input" type="checkbox"
                                                            name="post_breadcrumb"
-                                                           id="postBreadcrumbCheck" <?=!get_hupa_option('post_breadcrumb') ?: 'checked'?>>
-                                                    <label class="form-check-label" for="postBreadcrumbCheck">anzeigen</label>
+                                                           id="postBreadcrumbCheck" <?= !get_hupa_option('post_breadcrumb') ?: 'checked' ?>>
+                                                    <label class="form-check-label"
+                                                           for="postBreadcrumbCheck">anzeigen</label>
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-12">
                                                 <div class="bg-settings">
-                                                <h5 class="fw-bold p-3 mb-0">
-                                                    <i class="font-blue fa fa-sitemap"></i>&nbsp;<?= __('Sitemap Settings', 'bootscore'); ?>
-                                                </h5>
-                                             </div>
+                                                    <h5 class="fw-bold p-3 mb-0">
+                                                        <i class="font-blue fa fa-sitemap"></i>&nbsp;<?= __('Sitemap Settings', 'bootscore'); ?>
+                                                    </h5>
+                                                </div>
 
                                                 <div class="d-lg-flex d-block">
                                                     <div class="form-check form-switch me-3">
@@ -726,7 +779,9 @@ defined('ABSPATH') or die();
                                                         <label class="form-check-label" for="CheckPages">Seiten</label>
                                                     </div>
                                                 </div>
-                                                <div class="form-text">Nach dem erstellen von Beiträgen und Seiten, wird die Sitemap aktualisiert.</div>
+                                                <div class="form-text">Nach dem erstellen von Beiträgen und Seiten, wird
+                                                    die Sitemap aktualisiert.
+                                                </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="bg-settings">
@@ -755,7 +810,7 @@ defined('ABSPATH') or die();
                                             </div>
 
                                             <div class="col-lg-12 pt-2">
-                                               <div class="bg-settings">
+                                                <div class="bg-settings">
                                                     <h5 class="fw-bold p-3 mb-0">
                                                         <i class="font-blue fa fa-share-square-o"></i>&nbsp;<?= __('Soziale Medien', 'bootscore'); ?>
                                                     </h5>
@@ -794,7 +849,9 @@ defined('ABSPATH') or die();
                                                                id="inputSocialExtraCss">
                                                     </div>
                                                 </div>
-                                                <div class="form-text">Diese Einstellungen können für jede Seite oder Beitrag überschrieben werden.</div>
+                                                <div class="form-text">Diese Einstellungen können für jede Seite oder
+                                                    Beitrag überschrieben werden.
+                                                </div>
                                                 <hr>
                                                 <h6>Soziale Medien für Beitragslisten</h6>
                                                 <div class="d-lg-flex d-block flex-wrap">
@@ -802,30 +859,36 @@ defined('ABSPATH') or die();
                                                         <input class="form-check-input" type="checkbox"
                                                                name="social_kategorie"
                                                                id="socialMediaKategorie" <?= !get_hupa_option('social_kategorie') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="socialMediaKategorie">Kategorie aktiv</label>
+                                                        <label class="form-check-label" for="socialMediaKategorie">Kategorie
+                                                            aktiv</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="social_archiv"
                                                                id="socialMediaArchiv" <?= !get_hupa_option('social_archiv') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="socialMediaArchiv">Archiv aktiv</label>
+                                                        <label class="form-check-label" for="socialMediaArchiv">Archiv
+                                                            aktiv</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
                                                                name="social_author"
                                                                id="socialMediaAuthor" <?= !get_hupa_option('social_author') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="socialMediaAuthor">Author aktiv</label>
+                                                        <label class="form-check-label" for="socialMediaAuthor">Author
+                                                            aktiv</label>
                                                     </div>
                                                 </div>
-                                                <div id="emailHelp" class="form-text">Icons werden unter jeden Post eingetragen.</div>
+                                                <div id="emailHelp" class="form-text">Icons werden unter jeden Post
+                                                    eingetragen.
+                                                </div>
                                                 <hr>
                                                 <div class="form-check form-switch me-3">
                                                     <input class="form-check-input" type="checkbox"
                                                            name="social_farbig"
                                                            id="socialMediaFarbig" <?= !get_hupa_option('social_farbig') ?: 'checked' ?>>
-                                                    <label class="form-check-label" for="socialMediaFarbig">Icons Farbig</label>
+                                                    <label class="form-check-label" for="socialMediaFarbig">Icons
+                                                        Farbig</label>
                                                 </div>
 
                                             </div>
@@ -835,8 +898,9 @@ defined('ABSPATH') or die();
                                                     <div class="bg-settings">
                                                         <h5 class="fw-bold px-3 pt-3 pb-0 mb-0">
                                                             <i class="font-blue fa fa fa-arrows"></i>&nbsp;<?= __('Fullwidth Page Paddings', 'bootscore'); ?>
-                                                      </h5>
-                                                        <div class="form-text px-3 pb-3">Die Einstellungen sind für die CSS Klasse <code><b>.container-fullwidth</b></code></div>
+                                                        </h5>
+                                                        <div class="form-text px-3 pb-3">Die Einstellungen sind für die
+                                                            CSS Klasse <code><b>.container-fullwidth</b></code></div>
                                                     </div>
 
                                                     <div class="row g-3 py-1">
@@ -2997,7 +3061,8 @@ defined('ABSPATH') or die();
 
                                             <hr>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" name="widget_border_aktiv" type="checkbox"
+                                                <input class="form-check-input" name="widget_border_aktiv"
+                                                       type="checkbox"
                                                        id="CheckWidgetBorderActive"
                                                        aria-describedby="CheckWidgetBorderActiveHelp" <?= (int)!get_hupa_option('widget_border_aktiv') ?: 'checked' ?>>
                                                 <label class="form-check-label" for="CheckWidgetBorderActive">
@@ -3622,6 +3687,26 @@ defined('ABSPATH') or die();
                                 <input type="hidden" name="method" value="theme_form_handle">
                                 <input type="hidden" name="handle" value="theme_optionen">
                                 <div class="row g-3 pb-3">
+
+                                    <div class="col-lg-12 pt-2">
+                                        <h6>
+                                            <i class="font-blue fa fa-refresh"></i>&nbsp;<?= __('Theme Update', 'bootscore'); ?>
+                                        </h6>
+                                        <hr>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" name="update_aktiv" type="checkbox"
+                                                   id="CheckUPDATEActive"
+                                                   aria-describedby="CheckUPDATEActiveHelp" <?= (int)!get_hupa_option('update_aktiv') ?: 'checked' ?>>
+                                            <label class="form-check-label" for="CheckUPDATEActive">
+                                                <?= __('Update active', 'bootscore') ?></label>
+                                        </div>
+                                        <div id="CheckUPDATEActiveHelp" class="form-text">
+                                            <?= __('If this option is deactivated, <b>no more updates</b> for the theme will be retrieved.', 'bootscore') ?>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
                                     <div class="col-lg-12 pt-2">
                                         <h6>
                                             <i class="font-blue fa fa-upload"></i>&nbsp;<?= __('Enable SVG upload', 'bootscore'); ?>
@@ -3737,22 +3822,23 @@ defined('ABSPATH') or die();
                                         </h6>
                                         <hr>
                                         <div class="d-flex flex-wrap">
-                                        <div class="form-check form-switch me-3">
-                                            <input class="form-check-input" name="lizenz_page_aktiv" type="checkbox"
-                                                   id="CheckLizenzPageActive"
-                                                    <?= (int)!get_hupa_option('lizenz_page_aktiv') ?: 'checked' ?>>
-                                            <label class="form-check-label" for="CheckLizenzPageActive">
-                                                <?= __('Seite anzeigen', 'bootscore') ?></label>
-                                        </div>
                                             <div class="form-check form-switch me-3">
-                                                <input class="form-check-input" name="lizenz_login_aktiv" type="checkbox"
+                                                <input class="form-check-input" name="lizenz_page_aktiv" type="checkbox"
+                                                       id="CheckLizenzPageActive"
+                                                    <?= (int)!get_hupa_option('lizenz_page_aktiv') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckLizenzPageActive">
+                                                    <?= __('Seite anzeigen', 'bootscore') ?></label>
+                                            </div>
+                                            <div class="form-check form-switch me-3">
+                                                <input class="form-check-input" name="lizenz_login_aktiv"
+                                                       type="checkbox"
                                                        id="CheckLoginPageActive"
-                                                       <?= (int)!get_hupa_option('lizenz_login_aktiv') ?: 'checked' ?>>
+                                                    <?= (int)!get_hupa_option('lizenz_login_aktiv') ?: 'checked' ?>>
                                                 <label class="form-check-label" for="CheckLoginPageActive">
                                                     <?= __('Login anzeigen', 'bootscore') ?></label>
                                             </div>
                                         </div>
-                                               </div>
+                                    </div>
 
                                     <hr>
                                     <div class="col-lg-12 pt-2">
@@ -3775,6 +3861,34 @@ defined('ABSPATH') or die();
                             </form>
                         </div>
                         <div class="ajax-status-spinner ps-2 pt-3"></div>
+                    </div>
+
+
+                    <!--//TODO JOB WARNING INFOS-->
+                    <div class="collapse" id="collapseSettingsInfoOption" data-bs-parent="#settings_display_data">
+                        <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
+                            <hr>
+                            <div class="d-flex align-items-center">
+                                <h5 class="card-title mb-0">
+                                    <i class="font-blue fa fa-info-circle"></i>&nbsp; <?= __('Theme Info', 'bootscore') ?>
+                                </h5>
+                            </div>
+                            <hr>
+                            <h6 class="lh-1 mb-0"><i class="fa fa-arrow-circle-right"></i> Icon Shortcode:</h6>
+                            <div class="form-text mb-3">Icon <b>auswählen</b> und Shortcode <b>Kopieren</b>.</div>
+                            <button data-bs-toggle="modal"
+                                    data-bs-target="#dialog-add-icon" data-bs-type="info"  class="show-theme-icons btn btn-outline-secondary btn-sm">
+                                <i class="fa fa-th"></i>&nbsp;
+                                Icon Übersicht
+                            </button>
+                            <button id="resetIcons" onclick="reset_show_theme_icons(this,'shortcode-info')" class="btn btn-blue-outline btn-sm d-none">
+                                <i class="fa fa-random"></i>&nbsp;
+                                Reset
+                            </button>
+                            <hr>
+                            <div id="shortcode-info"></div>
+                        </div>
+
                     </div>
 
                     <!--//TODO JOB WARNING RESET-->
@@ -3864,10 +3978,21 @@ defined('ABSPATH') or die();
                                     <?= __('Reset', 'bootscore') ?> <?= __('Gmaps', 'bootscore') ?>
                                 </button>
 
+                                <button
+                                        data-bs-id=""
+                                        data-bs-method="reset_settings"
+                                        data-bs-type="reset_gmaps_settings" data-bs-toggle="modal"
+                                        data-bs-target="#ThemeBSModal"
+                                        class="btn btn-outline-secondary btn-sm">
+                                    <i class="fa fa-cog"></i>&nbsp;
+                                    <?= __('Reset', 'bootscore') ?> <?= __('Gmaps Settings', 'bootscore') ?>
+                                </button>
+
                             </div>
                             <hr>
                             <div class="settings-btn-group">
-                                <button class="btn btn-hupa btn-sm" onclick="reload_settings_page();">
+                                <button class="btn btn-hupa btn-outline-secondary btn-sm"
+                                        onclick="reload_settings_page();">
                                     <i class="fa fa-refresh"></i>&nbsp;
                                     <?= __('Reload page', 'bootscore') ?>
                                 </button>
@@ -3899,6 +4024,25 @@ defined('ABSPATH') or die();
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">
                         <i class="text-danger fa fa-times"></i>&nbsp <?= __('Cancel', 'bootscore') ?></button>
                     <button id="smallThemeSendModalBtn" type="button" class="btn btn-sm"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal-->
+    <div class="modal fade" id="dialog-add-icon" tabindex="-1" aria-labelledby="dialog-add-iconLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-hupa">
+                    <h5 class="modal-title" id="exampleModalLabel"><?= __('Icon auswählen', 'bootscore'); ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="icon-grid"></div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-hupa btn-outline-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Schließen</button>
                 </div>
             </div>
         </div>

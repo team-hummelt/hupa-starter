@@ -14,36 +14,33 @@ function hupa_gmaps_data() {
     //Response
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            //  console.log(this.responseText);
             let data = JSON.parse(this.responseText);
-
-            if(!gmaps_container){
+            if (!gmaps_container) {
                 return false;
             }
 
-            //  console.log (data);
-
             let infowindow = new google.maps.InfoWindow();
             //let geocoder = new google.maps.Geocoder();
-            let output = new Array();
+            let output = [];
             let map_container = document.getElementsByClassName('hupa-gmaps-container');
             let map_type_ids = ['roadmap'];
 
             //Farbshema anlegen
-            if (data.farbshema_aktiv && data.farbshema_aktiv != false ){
+            if (data.farbshema_aktiv && data.farbshema_aktiv != false) {
 
-                console.log('Benutzerdefiniertes Farbschema wird geladen.');
+                //console.log('Benutzerdefiniertes Farbschema wird geladen.');
 
                 let farbshema = data.farbshema.replace(/&#34;/g, '"');
                 farbshema = farbshema.replace(/&#39;/g, '"');
                 farbshema = JSON.parse(farbshema);
-                var custom_style = new google.maps.StyledMapType( farbshema,{name: 'HUPA-Map'} );
+                let custom_style = new google.maps.StyledMapType(farbshema, {name: 'HUPA-Map'});
                 map_type_ids = ['styled_map'];
             }
 
             //Karte definieren
+            let hupamap;
             hupamap = new google.maps.Map(map_container[0], {
-                center: {lat:52.130958, lng:11.616186},
+                center: {lat: 52.130958, lng: 11.616186},
                 zoom: 15,
                 streetViewControl: false,
                 mapTypeControlOptions: {
@@ -51,16 +48,16 @@ function hupa_gmaps_data() {
                 }
             });
 
-            if (data.farbshema_aktiv && data.farbshema_aktiv != false ){
+            if (data.farbshema_aktiv && data.farbshema_aktiv != false) {
                 hupamap.mapTypes.set('styled_map', custom_style);
                 hupamap.setMapTypeId('styled_map');
             }
 
-            //Standartpin Icon Style
+            //StandardPin Icon Style
             let stdPinImg = data.std_pin_img;
 
-            if(stdPinImg == false || stdPinImg == ''){
-                stdPinImg = get_hupa_option.admin_url  + 'assets/images/map-pin.png';
+            if (stdPinImg == false || stdPinImg == '') {
+                stdPinImg = get_hupa_option.admin_url + 'assets/images/map-pin.png';
             }
 
             let stdIcon = {
@@ -77,15 +74,14 @@ function hupa_gmaps_data() {
                 let textbox = value.info_text.replace(/\n/g, "<br/>");
                 let pinicon = stdIcon;
 
-                if(value.custom_pin_aktiv == true){
+                if (value.custom_pin_aktiv == true) {
                     pinicon = {
                         url: value.img_url,
                         scaledSize: new google.maps.Size(value.custom_width, value.custom_height),
                     }
                 }
 
-
-                var marker = new google.maps.Marker({
+                let marker = new google.maps.Marker({
                     map: hupamap,
                     position: pinadress,
                     icon: pinicon,
@@ -94,10 +90,10 @@ function hupa_gmaps_data() {
 
                 output.push(marker);
 
-                if(textbox != ''){
-                    google.maps.event.addListener(marker, 'click', function(){
+                if (textbox != '') {
+                    google.maps.event.addListener(marker, 'click', function () {
                         infowindow.close(); // Close previously opened infowindow
-                        infowindow.setContent('<div class="infowindow"><p>'+ this.loc +'</p></div>');
+                        infowindow.setContent('<div class="infowindow"><p>' + this.loc + '</p></div>');
                         infowindow.open({
                             anchor: this,
                             hupamap,
@@ -107,29 +103,26 @@ function hupa_gmaps_data() {
                 }
             }
 
-            if( output.length < 1 ){
-
+            if (output.length < 1) {
                 let bounds = new google.maps.LatLngBounds();
-
-                for (var j=0; j<output.length; j++) {
-                    if(output[j].getVisible()) {
-                        bounds.extend( output[j].getPosition() );
+                for (let j = 0; j < output.length; j++) {
+                    if (output[j].getVisible()) {
+                        bounds.extend(output[j].getPosition());
                     }
                 }
                 hupamap.fitBounds(bounds);
-
-            }
-            else{
+            } else {
                 hupamap.setCenter(output[0].position);
             }
-
         }
     }
 }
 
+let saveSession;
 window.addEventListener("load", function (event) {
     let api_key = window.atob(get_hupa_option.key);
-    if (!get_hupa_option.ds_maps) {
+    saveSession = sessionStorage.getItem("gmaps");
+    if (!get_hupa_option.ds_maps || saveSession) {
         injectGoogleMapsApiScript({
             key: api_key,
             callback: 'hupa_gmaps_data',
@@ -143,10 +136,23 @@ window.addEventListener("load", function (event) {
         btnGmapsNodes.forEach(function (btnGmapsNodes) {
             btnGmapsNodes.addEventListener("click", function (e) {
                 btnGmapsNodes.blur();
-                injectGoogleMapsApiScript({
-                    key: api_key,
-                    callback: 'hupa_gmaps_data',
-                });
+                let checkInput = btnGmapsNodes.parentNode;
+                let checkBox = checkInput.querySelector('.api-karte-check input');
+                if (checkBox.checked) {
+                    sessionStorage.setItem('gmaps', true);
+                    let xhr = new XMLHttpRequest();
+                    let formData = new FormData();
+                    xhr.open('POST', theme_ajax_obj.ajax_url, true);
+                    formData.append('_ajax_nonce', theme_ajax_obj.nonce);
+                    formData.append('action', 'HupaStarterNoAdmin');
+                    formData.append('method', 'set_gmaps_session');
+                    formData.append('status', true);
+                    xhr.send(formData);
+                     injectGoogleMapsApiScript({
+                         key: api_key,
+                         callback: 'hupa_gmaps_data',
+                     });
+                }
             });
         });
     }

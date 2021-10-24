@@ -29,6 +29,7 @@ jQuery(document).ready(function ($) {
     // Dropdown menu animation
     // Add slideDown animation to Bootstrap dropdown when expanding.
     $('.dropdown').on('show.bs.dropdown', function () {
+        $(this).find('.dropdown-menu').first().addClass('dropdown-menu-slide');
       //  $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
     });
 
@@ -121,13 +122,9 @@ jQuery(document).ready(function ($) {
     $(".height-85").css("height", 0.85 * $(window).height());
     $(".height-100").css("height", 1.0 * $(window).height());
 
-    
     // Forms
     $('select, #billing_state').addClass('form-select');
     // Alert links
     $('.alert a').addClass('alert-link');
-
-
-
 
 }); // jQuery End

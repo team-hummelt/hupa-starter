@@ -91,6 +91,11 @@ define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
 
+
+//GUTENBERG TOOLS
+const HUPA_THEME_TOOLS_URL = THEME_ADMIN_URL . 'inc/gutenberg-tools/';
+const HUPA_THEME_TOOLS_DIR = THEME_ADMIN_INC . 'gutenberg-tools' . DIRECTORY_SEPARATOR ;
+
 //TODO LICENSE
 require THEME_ADMIN_INC . 'license/license-init.php';
 //TODO REGISTER HOOKS / FILTER / SHORTCODES / OPTIONEN

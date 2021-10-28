@@ -36,7 +36,7 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 		    $img = false;
         }
 
-
+		@session_start();
 		// TODO PUBLIC localize Script
         global $post;
         wp_register_script( 'hupa-starter-public-js-localize', '', [], $hupa_version->get( 'Version' ), true );
@@ -45,6 +45,7 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 			'get_hupa_option',
 			array(
                 'postID' => $post->ID,
+                'gmaps' => (bool) $_SESSION['gmaps'],
                 'post_type' => $post->post_type,
 				'ds_maps'   => get_hupa_frontend('ds-gmaps'),
 				'admin_url' => THEME_ADMIN_URL,

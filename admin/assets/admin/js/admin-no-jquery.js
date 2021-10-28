@@ -594,10 +594,9 @@ if (smallThemeSendModalBtn) {
     });
 }
 
-
-let iconModal = document.getElementById('dialog-add-icon');
-if (iconModal) {
-    iconModal.addEventListener('show.bs.modal', function (event) {
+let iconSettingsInfoModal = document.getElementById('dialog-add-icon');
+if (iconSettingsInfoModal) {
+    iconSettingsInfoModal.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget;
         let type = button.getAttribute('data-bs-type');
         let formId = button.getAttribute('data-bs-id');

@@ -40,7 +40,43 @@ if (!class_exists('HupaCarouselShortCode')) {
         public function __construct()
         {
             add_shortcode('carousel', array($this, 'hupa_carousel_shortcode'));
+            add_shortcode('hupa-slider', array($this, 'post_selector_slider_shortcode'));
+            add_shortcode('hupa-galerie', array($this, 'post_selector_galerie_shortcode'));
 
+        }
+
+        public function post_selector_slider_shortcode($atts, $content, $tag): bool|string
+        {
+            $a = shortcode_atts(array(
+                'attributes' => '',
+                'id' => ''
+            ), $atts);
+
+            if (!$a['attributes']) {
+                return '';
+            }
+            $attributes = base64_decode($a['attributes']);
+            $attributes = (array)json_decode($attributes);
+            ob_start();
+            echo apply_filters('get_post_select_data_type', $attributes);
+            return ob_get_clean();
+        }
+
+        public function post_selector_galerie_shortcode($atts, $content, $tag): bool|string
+        {
+            $a = shortcode_atts(array(
+                'attributes' => '',
+                'id' => ''
+            ), $atts);
+
+            if (!$a['attributes']) {
+                return '';
+            }
+            $attributes = base64_decode($a['attributes']);
+            $attributes = (array)json_decode($attributes);
+            ob_start();
+            echo apply_filters('load_galerie_templates', $attributes);
+            return ob_get_clean();
         }
 
         public function hupa_carousel_shortcode($atts, $content, $tag): bool|string
@@ -88,7 +124,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             ob_start();
             ?>
             <div id="hupaCarousel<?= $carousel->id ?>"
-                 class="<?= $full_width ?> carousel <?= $marginTop ?> <?=$lazy?> slide <?= $slide ?>"
+                 class="<?= $full_width ?> carousel <?= $marginTop ?> <?= $lazy ?> slide <?= $slide ?>"
                  data-bs-ride="<?= $ride ?>">
                 <?php if ($countS > 1): ?>
                     <div class="<?= $carousel->indicator ? '' : 'd-none' ?> carousel-indicators">
@@ -104,6 +140,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                 <div class="carousel-inner">
                     <?php $x = 0;
                     foreach ($slider
+
                     as $tmp):
                     if ($tmp->slide_button) {
                         $btn = json_decode($tmp->slide_button);
@@ -213,7 +250,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                         </div>
                     </div>
                 </div>
-            <?php  $x++;
+            <?php $x++;
             endforeach; ?>
             </div>
             <?php if ($countS > 1): ?>

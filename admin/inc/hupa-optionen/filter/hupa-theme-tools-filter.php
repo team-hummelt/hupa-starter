@@ -48,6 +48,8 @@ if (!class_exists('HupaStarterToolsFilter')) {
             add_filter('get_gmaps_iframe', array($this, 'hupaGetGmapsIframe'),10,3);
             //Delete Iframe
             add_filter('delete_gmaps_iframe', array($this, 'hupaDeleteGmapsIframe'));
+            //Render Menu Select
+            add_action('render_menu_select_output', array($this, 'renderMenuSelectOutput'));
         }
 
         public function hupaSetGmapsIframe($record):object {
@@ -127,6 +129,28 @@ if (!class_exists('HupaStarterToolsFilter')) {
                 ),
                 array('%d')
             );
+        }
+
+        public function renderMenuSelectOutput($attr) {
+
+            $attr = (object) $attr;
+            if(!$attr->selectedMenu){
+                echo '';
+            }
+
+          wp_nav_menu( array(
+                'theme_location' => $attr->selectedMenu,
+                'container'      => false,
+                'menu_class'     => $attr->className,
+                'fallback_cb'    => '__return_false',
+                'items_wrap'     => '<ul class="custom-menu-wrapper %2$s">%3$s</ul>',
+                'depth'          => 6,
+                'walker' => new \bootstrap_5_menu_select_walker()
+            ) );
+
+            //$menus = wp_get_nav_menu_items($attr->selectedMenu);
+
+
         }
     }
 }

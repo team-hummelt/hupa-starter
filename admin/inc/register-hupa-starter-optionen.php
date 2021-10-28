@@ -78,10 +78,6 @@ final class HupaRegisterStarterTheme {
         //TODO ADD ADMIN-BAR HUPA MENU
         add_action( 'admin_bar_menu', array( $this, 'hupa_toolbar_hupa_options' ), 999 );
 
-        //TODO JOB THEME CUSTOM MENUS
-        //REGISTER TOP AREA MENU
-        add_action( 'after_setup_theme', array( $this, 'register_hupa_starter_top_area_menu' ) );
-
         //TODO JOB REGISTER CUSTOM SIDEBAR | WIDGETS
         add_action( 'widgets_init', array( $this, 'register_hupa_starter_widgets' ) );
 
@@ -378,6 +374,7 @@ final class HupaRegisterStarterTheme {
                     'excerpt',
                     'page-attributes',
                     'editor',
+
                 )
             )
         );
@@ -445,17 +442,6 @@ final class HupaRegisterStarterTheme {
         $current = file_get_contents($file);
         $current .= "Mailer Error: " . $wp_error->get_error_message() ."\n";
         file_put_contents($file, $current, FILE_APPEND | LOCK_EX);
-    }
-
-    /**
-     * =================================================
-     * =========== THEME CREATE CUSTOM MENUS ===========
-     * =================================================
-     */
-    public function register_hupa_starter_top_area_menu(): void {
-        require_once( 'theme-custom-menus/hupa-top-area-navwalker.php' );
-        // Register Menus
-        register_nav_menu( 'top-area-menu', 'Top Area menu' );
     }
 
 

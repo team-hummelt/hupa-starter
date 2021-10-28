@@ -42,6 +42,12 @@ add_action('change_beitragslisten_template', 'changeBeitragsListenTemplate',10,2
 //TODO JOB THEME WIDGETS
 require 'widgets/social-media-widget.php';
 
+//TODO JOB WARNING GUTENBERG TOOLS
+require THEME_ADMIN_INC .'gutenberg-tools/register-gutenberg-tools.php';
+require THEME_ADMIN_INC . 'gutenberg-tools/google-maps-callback.php';
+require THEME_ADMIN_INC . 'gutenberg-tools/theme-carousel-callback.php';
+require THEME_ADMIN_INC . 'gutenberg-tools/menu-select-callback.php';
+
 if(HUPA_SIDEBAR) {
 //TODO JOB WARNING GUTENBERG SIDEBAR
 //TODO GUTENBERG SIDEBAR
@@ -58,6 +64,7 @@ require  'shortcode/hupa-social-button.php';
 require  'shortcode/hupa-icon-shortcode.php';
 require  'shortcode/hupa-theme-google-maps.php';
 
+require  HUPA_THEME_TOOLS_DIR . 'menu-select/menu-select-nav-walker.php';
 //TODO WARNING JOB AKTIONEN
 
 //TODO THEME OPTIONEN

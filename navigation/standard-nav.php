@@ -64,8 +64,9 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 					'menu_class'     => '',
 					'fallback_cb'    => '__return_false',
 					'items_wrap'     => '<ul id="bootscore-navbar" class="navbar-nav align-items-center %2$s">%3$s</ul>',
-					'depth'          => 2,
-					'walker'         => new bootstrap_5_wp_nav_menu_walker()
+					'depth'          => 6,
+                    //'walker' => new bootstrap_5_wp_nav_deep_walker()
+					'walker' => new bootstrap_5_wp_nav_menu_walker()
 				) );
 				?>
 				<!-- Bootstrap 5 Nav Walker Main Menu End -->

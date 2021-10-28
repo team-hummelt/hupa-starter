@@ -36,15 +36,19 @@ jQuery(document).ready(function ($) {
     let siteContent = $('.site-content');
     let navLogo = $('.navbar-root .logo.md');
     let carousel = $('.carousel');
+    //let carouselWrapper = $('.carousel-wrapper');
     let middleLogo = $('.middle-img');
     let topArea = $('#top-area-wrapper');
     let isFixedHeader;
+    //let carOffset = carouselWrapper.offset();
+   // let offsetHCarHeader = carOffset.top - header.outerHeight();
     if (header.hasClass('fixed-top')) {
         if (topArea[0]) {
             isFixedHeader = true;
             header.removeClass('fixed-top');
         } else {
             isFixedHeader = false;
+            //siteContent.css('margin-top', (header.outerHeight() - offsetHCarHeader) + 'px');
             siteContent.css('margin-top', (header.outerHeight()) + 'px');
             header.addClass('fixed-top');
         }
@@ -66,6 +70,7 @@ jQuery(document).ready(function ($) {
             } else {
                 isFixedHeader = false;
                 siteContent.css('margin-top', (header.outerHeight()) + 'px');
+                //siteContent.css('margin-top', (header.outerHeight() - offsetHCarHeader) + 'px');
                 header.addClass('fixed-top');
             }
         }
@@ -158,60 +163,50 @@ jQuery(document).ready(function ($) {
         $(".preloader").delay(1600).fadeOut('easing').remove();
     });
 
-    // Load Social Media ICON
-    /*$(function() {
-        return $(".carousel.lazy").on("slid.bs.carousel", function(ev) {
-            //let lazy;
-            let next;
-            //lazy = $(ev.relatedTarget).find("img[data-src]");
-           // next = $(ev.relatedTarget.nextElementSibling).find("img[data-src]");
-           // lazy.attr("src", lazy.data('src'));
-           // next.attr("src", next.data('src'));
-            //lazy.removeAttr("data-src");
-          //  next.removeAttr("data-src");
-        });
-    });
-    */
-});
 
-/*===============================================
-========== CAROUSEL LAZY LOAD FUNCTION ==========
-=================================================
-*/
-document.addEventListener('DOMContentLoaded', function () {
+    /**===============================================
+    ========== CAROUSEL LAZY LOAD FUNCTION ===========
+    ==================================================
+    */
     let themeCarouselTimeout;
-    let themeCarouselEvents = document.querySelectorAll(".carousel.lazy .carousel-item");
-    if (themeCarouselEvents) {
-        let themeCarouselNextEvents = document.querySelectorAll(".carousel.lazy");
-        let carouselNextNodes = Array.prototype.slice.call(themeCarouselNextEvents, 0);
-        let nextElm;
-        let nextCarousel;
-        let carouselNodes = Array.prototype.slice.call(themeCarouselEvents, 0);
-        carouselNodes.forEach(function (carouselNodes) {
-            let carousel = new bootstrap.Carousel(carouselNodes);
-            let active = carousel._element;
-            if (active.classList.contains('active')) {
-                clearTimeout(themeCarouselTimeout);
-                themeCarouselTimeout = setTimeout(function () {
-                    nextElm = carouselNodes.nextElementSibling.children[0];
-                    let lazy = nextElm.getAttribute('data-src');
-                    nextElm.setAttribute('src', lazy);
-                    nextElm.removeAttribute('data-src');
-                }, 2500);
+    $(function() {
+        let carousel =  $(".carousel");
+        let ifSrc = carousel.find("img[data-src]");
+         if(ifSrc.length){
+           $('> button.carousel-control-prev', carousel).css('pointer-events','none');
+           $('> button.carousel-control-next', carousel).css('pointer-events','none');
+           $('> .carousel-indicators button', carousel).css('pointer-events','none');
+           clearTimeout(themeCarouselTimeout);
+           themeCarouselTimeout = setTimeout(function () {
+               let firstNext = $('.carousel-item',carousel).next().first()
+               let nextSrx = firstNext.find("img[data-src]");
+               nextSrx.attr("src", nextSrx.data('src'));
+               nextSrx.removeAttr("data-src");
+           }, 2500);
+       }
+
+        return carousel.on("slid.bs.carousel", function(ev) {
+            let next;
+            next = $(ev.relatedTarget).next().find("img[data-src]");
+            let prev = $(ev.relatedTarget.previousElementSibling);
+            if(next.length == 0) {
+              $('> button.carousel-control-next', this).css('pointer-events','auto');
+            } else {
+                $('> button.carousel-control-next', carousel).css('pointer-events','none');
+            }
+            let srcDot = $(carousel).find("img[data-src]");
+            if(prev.length || srcDot.length == 0) {
+                $('> button.carousel-control-prev', carousel).css('pointer-events','auto');
+            } else {
+               $('> button.carousel-control-prev', carousel).css('pointer-events','none');
+            }
+            next.attr("src", next.data('src'));
+            next.removeAttr("data-src");
+
+            if(srcDot.length == 0) {
+             $('> .carousel-indicators button', carousel).css('pointer-events','auto');
             }
         });
+    });
 
-        carouselNextNodes.forEach(function (carouselNextNodes) {
-            carouselNextNodes.addEventListener("slid.bs.carousel", function (e) {
-                if (e.relatedTarget.nextElementSibling) {
-                    nextCarousel = e.relatedTarget.nextElementSibling.children[0];
-                    let lazy = nextCarousel.getAttribute('data-src');
-                    if(lazy){
-                        nextCarousel.setAttribute('src', lazy);
-                        nextCarousel.removeAttribute('data-src');
-                    }
-                }
-            })
-        });
-    }
-})
+});

@@ -76,7 +76,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
             //MENU AUSWAHL
             add_filter('get_menu_auswahl', array($this, 'hupa_get_menu_auswahl'));
             // Social Button URL
-            add_filter('get_social_button_url', array($this, 'hupa_get_social_button_url'),10 ,2);
+            add_filter('get_social_button_url', array($this, 'hupa_get_social_button_url'), 10, 2);
 
             // TODO SITEMAP ERSTELLEN
             if (get_hupa_option('sitemap_post')) {
@@ -88,7 +88,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
             // ALL Sidebars
             add_filter('get_registered_sidebar', array($this, 'hupa_get_registered_sidebar'));
-
 
 
         }
@@ -614,7 +613,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = false;
-                    $return['relative'] = 'position-relative' ;
+                    $return['relative'] = 'position-relative';
                     break;
                 default:
                     return (object)[];
@@ -980,8 +979,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->show_top_area = $optionTopArea;
             }
 
-
-
             //TODO CUSTOM HEADER
             if ($record->select_header) {
                 $postHeader = get_post($record->select_header);
@@ -989,25 +986,88 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 //TODO CAROUSEL Custom Header ShortCode
                 $regEx = '@\[carousel.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if (isset($matches)) {
+
+                if ($matches) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
+                } else {
+                    $regEx = '/<!.*theme-carousel.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $json = json_decode($tmp[1]);
+                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            $classStart = '<div class="theme-carousel ' . $doFormClass . '">';
+                            $doShortcode = $classStart . do_shortcode('[carousel id=' . $json->selectedCarousel . ']') . '</div>';
+                            $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                        }
+                    }
                 }
 
                 //TODO Formular Custom Header ShortCode
                 $regEx = '@\[bs-formular.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if (isset($matches)) {
+                if ($matches) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
+                } else {
+                    $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                    if($matches) {
+                        foreach ($matches as $tmp) {
+                            $json = json_decode($tmp[1]);
+                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            $classStart = '<div class="bootstrap-formular ' . $doFormClass . '">';
+                            $doShortcode = $classStart . do_shortcode('[bs-formular id="' . $json->selectedFormular . '"]') . '</div>';
+                            $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                        }
+                    }
                 }
 
+                if (WP_POST_SELECTOR_AKTIV) {
+                    $regEx = '/<!.*theme-post-selector.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $doShortcode = do_shortcode('[hupa-slider id="5" attributes="' . base64_encode($tmp[1]) . '"]');
+                            $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                        }
+                    }
+
+                    $regEx = '/<!.*post-selector-galerie.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $doShortcode = do_shortcode('[hupa-galerie id="5" attributes="' . base64_encode($tmp[1]) . '"]');
+                            $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                        }
+                    }
+                }
+
+                $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
+                preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
+                if($matches) {
+                    foreach ($matches as $tmp) {
+                        $json = json_decode($tmp[1]);
+                        $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                        $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
+
+                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                    }
+                }
+
+
                 //TODO ICONS Custom Header ShortCode
-                $regEx = '@\[hupa-icon.*]@m';
+                $regEx = '@\[icon.*]@m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
                 if (isset($matches)) {
-                    $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_header = str_replace($matches[0][0], $doShortcode, $record->custum_header);
+                    foreach ($matches as $tmp) {
+                        $doShortcode = do_shortcode($tmp[0]);
+                        $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                    }
                 }
 
             } else {
@@ -1022,9 +1082,21 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 //TODO CAROUSEL Custom Footer ShortCode
                 $regEx = '@\[carousel.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if (isset($matches)) {
+                if ($matches) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
+                } else {
+                    $regEx = '/<!.*theme-carousel.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $json = json_decode($tmp[1]);
+                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            $classStart = '<div class="theme-carousel ' . $doFormClass . '">';
+                            $doShortcode = $classStart . do_shortcode('[carousel id=' . $json->selectedCarousel . ']') . '</div>';
+                            $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                        }
+                    }
                 }
 
                 //TODO Formular Custom Footer ShortCode
@@ -1033,22 +1105,72 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 if (isset($matches)) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
+                } else {
+                    $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                    if($matches) {
+                        foreach ($matches as $tmp) {
+                            $json = json_decode($tmp[1]);
+                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            $classStart = '<div class="bootstrap-formular ' . $doFormClass . '">';
+                            $doShortcode = $classStart . do_shortcode('[bs-formular id="' . $json->selectedFormular . '"]') . '</div>';
+                            $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                        }
+                    }
+                }
+
+                if (WP_POST_SELECTOR_AKTIV) {
+                    $regEx = '/<!.*theme-post-selector.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $doShortcode = do_shortcode('[hupa-slider id="5" attributes="' . base64_encode($tmp[1]) . '"]');
+                            $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                        }
+                    }
+
+                    $regEx = '/<!.*post-selector-galerie.*({.*}).*>/m';
+                    preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                    if ($matches) {
+                        foreach ($matches as $tmp) {
+                            $doShortcode = do_shortcode('[hupa-galerie id="5" attributes="' . base64_encode($tmp[1]) . '"]');
+                            $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                        }
+                    }
+                }
+
+                $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
+                preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
+                if($matches) {
+                    foreach ($matches as $tmp) {
+                        $json = json_decode($tmp[1]);
+                        $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                        $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
+
+                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                    }
                 }
 
                 //TODO ICONS Custom Footer ShortCode
-                $regEx = '@\[hupa-icon.*]@m';
+                $regEx = '@\[icon.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
                 if (isset($matches)) {
-                    $doShortcode = do_shortcode($matches[0][0]);
-                    $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
+                    foreach ($matches as $tmp) {
+                        $doShortcode = do_shortcode($tmp[0]);
+                        $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                    }
                 }
+
             } else {
                 $record->custum_footer = false;
             }
             return $record;
         }
 
-        public function hupa_get_social_button_url($data):string
+        public function hupa_get_social_button_url($data): string
         {
             switch ($data->btn) {
                 case 'btn-twitter':

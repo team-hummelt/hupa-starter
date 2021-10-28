@@ -46,12 +46,13 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
     $class_names = $value = '';
 
     $classes = empty($item->classes) ? array() : (array) $item->classes;
-
+    isset($item->classes[0]) && $item->classes[0] == 'mega-menu' ? $megaMenu = 'dropdown dropdown-mega position-static' : $megaMenu = '';
     $classes[] = ($args->walker->has_children) ? 'dropdown' : '';
-    $classes[] = 'nav-item';
+    //$classes[] = 'nav-item';
+    $classes[] = 'nav-item ' .$megaMenu;
     $classes[] = 'nav-item-' . $item->ID;
     if ($depth && $args->walker->has_children) {
-      $classes[] = 'dropdown-menu dropdown-menu-end';
+      $classes[] = 'dropend';
     }
 
     $class_names =  join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args));
@@ -68,13 +69,45 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
     $attributes .= !empty($item->url) ? ' href="' . esc_attr($item->url) . '"' : '';
 
     $active_class = ($item->current || $item->current_item_ancestor) ? 'active' : '';
-    $nav_link_class = ( $depth > 0 ) ? 'dropdown-item ' : 'nav-link ';
-    $attributes .= ( $args->walker->has_children ) ? ' class="'. $nav_link_class . $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ' class="'. $nav_link_class . $active_class . '"';
+
+      if(isset($item->classes[0]) && $item->classes[0] == 'mega-menu' ){
+
+          $args = array(
+              'meta_key' => '_wp_page_template',
+              'meta_value' => 'theme-mega-menu-template.php'
+          );
+          $page = get_pages($args);
+          if($page){
+              $url = get_rest_url(null, 'wp/v2/pages/').$page[0]->ID;
+              $content = file_get_contents($url, true);
+              $content = json_decode($content);
+              $pageContent = $content->content->rendered;
+          } else {
+              $pageContent = '';
+          }
+          $attributes .= ' class="dropdown-item nav-link '. $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"';
+          $argsAfter = '<div class="dropdown-menu mega-menu-wrapper hupa-box-shadow">
+                            <div class="mega-content p-3">
+                                <div class="container mega-menu-inner-wrapper">
+                                <div class="mega-menu-header"></div>
+                                    '.$pageContent.'
+                                </div>
+                            </div>
+                        </div>';
+      } else {
+          $argsAfter = '';
+          $nav_link_class = ( $depth > 0 ) ? 'dropdown-item ' : 'nav-link ';
+          $attributes .= ( $args->walker->has_children ) ? ' class="'. $nav_link_class . $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"' : ' class="'. $nav_link_class . $active_class . '"';
+      }
+
+    //$nav_link_class = ( $depth > 0 ) ? 'dropdown-item ' : 'nav-link ';
+    //$attributes .= ( $args->walker->has_children ) ? ' class="'. $nav_link_class . $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"' : ' class="'. $nav_link_class . $active_class . '"';
 
     $item_output = $args->before;
     $item_output .= '<a' . $attributes . '>';
     $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
     $item_output .= '</a>';
+    $item_output .= $argsAfter;
     $item_output .= $args->after;
 
     $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);

@@ -1,4 +1,5 @@
 @import "theme-tools";
+@import "navbar-menu";
 
 body .bs-formular-wrapper {
   i.fa {
@@ -6,57 +7,69 @@ body .bs-formular-wrapper {
   }
 }
 
-@media (max-width: 1200px) {
+.top-button {
+  pointer-events: none;
+}
+
+
+
+#nav-main-starter.navbar-root {
+  @media (max-width: 1200px) {
+    .dropdown-menu-slide {
+      animation-duration: 2.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-opacity: 0;
+    }
+
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+
   .dropdown-menu-slide {
-    animation-duration: 2.3s;
-    -webkit-animation-duration: 0.3s;
-    animation-fill-mode: both;
-    -webkit-animation-fill-mode: both;
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+    animation-duration: 450ms;
   }
 }
 
-@keyframes slideIn {
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0rem);
-    opacity: 1;
-  }
-
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes slideIn {
-  0% {
-    -webkit-opacity: 0;
-  }
-
-  100% {
-    -webkit-transform: translateY(0);
-    -webkit-opacity: 1;
-  }
-
-  0% {
-    -webkit-transform: translateY(1rem);
-    -webkit-opacity: 0;
-  }
-}
-
-.slideIn {
-  -webkit-animation-name: slideIn;
-  animation-name: slideIn;
-}
-
-.dropdown-menu-slide {
-  -webkit-animation-name: slideIn;
-  animation-name: slideIn;
-  animation-duration: 450ms;
+.top-button.visible {
+  pointer-events: auto;
 }
 
 
@@ -439,6 +452,8 @@ img.map-placeholder-img {
   //transition: opacity 450ms;
 }
 
+
+
 @media (max-width: 768px) {
   .bgImage {
     height: 30vh
@@ -622,6 +637,14 @@ img.map-placeholder-img {
     transform: translate(15px);
   }
 }
+
+.carousel-control-next:not(:hover):focus, .carousel-control-prev:not(:hover):focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  opacity: 0.5;
+}
+
 
 
 

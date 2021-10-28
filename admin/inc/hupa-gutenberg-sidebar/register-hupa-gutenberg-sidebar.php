@@ -36,7 +36,7 @@ final class HupaRegisterGutenbergSidebar {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'hupa_sidebar_script_enqueue' ) );
 
 		//TODO REMOVE REST BY NOT LOGGED IN
-		add_action( 'init', array( $this, 'hupa_removes_api_endpoints_for_not_logged_in' ) );
+		//add_action( 'init', array( $this, 'hupa_removes_api_endpoints_for_not_logged_in' ) );
 
 		//add_action( 'wp_enqueue_scripts', array( $this, 'gutenberg_load_text_domain' ), 100 );
 	}

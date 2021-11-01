@@ -85,10 +85,10 @@ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_menu
           } else {
               $pageContent = '';
           }
-          $attributes .= ' class="dropdown-item nav-link '. $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"';
-          $argsAfter = '<div class="dropdown-menu mega-menu-wrapper hupa-box-shadow">
+          $attributes .= ' class="nav-link '. $active_class . ' dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false"';
+          $argsAfter = '<div class="container-fluid dropdown-menu mega-menu-wrapper hupa-box-shadow">
                             <div class="mega-content p-3">
-                                <div class="container mega-menu-inner-wrapper">
+                                <div class="mega-menu-inner-wrapper">
                                 <div class="mega-menu-header"></div>
                                     '.$pageContent.'
                                 </div>

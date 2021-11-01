@@ -25,13 +25,13 @@
 // Mega Menu adjustments
 .nav-item.dropdown.dropdown-mega{
   position: static;
-
   .dropdown-menu{
-    width: 70%;
+    position: absolute;
+    width: 70% !important;
     top: auto;
-    left: 15%;
+    left: 15%!important;
     &.first-dropdown-menu {
-      background-color: greenyellow!important;
+     // background-color: greenyellow!important;
     }
     .first-dropdown-menu.show {
       top: 1.5rem;
@@ -50,7 +50,7 @@
 
 ul.custom-menu-wrapper {
   li.menu-item {
-    border-color: #d7d7d7!important;
+    border-color: #d7d7d7;
     list-style: none;
 
   }

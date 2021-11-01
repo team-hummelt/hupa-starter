@@ -109,6 +109,7 @@ trait HupaOptionTrait
     protected string $widget_bg = 'widget_bg';
     protected string $widget_border_aktiv = 'widget_border_aktiv';
     protected string $widget_border_color = 'widget_border_color';
+    protected string $mega_menu_bg = 'mega_menu_bg';
     //MENU
     protected string $menu_uppercase = 'menu_uppercase';
     protected string $menu_btn_bg_color = 'menu_btn_bg_color';
@@ -382,7 +383,7 @@ trait HupaOptionTrait
                 $this->prefix_h6 . $this->font_color => '#3c434a',
 
                 //Top Footer Headline
-                $this->prefix_top_footer_headline . $this->font_family => 'Montserrat',
+                $this->prefix_top_footer_headline . $this->font_family => 'Roboto',
                 $this->prefix_top_footer_headline . $this->font_style => 0,
                 $this->prefix_top_footer_headline . $this->font_size => 28,
                 $this->prefix_top_footer_headline . $this->font_height => 1.5,
@@ -427,7 +428,7 @@ trait HupaOptionTrait
                 $this->prefix_under . $this->font_color => '#3c434a',
 
                 //MENU
-                $this->prefix_menu . $this->font_family => 'Amiri',
+                $this->prefix_menu . $this->font_family => 'Roboto',
                 $this->prefix_menu . $this->font_style => 0,
                 $this->prefix_menu . $this->font_size => 16,
                 $this->prefix_menu . $this->font_height => 1.5,
@@ -464,7 +465,7 @@ trait HupaOptionTrait
                 $this->prefix_footer_headline . $this->font_color => '#3c434a',
 
                 //FOOTER WIDGET
-                $this->prefix_footer_widget . $this->font_family => 'Poppins',
+                $this->prefix_footer_widget . $this->font_family => 'Roboto',
                 $this->prefix_footer_widget . $this->font_style => 4,
                 $this->prefix_footer_widget . $this->font_size => 16,
                 $this->prefix_footer_widget . $this->font_height => 1.5,
@@ -494,6 +495,9 @@ trait HupaOptionTrait
                 $this->widget_bg => '#F7F7F700',
                 $this->widget_border_color => '#dee2e6',
                 $this->widget_border_aktiv => 1,
+
+                //MEGA MENU
+                $this->mega_menu_bg = '#FFFFFF',
 
                 //MENU
                 $this->menu_uppercase => 0,

@@ -128,6 +128,16 @@ final class HupaRegisterStarterTheme {
             add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
         }
 
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-home',
+            __( 'Installation', 'bootscore' ),
+            __( 'Installation', 'bootscore' ),
+            'manage_options',
+            'hupa-install-font',
+            array( $this, 'hupa_admin_starter_theme_install_font' ) );
+
+        add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
+
         if(get_hupa_option('lizenz_page_aktiv')) {
             $hook_suffix = add_submenu_page(
                 'hupa-starter-home',
@@ -226,7 +236,6 @@ final class HupaRegisterStarterTheme {
         foreach ( $args as $tmp ) {
             $wp_admin_bar->add_node( $tmp );
         }
-
     }
 
     /**
@@ -247,6 +256,10 @@ final class HupaRegisterStarterTheme {
     public function hupa_admin_starter_theme_carousel(): void {
         wp_enqueue_media();
         require 'starter-admin-pages/admin-starter-theme-carousel.php';
+    }
+
+    public function hupa_admin_starter_theme_install_font(): void {
+        require 'starter-admin-pages/admin-install-from-api.php';
     }
 
     //Lizenzen

@@ -49,6 +49,7 @@ jQuery(document).ready(function ($) {
             document.querySelector('.btn-delete-iframe').setAttribute('data-id', id);
         })
     }
+
     /**=================================================
      ================ BTN DELETE I-FRAME================
      ===================================================*/

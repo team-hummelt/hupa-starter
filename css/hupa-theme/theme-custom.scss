@@ -1,5 +1,8 @@
 @import "theme-tools";
+@import "custom-icon";
 @import "navbar-menu";
+@import "handy-menu-eins";
+
 
 body .bs-formular-wrapper {
   i.fa {
@@ -11,7 +14,9 @@ body .bs-formular-wrapper {
   pointer-events: none;
 }
 
-
+#nav-main-starter {
+  z-index: 1030;
+}
 
 #nav-main-starter.navbar-root {
   @media (max-width: 1200px) {
@@ -229,14 +234,6 @@ img.map-placeholder-img {
   }
 }
 
-#nav-main-starter  .offcanvas.menu1.show {
-  background-color: rgba(255,255,255,.9);
-}
-
-#nav-main-starter  .offcanvas.menu1 .offcanvas-header {
-  background-color: rgba(221,221,221,.95);
-}
-
 #nav-main-starter  .offcanvas.menu2.show {
   background-color: rgba(0,0,0,.6);
 
@@ -289,26 +286,22 @@ img.map-placeholder-img {
   padding-top: 2.5rem;
 }
 
-.navbar-root .logo.md {
-  max-width: 100%;
-  transition: all 450ms;
+.logo.md{
+  //max-width: 10rem;
+  max-height: 45px;
+  width: 100%;
+  transition: max-height 450ms ease-in-out;
 }
 
+
 .top-nav.main-widget {
-  right: 20px;
+  right: 25px;
   z-index: 1021;
 }
 
-.navbar-root .logo.md {
-  transition: all 450ms;
-}
 
-.navbar-root .logo.md.small-logo {
-  //max-width: 90%;
-  height: 46px;
- // -o-object-fit: cover;
- // object-fit: cover;
-  transition: all 450ms;
+a.navbar-brand {
+  z-index: 1021;
 }
 
 .carousel-caption {
@@ -331,7 +324,7 @@ img.map-placeholder-img {
 .navbar-root .logo.sm {
   //width: 70%;
   //transform: scale(.65);
-  height: 46px;
+  height: 30px;
   -o-object-fit: cover;
   object-fit: cover
 }
@@ -462,6 +455,12 @@ img.map-placeholder-img {
 
 .middle-image-nav-sm{
   display: none;
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 978px) {

@@ -100,6 +100,9 @@ defined('ABSPATH') or die();
                             <hr>
                             <h4 class="text-center"><?= __('News and Updates', 'bootscore') ?></h4>
                             <hr>
+                            <?php $errMsg = str_replace('#', '<br>', get_option('hupa_update_error_message'));
+                                  echo $errMsg;
+                            ?>
                         </div>
                         <small class="card-body-bottom">DB: <i
                                     class="hupa-color"> <?= HUPA_STARTER_THEME_DB_VERSION ?></i> | THEME: <i
@@ -3071,7 +3074,7 @@ defined('ABSPATH') or die();
                                                     <?= __('Widget Border anzeigen. ', 'bootscore') ?>
                                                 </div>
                                             </div>
-                                            <hr>
+
 
                                             <div class="d-flex align-items-center">
                                                 <div class="color-select-wrapper d-flex mb-2">
@@ -3086,7 +3089,26 @@ defined('ABSPATH') or die();
                                                 </div>
                                             </div>
 
+                                            <!--//TODO JOB Mega Mnu BG TRENNER-->
+                                            <div class="bg-custom-yellow mb-3">
+                                                <h6 class="card-title px-3 py-2">
+                                                    <?= __('Mega Menu color', 'bootscore') ?>
+                                                </h6>
+                                            </div>
 
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-select-wrapper d-flex mb-2">
+                                                    <div data-color="<?= get_hupa_option('mega_menu_bg') ?>"
+                                                         class="colorPickers">
+                                                        <input id="InputMegaMenuBg" type="hidden"
+                                                               value="<?= get_hupa_option('mega_menu_bg') ?>"
+                                                               name="mega_menu_bg">
+                                                    </div>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Mega Menu</b>
+                                                        Hintergrundfarbe</h6>
+                                                </div>
+                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
                                 </div><!--ITEM-END-->
@@ -3398,7 +3420,7 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_active_bg') ?>"
                                                                name="menu_dropdown_active_bg">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown aktiv</b>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü aktiv</b>
                                                         Hintergrundfarbe</h6>
                                                 </div>
                                             </div>
@@ -3411,7 +3433,7 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_active_color') ?>"
                                                                name="menu_dropdown_active_color">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown aktiv</b>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü aktiv</b>
                                                         Schriftfarbe</h6>
                                                 </div>
                                             </div>
@@ -3447,8 +3469,7 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_hover_bg') ?>"
                                                                name="menu_dropdown_hover_bg">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown aktiv
-                                                            hover</b> Hintergrundfarbe</h6>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü hover</b> Hintergrundfarbe</h6>
                                                 </div>
                                             </div>
                                             <hr>
@@ -3460,8 +3481,7 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_hover_color') ?>"
                                                                name="menu_dropdown_hover_color">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown aktiv
-                                                            hover</b> Schriftfarbe</h6>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü hover</b> Schriftfarbe</h6>
                                                 </div>
                                             </div>
                                             <hr>

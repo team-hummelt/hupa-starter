@@ -49,6 +49,7 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 		 */
 		public function hupa_get_install_fonts( string $args ): object {
 			$src    = $this->create_font_object()->fontStill;
+
 			$return = new stdClass();
 			switch ( $args ) {
 				case 'json':
@@ -68,6 +69,7 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 			$folderArr = [];
 			if ( is_dir( THEME_FONTS_DIR ) ) {
 				$files = array_diff( scandir( THEME_FONTS_DIR ), array( '.', '..', '.htaccess' ) );
+
 				foreach ( $files as $tmp ) {
 					if ( ! is_dir( THEME_FONTS_DIR . $tmp ) ) {
 						continue;

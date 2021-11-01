@@ -45,7 +45,7 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 			add_filter( 'wp_get_attachment', array( $this, 'hupa_wp_get_attachment' ));
             add_filter( 'hupa_get_random_string', array( $this, 'load_random_string' ));
             add_filter( 'get_hupa_random_id', array( $this, 'getHupaGenerateRandomId' ), 10, 4);
-            //
+            add_action( 'destroy_dir_recursive', array( $this, 'destroyDirRecursive' ));
 		}
 
 		/**
@@ -144,5 +144,21 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 
             return str_shuffle($stack);
         }
-	}
+
+       public function destroyDirRecursive($dir): bool
+        {
+            if (!is_dir($dir) || is_link($dir))
+                return unlink($dir);
+
+            foreach (scandir($dir) as $file) {
+                if ($file == "." || $file == "..")
+                    continue;
+                if (!$this->destroyDirRecursive($dir."/".$file)) {
+                    chmod($dir."/".$file, 0777);
+                    if (!$this->destroyDirRecursive($dir."/".$file)) return false;
+                }
+            }
+            return rmdir($dir);
+        }
+    }
 }

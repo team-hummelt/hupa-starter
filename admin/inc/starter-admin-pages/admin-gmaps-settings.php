@@ -10,7 +10,15 @@ defined('ABSPATH') or die();
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
+        <?php
 
+        $body = [
+
+        ];
+        $t = apply_filters('post_scope_resource', 'file/font-list');
+        $vers = str_replace(['v','.'],'', THEME_VERSION);
+
+        ?>
         <div class="card shadow-sm">
 
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
@@ -43,16 +51,16 @@ defined('ABSPATH') or die();
                                 <input type="hidden" name="handle" value="theme_map_placeholder">
 
                                 <div class="d-flex align-items-center flex-wrap">
-                                <h5 class="card-title">
-                                    <i class="font-blue fa fa-gears"></i>&nbsp; Datenschutz Platzhalter Settings
-                                </h5>
-                                <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                    <h5 class="card-title">
+                                        <i class="font-blue fa fa-gears"></i>&nbsp; Datenschutz Platzhalter Settings
+                                    </h5>
+                                    <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                                 </div>
                                 <hr>
                                 <h6 class="pb-3"><i class="fa fa-arrow-circle-right"></i> Platzhalter Karte:</h6>
                                 <div class="standard-img d-flex flex-column">
                                     <?php
-                                    if(get_hupa_option('map_img_id')){
+                                    if (get_hupa_option('map_img_id')) {
                                         $img_full = wp_get_attachment_image_src(get_hupa_option('map_img_id'), 'large', false);
                                         $defaultImg = $img_full[0];
                                         $showDelBtn = true;
@@ -65,17 +73,20 @@ defined('ABSPATH') or die();
                                          class="map-placeholder-img">
                                     <small>Platzhalter Image</small>
                                     <div class="d-block">
-                                        <button type="button" id="btn-change-map-img" class="btn btn-blue-outline btn-sm mt-3"><i
+                                        <button type="button" id="btn-change-map-img"
+                                                class="btn btn-blue-outline btn-sm mt-3"><i
                                                     class="fa fa-random"></i>
                                             Platzhalter Bild ändern
                                         </button>
                                         <button type="button" id="btn-delete-map-img"
-                                                class="btn btn-outline-danger btn-sm mt-3 <?=$showDelBtn ? '' : 'd-none'?>"><i
+                                                class="btn btn-outline-danger btn-sm mt-3 <?= $showDelBtn ? '' : 'd-none' ?>">
+                                            <i
                                                     class="fa fa-trash"></i>
                                             Platzhalter Bild löschen
                                         </button>
                                     </div>
-                                    <input id="map_img_input" type="hidden" value="<?=get_hupa_option('map_img_id')?>" name="map_img_id">
+                                    <input id="map_img_input" type="hidden" value="<?= get_hupa_option('map_img_id') ?>"
+                                           name="map_img_id">
                                 </div>
                                 <hr>
                                 <h6 class="pb-1"><i class="fa fa-arrow-circle-right"></i> Datenschutz Seite auswählen:
@@ -89,7 +100,7 @@ defined('ABSPATH') or die();
                                             foreach ($pages as $tmp):
                                                 $tmp['id'] == get_hupa_option('map_ds_page') ? $sel = 'selected' : $sel = '';
                                                 ?>
-                                                <option value="<?= $tmp['id'] ?>" <?=$sel?>><?= $tmp['name'] ?></option>
+                                                <option value="<?= $tmp['id'] ?>" <?= $sel ?>><?= $tmp['name'] ?></option>
                                             <?php endforeach; endif; ?>
                                     </select>
                                 </div>
@@ -98,7 +109,8 @@ defined('ABSPATH') or die();
 
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" name="map_bg_grayscale" type="checkbox"
-                                           role="switch" id="checkImgGrayScale" <?=get_hupa_option('map_bg_grayscale') ? 'checked' : ''?>>
+                                           role="switch"
+                                           id="checkImgGrayScale" <?= get_hupa_option('map_bg_grayscale') ? 'checked' : '' ?>>
                                     <label class="form-check-label" for="checkImgGrayScale">Karte grayscale</label>
                                 </div>
                                 <hr>
@@ -126,7 +138,8 @@ defined('ABSPATH') or die();
                                         <div data-color="<?= get_hupa_option('map_btn_border_color') ?>"
                                              class="colorPickers">
                                             <input type="hidden"
-                                                   value="<?= get_hupa_option('map_btn_border_color') ?>" name="map_btn_border_color">
+                                                   value="<?= get_hupa_option('map_btn_border_color') ?>"
+                                                   name="map_btn_border_color">
                                         </div>
                                         <h6 class="ms-2 mt-1">Border</h6>
                                     </div>
@@ -138,7 +151,8 @@ defined('ABSPATH') or die();
                                         <div data-color="<?= get_hupa_option('map_btn_hover_bg') ?>"
                                              class="colorPickers">
                                             <input type="hidden"
-                                                   value="<?= get_hupa_option('map_btn_hover_bg') ?>" name="map_btn_hover_bg">
+                                                   value="<?= get_hupa_option('map_btn_hover_bg') ?>"
+                                                   name="map_btn_hover_bg">
                                         </div>
                                         <h6 class="ms-2 mt-1">Hintergrundfarbe</h6>
                                     </div>
@@ -147,7 +161,8 @@ defined('ABSPATH') or die();
                                         <div data-color="<?= get_hupa_option('map_btn_hover_color') ?>"
                                              class="colorPickers">
                                             <input type="hidden"
-                                                   value="<?= get_hupa_option('map_btn_hover_color') ?>" name="map_btn_hover_color">
+                                                   value="<?= get_hupa_option('map_btn_hover_color') ?>"
+                                                   name="map_btn_hover_color">
                                         </div>
                                         <h6 class="ms-2 mt-1">Schriftfarbe</h6>
                                     </div>
@@ -156,7 +171,8 @@ defined('ABSPATH') or die();
                                         <div data-color="<?= get_hupa_option('map_btn_hover_border') ?>"
                                              class="colorPickers">
                                             <input type="hidden"
-                                                   value="<?= get_hupa_option('map_btn_hover_border') ?>" name="map_btn_hover_border">
+                                                   value="<?= get_hupa_option('map_btn_hover_border') ?>"
+                                                   name="map_btn_hover_border">
                                         </div>
                                         <h6 class="ms-2 mt-1">Border</h6>
                                     </div>
@@ -188,7 +204,8 @@ defined('ABSPATH') or die();
                                         <div data-color="<?= get_hupa_option('map_box_border') ?>"
                                              class="colorPickers">
                                             <input type="hidden"
-                                                   value="<?= get_hupa_option('map_box_border') ?>" name="map_box_border">
+                                                   value="<?= get_hupa_option('map_box_border') ?>"
+                                                   name="map_box_border">
                                         </div>
                                         <h6 class="ms-2 mt-1">Border</h6>
                                     </div>
@@ -198,13 +215,15 @@ defined('ABSPATH') or die();
                                 <div class="d-flex flex-wrap mb-3">
                                     <div class="form-check form-switch me-3">
                                         <input class="form-check-input" name="map_link_uppercase" type="checkbox"
-                                               role="switch" id="checkLinkUppercase" <?=get_hupa_option('map_link_uppercase') ? 'checked' : ''?>>
+                                               role="switch"
+                                               id="checkLinkUppercase" <?= get_hupa_option('map_link_uppercase') ? 'checked' : '' ?>>
                                         <label class="form-check-label" for="checkLinkUppercase">uppercase</label>
                                     </div>
 
                                     <div class="form-check form-switch me-3">
                                         <input class="form-check-input" name="map_link_underline" type="checkbox"
-                                               role="switch" id="checkLinkUnderline" <?=get_hupa_option('map_link_underline') ? 'checked' : ''?>>
+                                               role="switch"
+                                               id="checkLinkUnderline" <?= get_hupa_option('map_link_underline') ? 'checked' : '' ?>>
                                         <label class="form-check-label" for="checkLinkUnderline">underline</label>
                                     </div>
                                 </div>

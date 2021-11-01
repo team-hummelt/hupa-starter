@@ -47,18 +47,24 @@ if (settingsColBtn) {
             let target = this.getAttribute('data-bs-target');
             let dataSite = this.getAttribute('data-site');
             let dataLoad = this.getAttribute('data-load');
-            switch (dataLoad){
+            switch (dataLoad) {
                 case 'collapseSettingsFontsSite':
                     let fontContainer = document.querySelector('#collapseSettingsFontsSite .pcr-button');
-                    if(!fontContainer){
+                    if (!fontContainer) {
                         load_js_colorpickr('#collapseSettingsFontsSite');
                     }
                     break;
                 case 'collapseSettingsColorSite':
                     let colorContainer = document.querySelector('#collapseSettingsColorSite .pcr-button');
-                    if(!colorContainer){
+                    if (!colorContainer) {
                         load_js_colorpickr('#collapseSettingsColorSite');
                     }
+                    break;
+                case'loadInstallFonts':
+                    get_install_fonts_overview();
+                    break;
+                case'loadInstallFormularFonts':
+                    load_install_formular_fonts();
                     break;
 
             }
@@ -105,6 +111,26 @@ if (themeSendFormular) {
     });
 }
 
+/**====================================================
+ ================ BTN DELETE FONT MODAL================
+ ======================================================*/
+let fontDeleteModal = document.getElementById('fontDeleteModal');
+if (fontDeleteModal) {
+    fontDeleteModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget
+        let id = button.getAttribute('data-bs-id');
+        document.querySelector('.btn_delete_font').setAttribute('data-id', id);
+    })
+}
+
+function delete_install_font(e) {
+    const data = {
+        'method': 'delete_font',
+        'id': e.getAttribute('data-id')
+    }
+    send_xhr_form_data(data, false);
+}
+
 
 /*=====================================
 ========== SYNC FONT FOLDER  ==========
@@ -124,12 +150,27 @@ function after_sync_folder() {
 }
 
 
-function get_smtp_test(e){
+function get_smtp_test(e) {
     this.blur();
     const data = {
         'method': 'get_smtp_test'
     }
     send_xhr_form_data(data, false);
+}
+
+function btn_install_fonts(e) {
+    document.querySelector('.upload_spinner').classList.remove('d-none');
+    e.setAttribute('disabled', true)
+    send_xhr_form_data(e.form);
+}
+
+function change_font_install_select(e) {
+    let btn = e.form.querySelector('button');
+    if (e.value) {
+        btn.removeAttribute('disabled');
+    } else {
+        btn.setAttribute('disabled', true);
+    }
 }
 
 let showMessageTimeOut;
@@ -198,8 +239,46 @@ function send_xhr_form_data(data, is_formular = true) {
                 case'sync_font_folder':
                     return after_sync_folder();
                 case'get_smtp_test':
-                    if(data.status){
+                    if (data.status) {
                         success_message(data.msg);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
+                case 'delete_font':
+                    if (data.status) {
+                        document.getElementById('installFont-'+data.font).remove();
+                        success_message(data.msg);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
+                case'load_install_fonts':
+                    if (data.status) {
+                        get_install_fonts_template(data.record)
+                    }
+                    break;
+                case'load_install_formular_fonts':
+                    if(data.status){
+                        let html = `<option value=""> auswählen...</option>`;
+                        for (const [key, val] of Object.entries(data.record)) {
+                            html += `<option value="${val.id}">${val.bezeichnung}</option>`;
+                        }
+                        document.getElementById('inputInstallFont').innerHTML = html;
+                    }
+                    break;
+
+                case 'install_api_font':
+                    if (data.status) {
+                        success_message(data.msg);
+                        let selectObject = document.getElementById("inputInstallFont");
+                        for (let i = 0; i < selectObject.length; i++) {
+                            if (selectObject.options[i].value == data.id)
+                                selectObject.remove(i);
+                        }
+                        document.querySelector('.upload_spinner').classList.add('d-none');
+                        document.getElementById('install_font_form').reset();
+
                     } else {
                         warning_message(data.msg);
                     }
@@ -631,7 +710,7 @@ if (iconSettingsInfoModal) {
     });
 }
 
-function set_select_info_icon(title, unicode, icon){
+function set_select_info_icon(title, unicode, icon) {
     let html = `
         <i class="${icon} fa-4x d-block mb-2"></i>
        <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon i="${title}"]</span>
@@ -661,18 +740,67 @@ function set_select_info_icon(title, unicode, icon){
                <b class="d-block" style="margin-bottom: .65rem">${unicode}</b>
                [icon i="${title}" code="true"]     
             </div>
-             
-        </div>
-        `;
+        </div>`;
 
-       document.getElementById('shortcode-info').innerHTML = html;
-       document.getElementById('resetIcons').classList.remove('d-none');
-      //shortWrapper.innerHTML = html;
+    document.getElementById('shortcode-info').innerHTML = html;
+    document.getElementById('resetIcons').classList.remove('d-none');
+    //shortWrapper.innerHTML = html;
 }
 
-function reset_show_theme_icons(e,id){
-       document.getElementById(id).innerHTML = '';
-       e.classList.add('d-none')
+function reset_show_theme_icons(e, id) {
+    document.getElementById(id).innerHTML = '';
+    e.classList.add('d-none')
+}
+
+
+function get_install_fonts_overview() {
+    const installFonts = {
+        'method': 'load_install_fonts',
+    }
+    send_xhr_form_data(installFonts, false);
+}
+
+function get_install_fonts_template(data = false) {
+    let html = '';
+    for (const [keyFamily, valFamily] of Object.entries(data)) {
+        html += `
+            <div id="installFont-${valFamily.family}" class="col-xl-4 col-lg-6 col-12 p-2">
+            <div class="d-flex overflow-hidden position-relative border h-100 w-100 shadow-sm">
+                <div class="p-3 d-flex flex-column w-100 h-100">
+                    <div class="header-font">
+                        <h5 class="strong-font-weight "><i class="font-blue fa fa-arrow-circle-right"></i>&nbsp; ${valFamily.family}</h5>
+                        <hr class="mt-0">
+                    </div>
+                    <div class="font-body">
+                        <h6>Schriftstile:</h6>
+                        <ul class="li-font-list list-unstyled mb-2">`;
+                         for (const [keyStyle, valStyle] of Object.entries(valFamily.styles)) {
+                            html += `<li>${valStyle}</li>`;
+                        }
+                    html +=`</ul>
+                    </div>
+                    <div class="mt-auto font-footer">
+                        <hr class="mt-1">
+                        <button data-bs-id="${valFamily.family}" data-bs-toggle="modal"
+                                data-bs-target="#fontDeleteModal"
+                                class="btn btn-hupa btn-outline-secondary btn-sm">
+                            <i class="fa fa-trash"></i>&nbsp; Schrift löschen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    }
+    document.getElementById('installFontsContainer').innerHTML = html;
+}
+
+load_install_formular_fonts();
+function load_install_formular_fonts(){
+    const installFormularFonts = {
+        'method': 'load_install_formular_fonts',
+    }
+    send_xhr_form_data(installFormularFonts, false);
 }
 
 let themeSortable = document.querySelectorAll(".hupaSortable");
@@ -754,7 +882,7 @@ function createRandomInteger(length) {
     return randomCodes;
 }
 
-function load_js_colorpickr(container){
+function load_js_colorpickr(container) {
     let clrPickrContainer = document.querySelectorAll(container + ' .colorPickers');
     if (clrPickrContainer) {
         let colorNode = Array.prototype.slice.call(clrPickrContainer, 0);

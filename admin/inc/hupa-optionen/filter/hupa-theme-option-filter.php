@@ -85,6 +85,8 @@ if (!class_exists('HupaStarterOptionFilter')) {
             if (get_hupa_option('sitemap_page')) {
                 add_action('publish_page', array($this, 'hupa_starter_create_sitemap'));
             }
+            add_filter('get_default_settings', array($this, 'getHupaDefaultSettings'));
+
 
             // ALL Sidebars
             add_filter('get_registered_sidebar', array($this, 'hupa_get_registered_sidebar'));
@@ -533,6 +535,11 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 array('%d'),
                 array('%d')
             );
+        }
+
+        public function getHupaDefaultSettings($args = false):object{
+            $default = $this->get_theme_default_settings();
+            return apply_filters('arrayToObject', $default);
         }
 
         private function hupa_update_hupa_tools_top_area($record): void

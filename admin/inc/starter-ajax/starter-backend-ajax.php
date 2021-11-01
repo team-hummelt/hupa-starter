@@ -227,6 +227,7 @@ switch ($method) {
                 $record->nav_bg = filter_input(INPUT_POST, 'nav_bg', FILTER_SANITIZE_STRING);
                 $record->nav_bg_opacity = filter_input(INPUT_POST, 'nav_bg_opacity', FILTER_SANITIZE_NUMBER_INT);
                 $record->footer_bg = filter_input(INPUT_POST, 'footer_bg', FILTER_SANITIZE_STRING);
+                $record->mega_menu_bg = filter_input(INPUT_POST, 'mega_menu_bg', FILTER_SANITIZE_STRING);
 
                 //UPPERCASE
                 filter_input(INPUT_POST, 'menu_uppercase', FILTER_SANITIZE_STRING) ? $record->menu_uppercase = 1 : $record->menu_uppercase = 0;
@@ -464,22 +465,22 @@ switch ($method) {
 
 
                 $google_maps_placeholder = [
-                'map_img_id' => $map_img_id,
-                'map_bg_grayscale' => $map_bg_grayscale,
-                'map_btn_bg' => $map_btn_bg,
-                'map_btn_color' => $map_btn_color,
-                'map_btn_border_color' => $map_btn_border_color,
-                'map_btn_hover_bg' => $map_btn_hover_bg,
-                'map_btn_hover_color' => $map_btn_hover_color,
-                'map_btn_hover_border' => $map_btn_hover_border,
-                'map_box_bg' => $map_box_bg,
-                'map_box_color' => $map_box_color,
-                'map_box_border' => $map_box_border,
-                'map_link_uppercase' => $map_link_uppercase,
-                'map_link_underline' => $map_link_underline,
-                'map_link_color' => $map_link_color,
-                'map_ds_page' => $map_ds_page
-            ];
+                    'map_img_id' => $map_img_id,
+                    'map_bg_grayscale' => $map_bg_grayscale,
+                    'map_btn_bg' => $map_btn_bg,
+                    'map_btn_color' => $map_btn_color,
+                    'map_btn_border_color' => $map_btn_border_color,
+                    'map_btn_hover_bg' => $map_btn_hover_bg,
+                    'map_btn_hover_color' => $map_btn_hover_color,
+                    'map_btn_hover_border' => $map_btn_hover_border,
+                    'map_box_bg' => $map_box_bg,
+                    'map_box_color' => $map_box_color,
+                    'map_box_border' => $map_box_border,
+                    'map_link_uppercase' => $map_link_uppercase,
+                    'map_link_underline' => $map_link_underline,
+                    'map_link_color' => $map_link_color,
+                    'map_ds_page' => $map_ds_page
+                ];
                 apply_filters('update_hupa_options', apply_filters('arrayToObject', $google_maps_placeholder), 'google_maps_settings');
                 $responseJson->spinner = true;
                 break;
@@ -1047,6 +1048,181 @@ switch ($method) {
         $responseJson->render = 'slider';
         break;
 
+    case 'install_api_font':
+        $id = filter_input(INPUT_POST, 'font_install_id', FILTER_SANITIZE_NUMBER_INT);
+        $responseJson->method = $method;
+        if (!$id) {
+            $responseJson->msg = 'Schrift nicht gefunden!';
+            return false;
+        }
+        $body = [
+            'font_id' => $id
+        ];
+        $apiFiles = apply_filters('post_scope_resource', 'file/install-font', $body);
+        if (!$apiFiles->status) {
+            $responseJson->msg = 'Schrift nicht gefunden!';
+            return false;
+        }
+
+
+        $fontsDir = THEME_FONTS_DIR;
+        if (is_dir($fontsDir . $apiFiles->font_family)) {
+            $responseJson->msg = 'Schrift ist schon Installiert!';
+            return false;
+        }
+        if (!mkdir($fontsDir . $apiFiles->font_family, 0755, true)) {
+            $responseJson->msg = 'Erstellung der Verzeichnisse schlug fehl...';
+            return false;
+        }
+
+        foreach ($apiFiles->font_files as $tmp) {
+            $body = [
+                'font_file' => $tmp->font_file,
+                'font_family' => $apiFiles->font_family,
+            ];
+
+            $file = apply_filters('post_scope_resource', 'file/font', $body);
+            $filePath = $fontsDir . $apiFiles->font_family . DIRECTORY_SEPARATOR . $tmp->font_file;
+            $file = base64_decode($file->file);
+            @file_put_contents($filePath, $file);
+        }
+
+        $body = [
+            'css_file' => $apiFiles->font_family . '.css',
+            'font_family' => $apiFiles->font_family,
+        ];
+
+        $file = apply_filters('post_scope_resource', 'file/font', $body);
+        @file_put_contents($fontsDir . $file->file_name, $file->file);
+        apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
+
+        $responseJson->status = true;
+        $responseJson->id = $id;
+        // $responseJson->install_fonts = apply_filters('get_font_family_select', false);
+        $responseJson->msg = 'Schrift erfolgreich Installiert.';
+        //print_r($_POST);
+        break;
+
+    case'delete_font':
+        $font = filter_input(INPUT_POST, 'id');
+        $responseJson->method = $method;
+        if (!$font) {
+            $responseJson->msg = 'Schrift kann nicht gelöscht werden!';
+            return false;
+        }
+
+        $slider = apply_filters('get_carousel_data', 'hupa_slider');
+        $update = new stdClass();
+        if ($slider->status) {
+
+            foreach ($slider->record as $tmp) {
+                $update->id = $tmp->id;
+                if ($tmp->first_font == $font) {
+                    $update->first_font = 'Roboto';
+                    $update->first_style = 3;
+                    $update->second_font = $tmp->second_font;
+                    $update->second_style = $tmp->second_style;
+                    apply_filters('update_slider_family_style', $update);
+                }
+
+                if ($tmp->second_font == $font) {
+                    $update->first_font = $tmp->first_font;
+                    $update->first_style = $tmp->first_style;
+                    $update->second_font = 'Roboto';
+                    $update->second_style = 3;
+                    apply_filters('update_slider_family_style', $update);
+                }
+            }
+        }
+
+        $defaults = apply_filters('get_default_settings', false);
+        $themeFonts = [];
+        foreach ($defaults->theme_fonts as $key => $val) {
+            if (strpos($key, 'font_family')) {
+                $themeFonts[] = $key;
+            }
+        }
+        $i = 0;
+        if ($themeFonts) {
+            $regEx = '/(.+?font?)/i';
+
+            foreach ($themeFonts as $tmp) {
+                if ($font == get_hupa_option($tmp)) {
+                    preg_match($regEx, $tmp, $matches);
+                    if (isset($matches[0])) {
+                        $record->fontType = $matches[0];
+                        $record->font_family = $defaults->theme_fonts->$tmp;
+                        $record->font_style = $defaults->theme_fonts->{$matches[0] . '_style'};
+                        $record->font_size = $defaults->theme_fonts->{$matches[0] . '_size'};
+                        $record->font_height = $defaults->theme_fonts->{$matches[0] . '_height'};
+                        $record->font_color = $defaults->theme_fonts->{$matches[0] . '_color'};
+                        $record->font_bs_check = $defaults->theme_fonts->{$matches[0] . '_bs_check'};
+                        $record->font_display_check = $defaults->theme_fonts->{$matches[0] . '_display_check'};
+                        $record->font_txt_decoration = $defaults->theme_fonts->{$matches[0] . '_txt_decoration'};
+                        apply_filters('update_hupa_options', $record, 'hupa_fonts');
+                        $i++;
+                    }
+                }
+            }
+        }
+
+
+        if (is_dir(THEME_FONTS_DIR . $font)) {
+            do_action('destroy_dir_recursive', THEME_FONTS_DIR . $font);
+            unlink(THEME_FONTS_DIR . $font . '.css');
+
+            apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
+          // apply_filters('generate_theme_css', '');
+        }
+        $responseJson->status = true;
+        $responseJson->font = $font;
+        break;
+
+    case 'load_install_fonts';
+        $family = apply_filters('get_font_family_select', false);
+        $style = apply_filters('get_font_style_select', 'Roboto');
+        $fontsArr = [];
+        foreach ($family as $tmp) {
+            if($tmp->family == 'Roboto'){
+                continue;
+            }
+            $fonts_item = [
+                'family' => $tmp->family,
+                'styles' => apply_filters('get_font_style_select', $tmp->family)
+            ];
+            $fontsArr[] = $fonts_item;
+        }
+        $responseJson->record = $fontsArr;
+        $responseJson->method = $method;
+        $responseJson->status = true;
+
+        break;
+
+    case 'load_install_formular_fonts':
+
+        $fontList = apply_filters('post_scope_resource', 'file/font-list');
+        $installFonts = [];
+        $family = apply_filters('get_font_family_select', false);
+        foreach ($family as $key => $val) $installFonts[] = $val->family;
+        $fontArr = [];
+        if ($fontList->status) {
+            foreach ($fontList->record as $tmp) {
+                if (in_array($tmp->bezeichnung, $installFonts)) {
+                    continue;
+                }
+                $font_item = [
+                    'id' => $tmp->id,
+                    'bezeichnung' => $tmp->bezeichnung
+                ];
+                $fontArr[] = $font_item;
+            }
+        }
+
+        $fontArr ? $responseJson->status = true : $responseJson->status = false;
+        $responseJson->record = $fontArr;
+        $responseJson->method = $method;
+        break;
+
     case'get_maps_language':
         $responseJson->lang = apply_filters('get_theme_language', 'gmaps_pin_form')->language;
         break;
@@ -1087,7 +1263,7 @@ switch ($method) {
             $limit = ' LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
         }
 
-       $table = apply_filters('get_gmaps_iframe', $query . $limit);
+        $table = apply_filters('get_gmaps_iframe', $query . $limit);
         $data_arr = array();
         if (!$table->status) {
             return $responseJson = array(
@@ -1101,12 +1277,12 @@ switch ($method) {
             $date = explode(' ', $tmp->created);
             $tmp->datenschutz ? $datenschutz = '<b class="text-success">ja</b>' : $datenschutz = '<b class="text-danger">nein</b>';
             $data_item = array();
-            $data_item[] = '<b>'.$tmp->bezeichnung.'</b>';
-            $data_item[] = ' [gmaps id="'.$tmp->shortcode.'"]';
-            $data_item[] = '<span class="d-none">'.$tmp->datenschutz.'</span>'.$datenschutz;
+            $data_item[] = '<b>' . $tmp->bezeichnung . '</b>';
+            $data_item[] = ' [gmaps id="' . $tmp->shortcode . '"]';
+            $data_item[] = '<span class="d-none">' . $tmp->datenschutz . '</span>' . $datenschutz;
             $data_item[] = '<span class="d-none">' . $tmp->created_at . '</span><b class="strong-font-weight">' . $date[0] . '</b><small style="font-size: .9rem" class="d-block">' . $date[1] . ' Uhr</small>';
-            $data_item[] = '<button data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#addIframeMapsModal" data-bs-type="update" class="btn btn-blue-outline btn-sm"><i class="fa fa-edit"></i>&nbsp; Bearbeiten</button>';
-            $data_item[] = '<button type="button" data-bs-id="'.$tmp->id.'" data-bs-toggle="modal" data-bs-target="#iframeDeleteModal" class="btn_delete_iframe btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp; löschen</button>';
+            $data_item[] = '<button data-bs-id="' . $tmp->id . '" data-bs-toggle="modal" data-bs-target="#addIframeMapsModal" data-bs-type="update" class="btn btn-blue-outline btn-sm"><i class="fa fa-edit"></i>&nbsp; Bearbeiten</button>';
+            $data_item[] = '<button type="button" data-bs-id="' . $tmp->id . '" data-bs-toggle="modal" data-bs-target="#iframeDeleteModal" class="btn_delete_iframe btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>&nbsp; löschen</button>';
             $data_arr[] = $data_item;
         }
 
@@ -1148,7 +1324,7 @@ switch ($method) {
                 break;
             case'update':
                 $record->id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-                if(!$record->id){
+                if (!$record->id) {
                     $responseJson->msg = 'Ein Fehler ist aufgetreten!';
                     return $responseJson;
                 }
@@ -1165,8 +1341,8 @@ switch ($method) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
         $args = sprintf('WHERE id=%d', $id);
-        $iframe =  $table = apply_filters('get_gmaps_iframe', $args, false);
-        if(!$iframe->status){
+        $iframe = $table = apply_filters('get_gmaps_iframe', $args, false);
+        if (!$iframe->status) {
             $responseJson->msg = 'keine Daten gefunden!';
             return $responseJson;
         }

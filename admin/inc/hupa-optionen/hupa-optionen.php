@@ -74,6 +74,10 @@ require 'action/hupa-html-compression.php';
 //TODO UPDATE OPTIONEN CLASS
 require 'action/hupa-update-action.php';
 
+if(get_option("hupa_theme_version") == THEME_VERSION){
+    do_action('validate_install_optionen');
+}
+
 //Starter Theme GET HUPA THEME FUNCTION
 function get_hupa_option($option)
 {

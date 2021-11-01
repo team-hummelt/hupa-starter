@@ -136,8 +136,7 @@ if (!class_exists('HupaStarterToolsFilter')) {
             $attr = (object) $attr;
             if(!$attr->selectedMenu){
                 echo '';
-            }
-
+           }
           wp_nav_menu( array(
                 'theme_location' => $attr->selectedMenu,
                 'container'      => false,
@@ -146,11 +145,7 @@ if (!class_exists('HupaStarterToolsFilter')) {
                 'items_wrap'     => '<ul class="custom-menu-wrapper %2$s">%3$s</ul>',
                 'depth'          => 6,
                 'walker' => new \bootstrap_5_menu_select_walker()
-            ) );
-
-            //$menus = wp_get_nav_menu_items($attr->selectedMenu);
-
-
+            ));
         }
     }
 }

@@ -138,4 +138,7 @@ jQuery(document).ready(function ($) {
     // Alert links
     $('.alert a').addClass('alert-link');
 
+    let canvasHeader = $('#logoPlaceholder');
+    let image =  $("img.logo.md").attr('src');
+    canvasHeader.html(`<a href="${get_hupa_option.site_url}"><img alt="" src="${image}" width="200"></a>`);
 }); // jQuery End

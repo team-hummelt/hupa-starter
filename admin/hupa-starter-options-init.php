@@ -25,7 +25,7 @@ if ( $child_data->exists() ) {
 
 
 //JOB: DATENBANK VERSION:
-const HUPA_STARTER_THEME_DB_VERSION = '1.1.0';
+const HUPA_STARTER_THEME_DB_VERSION = '1.1.1';
 
 //JOB: THEME VERSION:
 define("THEME_VERSION", $theme_data->get('Version'));
@@ -74,8 +74,11 @@ const CUSTOM_HEADER = true;
 //ADMIN INC PATH
 const THEME_ADMIN_INC = THEME_ADMIN_DIR . 'inc' . DIRECTORY_SEPARATOR;
 
+$upload_dir = wp_get_upload_dir();
+define("THEME_FONTS_DIR", $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'theme-fonts' . DIRECTORY_SEPARATOR);
+define("THEME_FONTS_URL", $upload_dir['baseurl'] .'/theme-fonts/');
 //ADMIN INC PATH
-const THEME_FONTS_DIR = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR;
+//const THEME_FONTS_DIR = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR;
 
 //THEME AJAX RESPONSE PATH
 const THEME_AJAX_DIR = THEME_ADMIN_INC . 'starter-ajax' .DIRECTORY_SEPARATOR;
@@ -90,6 +93,7 @@ const HUPA_STARTER_THEME_QUERY = 'hupa';
 define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
+
 
 
 //GUTENBERG TOOLS

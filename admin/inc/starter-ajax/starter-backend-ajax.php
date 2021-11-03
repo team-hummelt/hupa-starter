@@ -1166,16 +1166,16 @@ switch ($method) {
             }
         }
 
-
         if (is_dir(THEME_FONTS_DIR . $font)) {
             do_action('destroy_dir_recursive', THEME_FONTS_DIR . $font);
             unlink(THEME_FONTS_DIR . $font . '.css');
 
             apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
-          // apply_filters('generate_theme_css', '');
+            apply_filters('generate_theme_css', '');
         }
         $responseJson->status = true;
         $responseJson->font = $font;
+        $responseJson->msg = 'Schrift gelöscht!';
         break;
 
     case 'load_install_fonts';

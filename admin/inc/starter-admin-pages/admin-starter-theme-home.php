@@ -3906,7 +3906,21 @@ defined('ABSPATH') or die();
                                 Reset
                             </button>
                             <hr>
-                            <div id="shortcode-info"></div>
+                            <div class="pb-3" id="shortcode-info"></div>
+                        </div>
+
+                        <div class="border rounded mt-3 shadow-sm p-3 bg-custom-gray">
+                            <h6><i class="fa fa-arrow-circle-right"></i> PDF Download:</h6>
+                            <hr>
+                            <b class="d-block font-blue strong-font-weight">Download von PDF-Dateien:</b>
+                             <b class="strong-font-weight font-blue">URL:</b> <?=get_site_url()?><span class="font-blue">?hupa=pdf&type=1&file=test.pdf</span>
+                            <hr>
+                            <b class="d-block font-blue strong-font-weight">Stream von PDF-Dateien:</b>
+                            <b class="strong-font-weight font-blue">URL:</b> <?=get_site_url()?><span class="font-blue">?hupa=pdf&type=0&file=test.pdf</span>
+                            <hr>
+                            <div class="form-text mb-3">Die Variable <code>type=0</code> öffnet die PDF und <code>type=1</code> lädt die PDF runter.
+                                Der Dateiname wir bei der Variable <code>"file="</code> eingetragen.</div>
+                            <hr>
                         </div>
 
                     </div>

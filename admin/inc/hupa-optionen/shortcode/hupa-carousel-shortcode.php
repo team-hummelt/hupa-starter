@@ -91,6 +91,8 @@ if (!class_exists('HupaCarouselShortCode')) {
                 return '';
             }
 
+            $carouselClass = '';
+
             $args = sprintf('WHERE id=%d', $a['id']);
             $carouselData = apply_filters('get_carousel_data', 'hupa_carousel', $args, 'get_row');
             $args = sprintf('WHERE carousel_id=%d AND aktiv=1 AND img_id > 0 ORDER BY position ASC', $a['id']);
@@ -100,11 +102,20 @@ if (!class_exists('HupaCarouselShortCode')) {
                 return '';
             }
             $carousel = $carouselData->record;
+
+            $meta =  get_post_meta(get_the_ID(), '_hupa_select_header', true);
+            $postContent = get_post($meta);
+            $regEx = '/<!.*theme-carousel.*({.*}).*>/m';
+            preg_match($regEx, $postContent->post_content, $matches);
+            if ($matches) {
+                $carouselClass =  ' header-carousel ';
+            }
+
             $slider = $sliderData->record;
 
             $carousel->data_autoplay ? $ride = 'carousel' : $ride = 'false';
             $carousel->data_animate == 2 ? $slide = ' carousel-fade' : $slide = '';
-            $carousel->full_width ? $full_width = 'hupa-full-row' : $full_width = '';
+            $carousel->full_width ? $full_width = ' hupa-full-row ' : $full_width = '';
 
             $controlColor = match ($carousel->select_bg) {
                 '0' => '',
@@ -120,11 +131,11 @@ if (!class_exists('HupaCarouselShortCode')) {
 
             $carousel->margin_aktiv ? $marginTop = 'carousel-margin-top' : $marginTop = '';
             $countS = count((array)$slider);
-            $carousel->carousel_lazy_load ? $lazy = 'lazy' : $lazy = '';
+            $carousel->carousel_lazy_load ? $lazy = ' lazy ' : $lazy = '';
             ob_start();
             ?>
             <div id="hupaCarousel<?= $carousel->id ?>"
-                 class="<?= $full_width ?> carousel <?= $marginTop ?> <?= $lazy ?> slide <?= $slide ?>"
+                 class="<?=$full_width?>carousel<?=$carouselClass?><?=$marginTop?><?=$lazy?>slide<?=$slide?>"
                  data-bs-ride="<?= $ride ?>">
                 <?php if ($countS > 1): ?>
                     <div class="<?= $carousel->indicator ? '' : 'd-none' ?> carousel-indicators">

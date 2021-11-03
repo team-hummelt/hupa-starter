@@ -160,11 +160,13 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 				}
 
 				if ( strpos( $line, 'url' ) ) {
-					$regEx = '/\/.+?\/(.+?)\..*?\(\'(.*)\'\)/i';
-					preg_match( $regEx, $line, $matches, PREG_OFFSET_CAPTURE, 0 );
-					if ( isset( $matches[1][0] ) && isset( $matches[2][0] ) ) {
-						$srcArr[] = trim($matches[1][0]);
-					}
+
+                    $regEx = '@/?.*/(.+?)\..*?\(\'(.*)\'\)@i';
+                    preg_match( $regEx, $line, $matches, PREG_OFFSET_CAPTURE, 0 );
+
+                    if ( isset( $matches[1][0] ) && isset( $matches[2][0] ) ) {
+                        $srcArr[] = trim($matches[1][0]);
+                    }
 				}
 				$srcArr = array_unique( array_merge_recursive( $srcArr ) );
 

@@ -5,6 +5,19 @@ hummelt und partner | Werbeagentur GmbH
 ![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
 ![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
 
+### \#1.0.6
+* Font-Download hinzugefügt
+* Carousel lazy load gefixt
+* Icon Shortcode hinzugefügt
+* Google Maps I-Frame hinzugefügt
+* Widget Footer Menu hinzugefügt
+* Handy-Menu angepasst
+* Mega-Menu hinzugefügt
+* Option Update deaktivieren hinzugefügt
+* Gutenberg Tools hinzugefügt
+* PDF Download hinzugefügt
+* TopArea Menu gefixt
+
 ### \#1.0.5
 * Footer Widget Menü hinzugefügt
 * Carousel lazy load Option hinzugefügt

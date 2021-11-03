@@ -160,16 +160,22 @@ function get_smtp_test(e) {
 
 function btn_install_fonts(e) {
     document.querySelector('.upload_spinner').classList.remove('d-none');
-    e.setAttribute('disabled', true)
+    let demoBtn = e.form.querySelector('#fontDemo');
+    demoBtn.classList.add('disabled');
+    e.setAttribute('disabled', true);
     send_xhr_form_data(e.form);
 }
 
 function change_font_install_select(e) {
     let btn = e.form.querySelector('button');
+    let demoBtn = e.form.querySelector('#fontDemo');
     if (e.value) {
+        demoBtn.setAttribute('href', `https://start.hu-ku.com/theme-update/stream/font/file/${e.value}/html`);
+        demoBtn.classList.remove('disabled');
         btn.removeAttribute('disabled');
     } else {
         btn.setAttribute('disabled', true);
+        demoBtn.classList.add('disabled');
     }
 }
 

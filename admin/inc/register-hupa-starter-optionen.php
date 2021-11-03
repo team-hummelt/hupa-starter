@@ -347,7 +347,7 @@ final class HupaRegisterStarterTheme {
         $wp->add_query_var( HUPA_STARTER_THEME_QUERY );
         add_action( 'template_redirect', 'Hupa\\StarterTheme\\hupa_starter_theme_template_callback_trigger_check' );
         function hupa_starter_theme_template_callback_trigger_check(): void {
-            if ( get_query_var( HUPA_STARTER_THEME_QUERY ) === 'download' ) {
+            if ( get_query_var( HUPA_STARTER_THEME_QUERY ) === 'pdf' ) {
                 require 'starter-public-pages/starter-public-download.php';
                 exit;
             }

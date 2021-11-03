@@ -7,21 +7,11 @@ defined('ABSPATH') or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  * https://www.hummelt-werbeagentur.de/
  */
+
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
-        <?php
-
-        $body = [
-
-        ];
-        $t = apply_filters('post_scope_resource', 'file/font-list');
-        //print_r($t);
-
-
-        ?>
         <div class="card shadow-sm">
-
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">
                 <i class="icon-hupa-white d-block mt-2" style="font-size: 2rem"></i>&nbsp;
                 <?= __('Theme Fonts', 'bootscore') ?> </h5>
@@ -71,9 +61,11 @@ defined('ABSPATH') or die();
                                     </select>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <button type="button" onclick="btn_install_fonts(this)" class="btn btn-blue mt-4"
+                                    <button type="button" onclick="btn_install_fonts(this)" class="btn btn-blue me-2 mt-4"
                                             disabled> Schrift Installieren
                                     </button>
+                                    <a id="fontDemo" target="_blank" role="button" href="#" type="button" class="me-2 disabled btn btn-blue mt-4"> Schrift Demo
+                                    </a>
                                     <div class="upload_spinner mt-4 d-flex align-items-center d-none">
                                         <i class="text-muted fa fa-spinner fa-spin fa-3x mx-2"></i>
                                         <span> Schrift wird Installiert...</span>

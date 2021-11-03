@@ -30,72 +30,119 @@ jQuery(document).ready(function ($) {
         }
     }
 
-
-
-
-
 // To initially run the function:
-    $(window).resize();
+    //$(window).resize();
 
     let header = $('#nav-main-starter');
     let siteContent = $('.site-content');
     let navLogo = $('.navbar-root .logo.md');
-    let carousel = $('.carousel');
-    //let carouselWrapper = $('.carousel-wrapper');
+    let carouselWrapper = $('.header-carousel');
+    let headerHeight = header.outerHeight();
+    let carouselMargin;
     let middleLogo = $('.middle-img');
     let topArea = $('#top-area-wrapper');
     let isFixedHeader;
-    //let carOffset = carouselWrapper.offset();
-   // let offsetHCarHeader = carOffset.top - header.outerHeight();
+    let carouselItem = $('.header-carousel .carousel-item');
+    let carouselImg = $('.header-carousel img.bgImage');
+    let imgFullHeight = carouselImg.outerHeight() - topArea.outerHeight();
+
     if (header.hasClass('fixed-top')) {
         if (topArea[0]) {
             isFixedHeader = true;
             header.removeClass('fixed-top');
+
         } else {
             isFixedHeader = false;
-            //siteContent.css('margin-top', (header.outerHeight() - offsetHCarHeader) + 'px');
             siteContent.css('margin-top', (header.outerHeight()) + 'px');
             header.addClass('fixed-top');
         }
     }
 
-    if (carousel.hasClass('carousel-margin-top')) {
-        carousel.css('margin-top', -header.outerHeight() + 'px');
-        //header.css('z-index', 1);
-    } else {
-       // header.css('z-index', 'unset');
+
+    if (carouselWrapper.hasClass('carousel-margin-top')) {
+        if (topArea[0] && $(window).outerWidth() > 991) {
+           carouselImg.css('height', carouselImg.outerHeight() - topArea.outerHeight()+'px')
+        }
+        carouselWrapper.css('margin-top', -header.outerHeight() + 'px');
     }
 
     $(window).on("resize", function (event) {
         //console.log( $(this).width() );
-        if (header.hasClass('fixed-top')) {
+        let scroll = $(window).scrollTop();
+        carouselMargin = header.innerHeight() - header.innerHeight();
+        if (topArea[0] && carouselWrapper.hasClass('carousel-margin-top')) {
+            carouselItem.css('max-height', imgFullHeight+'px')
+            if ($(this).width() > 991) {
+                carouselItem.css('max-height', imgFullHeight+'px')
+            }
+
+            if (scroll > topArea.outerHeight()) {
+                header.addClass('fixed-top');
+                carouselWrapper.css('margin-top', carouselMargin + 'px')
+            } else {
+                carouselWrapper.css('margin-top', -headerHeight + 'px')
+                header.removeClass('fixed-top');
+            }
+        }
+
+        if (header.hasClass('fixed-top') && carouselWrapper.hasClass('carousel-margin-top')) {
             if (topArea[0]) {
                 isFixedHeader = true;
                 header.removeClass('fixed-top');
             } else {
                 isFixedHeader = false;
-                siteContent.css('margin-top', (header.outerHeight()) + 'px');
-                //siteContent.css('margin-top', (header.outerHeight() - offsetHCarHeader) + 'px');
+                siteContent.css('margin-top', (header.innerHeight()) + 'px');
+                siteContent.css('margin-top', (header.innerHeight() - offsetHCarHeader) + 'px');
                 header.addClass('fixed-top');
             }
         }
 
-        if (carousel.hasClass('carousel-margin-top')) {
-            carousel.css('margin-top', -header.outerHeight() + 'px');
-            header.css('z-index', 1);
-        } else {
-           // header.css('z-index', 'unset');
+        if (topArea[0] && !carouselWrapper.hasClass('carousel-margin-top') ) {
+            if($(this).width() > 991) {
+                if (scroll > topArea.outerHeight()) {
+                    header.addClass('fixed-top');
+                    carouselWrapper.css('margin-top', header.outerHeight() + 'px')
+                } else {
+                    let topHeight = topArea.outerHeight() - topArea.outerHeight();
+                    carouselWrapper.css('margin-top', -topHeight + 'px')
+                    header.removeClass('fixed-top');
+                }
+            } else {
+                topArea.removeClass('fixed-top');
+                header.addClass('fixed-top');
+                carouselWrapper.css('margin-top', header.outerHeight() + 'px');
+            }
         }
+
     });
 
-    $(window).scroll(function () {
+    $(window).on("scroll", function (event) {
         let scroll = $(window).scrollTop();
-        if (topArea[0] && isFixedHeader) {
+        carouselMargin = headerHeight - headerHeight ;
+        if (topArea[0] && carouselWrapper.hasClass('carousel-margin-top')) {
             if (scroll > topArea.outerHeight()) {
                 header.addClass('fixed-top');
-                //header.css('z-index', 1);
+                carouselWrapper.css('margin-top', carouselMargin + 'px')
             } else {
-                header.removeClass('fixed-top');
+                carouselWrapper.css('margin-top', -headerHeight + 'px')
+                 header.removeClass('fixed-top');
+                 }
+        }
+
+        if (topArea[0] && !carouselWrapper.hasClass('carousel-margin-top') ) {
+            if($(this).width() > 991) {
+                if (scroll > topArea.outerHeight()) {
+                    header.addClass('fixed-top');
+                    carouselWrapper.css('margin-top', header.outerHeight() + 'px')
+                } else {
+                    let topHeight = topArea.outerHeight() - topArea.outerHeight();
+                    carouselWrapper.css('margin-top', -topHeight + 'px')
+                    header.removeClass('fixed-top');
+                }
+            } else {
+                topArea.removeClass('fixed-top');
+                header.addClass('fixed-top');
+                carouselWrapper.css('margin-top', headerHeight + 'px');
             }
         }
 
@@ -117,7 +164,7 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.api-karte-check', function () {
         let check = $(this).children('input');
         let btn = $('.hupa-gmaps-btn');
-        if(check.prop('checked')){
+        if (check.prop('checked')) {
             check.prop('checked', false);
             btn.addClass('disabled');
             return false;
@@ -130,9 +177,9 @@ jQuery(document).ready(function ($) {
 
     $(document).on('click', '.iframe-karte-check', function () {
         let code = $(this).attr('data-id');
-        let check = $('.check'+code);
-        let btn = $('.btn'+code);
-        if(check.prop('checked')){
+        let check = $('.check' + code);
+        let btn = $('.btn' + code);
+        if (check.prop('checked')) {
             check.prop('checked', false);
             btn.addClass('disabled');
             return false;
@@ -146,7 +193,7 @@ jQuery(document).ready(function ($) {
     $(document).on('click', '.hupa-iframe-btn', function () {
         $(this).trigger('blur');
         let code = $(this).attr('data-id');
-        if($('.check'+code).prop('checked')) {
+        if ($('.check' + code).prop('checked')) {
             $.post(theme_ajax_obj.ajax_url, {
                 '_ajax_nonce': theme_ajax_obj.nonce,
                 'action': 'HupaStarterNoAdmin',
@@ -155,9 +202,9 @@ jQuery(document).ready(function ($) {
                 'width': $(this).attr('data-width'),
                 'height': $(this).attr('data-height'),
             }, function (data) {
-                if(data.status){
+                if (data.status) {
                     sessionStorage.setItem('gmaps', true);
-                    $('.iframe'+data.code).html(data.iframe);
+                    $('.iframe' + data.code).html(data.iframe);
                 }
             });
         }
@@ -170,46 +217,46 @@ jQuery(document).ready(function ($) {
 
 
     /**===============================================
-    ========== CAROUSEL LAZY LOAD FUNCTION ===========
-    ==================================================
-    */
+     ========== CAROUSEL LAZY LOAD FUNCTION ===========
+     ==================================================
+     */
     let themeCarouselTimeout;
-    $(function() {
-        let carousel =  $(".carousel");
+    $(function () {
+        let carousel = $(".carousel");
         let ifSrc = carousel.find("img[data-src]");
-         if(ifSrc.length){
-           $('> button.carousel-control-prev', carousel).css('pointer-events','none');
-           $('> button.carousel-control-next', carousel).css('pointer-events','none');
-           $('> .carousel-indicators button', carousel).css('pointer-events','none');
-           clearTimeout(themeCarouselTimeout);
-           themeCarouselTimeout = setTimeout(function () {
-               let firstNext = $('.carousel-item',carousel).next().first()
-               let nextSrx = firstNext.find("img[data-src]");
-               nextSrx.attr("src", nextSrx.data('src'));
-               nextSrx.removeAttr("data-src");
-           }, 2500);
-       }
+        if (ifSrc.length) {
+            $('> button.carousel-control-prev', carousel).css('pointer-events', 'none');
+            $('> button.carousel-control-next', carousel).css('pointer-events', 'none');
+            $('> .carousel-indicators button', carousel).css('pointer-events', 'none');
+            clearTimeout(themeCarouselTimeout);
+            themeCarouselTimeout = setTimeout(function () {
+                let firstNext = $('.carousel-item', carousel).next().first()
+                let nextSrx = firstNext.find("img[data-src]");
+                nextSrx.attr("src", nextSrx.data('src'));
+                nextSrx.removeAttr("data-src");
+            }, 2500);
+        }
 
-        return carousel.on("slid.bs.carousel", function(ev) {
+        return carousel.on("slid.bs.carousel", function (ev) {
             let next;
             next = $(ev.relatedTarget).next().find("img[data-src]");
             let prev = $(ev.relatedTarget.previousElementSibling);
-            if(next.length == 0) {
-              $('> button.carousel-control-next', this).css('pointer-events','auto');
+            if (next.length == 0) {
+                $('> button.carousel-control-next', this).css('pointer-events', 'auto');
             } else {
-                $('> button.carousel-control-next', carousel).css('pointer-events','none');
+                $('> button.carousel-control-next', carousel).css('pointer-events', 'none');
             }
             let srcDot = $(carousel).find("img[data-src]");
-            if(prev.length || srcDot.length == 0) {
-                $('> button.carousel-control-prev', carousel).css('pointer-events','auto');
+            if (prev.length || srcDot.length == 0) {
+                $('> button.carousel-control-prev', carousel).css('pointer-events', 'auto');
             } else {
-               $('> button.carousel-control-prev', carousel).css('pointer-events','none');
+                $('> button.carousel-control-prev', carousel).css('pointer-events', 'none');
             }
             next.attr("src", next.data('src'));
             next.removeAttr("data-src");
 
-            if(srcDot.length == 0) {
-             $('> .carousel-indicators button', carousel).css('pointer-events','auto');
+            if (srcDot.length == 0) {
+                $('> .carousel-indicators button', carousel).css('pointer-events', 'auto');
             }
         });
     });

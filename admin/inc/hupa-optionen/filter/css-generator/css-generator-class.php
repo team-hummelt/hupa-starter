@@ -806,6 +806,8 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 				if ( ! $fileLines ) {
 					return [];
 				}
+
+				$re = '';
 				$regEx  = '/' . $source . '\..+format\(\'(.+)\'/i';
 				$retArr = [];
 				foreach ( $fileLines as $lines ) {
@@ -813,8 +815,15 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 						if ( strpos( $line, 'url' ) ) {
 							preg_match( $regEx, $line, $matches );
 							if ( $matches[1] ) {
+							    if($matches[1] == 'truetype'){
+							        $type = 'ttf';
+                                } elseif ($matches[1] == 'embedded-opentype') {
+                                    $type = 'eot?#iefix';
+                                } else {
+							        $type = $matches[1];
+                                }
 								$retItem  = [
-									'source' => THEME_FONTS_URL . $folder . '/' . $source . '.' . $matches[1],
+									'source' => THEME_FONTS_URL . $folder . '/' . $source . '.' . $type,
 									'format' => $matches[1]
 								];
 								$retArr[] = $retItem;

@@ -75,6 +75,9 @@ if (!class_exists('HupaStarterCarouselFilter')) {
             add_filter('get_theme_pages', array($this, 'hupa_get_theme_pages'));
             //GET THEME POSTS
             add_filter('get_theme_posts', array($this, 'hupa_get_theme_posts'));
+            //GET UPDATE SLIDER FONT
+            add_filter('update_slider_family_style', array($this, 'hupaUpdateSliderFontFamilyFontStyle'));
+
         }
 
         final public function hupa_set_carousel_defaults($record): object
@@ -205,6 +208,25 @@ if (!class_exists('HupaStarterCarouselFilter')) {
                 ),
                 array('id' => $record->id),
                 array('%d'),
+                array('%d')
+            );
+        }
+
+
+        final public function hupaUpdateSliderFontFamilyFontStyle($record): void
+        {
+            global $wpdb;
+            $table = $wpdb->prefix . $this->table_slider;
+            $wpdb->update(
+                $table,
+                array(
+                    'first_font' => $record->first_font,
+                    'first_style' => $record->first_style,
+                    'second_font' => $record->second_font,
+                    'second_style' => $record->second_style,
+                ),
+                array('id' => $record->id),
+                array('%s','%d','%s','%d'),
                 array('%d')
             );
         }

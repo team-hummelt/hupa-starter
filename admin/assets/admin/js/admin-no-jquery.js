@@ -47,18 +47,24 @@ if (settingsColBtn) {
             let target = this.getAttribute('data-bs-target');
             let dataSite = this.getAttribute('data-site');
             let dataLoad = this.getAttribute('data-load');
-            switch (dataLoad){
+            switch (dataLoad) {
                 case 'collapseSettingsFontsSite':
                     let fontContainer = document.querySelector('#collapseSettingsFontsSite .pcr-button');
-                    if(!fontContainer){
+                    if (!fontContainer) {
                         load_js_colorpickr('#collapseSettingsFontsSite');
                     }
                     break;
                 case 'collapseSettingsColorSite':
                     let colorContainer = document.querySelector('#collapseSettingsColorSite .pcr-button');
-                    if(!colorContainer){
+                    if (!colorContainer) {
                         load_js_colorpickr('#collapseSettingsColorSite');
                     }
+                    break;
+                case'loadInstallFonts':
+                    get_install_fonts_overview();
+                    break;
+                case'loadInstallFormularFonts':
+                    load_install_formular_fonts();
                     break;
 
             }
@@ -105,6 +111,26 @@ if (themeSendFormular) {
     });
 }
 
+/**====================================================
+ ================ BTN DELETE FONT MODAL================
+ ======================================================*/
+let fontDeleteModal = document.getElementById('fontDeleteModal');
+if (fontDeleteModal) {
+    fontDeleteModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget
+        let id = button.getAttribute('data-bs-id');
+        document.querySelector('.btn_delete_font').setAttribute('data-id', id);
+    })
+}
+
+function delete_install_font(e) {
+    const data = {
+        'method': 'delete_font',
+        'id': e.getAttribute('data-id')
+    }
+    send_xhr_form_data(data, false);
+}
+
 
 /*=====================================
 ========== SYNC FONT FOLDER  ==========
@@ -124,12 +150,33 @@ function after_sync_folder() {
 }
 
 
-function get_smtp_test(e){
+function get_smtp_test(e) {
     this.blur();
     const data = {
         'method': 'get_smtp_test'
     }
     send_xhr_form_data(data, false);
+}
+
+function btn_install_fonts(e) {
+    document.querySelector('.upload_spinner').classList.remove('d-none');
+    let demoBtn = e.form.querySelector('#fontDemo');
+    demoBtn.classList.add('disabled');
+    e.setAttribute('disabled', true);
+    send_xhr_form_data(e.form);
+}
+
+function change_font_install_select(e) {
+    let btn = e.form.querySelector('button');
+    let demoBtn = e.form.querySelector('#fontDemo');
+    if (e.value) {
+        demoBtn.setAttribute('href', `https://start.hu-ku.com/theme-update/stream/font/file/${e.value}/html`);
+        demoBtn.classList.remove('disabled');
+        btn.removeAttribute('disabled');
+    } else {
+        btn.setAttribute('disabled', true);
+        demoBtn.classList.add('disabled');
+    }
 }
 
 let showMessageTimeOut;
@@ -198,8 +245,46 @@ function send_xhr_form_data(data, is_formular = true) {
                 case'sync_font_folder':
                     return after_sync_folder();
                 case'get_smtp_test':
-                    if(data.status){
+                    if (data.status) {
                         success_message(data.msg);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
+                case 'delete_font':
+                    if (data.status) {
+                        document.getElementById('installFont-'+data.font).remove();
+                        success_message(data.msg);
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
+                case'load_install_fonts':
+                    if (data.status) {
+                        get_install_fonts_template(data.record)
+                    }
+                    break;
+                case'load_install_formular_fonts':
+                    if(data.status){
+                        let html = `<option value=""> auswählen...</option>`;
+                        for (const [key, val] of Object.entries(data.record)) {
+                            html += `<option value="${val.id}">${val.bezeichnung}</option>`;
+                        }
+                        document.getElementById('inputInstallFont').innerHTML = html;
+                    }
+                    break;
+
+                case 'install_api_font':
+                    if (data.status) {
+                        success_message(data.msg);
+                        let selectObject = document.getElementById("inputInstallFont");
+                        for (let i = 0; i < selectObject.length; i++) {
+                            if (selectObject.options[i].value == data.id)
+                                selectObject.remove(i);
+                        }
+                        document.querySelector('.upload_spinner').classList.add('d-none');
+                        document.getElementById('install_font_form').reset();
+
                     } else {
                         warning_message(data.msg);
                     }
@@ -306,35 +391,6 @@ if (themeUploadMediaImg) {
         });
     });
 }
-//
-
-
-/*let changeRangeFunktion = document.querySelectorAll(".sizeRange");
-if(changeRangeFunktion) {
-    let rangeNodes = Array.prototype.slice.call(changeRangeFunktion, 0);
-    rangeNodes.forEach(function (rangeNodes) {
-        rangeNodes.addEventListener('mousedown', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('mousemove', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('mouseup', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('keydown', change_range_ajax_handle, false);
-        rangeNodes.addEventListener('touchstart', change_range_ajax_handle, false);
-        rangeNodes.addEventListener('change', change_range_ajax_handle, false);
-
-        function change_range_ajax_handle() {
-            this.blur();
-            let rangeContainer = this.getAttribute('data-container');
-            let showRange = document.querySelector("#" + rangeContainer + " .show-range-value");
-            let rangeImage = document.querySelector("#" + rangeContainer + " .range-image");
-            if (rangeImage) {
-                //* 0.5
-                rangeImage.style.width = this.value + 'px';
-            }
-            showRange.innerHTML = this.value;
-        }
-    });
-}
-
-*/
 
 function changeRangeUpdate(event = false) {
     if (event) event.blur();
@@ -594,15 +650,152 @@ if (smallThemeSendModalBtn) {
     });
 }
 
+let iconSettingsInfoModal = document.getElementById('dialog-add-icon');
+if (iconSettingsInfoModal) {
+    iconSettingsInfoModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget;
+        let type = button.getAttribute('data-bs-type');
+        let formId = button.getAttribute('data-bs-id');
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+        xhr.open('POST', theme_ajax_obj.ajax_url, true);
+        formData.append('_ajax_nonce', theme_ajax_obj.nonce);
+        formData.append('action', 'HupaStarterHandle');
+        formData.append('method', 'get_fa_icons');
+        formData.append('type', type);
+        xhr.send(formData);
+
+        //Response
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                if (data.status) {
+                    let iconGrid = document.getElementById('icon-grid');
+                    let icons = data.record;
+                    let html = '<div class="icon-wrapper">';
+                    icons.forEach(function (icons) {
+                        html += `<div onclick="set_select_info_icon('${icons.title}', '${icons.code}', '${icons.icon}');"
+                              data-bs-dismiss="modal"   class="info-icon-item" title="${icons.code} | ${icons.title}">`;
+                        html += `<i  class="${icons.icon}"></i><small class="sm-icon">${icons.icon}</small>`;
+                        html += '</div>';
+                    });
+                    html += '</div>';
+                    iconGrid.innerHTML = html;
+                }
+            }
+        }
+    });
+}
+
+function set_select_info_icon(title, unicode, icon) {
+    let html = `
+        <i class="${icon} fa-4x d-block mb-2"></i>
+       <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon i="${title}"]</span>
+       <span class="d-block"><b class="text-danger d-inline-block" style="min-width: 6rem;">Unicode:</b> ${unicode}</span> 
+        <hr class="mt-2 mb-1">
+        <div class="form-text my-2"><i class="font-blue fa fa-info-circle"></i>
+            Es können noch weitere Klassen hinzugefügt werden. Für den <i><b>Unicode</b></i>
+            kann als zusätzliches Argument <i class="code text-danger">code="true"</i>
+            hinzugefügt werden. 
+        </div> <hr class="mt-1 mb-2">
+        <b class="d-block">Beispiele</b>
+        <hr class="mt-2 mb-2">
+        <div class="d-flex flex-wrap">
+           <div class="d-block text-center me-2">
+               <i class="${icon} fa-2x d-block mb-1"></i>
+               [icon i="${title}"]     
+            </div>
+             <div class="d-block text-center me-2">
+               <i class="${icon} fa-spin fa-2x d-block mb-1"></i>
+               [icon i="${title} fa-spin"]  
+            </div>
+              <div class="d-block text-center me-2">
+               <i class="${icon} text-danger fa-spin fa-2x d-block mb-1"></i>
+               [icon i="${title} fa-spin text-danger"]     
+            </div>
+             <div class="d-block mt-2 text-center me-2">
+               <b class="d-block" style="margin-bottom: .65rem">${unicode}</b>
+               [icon i="${title}" code="true"]     
+            </div>
+        </div>`;
+
+    document.getElementById('shortcode-info').innerHTML = html;
+    document.getElementById('resetIcons').classList.remove('d-none');
+    //shortWrapper.innerHTML = html;
+}
+
+function reset_show_theme_icons(e, id) {
+    document.getElementById(id).innerHTML = '';
+    e.classList.add('d-none')
+}
+
+
+function get_install_fonts_overview() {
+    const installFonts = {
+        'method': 'load_install_fonts',
+    }
+    send_xhr_form_data(installFonts, false);
+}
+
+function get_install_fonts_template(data = false) {
+    let html = '';
+    for (const [keyFamily, valFamily] of Object.entries(data)) {
+        html += `
+            <div id="installFont-${valFamily.family}" class="col-xl-4 col-lg-6 col-12 p-2">
+            <div class="d-flex overflow-hidden position-relative border h-100 w-100 shadow-sm">
+                <div class="p-3 d-flex flex-column w-100 h-100">
+                    <div class="header-font">
+                        <h5 class="strong-font-weight "><i class="font-blue fa fa-arrow-circle-right"></i>&nbsp; ${valFamily.family}</h5>
+                        <hr class="mt-0">
+                    </div>
+                    <div class="font-body">
+                        <h6>Schriftstile:</h6>
+                        <ul class="li-font-list list-unstyled mb-2">`;
+                         for (const [keyStyle, valStyle] of Object.entries(valFamily.styles)) {
+                            html += `<li>${valStyle}</li>`;
+                        }
+                    html +=`</ul>
+                    </div>
+                    <div class="mt-auto font-footer">
+                        <hr class="mt-1">
+                        <button data-bs-id="${valFamily.family}" data-bs-toggle="modal"
+                                data-bs-target="#fontDeleteModal"
+                                class="btn btn-hupa btn-outline-secondary btn-sm">
+                            <i class="fa fa-trash"></i>&nbsp; Schrift löschen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    }
+    document.getElementById('installFontsContainer').innerHTML = html;
+}
+
+load_install_formular_fonts();
+function load_install_formular_fonts(){
+    const installFormularFonts = {
+        'method': 'load_install_formular_fonts',
+    }
+    send_xhr_form_data(installFormularFonts, false);
+}
+
 let themeSortable = document.querySelectorAll(".hupaSortable");
 if (themeSortable) {
     let sortNodes = Array.prototype.slice.call(themeSortable, 0);
     sortNodes.forEach(function (sortNodes) {
         let elementArray = [];
         const sortable = Sortable.create(sortNodes, {
-            animation: 150,
-            //filter: ".adminBox",
+            animation: 300,
             handle: ".sortableArrow",
+            ghostClass: 'sortable-ghost',
+            forceFallback: true,
+            scroll: true,
+            bubbleScroll: true,
+            scrollSensitivity: 150,
+            easing: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+            scrollSpeed: 20,
+            emptyInsertThreshold: 5,
             onMove: function (evt) {
                 // return evt.related.className.indexOf('adminBox') === -1;
             },
@@ -673,7 +866,7 @@ function createRandomInteger(length) {
     return randomCodes;
 }
 
-function load_js_colorpickr(container){
+function load_js_colorpickr(container) {
     let clrPickrContainer = document.querySelectorAll(container + ' .colorPickers');
     if (clrPickrContainer) {
         let colorNode = Array.prototype.slice.call(clrPickrContainer, 0);

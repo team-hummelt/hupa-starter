@@ -49,6 +49,7 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 		 */
 		public function hupa_get_install_fonts( string $args ): object {
 			$src    = $this->create_font_object()->fontStill;
+
 			$return = new stdClass();
 			switch ( $args ) {
 				case 'json':
@@ -68,6 +69,7 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 			$folderArr = [];
 			if ( is_dir( THEME_FONTS_DIR ) ) {
 				$files = array_diff( scandir( THEME_FONTS_DIR ), array( '.', '..', '.htaccess' ) );
+
 				foreach ( $files as $tmp ) {
 					if ( ! is_dir( THEME_FONTS_DIR . $tmp ) ) {
 						continue;
@@ -158,11 +160,13 @@ if ( ! class_exists( 'HupaStarterFontsHandle' ) ) {
 				}
 
 				if ( strpos( $line, 'url' ) ) {
-					$regEx = '/\/.+?\/(.+?)\..*?\(\'(.*)\'\)/i';
-					preg_match( $regEx, $line, $matches, PREG_OFFSET_CAPTURE, 0 );
-					if ( isset( $matches[1][0] ) && isset( $matches[2][0] ) ) {
-						$srcArr[] = trim($matches[1][0]);
-					}
+
+                    $regEx = '@/?.*/(.+?)\..*?\(\'(.*)\'\)@i';
+                    preg_match( $regEx, $line, $matches, PREG_OFFSET_CAPTURE, 0 );
+
+                    if ( isset( $matches[1][0] ) && isset( $matches[2][0] ) ) {
+                        $srcArr[] = trim($matches[1][0]);
+                    }
 				}
 				$srcArr = array_unique( array_merge_recursive( $srcArr ) );
 

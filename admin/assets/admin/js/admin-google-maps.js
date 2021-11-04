@@ -138,7 +138,7 @@ function send_xhr_maps_data(data, is_formular = true) {
                 <button type="button" onclick="add_gmaps_pin(this)" class="btn btn-secondary m-1">
                 <i class="fa fa-plus"></i>&nbsp; ${hupa_starter.theme_language.btn_add_pin} </button>
                 <div class="m-1">
-                 <button class="btn btn-primary" onclick="element_onblur(this);" type="submit"><i class="fa fa-save"></i> ${hupa_starter.theme_language.save}</button>   
+                 <button class="btn btn-blue" onclick="element_onblur(this);" type="submit"><i class="fa fa-save"></i> ${hupa_starter.theme_language.save}</button>   
                 </div>
                 </div>`;
                 googleMapsPins.insertAdjacentHTML("afterend", addBtn);

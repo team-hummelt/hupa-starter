@@ -40,7 +40,43 @@ if (!class_exists('HupaCarouselShortCode')) {
         public function __construct()
         {
             add_shortcode('carousel', array($this, 'hupa_carousel_shortcode'));
+            add_shortcode('hupa-slider', array($this, 'post_selector_slider_shortcode'));
+            add_shortcode('hupa-galerie', array($this, 'post_selector_galerie_shortcode'));
 
+        }
+
+        public function post_selector_slider_shortcode($atts, $content, $tag): bool|string
+        {
+            $a = shortcode_atts(array(
+                'attributes' => '',
+                'id' => ''
+            ), $atts);
+
+            if (!$a['attributes']) {
+                return '';
+            }
+            $attributes = base64_decode($a['attributes']);
+            $attributes = (array)json_decode($attributes);
+            ob_start();
+            echo apply_filters('get_post_select_data_type', $attributes);
+            return ob_get_clean();
+        }
+
+        public function post_selector_galerie_shortcode($atts, $content, $tag): bool|string
+        {
+            $a = shortcode_atts(array(
+                'attributes' => '',
+                'id' => ''
+            ), $atts);
+
+            if (!$a['attributes']) {
+                return '';
+            }
+            $attributes = base64_decode($a['attributes']);
+            $attributes = (array)json_decode($attributes);
+            ob_start();
+            echo apply_filters('load_galerie_templates', $attributes);
+            return ob_get_clean();
         }
 
         public function hupa_carousel_shortcode($atts, $content, $tag): bool|string
@@ -55,6 +91,8 @@ if (!class_exists('HupaCarouselShortCode')) {
                 return '';
             }
 
+            $carouselClass = '';
+
             $args = sprintf('WHERE id=%d', $a['id']);
             $carouselData = apply_filters('get_carousel_data', 'hupa_carousel', $args, 'get_row');
             $args = sprintf('WHERE carousel_id=%d AND aktiv=1 AND img_id > 0 ORDER BY position ASC', $a['id']);
@@ -64,11 +102,20 @@ if (!class_exists('HupaCarouselShortCode')) {
                 return '';
             }
             $carousel = $carouselData->record;
+
+            $meta =  get_post_meta(get_the_ID(), '_hupa_select_header', true);
+            $postContent = get_post($meta);
+            $regEx = '/<!.*theme-carousel.*({.*}).*>/m';
+            preg_match($regEx, $postContent->post_content, $matches);
+            if ($matches) {
+                $carouselClass =  ' header-carousel ';
+            }
+
             $slider = $sliderData->record;
 
             $carousel->data_autoplay ? $ride = 'carousel' : $ride = 'false';
             $carousel->data_animate == 2 ? $slide = ' carousel-fade' : $slide = '';
-            $carousel->full_width ? $full_width = 'hupa-full-row' : $full_width = '';
+            $carousel->full_width ? $full_width = ' hupa-full-row ' : $full_width = '';
 
             $controlColor = match ($carousel->select_bg) {
                 '0' => '',
@@ -84,11 +131,11 @@ if (!class_exists('HupaCarouselShortCode')) {
 
             $carousel->margin_aktiv ? $marginTop = 'carousel-margin-top' : $marginTop = '';
             $countS = count((array)$slider);
-            $carousel->carousel_lazy_load ? $lazy = 'lazy' : $lazy = '';
+            $carousel->carousel_lazy_load ? $lazy = ' lazy ' : $lazy = '';
             ob_start();
             ?>
             <div id="hupaCarousel<?= $carousel->id ?>"
-                 class="<?= $full_width ?> carousel <?= $marginTop ?> <?=$lazy?> slide <?= $slide ?>"
+                 class="<?=$full_width?>carousel<?=$carouselClass?><?=$marginTop?><?=$lazy?>slide<?=$slide?>"
                  data-bs-ride="<?= $ride ?>">
                 <?php if ($countS > 1): ?>
                     <div class="<?= $carousel->indicator ? '' : 'd-none' ?> carousel-indicators">
@@ -104,6 +151,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                 <div class="carousel-inner">
                     <?php $x = 0;
                     foreach ($slider
+
                     as $tmp):
                     if ($tmp->slide_button) {
                         $btn = json_decode($tmp->slide_button);
@@ -170,11 +218,13 @@ if (!class_exists('HupaCarouselShortCode')) {
                                 </p>
                             <?php endif; ?>
                             <!--Button-->
-                            <?php if ($btn): ?>
+                            <?php
+                            $links = [];
+                            if ($btn): ?>
                                 <div <?= $btnPadding ?>>
-                                    <?php $links = [];
+                                    <?php
                                     foreach ($btn as $bt):
-                                        if (!$bt->if_url) {
+                                        if (!isset($bt->if_url)) {
                                             $links = explode('#', $bt->btn_link);
                                             switch ($links[0]) {
                                                 case 'page':
@@ -204,7 +254,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                                                                                            onmouseout="this.style.background='<?= $bt->bg_color ?>';
                                                                                                    this.style.color='<?= $bt->button_color ?>';
                                                                                                    this.style.borderColor='<?= $bt->border_color ?>';"
-                                                                                           title="<?= get_the_title($links[1]) ?>">
+                                                                                           title="">
                                             <?= $bt->icon ?> <?= $bt->btn_text ?>
                                         </a>
                                     <?php endforeach; ?>
@@ -213,7 +263,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                         </div>
                     </div>
                 </div>
-            <?php  $x++;
+            <?php $x++;
             endforeach; ?>
             </div>
             <?php if ($countS > 1): ?>

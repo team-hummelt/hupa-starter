@@ -1,4 +1,8 @@
 @import "theme-tools";
+@import "custom-icon";
+@import "navbar-menu";
+@import "handy-menu-eins";
+
 
 body .bs-formular-wrapper {
   i.fa {
@@ -6,9 +10,212 @@ body .bs-formular-wrapper {
   }
 }
 
+.top-button {
+  pointer-events: none;
+}
+
+#nav-main-starter {
+  z-index: 1030;
+}
+
+#nav-main-starter.navbar-root {
+  @media (max-width: 1200px) {
+    .dropdown-menu-slide {
+      animation-duration: 2.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-opacity: 0;
+    }
+
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+
+  .dropdown-menu-slide {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+    animation-duration: 450ms;
+  }
+}
+
+.top-button.visible {
+  pointer-events: auto;
+}
+
+
+
 #nav-main-starter .menu-item:last-child .nav-link {
   padding-right: .5rem;
 }
+
+img.map-placeholder-img {
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+  //-webkit-filter: grayscale(100%);
+  //filter: grayscale(100%);
+}
+
+.ds-check-wrapper {
+  max-width: 550px;
+
+  min-height: 200px;
+  margin: .5rem;
+  height: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00000080;
+  border: 1px solid #cbcbcb;
+  border-radius: .25rem;
+  z-index: 1;
+  .btn-maps:not(.disabled) {
+    z-index: 1;
+    background-color:#5192cd ;
+    border-color: #8faec9;
+    transition: all 250ms ease-in-out;
+    &:hover {
+      background-color: #4175a4;
+    }
+  }
+
+  .btn-maps {
+    &.disabled {
+      background-color: #5192cd;
+      color: #ffffff;
+      cursor: not-allowed!important;
+    }
+  }
+
+  /*============================= CHECKBOX =========================*/
+  .ds-karte-check {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    //color: #fff;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  a.ds-link{
+    color: #FFFFFFE5;
+    text-decoration: none;
+    transition: all 250ms ease-in-out;
+    font-weight: 400;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .ds-karte-check a {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .datenschutz-check {
+    background-color: rgba(181, 181, 181, 0);
+    padding: 1rem .5rem ;
+  }
+
+  /* Hide the browser's default checkbox */
+  .ds-karte-check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #cbcbcb;
+    transition: all 250ms !important;
+    -o-transition: all 250ms !important;
+    -webkit-transition: all 250ms !important;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .ds-karte-check:hover input~.checkmark {
+    background-color: #eeeeee;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .ds-karte-check input:checked~.checkmark {
+    background-color: #318dd7;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .ds-karte-check input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .ds-karte-check .checkmark:after {
+    left: 9px;
+    top: 4px;
+    width: 7px;
+    height: 13px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
 
 .loader-wrapper {
   position: fixed;
@@ -25,14 +232,6 @@ body .bs-formular-wrapper {
   .fa {
     color: #e2e2e2;
   }
-}
-
-#nav-main-starter  .offcanvas.menu1.show {
-  background-color: rgba(255,255,255,.9);
-}
-
-#nav-main-starter  .offcanvas.menu1 .offcanvas-header {
-  background-color: rgba(221,221,221,.95);
 }
 
 #nav-main-starter  .offcanvas.menu2.show {
@@ -87,26 +286,22 @@ body .bs-formular-wrapper {
   padding-top: 2.5rem;
 }
 
-.navbar-root .logo.md {
-  max-width: 100%;
-  transition: all 450ms;
+.logo.md{
+  //max-width: 10rem;
+  max-height: 45px;
+  width: 100%;
+  transition: max-height 450ms ease-in-out;
 }
 
+
 .top-nav.main-widget {
-  right: 20px;
+  right: 25px;
   z-index: 1021;
 }
 
-.navbar-root .logo.md {
-  transition: all 450ms;
-}
 
-.navbar-root .logo.md.small-logo {
-  //max-width: 90%;
-  height: 46px;
- // -o-object-fit: cover;
- // object-fit: cover;
-  transition: all 450ms;
+a.navbar-brand {
+  z-index: 1021;
 }
 
 .carousel-caption {
@@ -129,7 +324,7 @@ body .bs-formular-wrapper {
 .navbar-root .logo.sm {
   //width: 70%;
   //transform: scale(.65);
-  height: 46px;
+  height: 30px;
   -o-object-fit: cover;
   object-fit: cover
 }
@@ -250,6 +445,8 @@ body .bs-formular-wrapper {
   //transition: opacity 450ms;
 }
 
+
+
 @media (max-width: 768px) {
   .bgImage {
     height: 30vh
@@ -258,6 +455,12 @@ body .bs-formular-wrapper {
 
 .middle-image-nav-sm{
   display: none;
+}
+
+.menu-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 978px) {
@@ -433,6 +636,14 @@ body .bs-formular-wrapper {
     transform: translate(15px);
   }
 }
+
+.carousel-control-next:not(:hover):focus, .carousel-control-prev:not(:hover):focus {
+  color: #fff;
+  text-decoration: none;
+  outline: 0;
+  opacity: 0.5;
+}
+
 
 
 

@@ -46,7 +46,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 		final public function hupa_generate_theme_css( $args ) {
 			$selectedFonts = $this->get_theme_settings( 'hupa_fonts' );
-			//print_r($selectedFonts);
+
 			if ( ! $selectedFonts->status ) {
 				return;
 			}
@@ -81,6 +81,13 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= $bodyFont->fontHeight."\r\n";
 			$html .= $bodyFont->fontColor."\r\n";
 			$html .= '}'."\r\n";
+
+
+            //HUPA ICONS
+            $html .= '.hupa-icon.fa {'."\r\n";
+            $html .= 'font-family: "FontAwesome", sans-serif!important;'."\r\n";
+            $html .= 'font-weight: normal!important;'."\r\n";
+            $html .= '}'."\r\n";
 
 			//LINK COLOR
 			$html .= 'a {'."\r\n";
@@ -338,25 +345,38 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			//NAVBAR
 			$html .= '#nav-main-starter.navbar-root {'."\r\n";
             //$html .= 'z-index: 1;'."\r\n";
-            //$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).$this->make_transparent_hex(get_hupa_option( 'nav_bg_opacity' )).';'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'nav_bg' ).';'."\r\n";
+            $html .= 'background-color: '.get_hupa_option( 'nav_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .dropdown-toggle:active,#nav-main-starter.navbar-root .open .dropdown-toggle,#nav-main-starter.navbar-root .dropdown-toggle:focus {'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .open .dropdown-toggle,#nav-main-starter.navbar-root .dropdown-toggle:focus:not(.mega-menu-wrapper .dropdown-toggle:focus) {'."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link {'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_bg_color' ).';'."\r\n";
+            $html .= '#nav-main-starter.navbar-root .dropdown-menu.mega-menu-wrapper {'."\r\n";
+            $html .= 'background-color: '.get_hupa_option( 'mega_menu_bg' ).';'."\r\n";
+            $html .= '}'."\r\n";
+
+            $html .= '#nav-main-starter.navbar-root .dropdown-toggle.show,#nav-main-starter.navbar-root .menu-item.menu-item-has-children ~ .nav-link.dropdown-toggle.show:not(.mega-menu-wrapper .dropdown-toggle.show) {'."\r\n";
+            $html .= 'background-color: '.get_hupa_option( 'menu_dropdown_active_bg' ).';'."\r\n";
+            $html .= '}'."\r\n";
+
+
+            $html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link:not(.mega-menu-wrapper .nav-link) {'."\r\n";
+            $html .= 'margin: 0 0.1rem;'."\r\n";
+            $html .= 'padding:0.5rem;'."\r\n";
+            $html .= '}'."\r\n";
+
+            $html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link:not(.mega-menu-wrapper .nav-link):not(.nav-link.dropdown-toggle.active):not(li.current-menu-item a.active):not(.navbar-nav .nav-link:hover) {'."\r\n";
+            $html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
+            $html .= 'background-color: '.get_hupa_option( 'menu_btn_bg_color' ).';'."\r\n";
+            $html .= '}'."\r\n";
+
+			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link:not(.mega-menu-wrapper .nav-link) {'."\r\n";
 			$html .= $menuBtn->family."\r\n";
 			$html .= $menuBtn->fontSize."\r\n";
 			$html .= $menuBtn->fontStyle."\r\n";
 			$html .= $menuBtn->fontWeight."\r\n";
 			$html .= $menuBtn->fontHeight."\r\n";
-			$html .= 'margin: 0 0.1rem;'."\r\n";
-
-            $html .= 'padding:0.5rem;'."\r\n";
 			if(get_hupa_option( 'menu_uppercase' )){
 				$html .= 'text-transform: uppercase;'."\r\n";
 			}
@@ -366,19 +386,22 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= 'transition: all 350ms;'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link.show,#nav-main-starter.navbar-root .navbar-nav .show>.nav-link {'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link.show:not(.mega-menu-wrapper .nav-link.show):not(.nav-link.dropdown-toggle.active),#nav-main-starter.navbar-root .navbar-nav .show>.nav-link:not(.mega-menu-wrapper .nav-link.show):not(.nav-link.dropdown-toggle.active) {'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
 			$html .= $menuBtn->fontWeight."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .dropdown-menu {'."\r\n";
+            $html .= '#nav-main-starter.navbar-root .dropdown-menu {'."\r\n";
+            $html .= '-webkit-transition: all 350ms;'."\r\n";
+            $html .= '-moz-transition: all 350ms;'."\r\n";
+            $html .= '-o-transition: all 350ms;'."\r\n";
+            $html .= 'transition: all 350ms;'."\r\n";
+            $html .= 'margin: .93rem 0 0;';
+            $html .= '}'."\r\n";
+
+			$html .= '#nav-main-starter.navbar-root .dropdown-menu:not(.mega-menu-wrapper):not(.mega-menu-wrapper .dropdown-menu) {'."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_bg' ).';'."\r\n";
 			$html .= $menuBtn->fontWeight."\r\n";
-			$html .= '-webkit-transition: all 350ms;'."\r\n";
-			$html .= '-moz-transition: all 350ms;'."\r\n";
-			$html .= '-o-transition: all 350ms;'."\r\n";
-			$html .= 'transition: all 350ms;'."\r\n";
-			$html .= 'margin: .93rem 0 0;';
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root .dropdown-menu .dropdown-item {'."\r\n";
@@ -387,6 +410,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= $menuBtn->fontStyle."\r\n";
 			$html .= $menuBtn->fontWeight."\r\n";
 			$html .= $menuBtn->fontHeight."\r\n";
+            $html .= 'padding: .5rem 1rem;';
 			$html .= 'color: '.get_hupa_option( 'menu_dropdown_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
@@ -402,25 +426,26 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$html .= 'border-bottom: none;'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .dropdown-menu .dropdown-item:hover,#nav-main-starter.navbar-root .dropdown-item:focus,#nav-main-starter .navbar-root .dropdown-item:active {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_hover_bg' ).'!important;'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_dropdown_hover_color' ).';'."\r\n";
+            $html .= '#nav-main-starter.navbar-root .dropdown-menu .dropdown-item:hover:not(.mega-menu-wrapper .dropdown-item:hover:hover),#nav-main-starter.navbar-root .dropdown-menu .menu-item:hover:not(.mega-menu-wrapper .menu-item:hover) {'."\r\n";
+            $html .= 'background-color: '.get_hupa_option( 'menu_dropdown_hover_bg' ).';'."\r\n";
+            $html .= 'color: '.get_hupa_option( 'menu_dropdown_hover_color' ).';'."\r\n";
+            $html .= '}'."\r\n";
+
+			$html .= '#nav-main-starter.navbar-root:hover .navbar-nav:hover .nav-link:hover:not(.mega-menu-wrapper .nav-link:hover) {'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).';'."\r\n";
+			$html .= 'color: '.get_hupa_option( 'menu_btn_hover_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root:hover .navbar-nav:hover .nav-link:hover {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_hover_bg_opacity' )).'!important;'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_btn_hover_color' ).'!important;'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .navbar-nav .active>.nav-link:hover:not(.mega-menu-wrapper .nav-link:hover) {'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).';'."\r\n";
+            $html .= 'color: '.get_hupa_option( 'menu_btn_hover_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .navbar-nav .active>.nav-link:hover {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_hover_bg_opacity' )).'!important;'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link:hover:not(.mega-menu-wrapper .nav-link:hover) {'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .navbar-nav .nav-link:hover {'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_btn_hover_bg' ).$this->make_transparent_hex(get_hupa_option( 'menu_btn_hover_bg_opacity' )).'!important;'."\r\n";
-			$html .= '}'."\r\n";
-
-			$html .= '#nav-main-starter.navbar-root li.current_page_item a,#nav-main-starter.navbar-root li.current-menu-parent.active a,#nav-main-starter.navbar-root li.current-menu-item.active a,#nav-main-starter.navbar-root li.current-menu-item a.active {'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .nav-link.dropdown-toggle.active, #nav-main-starter.navbar-root li.current_page_item a,#nav-main-starter.navbar-root li.current-menu-parent.active a,#nav-main-starter.navbar-root li.current-menu-item.active a,#nav-main-starter.navbar-root li.current-menu-item a.active {'."\r\n";
 			$html .= 'background-color: '.get_hupa_option( 'menu_btn_active_bg' ).';'."\r\n";
 			$html .= 'color: '.get_hupa_option( 'menu_btn_active_color' ).';'."\r\n";
 			$html .= 'border-bottom: 1px solid '.get_hupa_option( 'menu_btn_color' ).'65;'."\r\n";
@@ -428,22 +453,24 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 
 
 			$html .= '#nav-main-starter.navbar-root .navbar-toggler {'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).'50;'."\r\n";
+			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root button.navbar-toggler span.fa {'."\r\n";
 			$html .= 'font-size:1.6rem;';
-			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).'80;'."\r\n";
+			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
 			$html .= '#nav-main-starter.navbar-root .navbar-toggler:hover {'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).'80;'."\r\n";
+			$html .= 'color: '.get_hupa_option( 'menu_btn_color' ).';'."\r\n";
 			$html .= '}'."\r\n";
 
-			$html .= '#nav-main-starter.navbar-root .dropdown-menu a.dropdown-item.active {'."\r\n";
-			$html .= 'color: '.get_hupa_option( 'menu_dropdown_active_color' ).'!important;'."\r\n";
-			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_active_bg' ).'!important;'."\r\n";
+			$html .= '#nav-main-starter.navbar-root .dropdown-menu a.dropdown-item.active,#nav-main-starter.navbar-root .dropdown-menu .menu-item.current-menu-item {'."\r\n";
+			$html .= 'color: '.get_hupa_option( 'menu_dropdown_active_color' ).';'."\r\n";
+			$html .= 'background-color: '.get_hupa_option( 'menu_dropdown_active_bg' ).';'."\r\n";
 			$html .= '}'."\r\n";
+
+
 
 			//TOP AREA
 			$topArea = $this->css_styles_by_type( 'font', 'top_font' );
@@ -690,7 +717,6 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 				preg_match( $regEx, $item, $matches );
 				$listArr[] = $matches[1];
 			}
-			//print_r($listArr);
 			if ( ! $listArr ) {
 				return '';
 			}
@@ -715,6 +741,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			}
 
 			$fontFace = '';
+
 			foreach ( $fontData as $font ) {
 				$fontFace .= '@font-face {' . "\n\r";
 				$fontFace .= 'font-family:\'' . $font['fontFamily'] . '\';' . "\n\r";
@@ -756,6 +783,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 					break;
 				}
 			}
+			//print_r($retArr);
 			return $retArr;
 		}
 
@@ -778,6 +806,8 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 				if ( ! $fileLines ) {
 					return [];
 				}
+
+				$re = '';
 				$regEx  = '/' . $source . '\..+format\(\'(.+)\'/i';
 				$retArr = [];
 				foreach ( $fileLines as $lines ) {
@@ -785,8 +815,15 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 						if ( strpos( $line, 'url' ) ) {
 							preg_match( $regEx, $line, $matches );
 							if ( $matches[1] ) {
+							    if($matches[1] == 'truetype'){
+							        $type = 'ttf';
+                                } elseif ($matches[1] == 'embedded-opentype') {
+                                    $type = 'eot?#iefix';
+                                } else {
+							        $type = $matches[1];
+                                }
 								$retItem  = [
-									'source' => THEME_ADMIN_URL . 'inc/theme-fonts/' . $folder . '/' . $source . '.' . $matches[1],
+									'source' => THEME_FONTS_URL . $folder . '/' . $source . '.' . $type,
 									'format' => $matches[1]
 								];
 								$retArr[] = $retItem;
@@ -915,15 +952,15 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 									}
 									$return->fontHeight = 'line-height: 1.5;';
 								} else {
-									$return->family    = 'font-family: '. $font->fontStill->fontFamily->{$fontStyle}.', sans-serif!important;';
+									$return->family    = 'font-family: '. $font->fontStill->fontFamily->{$fontStyle}.', sans-serif;';
 									$return->fontStyle = $font->fontStill->fontStyle->{$fontStyle};
 									$return->fontWeight = $font->fontStill->fontWeight->{$fontStyle};
-									$return->fontHeight = 'line-height: ' . get_hupa_option( $prefix . '_height' ).'!important;';
-									$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix . '_size' )).'!important;';
+									$return->fontHeight = 'line-height: ' . get_hupa_option( $prefix . '_height' ).';';
+									$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix . '_size' )).';';
 								}
 
 								if(in_array($prefix, $preArray) && !get_hupa_option( $prefix . '_bs_check' )) {
-									$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix . '_size' )).'!important;';
+									$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix . '_size' )).';';
 								}
 
 								if ( get_hupa_option( $prefix . '_display_check' ) ) {
@@ -936,7 +973,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 									$return->fontWeight = $display->fontWeight;
 									$return->fontHeight = $display->lineHeight;
 								}
-								$return->fontColor = 'color: '.get_hupa_option( $prefix . '_color' ).'!important;';
+								$return->fontColor = 'color: '.get_hupa_option( $prefix . '_color' ).';';
 								break;
 							}
 						}
@@ -956,13 +993,13 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 								$return->fontHeight = 'line-height: 1.5;';
 								$return->fontSize   = 'font-size: 2rem;';
 							} else {
-								$return->family    = 'font-family: '. $font->fontStill->fontFamily->{$fontStyle}.', sans-serif!important;';
+								$return->family    = 'font-family: '. $font->fontStill->fontFamily->{$fontStyle}.', sans-serif;';
 								$return->fontStyle = $font->fontStill->fontStyle->{$fontStyle};
 								$return->fontWeight = $font->fontStill->fontWeight->{$fontStyle};
-								$return->fontHeight = 'line-height: ' . get_hupa_option(  $prefix.'_height' ).'!important;';
-								$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix.'_size' )).'!important;';
+								$return->fontHeight = 'line-height: ' . get_hupa_option(  $prefix.'_height' ).';';
+								$return->fontSize   = 'font-size: ' . $this->px_to_rem( get_hupa_option( $prefix.'_size' )).';';
 							}
-							$return->fontColor = 'color: '.get_hupa_option( $prefix.'_color' ).'!important;';
+							$return->fontColor = 'color: '.get_hupa_option( $prefix.'_color' ).';';
 							break;
 						}
 					}

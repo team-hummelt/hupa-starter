@@ -16,12 +16,14 @@ require_once('admin/inc/update-checker/vendor/autoload.php');
 
 function hupa_register_theme_updater()
 {
-    $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-        'https://github.com/team-hummelt/hupa-starter/',
-        __FILE__,
-        'hupa-starter'
-    );
-    $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+    if(get_hupa_option('update_aktiv')) {
+        $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+            'https://github.com/team-hummelt/hupa-starter/',
+            __FILE__,
+            'hupa-starter'
+        );
+        $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+    }
 }
 
 function load_woocommerce_function(){
@@ -34,19 +36,34 @@ function load_woocommerce_function(){
 add_action('init', 'load_woocommerce_function');
 
 // Register Bootstrap 5 Nav Walker
-if (!function_exists('register_navwalker')) :
-    function register_navwalker()
+if (!function_exists('register_new_navwalker')) :
+    function register_new_navwalker()
     {
+
+        require_once('inc/hupa-top-area-navwalker.php');
         require_once('inc/class-bootstrap-5-navwalker.php');
         // Register Menus
+        register_nav_menu('top-area-menu', 'Top Area Menu');
         register_nav_menu('main-menu', 'Main menu');
-        register_nav_menu('footer-menu', 'Footer menu');
-        register_nav_menu('footer-widget-menu', 'Footer Widget menu');
+        register_nav_menu('footer-widget-menu', 'Footer Widget Menu');
+        register_nav_menu('footer-menu', 'Footer Bottom Menu');
+        register_nav_menu('mega-menu-eins', 'Mega Menu (eins)');
+        register_nav_menu('mega-menu-zwei', 'Mega Menu (zwei)');
+        register_nav_menu('mega-menu-drei', 'Mega Menu (drei)');
+        register_nav_menu('mega-menu-vier', 'Mega Menu (vier)');
     }
 endif;
-add_action('after_setup_theme', 'register_navwalker');
+add_action('after_setup_theme', 'register_new_navwalker');
 // Register Bootstrap 5 Nav Walker END
 
+/*if ( ! function_exists( 'hupa_theme_register_nav_menu' ) ) {
+    function hupa_theme_register_nav_menu(){
+        register_nav_menus( array(
+            'hupa_footer_widget_menu' => __( 'Hupa Footer Widget Menu', 'bootscore' ),
+        ));
+    }
+    add_action( 'after_setup_theme', 'hupa_theme_register_nav_menu', 0 );
+}*/
 
 // Register Comment List
 if (!function_exists('register_comment_list')) :
@@ -313,13 +330,13 @@ add_filter('widget_text', 'do_shortcode');
 function bootscore_scripts()
 {
     $hupa_version = wp_get_theme();
-    // Get modification time. Enqueue files with modification date to prevent browser from loading cached scripts and styles when file content changes. 
+    // Get modification time. Enqueue files with modification date to prevent browser from loading cached scripts and styles when file content changes.
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
     $modificated = date('YmdHi', filemtime(get_stylesheet_directory() . '/style.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.min.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/theme.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/bootstrap.bundle.min.js'));
-    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css//hupa-theme/auto-generate-theme.css'));
+    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/auto-generate-theme.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/theme-custom.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/masonry.pkgd.min.js'));
 
@@ -331,7 +348,7 @@ function bootscore_scripts()
     // Fontawesome
     wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $modificated);
     //Autogenerate CSS
-    wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css//hupa-theme/auto-generate-theme.css', array(), $modificated);
+    wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css/hupa-theme/auto-generate-theme.css', array(), $modificated);
     //Custom CSS
     wp_enqueue_style('starter-theme-custom-style', get_template_directory_uri() . '/css/hupa-theme/theme-custom.css', array(), $modificated);
 
@@ -440,7 +457,7 @@ function bootscore_pagination($pages = '', $range = 2)
 
         echo '</ul>';
         echo '</nav>';
-        // echo '<div class="pagination-info mb-5 text-center">[ <span class="text-muted">Page</span> '.$paged.' <span class="text-muted">of</span> '.$pages.' ]</div>';	 	
+        // echo '<div class="pagination-info mb-5 text-center">[ <span class="text-muted">Page</span> '.$paged.' <span class="text-muted">of</span> '.$pages.' ]</div>';
     }
 }
 
@@ -547,6 +564,8 @@ function bs_after_primary()
 {
     do_action('bs_after_primary');
 }
+
+
 
 
 // Open links in comments in new tab

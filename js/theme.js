@@ -64,6 +64,7 @@ jQuery(document).ready(function ($) {
         m.forEach((match, groupIndex) => {
             if(match){
                 let dropDown = $('.nav-link.active.dropdown-toggle').next();
+                $('li', dropDown).removeClass('current-menu-item');
                 $('li a', dropDown).removeClass('active');
             }
         });
@@ -83,6 +84,7 @@ jQuery(document).ready(function ($) {
                     let x = $(this).parents('.menu-item-has-children.dropdown').children();
                     x.toggleClass('show');
                     let dropUl = $(this).parents('ul.dropdown-menu');
+                    $('li', dropUl).removeClass('current-menu-item');
                     $('li a', dropUl).removeClass('active');
                     $(this).addClass('active');
                     // TODO JOB WARNING Ankerlink DropDown Click Function

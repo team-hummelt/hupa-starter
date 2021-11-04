@@ -39,13 +39,14 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 		@session_start();
 		// TODO PUBLIC localize Script
         global $post;
+        isset($_SESSION['gmaps']) ? $isGmaps = true : $isGmaps = false;
         wp_register_script( 'hupa-starter-public-js-localize', '', [], $hupa_version->get( 'Version' ), true );
 		wp_enqueue_script( 'hupa-starter-public-js-localize' );
 		wp_localize_script( 'hupa-starter-public-js-localize',
 			'get_hupa_option',
 			array(
                 'postID' => $post->ID,
-                'gmaps' => (bool) $_SESSION['gmaps'],
+                'gmaps' => $isGmaps,
                 'post_type' => $post->post_type,
 				'ds_maps'   => get_hupa_frontend('ds-gmaps'),
 				'admin_url' => THEME_ADMIN_URL,

@@ -38,8 +38,9 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
         {
             add_shortcode('gmaps', array($this, 'hupa_gmaps_shortcode'));
             @session_start();
-            $this->gmaps = $_SESSION['gmaps'];
-
+            if(isset($_SESSION['gmaps'])){
+                $this->gmaps = $_SESSION['gmaps'];
+            }
         }
         public function hupa_gmaps_shortcode($atts, $content, $tag)
         {

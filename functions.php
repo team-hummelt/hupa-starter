@@ -336,7 +336,7 @@ function bootscore_scripts()
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.min.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/theme.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/bootstrap.bundle.min.js'));
-    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css//hupa-theme/auto-generate-theme.css'));
+    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/auto-generate-theme.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/theme-custom.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/masonry.pkgd.min.js'));
 
@@ -348,7 +348,7 @@ function bootscore_scripts()
     // Fontawesome
     wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $modificated);
     //Autogenerate CSS
-    wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css//hupa-theme/auto-generate-theme.css', array(), $modificated);
+    wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css/hupa-theme/auto-generate-theme.css', array(), $modificated);
     //Custom CSS
     wp_enqueue_style('starter-theme-custom-style', get_template_directory_uri() . '/css/hupa-theme/theme-custom.css', array(), $modificated);
 

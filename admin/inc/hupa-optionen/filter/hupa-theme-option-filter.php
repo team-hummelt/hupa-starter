@@ -1003,7 +1003,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
-                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            isset($json->className) ? $doFormClass = $json->className : $doFormClass = '';
                             $classStart = '<div class="theme-carousel ' . $doFormClass . '">';
                             $doShortcode = $classStart . do_shortcode('[carousel id=' . $json->selectedCarousel . ']') . '</div>';
                             $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);

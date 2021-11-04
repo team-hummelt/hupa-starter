@@ -218,11 +218,13 @@ if (!class_exists('HupaCarouselShortCode')) {
                                 </p>
                             <?php endif; ?>
                             <!--Button-->
-                            <?php if ($btn): ?>
+                            <?php
+                            $links = [];
+                            if ($btn): ?>
                                 <div <?= $btnPadding ?>>
-                                    <?php $links = [];
+                                    <?php
                                     foreach ($btn as $bt):
-                                        if (!$bt->if_url) {
+                                        if (!isset($bt->if_url)) {
                                             $links = explode('#', $bt->btn_link);
                                             switch ($links[0]) {
                                                 case 'page':
@@ -252,7 +254,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                                                                                            onmouseout="this.style.background='<?= $bt->bg_color ?>';
                                                                                                    this.style.color='<?= $bt->button_color ?>';
                                                                                                    this.style.borderColor='<?= $bt->border_color ?>';"
-                                                                                           title="<?= get_the_title($links[1]) ?>">
+                                                                                           title="">
                                             <?= $bt->icon ?> <?= $bt->btn_text ?>
                                         </a>
                                     <?php endforeach; ?>

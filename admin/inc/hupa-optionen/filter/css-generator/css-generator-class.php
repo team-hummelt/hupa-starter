@@ -743,19 +743,21 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			$fontFace = '';
 
 			foreach ( $fontData as $font ) {
-				$fontFace .= '@font-face {' . "\n\r";
-				$fontFace .= 'font-family:\'' . $font['fontFamily'] . '\';' . "\n\r";
-				$srcCount = count( $font['sourceFile'] );
-				$i        = 1;
-				foreach ( $font['sourceFile'] as $src ) {
-					$srcCount === $i ? $dot = ';' : $dot = ',';
-					$fontFace .= "url('" . $src['source'] . "') format('" . $src['format'] . "')" . $dot . "" . "\r\n";
-					$i ++;
-				}
-				$fontFace .= $font['fontWeight'] . "\n\r";
-				$fontFace .= $font['fontStyle'] . "\n\r";
-				$fontFace .= '}' . "\n\r";
-			}
+                if ($font) {
+                    $fontFace .= '@font-face {' . "\n\r";
+                    $fontFace .= 'font-family:\'' . $font['fontFamily'] . '\';' . "\n\r";
+                    $srcCount = count($font['sourceFile']);
+                    $i = 1;
+                    foreach ($font['sourceFile'] as $src) {
+                        $srcCount === $i ? $dot = ';' : $dot = ',';
+                        $fontFace .= "url('" . $src['source'] . "') format('" . $src['format'] . "')" . $dot . "" . "\r\n";
+                        $i++;
+                    }
+                    $fontFace .= $font['fontWeight'] . "\n\r";
+                    $fontFace .= $font['fontStyle'] . "\n\r";
+                    $fontFace .= '}' . "\n\r";
+                }
+            }
 
 			return $fontFace;
 		}
@@ -807,14 +809,13 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 					return [];
 				}
 
-				$re = '';
 				$regEx  = '/' . $source . '\..+format\(\'(.+)\'/i';
 				$retArr = [];
 				foreach ( $fileLines as $lines ) {
 					foreach ( $lines as $line ) {
 						if ( strpos( $line, 'url' ) ) {
 							preg_match( $regEx, $line, $matches );
-							if ( $matches[1] ) {
+							if ( $matches ) {
 							    if($matches[1] == 'truetype'){
 							        $type = 'ttf';
                                 } elseif ($matches[1] == 'embedded-opentype') {

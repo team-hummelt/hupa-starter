@@ -110,7 +110,7 @@ if (!class_exists('HupaApiServerHandle')) {
             }
 
             $apiData = json_decode($response['body']);
-            if($apiData->error){
+            if(isset($apiData->error)){
                 $errType = $this->get_error_message($apiData);
                 if($errType) {
                    $this->hupaGetApiClientCredentials();

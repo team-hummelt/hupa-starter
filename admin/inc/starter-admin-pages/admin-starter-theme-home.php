@@ -3919,7 +3919,7 @@ defined('ABSPATH') or die();
                             <b class="strong-font-weight font-blue">URL:</b> <?=get_site_url()?><span class="font-blue">?hupa=pdf&type=0&file=test.pdf</span>
                             <hr>
                             <div class="form-text mb-3">Die Variable <code>type=0</code> öffnet die PDF und <code>type=1</code> lädt die PDF runter.
-                                Der Dateiname wir bei der Variable <code>"file="</code> eingetragen.</div>
+                                Der Dateiname wird bei der Variable <code>"file="</code> eingetragen.</div>
                             <hr>
                         </div>
 

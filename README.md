@@ -10,6 +10,7 @@ hummelt und partner | Werbeagentur GmbH
 * Carousel lazy load gefixt
 * Icon Shortcode hinzugefügt
 * Google Maps I-Frame hinzugefügt
+* Google Maps Datenschutz Option hinzugefügt
 * Widget Footer Menu hinzugefügt
 * Handy-Menu angepasst
 * Mega-Menu hinzugefügt
@@ -17,6 +18,7 @@ hummelt und partner | Werbeagentur GmbH
 * Gutenberg Tools hinzugefügt
 * PDF Download hinzugefügt
 * TopArea Menu gefixt
+* Sortable gefixt
 
 ### \#1.0.5
 * Footer Widget Menü hinzugefügt

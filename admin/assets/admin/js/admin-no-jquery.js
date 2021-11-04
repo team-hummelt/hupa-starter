@@ -391,35 +391,6 @@ if (themeUploadMediaImg) {
         });
     });
 }
-//
-
-
-/*let changeRangeFunktion = document.querySelectorAll(".sizeRange");
-if(changeRangeFunktion) {
-    let rangeNodes = Array.prototype.slice.call(changeRangeFunktion, 0);
-    rangeNodes.forEach(function (rangeNodes) {
-        rangeNodes.addEventListener('mousedown', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('mousemove', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('mouseup', change_range_ajax_handle, false);
-       // rangeNodes.addEventListener('keydown', change_range_ajax_handle, false);
-        rangeNodes.addEventListener('touchstart', change_range_ajax_handle, false);
-        rangeNodes.addEventListener('change', change_range_ajax_handle, false);
-
-        function change_range_ajax_handle() {
-            this.blur();
-            let rangeContainer = this.getAttribute('data-container');
-            let showRange = document.querySelector("#" + rangeContainer + " .show-range-value");
-            let rangeImage = document.querySelector("#" + rangeContainer + " .range-image");
-            if (rangeImage) {
-                //* 0.5
-                rangeImage.style.width = this.value + 'px';
-            }
-            showRange.innerHTML = this.value;
-        }
-    });
-}
-
-*/
 
 function changeRangeUpdate(event = false) {
     if (event) event.blur();
@@ -815,9 +786,16 @@ if (themeSortable) {
     sortNodes.forEach(function (sortNodes) {
         let elementArray = [];
         const sortable = Sortable.create(sortNodes, {
-            animation: 150,
-            //filter: ".adminBox",
+            animation: 300,
             handle: ".sortableArrow",
+            ghostClass: 'sortable-ghost',
+            forceFallback: true,
+            scroll: true,
+            bubbleScroll: true,
+            scrollSensitivity: 150,
+            easing: "cubic-bezier(0.4, 0.0, 0.2, 1)",
+            scrollSpeed: 20,
+            emptyInsertThreshold: 5,
             onMove: function (evt) {
                 // return evt.related.className.indexOf('adminBox') === -1;
             },

@@ -38,6 +38,13 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
 			add_filter( 'login_headertitle', array( $this, 'hupa_theme_login_logo_url_title' ) );
 			add_action( 'login_head', array( $this, 'set_login_head_style_css' ) );
 			add_action( 'login_enqueue_scripts', array( $this, 'enqueue_hupa_login_footer_script' ) );
+
+			// TODO PDF UPLOAD DIR
+            //Change PDF Upload Dir
+            add_filter('wp_handle_upload_prefilter',array($this, 'wp_theme_pre_upload'));
+            add_filter('wp_handle_upload', array($this, 'wp_theme_post_upload'));
+
+
 			//Todo Gutenberg Video
 			//add_filter( 'embed_oembed_html',array($this, 'hupa_bs_wrap_player', 10, 3 ));
 			//add_filter( 'video_embed_html',array($this, 'hupa_bs_wrap_player' )); // for Jetpack
@@ -90,6 +97,29 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
 				remove_action( 'admin_print_styles', 'print_emoji_styles' );
 			}
 		}
+
+
+		public function wp_theme_pre_upload($file) {
+            add_filter('upload_dir',array($this, 'wp_theme_custom_upload_dir'));
+            return $file;
+        }
+
+        function wp_theme_post_upload($fileinfo){
+            remove_filter('upload_dir',array($this, 'wp_theme_custom_upload_dir'));
+            return $fileinfo;
+        }
+
+        function wp_theme_custom_upload_dir($path){
+            $extension = substr(strrchr($_POST['name'],'.'),1);
+            if(!empty($path['error']) ||  $extension != 'pdf') { return $path; } //error or other filetype; do nothing.
+            $customdir = '/pdf';
+            $path['path']    = str_replace($path['subdir'], '', $path['path']); //remove default subdir (year/month)
+            $path['url']     = str_replace($path['subdir'], '', $path['url']);
+            $path['subdir']  = $customdir;
+            $path['path']   .= $customdir;
+            $path['url']    .= $customdir;
+            return $path;
+        }
 
 		/**
 		 * @param $mimes

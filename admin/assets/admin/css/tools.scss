@@ -133,8 +133,8 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
 
 #snackbar-success.show {
   visibility: visible;
-  -webkit-animation: fadein .5s, fadeout .5s 2.5s;
-  animation: fadein .5s, fadeout .5s 2.5s
+  -webkit-animation: fadein .5s, fadeout .5s 5s;
+  animation: fadein .5s, fadeout .5s 5s
 }
 
 #snackbar-warning {
@@ -156,8 +156,8 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
 
 #snackbar-warning.show {
   visibility: visible;
-  -webkit-animation: fadein .5s, fadeout .5s 2.5s;
-  animation: fadein .5s, fadeout .5s 2.5s
+  -webkit-animation: fadein .5s, fadeout .5s 5s;
+  animation: fadein .5s, fadeout .5s 5s
 }
 
 @-webkit-keyframes fadein {
@@ -171,16 +171,6 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
   }
 }
 
-@keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0
-  }
-  to {
-    bottom: 30px;
-    opacity: 1
-  }
-}
 
 @-webkit-keyframes fadeout {
   from {
@@ -193,13 +183,3 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
   }
 }
 
-@keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1
-  }
-  to {
-    bottom: 0;
-    opacity: 0
-  }
-}

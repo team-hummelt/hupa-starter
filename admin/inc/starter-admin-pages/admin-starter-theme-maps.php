@@ -21,29 +21,29 @@ defined( 'ABSPATH' ) or die();
                 <div class="card-body pb-4" style="min-height: 72vh">
                     <div class="d-flex align-items-center">
                         <h5 class="card-title"><i
-                                    class="hupa-color fa fa-arrow-circle-right"></i> <?= __( 'Google Maps', 'bootscore' ) ?>
+                                    class="hupa-color fa fa-arrow-circle-right"></i> <?= __( 'Google API Maps', 'bootscore' ) ?>
                             / <span id="currentSideTitle"><?= __( 'Settings', 'bootscore' ) ?></span>
                         </h5>
                         <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
                     </div>
                     <hr>
                     <div class="settings-btn-group d-flex">
-                        <button data-site="<?= __( 'Settings', 'bootscore' ) ?>" type="button"
+                        <button data-site="<?= __( 'API Settings', 'bootscore' ) ?>" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseSettingsMapsSite"
                                 aria-expanded="true" aria-controls="collapseSettingsMapsSite"
                                 class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm active" disabled><i
                                     class="fa fa-gears"></i>&nbsp;
-							<?= __( 'Maps Settings', 'bootscore' ) ?>
+							<?= __( 'Maps API Settings', 'bootscore' ) ?>
                         </button>
 
-                        <button onclick="changeRangeUpdate();" data-site="<?= __( 'Manage pins', 'bootscore' ) ?>" type="button"
+                        <button onclick="changeRangeUpdate();" data-site="<?= __( 'Manage API pins', 'bootscore' ) ?>" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseSettingsPinsSite"
                                 aria-expanded="false" aria-controls="collapseSettingsPinsSite"
                                 class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-map"></i>&nbsp;
-							<?= __( 'Manage pins', 'bootscore' ) ?>
+							<?= __( 'Manage API pins', 'bootscore' ) ?>
                         </button>
 
-                        <button class="btn btn-hupa btn-primary btn-sm ms-auto" onclick="element_onblur(this);" type="submit">
+                        <button class="btn btn-blue btn-sm ms-auto" onclick="element_onblur(this);" type="submit">
                             <i class="fa fa-save"></i>&nbsp; <?= __( 'save', 'bootscore' ) ?>
                         </button>
 
@@ -56,16 +56,23 @@ defined( 'ABSPATH' ) or die();
                         <div class="collapse show" id="collapseSettingsMapsSite"
                              data-bs-parent="#settings_display_data">
                             <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
+                                <div class="form-text">
+                                    <i class="fa fa-info-circle font-blue"></i>&nbsp;
+                                    Es können Breite und Höhe zu den Shortcode hinzugefügt werden.
+                                    (<code>width="1200px" height="800px"</code>) oder auch (<code>width="100%" height="450px"</code>)
+                                </div>
                                 <hr>
-                                <h5 class="card-title">
+                                <h5 class="card-title d-flex align-items-center flex-wrap">
                                     <i class="font-blue fa fa-gears"></i>&nbsp; <?= __( 'General settings', 'bootscore' ) ?>
+                                    <small class="small ms-auto"> <b>Shortcode:</b> [gmaps id="api-maps"]</small>
                                 </h5>
+
                                 <hr>
+
                                 <!--=============================================================
 								========================= SEITE 1 START =========================
 								=================================================================
 								-->
-
                                 <div class="container">
                                     <div class="mb-4 mt-4 row">
                                         <label for="MapApiKey" class="col-sm-2 col-form-label fw-bold">API Key:</label>
@@ -192,10 +199,7 @@ defined( 'ABSPATH' ) or die();
                         </div><!--Collapse-Container-->
                         <!--  TODO JOB WARNING SEITE ZWEI -->
                         <div class="collapse" id="collapseSettingsPinsSite" data-bs-parent="#settings_display_data">
-
                             <div id="maps-pin-wrapper"></div>
-
-
                         </div><!--Collapse-Container-->
                     </div><!--collapse-parent-wrapper-->
                 </div><!--card-body-->

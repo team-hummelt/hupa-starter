@@ -22,6 +22,7 @@ trait HupaOptionTrait
     protected string $table_tools = 'hupa_tools';
     protected string $table_carousel = 'hupa_carousel';
     protected string $table_slider = 'hupa_slider';
+    protected string $table_iframes = 'hupa_gmaps_iframe';
     //protected string $table_formulare = 'hupa_formulare';
     //protected string $table_form_message = 'hupa_form_message';
 
@@ -84,6 +85,7 @@ trait HupaOptionTrait
     ==========================================================*/
 
     //VALUES SETTINGS OPTIONS
+    protected string $update_aktiv = 'update_aktiv';
     protected string $svg = 'svg';
     protected string $gutenberg = 'gutenberg';
     protected string $gb_widget = 'gb_widget';
@@ -107,6 +109,7 @@ trait HupaOptionTrait
     protected string $widget_bg = 'widget_bg';
     protected string $widget_border_aktiv = 'widget_border_aktiv';
     protected string $widget_border_color = 'widget_border_color';
+    protected string $mega_menu_bg = 'mega_menu_bg';
     //MENU
     protected string $menu_uppercase = 'menu_uppercase';
     protected string $menu_btn_bg_color = 'menu_btn_bg_color';
@@ -213,6 +216,24 @@ trait HupaOptionTrait
     protected string $map_color = 'map_color';
     protected string $map_pins = 'map_pins';
 
+    /*==============================
+    GOOGLE MAPS PLACEHOLDER SETTINGS
+    ===============================*/
+    protected string $map_img_id = 'map_img_id';
+    protected string $map_bg_grayscale = 'map_bg_grayscale';
+    protected string $map_btn_bg = 'map_btn_bg';
+    protected string $map_btn_color = 'map_btn_color';
+    protected string $map_btn_border_color = 'map_btn_border_color';
+    protected string $map_btn_hover_bg = 'map_btn_hover_bg';
+    protected string $map_btn_hover_color = 'map_btn_hover_color';
+    protected string $map_btn_hover_border = 'map_btn_hover_border';
+    protected string $map_box_bg = 'map_box_bg';
+    protected string $map_box_color = 'map_box_color';
+    protected string $map_box_border = 'map_box_border';
+    protected string $map_link_uppercase = 'map_link_uppercase';
+    protected string $map_link_underline = 'map_link_underline';
+    protected string $map_link_color = 'map_link_color';
+    protected string $map_ds_page = 'map_ds_page';
 
     /*=======================
     SOCIAl MEDIA
@@ -297,6 +318,7 @@ trait HupaOptionTrait
             ================= SETTINGS WordPress OPTIONS =================
             ==============================================================*/
             'theme_wp_optionen' => [
+                $this->update_aktiv = 1,
                 $this->svg => 1,
                 $this->gutenberg => 0,
                 $this->gb_widget => 1,
@@ -361,7 +383,7 @@ trait HupaOptionTrait
                 $this->prefix_h6 . $this->font_color => '#3c434a',
 
                 //Top Footer Headline
-                $this->prefix_top_footer_headline . $this->font_family => 'Montserrat',
+                $this->prefix_top_footer_headline . $this->font_family => 'Roboto',
                 $this->prefix_top_footer_headline . $this->font_style => 0,
                 $this->prefix_top_footer_headline . $this->font_size => 28,
                 $this->prefix_top_footer_headline . $this->font_height => 1.5,
@@ -406,7 +428,7 @@ trait HupaOptionTrait
                 $this->prefix_under . $this->font_color => '#3c434a',
 
                 //MENU
-                $this->prefix_menu . $this->font_family => 'Amiri',
+                $this->prefix_menu . $this->font_family => 'Roboto',
                 $this->prefix_menu . $this->font_style => 0,
                 $this->prefix_menu . $this->font_size => 16,
                 $this->prefix_menu . $this->font_height => 1.5,
@@ -443,7 +465,7 @@ trait HupaOptionTrait
                 $this->prefix_footer_headline . $this->font_color => '#3c434a',
 
                 //FOOTER WIDGET
-                $this->prefix_footer_widget . $this->font_family => 'Poppins',
+                $this->prefix_footer_widget . $this->font_family => 'Roboto',
                 $this->prefix_footer_widget . $this->font_style => 4,
                 $this->prefix_footer_widget . $this->font_size => 16,
                 $this->prefix_footer_widget . $this->font_height => 1.5,
@@ -473,6 +495,9 @@ trait HupaOptionTrait
                 $this->widget_bg => '#F7F7F700',
                 $this->widget_border_color => '#dee2e6',
                 $this->widget_border_aktiv => 1,
+
+                //MEGA MENU
+                $this->mega_menu_bg = '#FFFFFF',
 
                 //MENU
                 $this->menu_uppercase => 0,
@@ -544,6 +569,27 @@ trait HupaOptionTrait
                         'custom_width' => 25
                     ]
                 ]
+            ],
+
+            /*=========================================================
+            ================= GMAPS STANDARD SETTINGS =================
+            ===========================================================*/
+            'google_maps_placeholder' => [
+                $this->map_img_id => 0,
+                $this->map_bg_grayscale => 1,
+                $this->map_btn_bg => '#5192cd',
+                $this->map_btn_color => '#ffffff',
+                $this->map_btn_border_color => '#6c757d',
+                $this->map_btn_hover_bg => '#4175a4',
+                $this->map_btn_hover_color => '#ffffff',
+                $this->map_btn_hover_border => '#6c757d',
+                $this->map_box_bg => '#00000065',
+                $this->map_box_color => '#ffffff',
+                $this->map_box_border => '#cbcbcb',
+                $this->map_link_uppercase => 0,
+                $this->map_link_underline => 1,
+                $this->map_link_color => '#ffffff',
+                $this->map_ds_page => 0,
             ],
 
             'hupa_tools' => [

@@ -21,16 +21,16 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
             <a class="middle-image-nav-sm" href="<?php echo esc_url( home_url() ); ?>">
                 <img src="<?=get_hupa_frontend('nav-img')->url?>"
                      alt="<?=get_bloginfo('name')?>"
-                     class="img-fluid">
+                     class="img-fluid logo md">
             </a>
         <?php endif; ?>
         <?php if(get_hupa_frontend('nav-img') && $menu->show_img): ?>
-           <a class="navbar-brand d-none d-xl-block <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
+           <a class="navbar-brand d-none d-xl-flex <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?= get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>" class="logo md"
 			     width="<?= get_hupa_frontend('nav-img')->width?>">
 		</a>
-		<a class="navbar-brand  ps-2 img-fluid d-lg-block d-xl-none <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
+		<a class="navbar-brand  ps-2 img-fluid d-lg-flex d-xl-none <?=$menu->logo?>" href="<?php echo esc_url( home_url() ); ?>">
 			<img src="<?=get_hupa_frontend('nav-img')->url?>"
 			     alt="<?=get_bloginfo('name')?>"
 			     class="logo sm">
@@ -49,12 +49,10 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 			<i class="text-secondary fas fa-bars"></i>
 		</button>
 		<div class="offcanvas <?=$handyMenu?> offcanvas-end" tabindex="-1" data-bs-hideresize="true" id="offcanvas-navbar">
-			<div class="offcanvas-header hover cursor-pointer"
-			     data-bs-dismiss="offcanvas">
-				<i class="fas fa-chevron-left"></i> <span class="handy-link-font">
-               <?php esc_html_e( 'Menü schließen', 'bootscore' ); ?>
-                </span>
-            </div>
+           <div class="offcanvas-header">
+            <div id="logoPlaceholder"></div>
+			<div class="menu btn2 open cursor-pointer"data-bs-dismiss="offcanvas"><div class="icon"></div></div>
+           </div>
 			<div class="offcanvas-body justify-content-<?=$menu->block?>">
 				<!-- Bootstrap 5 Nav Walker Main Menu -->
 				<?php
@@ -64,8 +62,9 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 					'menu_class'     => '',
 					'fallback_cb'    => '__return_false',
 					'items_wrap'     => '<ul id="bootscore-navbar" class="navbar-nav align-items-center %2$s">%3$s</ul>',
-					'depth'          => 2,
-					'walker'         => new bootstrap_5_wp_nav_menu_walker()
+					'depth'          => 6,
+                    //'walker' => new bootstrap_5_wp_nav_deep_walker()
+					'walker' => new bootstrap_5_wp_nav_menu_walker()
 				) );
 				?>
 				<!-- Bootstrap 5 Nav Walker Main Menu End -->

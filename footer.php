@@ -104,10 +104,6 @@ $pageBottomFooter = $pageSettings->show_bottom_footer;
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter="">
-    <h3 class="title text-white fs-4"></h3>
-    <a class="close">×</a>
-    <div class="slides"></div>
-</div>
+<div id="blueimp-gallery"></div>
 </body>
 </html>

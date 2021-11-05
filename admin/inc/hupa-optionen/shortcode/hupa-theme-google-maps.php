@@ -37,10 +37,7 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
         public function __construct()
         {
             add_shortcode('gmaps', array($this, 'hupa_gmaps_shortcode'));
-            @session_start();
-            if(isset($_SESSION['gmaps'])){
-                $this->gmaps = $_SESSION['gmaps'];
-            }
+
         }
         public function hupa_gmaps_shortcode($atts, $content, $tag)
         {
@@ -50,6 +47,14 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                 'width' => '',
 
             ), $atts);
+
+            ob_start();
+            @session_start();
+            if(isset($_SESSION['gmaps'])){
+                $gmaps = $_SESSION['gmaps'];
+            } else {
+                $gmaps = false;
+            }
 
             $id = trim($a['id']);
             if (!$id) {
@@ -92,7 +97,6 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                                       color:'.get_hupa_option('map_btn_color').';
                                       border-color:'.get_hupa_option('map_btn_border_color').';"'.$onMouseBgHover.$onMouseBgOut;
             $mapStyle->btn = preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $btn));
-            ob_start();
             ?>
             <?php
             if ($id == 'api-maps'):
@@ -104,6 +108,7 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                     } ?>
                 </div>
             <?php
+              session_write_close();
             endif;
             if ($id != 'api-maps') {
                 $args = sprintf('WHERE shortcode="%s"', $id);

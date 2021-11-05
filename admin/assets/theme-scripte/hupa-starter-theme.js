@@ -146,6 +146,17 @@ jQuery(document).ready(function ($) {
             }
         }
 
+        let hupaTopArea = $('.hupa-top-area');
+        if (hupaTopArea  && !$('.header-carousel').length) {
+           let siteContent = $('.site-content');
+            let siteHeight = header.outerHeight() - header.outerHeight();
+            if (scroll > topArea.outerHeight()) {
+                siteContent.css('padding-top', header.outerHeight() + 'px');
+            } else {
+                siteContent.css('padding-top', -siteHeight + 'px');
+            }
+        }
+
         if (scroll > 200) {
             header.addClass("navbar-small");
             if (navLogo) {

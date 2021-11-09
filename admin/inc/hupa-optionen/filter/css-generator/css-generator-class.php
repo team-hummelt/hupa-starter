@@ -739,7 +739,7 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			if ( ! $fontData ) {
 				return '';
 			}
-            //print_r($fontData);
+
 			$fontFace = '';
 			foreach ( $fontData as $font ) {
                 if ($font) {

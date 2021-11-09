@@ -739,22 +739,30 @@ if ( ! class_exists( 'HupaStarterCssGenerator' ) ) {
 			if ( ! $fontData ) {
 				return '';
 			}
-
+            //print_r($fontData);
 			$fontFace = '';
-
 			foreach ( $fontData as $font ) {
                 if ($font) {
                     $fontFace .= '@font-face {' . "\n\r";
                     $fontFace .= 'font-family:\'' . $font['fontFamily'] . '\';' . "\n\r";
                     $srcCount = count($font['sourceFile']);
+                    foreach  ($font['sourceFile'] as $src) {
+                      if($src['format'] === 'embedded-opentype') {
+                          $eot = str_replace('?#iefix','',$src['source']);
+                          $fontFace .= 'src: url(\''.$eot.'\');'."\n\r";
+                          break;
+                      }
+                    }
+                    $fontFace .= 'src:' . "\n\r";
                     $i = 1;
                     foreach ($font['sourceFile'] as $src) {
-                        $srcCount === $i ? $dot = ';' : $dot = ',';
+                        $srcCount === $i ? $dot = ';'."\n\r" : $dot = ','."\n\r";
                         $fontFace .= "url('" . $src['source'] . "') format('" . $src['format'] . "')" . $dot . "" . "\r\n";
                         $i++;
                     }
                     $fontFace .= $font['fontWeight'] . "\n\r";
                     $fontFace .= $font['fontStyle'] . "\n\r";
+                    $fontFace .= 'font-display: swap;'."\r\n";
                     $fontFace .= '}' . "\n\r";
                 }
             }

@@ -203,6 +203,26 @@ function show_message_collapse(id) {
     });
 }
 
+function set_theme_preloader(e) {
+    let id = e.getAttribute('data-id');
+    let preWrapper = document.querySelectorAll('.dot-box input');
+    if (e.checked) {
+        preWrapper.forEach((el) => {
+            el.form.classList.remove('active');
+            el.checked = false;
+        });
+        e.form.classList.add('active');
+        e.checked = true;
+    } else {
+        e.form.classList.remove('active');
+    }
+    const data = {
+        'method': 'set_preloader',
+        'id' : id,
+        'aktiv' : e.checked ? 1 : 0,
+    }
+    send_xhr_form_data(data, false);
+}
 
 /*======================================
 ========== AJAX DATEN SENDEN  ==========
@@ -236,6 +256,16 @@ function send_xhr_form_data(data, is_formular = true) {
             if (data.spinner) {
                 show_ajax_spinner(data);
             }
+            if(data.show_msg) {
+                if(data.status){
+                    success_message(data.msg);
+                } else {
+                    warning_message(data.msg)
+                }
+
+                return false;
+            }
+
             if (!data.method) {
                 return false;
             }
@@ -253,7 +283,7 @@ function send_xhr_form_data(data, is_formular = true) {
                     break;
                 case 'delete_font':
                     if (data.status) {
-                        document.getElementById('installFont-'+data.font).remove();
+                        document.getElementById('installFont-' + data.font).remove();
                         success_message(data.msg);
                     } else {
                         warning_message(data.msg);
@@ -265,12 +295,15 @@ function send_xhr_form_data(data, is_formular = true) {
                     }
                     break;
                 case'load_install_formular_fonts':
-                    if(data.status){
+                    if (data.status) {
                         let html = `<option value=""> auswählen...</option>`;
                         for (const [key, val] of Object.entries(data.record)) {
                             html += `<option value="${val.id}">${val.bezeichnung}</option>`;
                         }
-                        document.getElementById('inputInstallFont').innerHTML = html;
+                        let installFonts = document.getElementById('inputInstallFont');
+                        if (installFonts) {
+                            installFonts.innerHTML = html;
+                        }
                     }
                     break;
 
@@ -688,7 +721,7 @@ if (iconSettingsInfoModal) {
 }
 
 function set_select_info_icon(title, unicode, icon) {
-    let html = `
+    document.getElementById('shortcode-info').innerHTML = `
         <i class="${icon} fa-4x d-block mb-2"></i>
        <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon i="${title}"]</span>
        <span class="d-block"><b class="text-danger d-inline-block" style="min-width: 6rem;">Unicode:</b> ${unicode}</span> 
@@ -718,8 +751,6 @@ function set_select_info_icon(title, unicode, icon) {
                [icon i="${title}" code="true"]     
             </div>
         </div>`;
-
-    document.getElementById('shortcode-info').innerHTML = html;
     document.getElementById('resetIcons').classList.remove('d-none');
     //shortWrapper.innerHTML = html;
 }
@@ -751,10 +782,10 @@ function get_install_fonts_template(data = false) {
                     <div class="font-body">
                         <h6>Schriftstile:</h6>
                         <ul class="li-font-list list-unstyled mb-2">`;
-                         for (const [keyStyle, valStyle] of Object.entries(valFamily.styles)) {
-                            html += `<li>${valStyle}</li>`;
-                        }
-                    html +=`</ul>
+        for (const [keyStyle, valStyle] of Object.entries(valFamily.styles)) {
+            html += `<li>${valStyle}</li>`;
+        }
+        html += `</ul>
                     </div>
                     <div class="mt-auto font-footer">
                         <hr class="mt-1">
@@ -773,7 +804,8 @@ function get_install_fonts_template(data = false) {
 }
 
 load_install_formular_fonts();
-function load_install_formular_fonts(){
+
+function load_install_formular_fonts() {
     const installFormularFonts = {
         'method': 'load_install_formular_fonts',
     }

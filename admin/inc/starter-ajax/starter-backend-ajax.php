@@ -1360,4 +1360,17 @@ switch ($method) {
         $responseJson->msg = 'I-Frame gelöscht!';
         break;
 
+    case 'set_preloader':
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $responseJson->show_msg = true;
+        if (!$id) {
+            $responseJson->msg = 'Übertragungsfehler!';
+            return $responseJson;
+        }
+        filter_input(INPUT_POST, 'aktiv', FILTER_SANITIZE_NUMBER_INT) ? $aktiv = $id : $aktiv = false;
+        update_option('theme_preloader',$aktiv);
+        $responseJson->status = true;
+        $responseJson->msg = 'Preloader gespeichert!';
+        break;
+
 }

@@ -41,6 +41,8 @@ if (!class_exists('HupaApiServerHandle')) {
             //TODO JOB GET Resources Endpoints
             add_filter('get_scope_resource', array($this, 'hupaGETApiResource'), 10, 2);
 
+            add_filter('get_api_download', array($this, 'HupaApiDownloadFile'), 10, 2);
+
             //TODO JOB VALIDATE SOURCE BY Authorization Code
             add_filter('get_resource_authorization_code', array($this, 'hupaInstallByAuthorizationCode'));
 
@@ -126,13 +128,13 @@ if (!class_exists('HupaApiServerHandle')) {
                 return $error;
             }
             $apiData = json_decode($response['body']);
-            if(!$apiData->error){
+            if($apiData->success){
                 $apiData->status = true;
                 return $apiData;
             }
 
-            $error->error = $apiData->error;
-            $error->error_description = $apiData->error_description;
+            $error->error = $apiData->message;
+            //$error->error_description = $apiData->error_description;
             return $error;
         }
 
@@ -198,6 +200,44 @@ if (!class_exists('HupaApiServerHandle')) {
                 'body'          => $body
 
             ];
+        }
+
+        public function HupaApiDownloadFile($url, $body = []) {
+
+            $bearerToken = get_option('hupa_access_token');
+            $args = [
+                'method'        => 'POST',
+                'timeout'       => 45,
+                'redirection'   => 5,
+                'httpversion'   => '1.0',
+                'blocking'      => true,
+                'sslverify'     => true,
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Authorization' => "Bearer $bearerToken"
+                ],
+                'body'          => $body
+            ];
+
+            $response = wp_remote_post( $url, $args );
+
+            if (is_wp_error($response)) {
+                $this->hupaGetApiClientCredentials();
+            }
+
+            $response = wp_remote_post( $url, $args );
+
+            if (is_wp_error($response)) {
+                print_r($response->get_error_message());
+                exit();
+            }
+
+            if( !is_array( $response ) ) {
+              exit('Download Fehlgeschlagen!');
+            }
+
+            return $response['body'];
+
         }
 
         private function hupaGETApiArgs():array

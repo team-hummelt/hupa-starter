@@ -10,15 +10,6 @@ defined('ABSPATH') or die();
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
-        <?php
-
-        $body = [
-
-        ];
-        $t = apply_filters('post_scope_resource', 'file/font-list');
-        $vers = str_replace(['v','.'],'', THEME_VERSION);
-
-        ?>
         <div class="card shadow-sm">
 
             <h5 class="card-header d-flex align-items-center bg-hupa py-4">

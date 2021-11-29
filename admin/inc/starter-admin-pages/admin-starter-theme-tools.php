@@ -23,7 +23,7 @@ $args = array(
     'posts_per_page' => -1
 );
 $header = new WP_Query($args);
-
+//echo substr(ABSPATH,0 ,strrpos(ABSPATH,'/'));
 
 ?>
 <div class="wp-bs-starter-wrapper my3">

@@ -94,14 +94,23 @@ final class HupaRegisterStarterTheme {
 
     public function register_hupa_starter_theme_admin_menu(): void {
         //startseite
-        $hook_suffix = add_menu_page(
+       add_menu_page(
+            __( 'HUPA Theme', 'bootscore' ),
+            __( 'HUPA Theme', 'bootscore' ),
+            'manage_options',
+            'hupa-starter-home',
+           '',
+            'dashicons-layout', 5
+        );
+
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-home',
             __( 'Theme Settings', 'bootscore' ),
             __( 'Theme Settings', 'bootscore' ),
             'manage_options',
             'hupa-starter-home',
-            array( $this, 'hupa_admin_starter_theme_home' ),
-            'dashicons-layout', 5
-        );
+            array( $this, 'hupa_admin_starter_theme_home' ) );
+
         add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
 
         if ( HUPA_TOOLS ) {
@@ -153,14 +162,22 @@ final class HupaRegisterStarterTheme {
 
     public function register_hupa_starter_maps_menu(): void {
         //GOOGLE MAPS SEITE
-        $hook_suffix = add_menu_page(
-            __( 'Google API Maps', 'bootscore' ),
+        add_menu_page(
+            __( 'Google Maps', 'bootscore' ),
             __( 'Google Maps', 'bootscore' ),
             'manage_options',
             'hupa-starter-maps',
-            array( $this, 'hupa_admin_starter_theme_maps' ),
+            '',
             'dashicons-location-alt', 8
         );
+
+        $hook_suffix = add_submenu_page(
+            'hupa-starter-maps',
+            __('Google Maps API', 'bootscore'),
+            __('Google Maps API', 'bootscore'),
+            'manage_options',
+            'hupa-starter-maps',
+            array($this, 'hupa_admin_starter_theme_maps'));
 
         add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
 
@@ -448,8 +465,6 @@ final class HupaRegisterStarterTheme {
         $phpmailer->CharSet = "utf-8";
     }
 
-
-
     public function starter_log_mailer_errors( $wp_error ){
         $file = THEME_ADMIN_INC . 'log/mail-error.log';
         $current = file_get_contents($file);
@@ -528,13 +543,16 @@ final class HupaRegisterStarterTheme {
         //TODO FontAwesome / Bootstrap
         wp_enqueue_style( 'hupa-starter-admin-bs-style', THEME_ADMIN_URL . 'assets/admin/css/bs/bootstrap.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
-        wp_enqueue_style( 'admin-fontawesome-5', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $hupa_theme );
+        wp_enqueue_style( 'admin-fontawesome-5', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $hupa_theme->get( 'Version' ),false );
 
         // TODO ADMIN ICONS
         wp_enqueue_style( 'hupa-starter-admin-icons-style', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $hupa_theme->get( 'Version' ), false );
 
         // TODO DASHBOARD STYLES
         wp_enqueue_style( 'hupa-starter-admin-dashboard-style', THEME_ADMIN_URL . 'assets/admin/css/admin-dashboard-style.css', array(), $hupa_theme->get( 'Version' ), false );
+
+        // TODO FlipClock
+        wp_enqueue_style( 'hupa-starter-admin-flipclock', THEME_ADMIN_URL . 'assets/admin/css/tools/flipclock.min.css', array(), $hupa_theme->get( 'Version' ), false );
 
         // TODO ANIMATE
         wp_enqueue_style( 'hupa-starter-admin-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $hupa_theme->get( 'Version' ), false );
@@ -558,6 +576,10 @@ final class HupaRegisterStarterTheme {
 
         // TODO Bootstrap JS
         wp_enqueue_script( 'hupa-hupa-starter-bs-js', THEME_ADMIN_URL . 'assets/admin/js/bs/bootstrap.bundle.min.js', array(), THEME_VERSION, true );
+        //TODO Theme jQuery
+        wp_enqueue_script( 'js-hupa-jquery-script', THEME_ADMIN_URL . 'assets/admin/js/admin-dashboard-jQuery.js', array('jquery'), THEME_VERSION, true );
+        //TODO FlipClock
+        wp_enqueue_script( 'js-hupa-flipclock-script', THEME_ADMIN_URL . 'assets/admin/js/tools/flipclock.min.js', array(), THEME_VERSION, true );
 
         //TODO TOOLS
         wp_enqueue_script( 'js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), THEME_VERSION, true );
@@ -598,7 +620,7 @@ final class HupaRegisterStarterTheme {
         $footer = '<p class="starter_admin_footer_text"> 
 			  <a href="https://www.hummelt-werbeagentur.de/" title="Werbeagentur in Magdeburg">
 			  <img alt="Werbeagentur in Magdeburg" src="' . THEME_ADMIN_URL . 'assets/images/hupa-red.svg"></a>HUMMELT&nbsp; 
-			  <span class="footer-red">UND&nbsp;</span> PARTNER THEME</p>';
+			  <span class="footer-red">UND&nbsp;</span> PARTNER THEME </p>';
         echo preg_replace( array( '/<!--(.*)-->/Uis', "/[[:blank:]]+/" ), array( '', ' ' ), str_replace( array(
             "\n",
             "\r",

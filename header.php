@@ -51,14 +51,11 @@
         <meta name="msapplication-TileImage"
               content="<?php echo get_stylesheet_directory_uri(); ?>/img/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
-
-
         <?= do_shortcode('[hupa-preloader]') ?>
 
-        <title> <?php bloginfo('name');
-            wp_title('|', true, 'left'); ?> </title>
+        <title> <?php bloginfo('name'); wp_title( '|', true, 'left' );  ?> </title>
         <!-- Loads the internal WP jQuery. Required if a 3rd party plugin loads jQuery in header instead in footer -->
-        <?php wp_enqueue_script('jquery'); ?>
+        <?php wp_enqueue_script( 'jquery' ); ?>
         <?php wp_head(); ?>
     </head>
 
@@ -71,45 +68,44 @@ $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
     <header id="masthead" class="site-header">
         <!--==================== TOP AREA ====================-->
 
-        <?php if ($pageSettings->show_top_area): ?>
+        <?php if($pageSettings->show_top_area):?>
             <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
-                <div class="<?= $pageSettings->top_area_container ? 'container' : 'container-fluid' ?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-center align-items-center">
-                    <?php if (is_active_sidebar('top-menu-1') && get_hupa_tools('areainfo_')->aktiv) : ?>
-                        <div class="py-2  order-<?= get_hupa_tools('areainfo_')->position ?>  <?= get_hupa_tools('areainfo_')->css_class ?>">
-                            <?php dynamic_sidebar('top-menu-1'); ?>
+                <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-center align-items-center">
+                    <?php if ( is_active_sidebar( 'top-menu-1' ) && get_hupa_tools('areainfo_')->aktiv) : ?>
+                        <div class="py-2  order-<?=get_hupa_tools('areainfo_')->position?>  <?=get_hupa_tools('areainfo_')->css_class?>">
+                            <?php dynamic_sidebar( 'top-menu-1' ); ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (is_active_sidebar('top-menu-2') && get_hupa_tools('areasocial_')->aktiv) : ?>
-                        <div class="py-2 order-<?= get_hupa_tools('areasocial_')->position ?> <?= get_hupa_tools('areasocial_')->css_class ?>">
-                            <?php dynamic_sidebar('top-menu-2'); ?>
+                    <?php if ( is_active_sidebar( 'top-menu-2' ) && get_hupa_tools('areasocial_')->aktiv) : ?>
+                        <div class="py-2 order-<?=get_hupa_tools('areasocial_')->position?> <?=get_hupa_tools('areasocial_')->css_class?>">
+                            <?php dynamic_sidebar( 'top-menu-2' ); ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (has_nav_menu('top-area-menu') && get_hupa_tools('areamenu_')->aktiv) : ?>
-                        <nav id="top-area-nav"
-                             class="top-area-navigation  order-<?= get_hupa_tools('areamenu_')->position ?> <?= get_hupa_tools('areamenu_')->css_class ?>"
-                             role="navigation"
-                             aria-label="<?php esc_attr_e('Hupa Top-Area Menu', 'bootscore'); ?>">
+                    <?php if ( has_nav_menu( 'top-area-menu' ) && get_hupa_tools('areamenu_')->aktiv ) : ?>
+                        <nav id="top-area-nav" class="top-area-navigation  order-<?=get_hupa_tools('areamenu_')->position?> <?=get_hupa_tools('areamenu_')->css_class?>" role="navigation"
+                             aria-label="<?php esc_attr_e( 'Hupa Top-Area Menu', 'bootscore' ); ?>">
                             <?php
-                            wp_nav_menu(array(
+                            wp_nav_menu( array(
                                 'theme_location' => 'top-area-menu',
-                                'container' => false,
-                                'menu_class' => '',
-                                'fallback_cb' => '__return_false',
-                                'items_wrap' => '<ul id="top-area-navbar" class="justify-content-start navbar-nav %2$s">%3$s</ul>',
-                                'depth' => 2,
-                                'walker' => new Hupa_top_area_Walker()
-                            ));
+                                'container'      => false,
+                                'menu_class'     => '',
+                                'fallback_cb'    => '__return_false',
+                                'items_wrap'     => '<ul id="top-area-navbar" class="justify-content-start navbar-nav %2$s">%3$s</ul>',
+                                'depth'          => 2,
+                                'walker'         => new Hupa_top_area_Walker()
+                            ) );
                             ?>
                         </nav>
                     <?php endif; ?>
-                    <?php if (is_active_sidebar('top-menu-3') && get_hupa_tools('areabtn_')->aktiv) : ?>
-                        <div class="py-2 order-<?= get_hupa_tools('areabtn_')->position ?> <?= get_hupa_tools('areabtn_')->css_class ?>">
-                            <?php dynamic_sidebar('top-menu-3'); ?>
+                    <?php if ( is_active_sidebar( 'top-menu-3' ) &&  get_hupa_tools('areabtn_')->aktiv ) : ?>
+                        <div class="py-2 order-<?=get_hupa_tools('areabtn_')->position?> <?=get_hupa_tools('areabtn_')->css_class?>">
+                            <?php dynamic_sidebar( 'top-menu-3' ); ?>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
         <?php endif; ?>
+
         <!--==================== TOP AREA END ====================-->
         <?php
         include 'navigation/standard-nav.php';

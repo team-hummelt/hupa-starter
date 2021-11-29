@@ -13,6 +13,16 @@ defined('ABSPATH') or die();
  */
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
+//AKTIVE PLUGINS
+is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
+is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
+is_plugin_active( 'hupa-minify/hupa-minify.php' ) ? $hupaMinify = true : $hupaMinify = false;
+
+define("WP_POST_SELECTOR_AKTIV", $postSelect);
+define("BS_FORM_AKTIV", $bsFormular);
+define("HUPA_MINIFY_AKTIV", $hupaMinify);
+
+
 $theme_data = wp_get_theme('hupa-starter');
 $child_data = wp_get_theme('hupa-starter-child');
 if ( $child_data->exists() ) {
@@ -49,11 +59,6 @@ define('HUPA_THEME_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 //THEME SLUG
 define('HUPA_THEME_SLUG',  wp_basename(dirname(__DIR__)));
 
-is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
-is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
-
-define("WP_POST_SELECTOR_AKTIV", $postSelect);
-define("BS_FORM_AKTIV", $bsFormular);
 
 /**=================================HUPA OPTIONEN ======================================*/
 //SHOW SIDEBAR
@@ -93,8 +98,6 @@ const HUPA_STARTER_THEME_QUERY = 'hupa';
 define("THEME_ADMIN_URL", get_template_directory_uri() . '/admin/');
 //JS MODULE URL
 define("THEME_JS_MODUL_URL", get_template_directory_uri() . '/admin/assets/admin/js/js-module/');
-
-
 
 //GUTENBERG TOOLS
 const HUPA_THEME_TOOLS_URL = THEME_ADMIN_URL . 'inc/gutenberg-tools/';

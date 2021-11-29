@@ -6,12 +6,18 @@
  * https://www.hummelt-werbeagentur.de/
  *
  */
+
+
 //BS TOOLTIP
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const current_page = urlParams.get('page');
 
 //Ajax Spinner
 let ajaxSpinner = document.querySelectorAll(".ajax-status-spinner");
@@ -64,7 +70,7 @@ if (settingsColBtn) {
                     get_install_fonts_overview();
                     break;
                 case'loadInstallFormularFonts':
-                    load_install_formular_fonts();
+                    load_install_list_api_data();
                     break;
 
             }
@@ -218,8 +224,8 @@ function set_theme_preloader(e) {
     }
     const data = {
         'method': 'set_preloader',
-        'id' : id,
-        'aktiv' : e.checked ? 1 : 0,
+        'id': id,
+        'aktiv': e.checked ? 1 : 0,
     }
     send_xhr_form_data(data, false);
 }
@@ -256,8 +262,8 @@ function send_xhr_form_data(data, is_formular = true) {
             if (data.spinner) {
                 show_ajax_spinner(data);
             }
-            if(data.show_msg) {
-                if(data.status){
+            if (data.show_msg) {
+                if (data.status) {
                     success_message(data.msg);
                 } else {
                     warning_message(data.msg)
@@ -294,15 +300,44 @@ function send_xhr_form_data(data, is_formular = true) {
                         get_install_fonts_template(data.record)
                     }
                     break;
-                case'load_install_formular_fonts':
-                    if (data.status) {
-                        let html = `<option value=""> auswählen...</option>`;
-                        for (const [key, val] of Object.entries(data.record)) {
+                case'load_install_list_api_data':
+                    if (data.font_status) {
+                        let html = `<option value="noSelect"> auswählen...</option>`;
+                        for (const [key, val] of Object.entries(data.fonts)) {
                             html += `<option value="${val.id}">${val.bezeichnung}</option>`;
                         }
                         let installFonts = document.getElementById('inputInstallFont');
                         if (installFonts) {
                             installFonts.innerHTML = html;
+                        }
+                    }
+                    if (data.plugin_status) {
+                        let html = `<option value="noSelect"> auswählen...</option>`;
+                        for (const [key, val] of Object.entries(data.plugins)) {
+                            let installVal;
+                            let optionClass;
+                            val.installiert ? installVal = "" : installVal = val.id;
+                            val.installiert ? optionClass = 'bg-danger text-light' : optionClass = 'bg-success text-light';
+                            html += `<option class="${optionClass}" value="${installVal}">${val.bezeichnung} - ${val.version}</option>`;
+                        }
+                        let installPlugin = document.getElementById('inputInstallPlugins');
+                        if (installPlugin) {
+                            installPlugin.innerHTML = html;
+                        }
+                    }
+                    if (data.child_status) {
+                        let html = `<option value="noSelect"> auswählen...</option>`;
+
+                        for (const [key, val] of Object.entries(data.childs)) {
+                            let installChildVal;
+                            let childOptionClass;
+                            val.installiert ? installChildVal = "" : installChildVal = val.id;
+                            val.installiert ? childOptionClass = 'bg-danger text-light' : childOptionClass = 'bg-success text-light';
+                            html += `<option class="${childOptionClass}" value="${installChildVal}">${val.bezeichnung} - ${val.version}</option>`;
+                        }
+                        let installChild = document.getElementById('inputInstallChild');
+                        if (installChild) {
+                            installChild.innerHTML = html;
                         }
                     }
                     break;
@@ -318,6 +353,49 @@ function send_xhr_form_data(data, is_formular = true) {
                         document.querySelector('.upload_spinner').classList.add('d-none');
                         document.getElementById('install_font_form').reset();
 
+                    } else {
+                        warning_message(data.msg);
+                    }
+                    break;
+
+                case 'install_api_files':
+                    let select = document.getElementById(data.select);
+                    let option = select.options[select.selectedIndex];
+                    let spin = select.form.querySelector('.upload_spinner');
+                    let button = select.form.querySelector('button.btn-download');
+                    let activate = select.form.querySelector('button.btn-activate');
+                    if (data.status) {
+                        success_message(data.msg);
+                        option.classList.remove('bg-success');
+                        option.classList.add('bg-danger');
+                        option.value = "";
+                        select.form.reset();
+                        select.removeAttribute('disabled');
+                        spin.classList.add('d-none');
+                        button.setAttribute('disabled', true);
+                        button.classList.remove('active');
+                        activate.classList.remove('d-none');
+                        activate.setAttribute('data-method', data.data_method);
+                        activate.setAttribute('data-slug', data.slug);
+                        activate.innerHTML = data.name + ' aktivieren?';
+                    } else {
+                        select.removeAttribute('disabled');
+                        warning_message(data.msg);
+                        button.setAttribute('disabled', true);
+                        button.classList.remove('active');
+                        spin.classList.add('d-none');
+                    }
+                    break;
+
+                case 'api_activate_download':
+                    if (data.status) {
+                        success_message(data.msg);
+                        let selector = document.getElementById(data.selector);
+                        let btn = selector.form.querySelector('button.btn-activate');
+                        btn.classList.add('d-none');
+                        setTimeout(function () {
+                            reload_settings_page();
+                        }, 3000);
                     } else {
                         warning_message(data.msg);
                     }
@@ -574,12 +652,109 @@ function change_font_style_select_input(data) {
     }
 }
 
+
+function change_api_install_select(e) {
+    e.blur();
+    let errMsg = e.form.querySelector('.select_err_msg');
+    let currentBtn = e.form.querySelector('button.btn-download');
+
+    let pinInput = e.form.querySelector('#inputDownloadPin');
+    if (e.value && e.value != 'noSelect') {
+        errMsg.classList.add('d-none');
+        currentBtn.removeAttribute('disabled');
+        currentBtn.classList.add('active');
+        if (pinInput) {
+            if (!pinInput.value) {
+                currentBtn.setAttribute('disabled', true);
+            } else {
+                currentBtn.removeAttribute('disabled');
+            }
+            pinInput.removeAttribute('disabled');
+        }
+    } else {
+        errMsg.classList.remove('d-none');
+        currentBtn.setAttribute('disabled', true);
+        currentBtn.classList.remove('active');
+        if (pinInput) {
+            pinInput.value = '';
+            pinInput.setAttribute('disabled', true);
+        }
+    }
+
+    if (e.value == 'noSelect') {
+        errMsg.classList.add('d-none');
+        currentBtn.setAttribute('disabled', true);
+        currentBtn.classList.remove('active');
+        if (pinInput) {
+            pinInput.value = '';
+            pinInput.setAttribute('disabled', true);
+        }
+    }
+}
+
+function btn_api_install(e) {
+    let spin = e.form.querySelector('.upload_spinner');
+    let select = e.form.querySelector('select');
+    let pinInput = e.form.querySelector('#inputDownloadPin');
+    spin.classList.remove('d-none');
+    send_xhr_form_data(e.form);
+    select.setAttribute('disabled', true);
+    e.form.reset();
+    if (pinInput) {
+        pinInput.setAttribute('disabled', true);
+    }
+
+}
+
+function activate_api_install_type(e) {
+    let slug = e.getAttribute('data-slug');
+    let method = e.getAttribute('data-method');
+    let selector = e.form.querySelector('select').id;
+    const sendApiData = {
+        'method': method,
+        'slug': slug,
+        'selector': selector
+    }
+    send_xhr_form_data(sendApiData, false);
+}
+
 function change_input_select_value(value) {
     let select = (value.value || value.options[value.selectedIndex].value);
     if (!select) {
         return false;
     }
     return select;
+}
+
+
+let themeSendPinTimeout;
+let inputDownloadPin = document.getElementById('inputDownloadPin');
+if (inputDownloadPin) {
+    inputDownloadPin.addEventListener("keyup", form_input_pin_handle, {passive: true});
+    inputDownloadPin.addEventListener('touchstart', form_input_pin_handle, {passive: true});
+
+    function form_input_pin_handle() {
+        clearTimeout(themeSendPinTimeout);
+        themeSendPinTimeout = setTimeout(function () {
+            let selectVal = inputDownloadPin.form.querySelector('#inputInstallChild').value;
+            let sendBtn = inputDownloadPin.form.querySelector('button.btn-download');
+            if (selectVal == 'noSelect') {
+                return false;
+            }
+            if (inputDownloadPin.value.length < 7) {
+                sendBtn.setAttribute('disabled', true);
+                return false;
+            } else {
+                sendBtn.removeAttribute('disabled');
+            }
+            if (inputDownloadPin.value || inputDownloadPin.value.length < 7) {
+                sendBtn.removeAttribute('disabled');
+            } else {
+                sendBtn.setAttribute('disabled', true);
+            }
+        }, 1000);
+    }
+
 }
 
 
@@ -803,13 +978,15 @@ function get_install_fonts_template(data = false) {
     document.getElementById('installFontsContainer').innerHTML = html;
 }
 
-load_install_formular_fonts();
+if (current_page == 'hupa-install-font') {
+    load_install_list_api_data();
+}
 
-function load_install_formular_fonts() {
-    const installFormularFonts = {
-        'method': 'load_install_formular_fonts',
+function load_install_list_api_data() {
+    const installApiDataList = {
+        'method': 'load_install_list_api_data',
     }
-    send_xhr_form_data(installFormularFonts, false);
+    send_xhr_form_data(installApiDataList, false);
 }
 
 let themeSortable = document.querySelectorAll(".hupaSortable");
@@ -849,54 +1026,6 @@ if (themeSortable) {
     });
 }
 
-//RELOAD PAGE
-function reload_settings_page() {
-    location.reload();
-}
-
-/*==============================================
-========== SERIALIZE FORMULAR INPUTS  ==========
-================================================
-*/
-function serialize_form_data(data) {
-    let formData = new FormData(data);
-    let o = {};
-    for (let [name, value] of formData) {
-        if (o[name] !== undefined) {
-            if (!o[name].push) {
-                o[name] = [o[name]];
-            }
-            o[name].push(value || '');
-        } else {
-            o[name] = value || '';
-        }
-    }
-    return o;
-}
-
-/*=====================================
-========== HELPER RANDOM KEY ==========
-=======================================
-*/
-function createRandomCode(length) {
-    let randomCodes = '';
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-        randomCodes += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return randomCodes;
-}
-
-function createRandomInteger(length) {
-    let randomCodes = '';
-    let characters = '0123456789';
-    let charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-        randomCodes += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return randomCodes;
-}
 
 function load_js_colorpickr(container) {
     let clrPickrContainer = document.querySelectorAll(container + ' .colorPickers');
@@ -1034,3 +1163,51 @@ function warning_message(msg) {
     }, 3000);
 }
 
+//RELOAD PAGE
+function reload_settings_page() {
+    location.reload();
+}
+
+/*==============================================
+========== SERIALIZE FORMULAR INPUTS  ==========
+================================================
+*/
+function serialize_form_data(data) {
+    let formData = new FormData(data);
+    let o = {};
+    for (let [name, value] of formData) {
+        if (o[name] !== undefined) {
+            if (!o[name].push) {
+                o[name] = [o[name]];
+            }
+            o[name].push(value || '');
+        } else {
+            o[name] = value || '';
+        }
+    }
+    return o;
+}
+
+/*=====================================
+========== HELPER RANDOM KEY ==========
+=======================================
+*/
+function createRandomCode(length) {
+    let randomCodes = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        randomCodes += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return randomCodes;
+}
+
+function createRandomInteger(length) {
+    let randomCodes = '';
+    let characters = '0123456789';
+    let charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        randomCodes += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return randomCodes;
+}

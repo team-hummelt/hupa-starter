@@ -73,6 +73,8 @@ require 'action/theme-options.php';
 require 'action/hupa-html-compression.php';
 //TODO UPDATE OPTIONEN CLASS
 require 'action/hupa-update-action.php';
+//WARNING JOB API HANDLE CLASS
+require 'api/class-api-handle.php';
 
 if(get_option("hupa_theme_version") == THEME_VERSION){
     do_action('validate_install_optionen');
@@ -95,6 +97,10 @@ function get_hupa_frontend($type, $args = '')
 {
 	return apply_filters('get_hupa_frontend',$type, $args);
 }
+
+
+
+
 
 
 

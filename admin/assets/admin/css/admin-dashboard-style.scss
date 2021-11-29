@@ -11,11 +11,33 @@ $tooltip-bg: #e11d2a;
 $dotBoxBg: #f8f9fa;
 $dotBoxBorder: #dee2e6;
 
-
 body .wp-bs-starter-wrapper {
   font-size: 1rem;
 }
 
+.flip-clock-wrapper {
+  padding-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ul li a div div.inn {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 200%;
+    color: #ccc;
+    text-shadow: 0 1px 2px #000;
+    text-align: center;
+    background-color: #aa000b!important;
+    border-radius: 6px;
+    font-size: 70px;
+  }
+  .flip-clock-dot {
+    background: #aa000b!important;
+  }
+}
 
 .small-title {
   font-size: .8rem !important;
@@ -50,15 +72,46 @@ body .wp-bs-starter-wrapper {
 
 //WRAPPER
 .wp-bs-starter-wrapper {
+
+  @keyframes flickerAnimation {
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+  }
+  @-o-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+  }
+  @-moz-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+  }
+  @-webkit-keyframes flickerAnimation{
+    0%   { opacity:1; }
+    50%  { opacity:0; }
+    100% { opacity:1; }
+  }
+  .animate-flicker {
+    -webkit-animation: flickerAnimation 1s infinite;
+    -moz-animation: flickerAnimation 1s infinite;
+    -o-animation: flickerAnimation 1s infinite;
+    animation: flickerAnimation 1s infinite;
+  }
+
+
   .dot-box {
     background-color: $dotBoxBg;
     border: 2px solid transparent;
     min-height: 125px;
     overflow: hidden;
     transition: all 450ms ease-in-out;
-  &.active {
-    border-color: #ceff08;
-  }
+
+    &.active {
+      border-color: #ceff08;
+    }
+
     .dot-wrapper {
       min-height: 80px;
       height: 100%;
@@ -67,10 +120,12 @@ body .wp-bs-starter-wrapper {
       align-items: center;
       justify-content: center;
     }
+
     .form-check {
       align-items: center;
       justify-content: center;
       display: flex;
+
       &:before {
         content: '';
         position: absolute;

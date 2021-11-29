@@ -8,6 +8,7 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
+global $hupa_api_handle;
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
@@ -99,9 +100,18 @@ defined('ABSPATH') or die();
                             </div>
                             <hr>
                             <h4 class="text-center"><?= __('News and Updates', 'bootscore') ?></h4>
-                            <hr>
-                            <?php $errMsg = str_replace('#', '<br>', get_option('hupa_update_error_message'));
-                                  echo $errMsg;
+                            <?php if(get_hupa_option('show_uhr_aktive')): ?>
+                            <div class="clock mb-3" id="homeStartClock"></div>
+                            <?php endif; ?>
+
+                            <?php if(get_hupa_option('news_api_aktiv')) {
+                                $news = apply_filters('post_scope_resource', 'news');
+                                if($news->status) {
+                                    echo $news->data;
+                                }
+                            }
+                            $errMsg = str_replace('#', '<br>', get_option('hupa_update_error_message'));
+                            echo $errMsg;
                             ?>
                         </div>
                         <small class="card-body-bottom">DB: <i
@@ -3420,7 +3430,8 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_active_bg') ?>"
                                                                name="menu_dropdown_active_bg">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü aktiv</b>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü
+                                                            aktiv</b>
                                                         Hintergrundfarbe</h6>
                                                 </div>
                                             </div>
@@ -3433,7 +3444,8 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_active_color') ?>"
                                                                name="menu_dropdown_active_color">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü aktiv</b>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü
+                                                            aktiv</b>
                                                         Schriftfarbe</h6>
                                                 </div>
                                             </div>
@@ -3469,7 +3481,8 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_hover_bg') ?>"
                                                                name="menu_dropdown_hover_bg">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü hover</b> Hintergrundfarbe</h6>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü
+                                                            hover</b> Hintergrundfarbe</h6>
                                                 </div>
                                             </div>
                                             <hr>
@@ -3481,7 +3494,8 @@ defined('ABSPATH') or die();
                                                                value="<?= get_hupa_option('menu_dropdown_hover_color') ?>"
                                                                name="menu_dropdown_hover_color">
                                                     </div>
-                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü hover</b> Schriftfarbe</h6>
+                                                    <h6 class="ms-2 mt-1 fw-light"><b class="fw-bold">Dropdown Menü
+                                                            hover</b> Schriftfarbe</h6>
                                                 </div>
                                             </div>
                                             <hr>
@@ -3781,61 +3795,78 @@ defined('ABSPATH') or die();
                                         </div>
                                     </div>
                                     <hr>
-
-                                    <div class="col-lg-12 pt-2">
-                                        <h6>
-                                            <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove WordPress Version', 'bootscore'); ?>
-                                        </h6>
+                                    <?php if (!HUPA_MINIFY_AKTIV): ?>
+                                        <div class="col-lg-12 pt-2">
+                                            <h6>
+                                                <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove WordPress Version', 'bootscore'); ?>
+                                            </h6>
+                                            <hr>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="version_aktiv" type="checkbox"
+                                                       id="CheckVersionActive"
+                                                       aria-describedby="CheckVersionActiveHelp" <?= (int)!get_hupa_option('version') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckVersionActive">
+                                                    <?= __('Remove version', 'bootscore') ?></label>
+                                            </div>
+                                            <div id="CheckVersionActiveHelp" class="form-text">
+                                                <?= __('If active, the WordPress version is <b>hidden</b> in the FrontEnd.', 'bootscore') ?>
+                                            </div>
+                                        </div>
                                         <hr>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" name="version_aktiv" type="checkbox"
-                                                   id="CheckVersionActive"
-                                                   aria-describedby="CheckVersionActiveHelp" <?= (int)!get_hupa_option('version') ?: 'checked' ?>>
-                                            <label class="form-check-label" for="CheckVersionActive">
-                                                <?= __('Remove version', 'bootscore') ?></label>
-                                        </div>
-                                        <div id="CheckVersionActiveHelp" class="form-text">
-                                            <?= __('If active, the WordPress version is <b>hidden</b> in the FrontEnd.', 'bootscore') ?>
-                                        </div>
-                                    </div>
-                                    <hr>
 
-                                    <div class="col-lg-12 pt-2">
-                                        <h6>
-                                            <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove emoji', 'bootscore'); ?>
-                                        </h6>
+                                        <div class="col-lg-12 pt-2">
+                                            <h6>
+                                                <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove emoji', 'bootscore'); ?>
+                                            </h6>
+                                            <hr>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="emoji_aktiv" type="checkbox"
+                                                       id="CheckEmojiActive"
+                                                       aria-describedby="CheckEmojiActiveHelp" <?= (int)!get_hupa_option('emoji') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckEmojiActive">
+                                                    <?= __('remove', 'bootscore') ?></label>
+                                            </div>
+                                            <div id="CheckEmojiActiveHelp" class="form-text">
+                                                <?= __('If this option is enabled the emoji source code will be <b>removed</b> from the front end.', 'bootscore') ?>
+                                            </div>
+                                        </div>
                                         <hr>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" name="emoji_aktiv" type="checkbox"
-                                                   id="CheckEmojiActive"
-                                                   aria-describedby="CheckEmojiActiveHelp" <?= (int)!get_hupa_option('emoji') ?: 'checked' ?>>
-                                            <label class="form-check-label" for="CheckEmojiActive">
-                                                <?= __('remove', 'bootscore') ?></label>
-                                        </div>
-                                        <div id="CheckEmojiActiveHelp" class="form-text">
-                                            <?= __('If this option is enabled the emoji source code will be <b>removed</b> from the front end.', 'bootscore') ?>
-                                        </div>
-                                    </div>
-                                    <hr>
 
-                                    <div class="col-lg-12 pt-2">
-                                        <h6>
-                                            <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove WP block CSS', 'bootscore'); ?>
-                                        </h6>
+                                        <div class="col-lg-12 pt-2">
+                                            <h6>
+                                                <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Remove WP block CSS', 'bootscore'); ?>
+                                            </h6>
+                                            <hr>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="css_aktiv" type="checkbox"
+                                                       id="CheckCSSBlockActive"
+                                                       aria-describedby="CheckCSSBlockActiveHelp" <?= (int)!get_hupa_option('block_css') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckCSSBlockActive">
+                                                    <?= __('remove', 'bootscore') ?></label>
+                                            </div>
+                                            <div id="CheckCSSBlockActiveHelp" class="form-text">
+                                                <?= __('If this option is activated, the CSS Gutenberg editor source code and WooCommerce CSS code is removed from the front end.', 'bootscore') ?>
+                                            </div>
+                                        </div>
                                         <hr>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" name="css_aktiv" type="checkbox"
-                                                   id="CheckCSSBlockActive"
-                                                   aria-describedby="CheckCSSBlockActiveHelp" <?= (int)!get_hupa_option('block_css') ?: 'checked' ?>>
-                                            <label class="form-check-label" for="CheckCSSBlockActive">
-                                                <?= __('remove', 'bootscore') ?></label>
+                                        <div class="col-lg-12 pt-2">
+                                            <h6>
+                                                <i class="font-blue fa fa-compress"></i>&nbsp;<?= __('Optimize HTML', 'bootscore'); ?>
+                                            </h6>
+                                            <hr>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" name="optimize" type="checkbox"
+                                                       id="CheckOptimizeActive"
+                                                       aria-describedby="CheckOptimizeActiveHelp" <?= (int)!get_hupa_option('optimize') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckOptimizeActive">
+                                                    <?= __('active', 'bootscore') ?></label>
+                                            </div>
+                                            <div id="CheckOptimizeActiveHelp" class="form-text">
+                                                <?= __('If this option is active, the <b>HTML source</b> code in the frontend will be optimized.', 'bootscore') ?>
+                                            </div>
                                         </div>
-                                        <div id="CheckCSSBlockActiveHelp" class="form-text">
-                                            <?= __('If this option is activated, the CSS Gutenberg editor source code and WooCommerce CSS code is removed from the front end.', 'bootscore') ?>
-                                        </div>
-                                    </div>
-
-                                    <hr>
+                                        <hr>
+                                    <?php endif; ?>
                                     <div class="col-lg-12 pt-2">
                                         <h6>
                                             <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Lizenz Seite anzeigen ', 'bootscore'); ?>
@@ -3859,22 +3890,30 @@ defined('ABSPATH') or die();
                                             </div>
                                         </div>
                                     </div>
-
                                     <hr>
                                     <div class="col-lg-12 pt-2">
-                                        <h6>
-                                            <i class="font-blue fa fa-compress"></i>&nbsp;<?= __('Optimize HTML', 'bootscore'); ?>
+                                        <h6 class="d-flex align-items-center">
+                                            <i class=" hupa-color d-block mt-1 icon-hupa-white fs-3"></i>
+                                            &nbsp;<?= __('Hupa aktuell Seite', 'bootscore'); ?>
                                         </h6>
                                         <hr>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" name="optimize" type="checkbox"
-                                                   id="CheckOptimizeActive"
-                                                   aria-describedby="CheckOptimizeActiveHelp" <?= (int)!get_hupa_option('optimize') ?: 'checked' ?>>
-                                            <label class="form-check-label" for="CheckOptimizeActive">
-                                                <?= __('active', 'bootscore') ?></label>
-                                        </div>
-                                        <div id="CheckOptimizeActiveHelp" class="form-text">
-                                            <?= __('If this option is active, the <b>HTML source</b> code in the frontend will be optimized.', 'bootscore') ?>
+                                        <div class="d-flex align-items-center">
+                                            <div class="form-check form-switch me-3 mb-3">
+
+                                                <input class="form-check-input" name="show_uhr_aktive" type="checkbox"
+                                                       id="CheckUhrActive"
+                                                    <?= (int)!get_hupa_option('show_uhr_aktive') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckUhrActive">
+                                                    Uhr <?= __('anzeigen', 'bootscore') ?></label>
+                                            </div>
+
+                                            <div class="form-check form-switch me-3 mb-3">
+                                                <input class="form-check-input" name="news_api_aktiv" type="checkbox"
+                                                       id="CheckNewsApiActive"
+                                                    <?= (int)!get_hupa_option('news_api_aktiv') ?: 'checked' ?>>
+                                                <label class="form-check-label" for="CheckNewsApiActive">
+                                                    News API <?= __('active', 'bootscore') ?></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -3897,11 +3936,13 @@ defined('ABSPATH') or die();
                             <h6 class="lh-1 mb-0"><i class="fa fa-arrow-circle-right"></i> Icon Shortcode:</h6>
                             <div class="form-text mb-3">Icon <b>auswählen</b> und Shortcode <b>Kopieren</b>.</div>
                             <button data-bs-toggle="modal"
-                                    data-bs-target="#dialog-add-icon" data-bs-type="info"  class="show-theme-icons btn btn-outline-secondary btn-sm">
+                                    data-bs-target="#dialog-add-icon" data-bs-type="info"
+                                    class="show-theme-icons btn btn-outline-secondary btn-sm">
                                 <i class="fa fa-th"></i>&nbsp;
                                 Icon Übersicht
                             </button>
-                            <button id="resetIcons" onclick="reset_show_theme_icons(this,'shortcode-info')" class="btn btn-blue-outline btn-sm d-none">
+                            <button id="resetIcons" onclick="reset_show_theme_icons(this,'shortcode-info')"
+                                    class="btn btn-blue-outline btn-sm d-none">
                                 <i class="fa fa-random"></i>&nbsp;
                                 Reset
                             </button>
@@ -3913,13 +3954,17 @@ defined('ABSPATH') or die();
                             <h6><i class="fa fa-arrow-circle-right"></i> PDF Download:</h6>
                             <hr>
                             <b class="d-block font-blue strong-font-weight">Download von PDF-Dateien:</b>
-                             <b class="strong-font-weight font-blue">URL:</b> <?=get_site_url()?><span class="font-blue">?hupa=pdf&type=1&file=test.pdf</span>
+                            <b class="strong-font-weight font-blue">URL:</b> <?= get_site_url() ?><span
+                                    class="font-blue">?hupa=pdf&type=1&file=test.pdf</span>
                             <hr>
                             <b class="d-block font-blue strong-font-weight">Stream von PDF-Dateien:</b>
-                            <b class="strong-font-weight font-blue">URL:</b> <?=get_site_url()?><span class="font-blue">?hupa=pdf&type=0&file=test.pdf</span>
+                            <b class="strong-font-weight font-blue">URL:</b> <?= get_site_url() ?><span
+                                    class="font-blue">?hupa=pdf&type=0&file=test.pdf</span>
                             <hr>
-                            <div class="form-text mb-3">Die Variable <code>type=0</code> öffnet die PDF und <code>type=1</code> lädt die PDF runter.
-                                Der Dateiname wird bei der Variable <code>"file="</code> eingetragen.</div>
+                            <div class="form-text mb-3">Die Variable <code>type=0</code> öffnet die PDF und
+                                <code>type=1</code> lädt die PDF runter.
+                                Der Dateiname wird bei der Variable <code>"file="</code> eingetragen.
+                            </div>
                             <hr>
                         </div>
 
@@ -4076,7 +4121,9 @@ defined('ABSPATH') or die();
                     <div id="icon-grid"></div>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-hupa btn-outline-secondary" data-bs-dismiss="modal"><i class="fa fa-close"></i> Schließen</button>
+                    <button type="button" class="btn btn-hupa btn-outline-secondary" data-bs-dismiss="modal"><i
+                                class="fa fa-close"></i> Schließen
+                    </button>
                 </div>
             </div>
         </div>

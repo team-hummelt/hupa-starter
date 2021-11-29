@@ -331,9 +331,9 @@ function bootscore_scripts()
 {
     $hupa_version = wp_get_theme();
     // Get modification time. Enqueue files with modification date to prevent browser from loading cached scripts and styles when file content changes.
-    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
+   // $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
     $modificated = date('YmdHi', filemtime(get_stylesheet_directory() . '/style.css'));
-    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.min.css'));
+    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/theme.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/bootstrap.bundle.min.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/auto-generate-theme.css'));
@@ -344,14 +344,15 @@ function bootscore_scripts()
     // Style CSS
     wp_enqueue_style('bootscore-style', get_stylesheet_uri(), array(), $modificated);
     // Bootstrap
-    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/lib/bootstrap.min.css', array(), $modificated);
+    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/lib/bootstrap.min.css', array(), '');
     // Fontawesome
-    wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.min.css', array(), $modificated);
+    wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $modificated);
     //Autogenerate CSS
     wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css/hupa-theme/auto-generate-theme.css', array(), $modificated);
     //Custom CSS
     wp_enqueue_style('starter-theme-custom-style', get_template_directory_uri() . '/css/hupa-theme/theme-custom.css', array(), $modificated);
 
+    //wp_enqueue_style('starter-theme-scss-custom-style', get_template_directory_uri() . '/css/hupa-theme/handy-menu-eins.scss', array(), $modificated);
     // Bootstrap JS
     wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array(), $modificated, true);
 
@@ -372,12 +373,12 @@ add_action('wp_enqueue_scripts', 'bootscore_scripts');
 
 
 // Add <link rel=preload> to Fontawesome
-add_filter('style_loader_tag', 'wpse_231597_style_loader_tag');
+//add_filter('style_loader_tag', 'wpse_231597_style_loader_tag');
 
-function wpse_231597_style_loader_tag($tag): string
+function wpse_231597_style_loader_tag($tag)
 {
 
-    return preg_replace("/id='font-awesome-css'/", "id='font-awesome-css' online=\"if(media!='all')media='all'\"", $tag);
+  return preg_replace("/id='font-awesome-css'/", "id='fontawesome-css' online=\"if(media!='all')media='all'\"", $tag);
 
 }
 

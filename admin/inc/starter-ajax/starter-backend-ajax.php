@@ -13,6 +13,7 @@ $record = new stdClass();
 $responseJson->status = false;
 $data = '';
 $method = filter_input(INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+global $hupa_api_handle;
 
 switch ($method) {
     case 'theme_form_handle':
@@ -38,6 +39,10 @@ switch ($method) {
 
                 filter_input(INPUT_POST, 'lizenz_login_aktiv', FILTER_SANITIZE_STRING) ? $record->lizenz_login_aktiv = 1 : $record->lizenz_login_aktiv = 0;
                 filter_input(INPUT_POST, 'lizenz_page_aktiv', FILTER_SANITIZE_STRING) ? $record->lizenz_page_aktiv = 1 : $record->lizenz_page_aktiv = 0;
+
+                filter_input(INPUT_POST, 'show_uhr_aktive', FILTER_SANITIZE_STRING) ? $record->show_uhr_aktive = 1 : $record->show_uhr_aktive = 0;
+                filter_input(INPUT_POST, 'news_api_aktiv', FILTER_SANITIZE_STRING) ? $record->news_api_aktiv = 1 : $record->news_api_aktiv = 0;
+
 
                 apply_filters('update_hupa_options', $record, 'wp_optionen');
                 $responseJson->spinner = true;
@@ -1183,7 +1188,7 @@ switch ($method) {
         $style = apply_filters('get_font_style_select', 'Roboto');
         $fontsArr = [];
         foreach ($family as $tmp) {
-            if($tmp->family == 'Roboto'){
+            if ($tmp->family == 'Roboto') {
                 continue;
             }
             $fonts_item = [
@@ -1198,15 +1203,15 @@ switch ($method) {
 
         break;
 
-    case 'load_install_formular_fonts':
+    case 'load_install_list_api_data':
 
-        $fontList = apply_filters('post_scope_resource', 'file/font-list');
+        $apiData = apply_filters('post_scope_resource', 'file/theme-data');
         $installFonts = [];
         $family = apply_filters('get_font_family_select', false);
         foreach ($family as $key => $val) $installFonts[] = $val->family;
         $fontArr = [];
-        if ($fontList->status) {
-            foreach ($fontList->record as $tmp) {
+        if ($apiData->font_status) {
+            foreach ($apiData->fonts as $tmp) {
                 if (in_array($tmp->bezeichnung, $installFonts)) {
                     continue;
                 }
@@ -1218,9 +1223,179 @@ switch ($method) {
             }
         }
 
-        $fontArr ? $responseJson->status = true : $responseJson->status = false;
-        $responseJson->record = $fontArr;
+        $dataArr = [];
+        $retPlugin = [];
+        $retTheme = [];
+        if ($apiData->products_status) {
+            foreach ($apiData->products as $key => $val) {
+                if ($key == 'Plugin') {
+                    $dataArr['plugin'] = $val;
+                }
+                if ($key == 'Child Theme') {
+                    $dataArr['child'] = $val;
+                }
+            }
+        }
+
+        if($dataArr){
+            foreach ($dataArr['plugin'] as $tmp) {
+                $tmp->installiert = $hupa_api_handle->is_product_install($tmp->slug);
+                $retPlugin[] = $tmp;
+
+            }
+            foreach ($dataArr['child'] as $tmp) {
+                $tmp->installiert = $hupa_api_handle->is_children_install($tmp->slug);
+                $retTheme[] = $tmp;
+            }
+        }
+
+        $fontArr ? $responseJson->font_status = true : $responseJson->font_status = false;
+        $retPlugin ? $responseJson->plugin_status = true : $responseJson->plugin_status = false;
+        $retTheme ? $responseJson->child_status = true : $responseJson->child_status = false;
+        $responseJson->fonts = $fontArr;
+        $responseJson->plugins = $retPlugin;
+        $responseJson->childs = $retTheme;
         $responseJson->method = $method;
+        $responseJson->status = true;
+        break;
+
+    case'install_api_plugin':
+
+        $responseJson->data_method = 'api_activate_plugin';
+        $responseJson->select = $_POST['select_container'];
+        $responseJson->method = 'install_api_files';
+        $id = filter_input(INPUT_POST, 'plugin_install_id', FILTER_VALIDATE_INT);
+        if(!$id) {
+            $responseJson->msg = 'AJAX Fehler!';
+            return $responseJson;
+        }
+
+        $body = [
+            'plugin_id' => $id,
+        ];
+
+        $plugin_dir = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR;
+
+        $fileData = apply_filters('post_scope_resource', 'file/install-plugin', $body);
+        $filePath = $plugin_dir . $fileData->file_name;
+
+
+        //JOB WARNING DOWNLOAD FILE
+           $body = [
+               'id' => $id,
+               'type' => 'plugin',
+           ];
+
+          $zipFile = apply_filters('get_api_download', $fileData->download, $body);
+           if(!$zipFile){
+               $responseJson->msg = 'Download fehlgeschlagen!';
+               return $responseJson;
+           }
+
+           @file_put_contents($filePath, $zipFile);
+           WP_Filesystem();
+           $unZipFile = unzip_file( $filePath, $plugin_dir);
+           if(!$unZipFile){
+               $responseJson->msg = 'Download fehlgeschlagen!';
+               return $responseJson;
+           }
+
+           unlink($filePath);
+           $responseJson->status = true;
+           $responseJson->id = $id;
+           $responseJson->name = $fileData->bezeichnung;
+           $responseJson->slug = $fileData->slug;
+           $responseJson->msg = 'Plugin erfolgreich Installiert.';
+        break;
+
+    case 'api_activate_plugin':
+        $slug = filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
+        $responseJson->selector = filter_input(INPUT_POST, 'selector', FILTER_SANITIZE_STRING);
+        if(!$slug){
+            $responseJson->msg = 'aktivierung fehlgeschlagen!';
+            return $responseJson;
+        }
+        $plugin = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . $slug.'.php';
+        $activate = activate_plugin( $plugin );
+
+        if ( is_wp_error( $activate ) ) {
+            $responseJson->msg = $activate->get_error_message();
+            return $responseJson;
+        }
+
+        $responseJson->status = true;
+        $responseJson->method = 'api_activate_download';
+        $responseJson->msg = 'Plugin erfolgreich aktiviert!';
+        break;
+
+    case 'api_download_theme':
+        $responseJson->select = filter_input(INPUT_POST, 'select_container', FILTER_SANITIZE_STRING);
+        $responseJson->method = 'install_api_files';
+        $responseJson->data_method = 'api_activate_theme';
+        $pin = filter_input(INPUT_POST, 'download_pin', FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_input(INPUT_POST, 'child_install_id', FILTER_SANITIZE_NUMBER_INT);
+        if(!$pin || !$id){
+            $responseJson->msg = ' falsche Pin eingabe!';
+            return $responseJson;
+        }
+
+        $body = [
+            'id' => $id,
+            'pin' => $hupa_api_handle->themeHashPin($pin),
+        ];
+
+        $fileData = apply_filters('post_scope_resource', 'file/install-theme', $body);
+        if(!$fileData->status) {
+            $responseJson->msg = $fileData->error;
+            return $responseJson;
+        }
+
+        $body = [
+            'id' => $id,
+            'type' => 'theme',
+        ];
+
+        $zipFile = apply_filters('get_api_download', $fileData->download, $body);
+        if(!$zipFile) {
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
+
+        $theme_dir = get_theme_root() .DIRECTORY_SEPARATOR ;
+        $filePath = $theme_dir . $fileData->file_name;
+
+        @file_put_contents($filePath, $zipFile);
+        WP_Filesystem();
+        $unZipFile = unzip_file( $filePath, $theme_dir);
+        if(!$unZipFile){
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
+
+        unlink($filePath);
+        $responseJson->status = true;
+        $responseJson->id = $id;
+        $responseJson->name = $fileData->bezeichnung;
+        $responseJson->slug = $fileData->slug;
+        $responseJson->msg = 'Theme erfolgreich Installiert.';
+
+        break;
+
+    case 'api_activate_theme':
+
+        $slug = filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
+        $responseJson->selector = filter_input(INPUT_POST, 'selector', FILTER_SANITIZE_STRING);
+
+        if(!$slug){
+            $responseJson->msg = 'aktivierung fehlgeschlagen!';
+            return $responseJson;
+        }
+
+        switch_theme($slug);
+
+        $responseJson->status = true;
+        $responseJson->method = 'api_activate_download';
+        $responseJson->msg = 'Theme erfolgreich aktiviert!';
         break;
 
     case'get_maps_language':
@@ -1368,7 +1543,7 @@ switch ($method) {
             return $responseJson;
         }
         filter_input(INPUT_POST, 'aktiv', FILTER_SANITIZE_NUMBER_INT) ? $aktiv = $id : $aktiv = false;
-        update_option('theme_preloader',$aktiv);
+        update_option('theme_preloader', $aktiv);
         $responseJson->status = true;
         $responseJson->msg = 'Preloader gespeichert!';
         break;

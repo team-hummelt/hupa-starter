@@ -1,17 +1,4 @@
-/*--------------------------------------------------------------
->>> TABLE OF CONTENTS:
-----------------------------------------------------------------
-1.  Header
-2.  Theme
---------------------------------------------------------------*/
-
-
-/*--------------------------------------------------------------
-1. Header
---------------------------------------------------------------*/
-
-
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function( $ ) {
 
     // Data attribute to hide offcanvas and enable body scroll on resize through the breakpoints
     $(window).on('resize', function () {
@@ -72,9 +59,7 @@ jQuery(document).ready(function ($) {
     // TODO JOB WARNING Ankerlink DropDown Click Function
 
     // Smooth Scroll
-    $(function () {
         $('a[href*="#"]:not([href="#"]):not(a.comment-reply-link):not([href="#tab-reviews"]):not([href="#tab-additional_information"]):not([href="#tab-description"]):not([href="#reviews"]):not([href="#carouselExampleIndicators"]):not([data-smoothscroll="false"])').click(function (e) {
-
             if (location.pathname.replace(/^\//, '') === this.pathname.replace(/^\//, '') && location.hostname === this.hostname) {
                 let target = $(this.hash);
                 target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -97,7 +82,7 @@ jQuery(document).ready(function ($) {
                 }
             }
         })
-    });
+
 
     // Scroll to ID from external url
     if (window.location.hash) scroll(0, 0);
@@ -119,7 +104,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Scroll to top Button
-    $(window).scroll(function () {
+    $(window).on("scroll", function (event) {
         let scroll = $(window).scrollTop();
         if (scroll >= 400) {
             $(".top-button").addClass("visible");
@@ -127,7 +112,6 @@ jQuery(document).ready(function ($) {
             $(".top-button").removeClass("visible");
         }
     });
-
 
     // div height, add class to your content
     $(".height-50").css("height", 0.5 * $(window).height());
@@ -143,4 +127,4 @@ jQuery(document).ready(function ($) {
     let canvasHeader = $('#logoPlaceholder');
     let image =  $("img.logo.md").attr('src');
     canvasHeader.html(`<a href="${get_hupa_option.site_url}"><img alt="" src="${image}" width="200"></a>`);
-}); // jQuery End
+});

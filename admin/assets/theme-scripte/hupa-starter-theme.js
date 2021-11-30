@@ -223,7 +223,7 @@ jQuery(document).ready(function ($) {
 
 // Preloader script
     jQuery(window).load(function () {
-        $(".preloader").delay(1600).fadeOut('easing').remove();
+       $("#preloader-wrapper").delay(1600).fadeOut('easing').remove();
     });
 
 
@@ -245,7 +245,7 @@ jQuery(document).ready(function ($) {
                 let nextSrx = firstNext.find("img[data-src]");
                 nextSrx.attr("src", nextSrx.data('src'));
                 nextSrx.removeAttr("data-src");
-            }, 2500);
+            }, 2000);
         }
 
         return carousel.on("slid.bs.carousel", function (ev) {

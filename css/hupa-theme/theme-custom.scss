@@ -18,6 +18,26 @@ body .bs-formular-wrapper {
   z-index: 1030;
 }
 
+#preloader-wrapper {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, .95);
+  z-index: 99999;
+ .hupa-preloader {
+   transform: scale(3);
+   flex: 1 1 auto;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+}
+
 #nav-main-starter.navbar-root {
   @media (max-width: 1200px) {
     .dropdown-menu-slide {
@@ -287,9 +307,7 @@ img.map-placeholder-img {
 }
 
 .logo.md{
-  //max-width: 10rem;
   max-height: 45px;
-  width: 100%;
   transition: max-height 450ms ease-in-out;
 }
 

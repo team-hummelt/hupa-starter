@@ -96,6 +96,9 @@ trait HupaOptionTrait
     protected string $lizenz_page_aktiv = 'lizenz_page_aktiv';
     protected string $lizenz_login_aktiv = 'lizenz_login_aktiv';
 
+    protected string $show_uhr_aktive = 'show_uhr_aktive';
+    protected string $news_api_aktiv = 'news_api_aktiv';
+
 
     /*=============================================
     *============== SETTINGS COLORS ===============
@@ -327,7 +330,9 @@ trait HupaOptionTrait
                 $this->block_css => 0,
                 $this->optimize => 0,
                 $this->lizenz_page_aktiv => 0,
-                $this->lizenz_login_aktiv => 0
+                $this->lizenz_login_aktiv => 0,
+                $this->show_uhr_aktive => 1,
+                $this->news_api_aktiv => 0,
             ],
 
             /*=============================================

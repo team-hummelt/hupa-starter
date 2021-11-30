@@ -42,8 +42,38 @@ if (!class_exists('HupaCarouselShortCode')) {
             add_shortcode('carousel', array($this, 'hupa_carousel_shortcode'));
             add_shortcode('hupa-slider', array($this, 'post_selector_slider_shortcode'));
             add_shortcode('hupa-galerie', array($this, 'post_selector_galerie_shortcode'));
+            add_shortcode('hupa-preloader', array($this, 'hupa_preloader_shortcode'));
 
         }
+
+        public function hupa_preloader_shortcode($atts, $content, $tag): bool|string
+        {
+            $a = shortcode_atts(array(
+                'color' => '#a4a4a4',
+                'id' => ''
+            ), $atts);
+            $style  = '';
+            ob_start();
+            if(get_option('theme_preloader')):
+               $preloader = apply_filters('get_theme_preloader', 'by_id', get_option('theme_preloader'));
+                $cssFile = THEME_ADMIN_DIR . 'assets/admin/css/preloader.scss';
+                $css = file_get_contents($cssFile, true);
+                $regEx = "~/\*<--###$preloader->class###-->\*/(.*?)?/\*<!--###$preloader->class###~ms";
+                preg_match_all($regEx, $css, $matches);
+                if($matches){
+                    $style = str_replace('$dotColor', $a['color'], $matches[1][0]);
+                    $style = preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $style));
+                } ?>
+            <style><?=$style?></style>
+                <div id="preloader-wrapper">
+                <div class="hupa-preloader">
+                    <div class="<?=$preloader->class?>"></div>
+                </div>
+            </div>
+          <?php endif;
+          return ob_get_clean();
+        }
+
 
         public function post_selector_slider_shortcode($atts, $content, $tag): bool|string
         {
@@ -103,12 +133,12 @@ if (!class_exists('HupaCarouselShortCode')) {
             }
             $carousel = $carouselData->record;
 
-            $meta =  get_post_meta(get_the_ID(), '_hupa_select_header', true);
+            $meta = get_post_meta(get_the_ID(), '_hupa_select_header', true);
             $postContent = get_post($meta);
             $regEx = '/<!.*theme-carousel.*({.*}).*>/m';
             preg_match($regEx, $postContent->post_content, $matches);
             if ($matches) {
-                $carouselClass =  ' header-carousel ';
+                $carouselClass = ' header-carousel ';
             }
 
             $slider = $sliderData->record;
@@ -135,7 +165,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             ob_start();
             ?>
             <div id="hupaCarousel<?= $carousel->id ?>"
-                 class="<?=$full_width?>carousel<?=$carouselClass?><?=$marginTop?><?=$lazy?>slide<?=$slide?>"
+                 class="<?= $full_width ?>carousel<?= $carouselClass ?><?= $marginTop ?><?= $lazy ?>slide<?= $slide ?>"
                  data-bs-ride="<?= $ride ?>">
                 <?php if ($countS > 1): ?>
                     <div class="<?= $carousel->indicator ? '' : 'd-none' ?> carousel-indicators">

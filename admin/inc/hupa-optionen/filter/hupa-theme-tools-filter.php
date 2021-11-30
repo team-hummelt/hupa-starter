@@ -45,14 +45,17 @@ if (!class_exists('HupaStarterToolsFilter')) {
             //Update Iframe
             add_filter('update_gmaps_iframe', array($this, 'hupaUpdateGmapsIframe'));
             //Get Iframe
-            add_filter('get_gmaps_iframe', array($this, 'hupaGetGmapsIframe'),10,3);
+            add_filter('get_gmaps_iframe', array($this, 'hupaGetGmapsIframe'), 10, 3);
             //Delete Iframe
             add_filter('delete_gmaps_iframe', array($this, 'hupaDeleteGmapsIframe'));
             //Render Menu Select
             add_action('render_menu_select_output', array($this, 'renderMenuSelectOutput'));
+            //Render Menu Select
+            add_action('get_theme_preloader', array($this, 'getThemePreloader'),10, 2);
         }
 
-        public function hupaSetGmapsIframe($record):object {
+        public function hupaSetGmapsIframe($record): object
+        {
             global $wpdb;
             $table = $wpdb->prefix . $this->table_iframes;
             $wpdb->insert(
@@ -131,21 +134,114 @@ if (!class_exists('HupaStarterToolsFilter')) {
             );
         }
 
-        public function renderMenuSelectOutput($attr) {
+        public function renderMenuSelectOutput($attr)
+        {
 
-            $attr = (object) $attr;
-            if(!$attr->selectedMenu){
+            $attr = (object)$attr;
+            if (!$attr->selectedMenu) {
                 echo '';
-           }
-          wp_nav_menu( array(
+            }
+            wp_nav_menu(array(
                 'theme_location' => $attr->selectedMenu,
-                'container'      => false,
-                'menu_class'     => $attr->className,
-                'fallback_cb'    => '__return_false',
-                'items_wrap'     => '<ul class="custom-menu-wrapper %2$s">%3$s</ul>',
-                'depth'          => 6,
+                'container' => false,
+                'menu_class' => $attr->className,
+                'fallback_cb' => '__return_false',
+                'items_wrap' => '<ul class="custom-menu-wrapper %2$s">%3$s</ul>',
+                'depth' => 6,
                 'walker' => new \bootstrap_5_menu_select_walker()
             ));
+        }
+
+        public function getThemePreloader($args, $id = false): object
+        {
+            $return = (object) [];
+            $preArr = [
+                '0' => [
+                    'id' => 1,
+                    'name' => 'Elastic',
+                    'class' => 'dot-elastic'
+                ],
+                '1' => [
+                    'id' => 2,
+                    'name' => 'Pulse',
+                    'class' => 'dot-pulse'
+                ],
+                '2' => [
+                    'id' => 3,
+                    'name' => 'Flashing',
+                    'class' => 'dot-flashing'
+                ],
+                '3' => [
+                    'id' => 4,
+                    'name' => 'Collision',
+                    'class' => 'dot-collision'
+                ],
+                '4' => [
+                    'id' => 5,
+                    'name' => 'Revolution',
+                    'class' => 'dot-revolution'
+                ],
+                '5' => [
+                    'id' => 6,
+                    'name' => 'Carousel',
+                    'class' => 'dot-carousel'
+                ],
+                '6' => [
+                    'id' => 7,
+                    'name' => 'Typing',
+                    'class' => 'dot-typing'
+                ],
+                '7' => [
+                    'id' => 8,
+                    'name' => 'Windmill',
+                    'class' => 'dot-windmill'
+                ],
+                '8' => [
+                    'id' => 9,
+                    'name' => 'Bricks',
+                    'class' => 'dot-bricks'
+                ],
+                '9' => [
+                    'id' => 10,
+                    'name' => 'Floating',
+                    'class' => 'dot-floating'
+                ],
+                '10' => [
+                    'name' => 'Fire',
+                    'id' => 11,
+                    'class' => 'dot-fire'
+                ],
+                '11' => [
+                    'id' => 12,
+                    'name' => 'Spin',
+                    'class' => 'dot-spin'
+                ],
+                '12' => [
+                    'id' => 13,
+                    'name' => 'Falling',
+                    'class' => 'dot-falling'
+                ],
+                '13' => [
+                    'id' => 14,
+                    'name' => 'Stretching',
+                    'class' => 'dot-stretching'
+                ]
+            ];
+
+            switch ($args) {
+                case 'all':
+                    $return = apply_filters('arrayToObject', $preArr);
+                    break;
+                case 'by_id':
+                    foreach ($preArr as $tmp) {
+                        if ($id == $tmp['id']) {
+                            $return = (object)$tmp;
+                            break;
+                        }
+                    }
+                    break;
+            }
+            return $return;
         }
     }
 }

@@ -167,6 +167,9 @@ function get_smtp_test(e) {
 function btn_install_fonts(e) {
     document.querySelector('.upload_spinner').classList.remove('d-none');
     let demoBtn = e.form.querySelector('#fontDemo');
+    let select = e.form.querySelector('#inputInstallFont');
+    let inputFontName = e.form.querySelector('.selectFontName');
+    inputFontName.value=select.options[select.selectedIndex].text;
     demoBtn.classList.add('disabled');
     e.setAttribute('disabled', true);
     send_xhr_form_data(e.form);

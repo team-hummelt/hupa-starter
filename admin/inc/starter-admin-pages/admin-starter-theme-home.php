@@ -133,7 +133,7 @@ global $hupa_api_handle;
                             </div>
                             <div class="accordion accordion-sm" id="accordionGeneralSettings">
                                 <!--TODO JOB DESIGN LAYOUT-->
-                                <div class="accordion-item border-0">
+                                <div class="accordion-item border">
 
                                     <h2 class="accordion-header" id="headerFontDesign">
                                         <button class="accordion-button collapsed" type="button"

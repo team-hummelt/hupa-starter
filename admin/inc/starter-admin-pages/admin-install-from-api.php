@@ -55,6 +55,7 @@ global $hupa_api_handle;
                             <form id="install_font_form">
                                 <div class="col-xl-5 col-lg-6 col-12">
                                     <input type="hidden" name="method" value="install_api_font">
+                                    <input class="selectFontName" type="hidden" name="font_name">
                                     <label for="inputInstallFont" class="form-label">Schriftart</label>
                                     <select onchange="change_font_install_select(this)" id="inputInstallFont"
                                             name="font_install_id" class="form-select">
@@ -69,7 +70,7 @@ global $hupa_api_handle;
                                        class="me-2 disabled btn-sm btn btn-blue mt-4"> Schrift Demo
                                     </a>
                                     <div class="upload_spinner mt-4 d-flex align-items-center d-none">
-                                        <i class="text-muted fa fa-spinner fa-spin fa-3x mx-2"></i>
+                                        <i class="text-muted fa fa-wordpress fa-spin fa-3x mx-2"></i>
                                         <span class="animate-flicker"> Schrift wird Installiert...</span>
                                     </div>
                                 </div>

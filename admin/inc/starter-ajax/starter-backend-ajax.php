@@ -1055,57 +1055,55 @@ switch ($method) {
 
     case 'install_api_font':
         $id = filter_input(INPUT_POST, 'font_install_id', FILTER_SANITIZE_NUMBER_INT);
+        $font_name = filter_input(INPUT_POST, 'font_name', FILTER_SANITIZE_STRING);
+        $font_name = trim($font_name);
         $responseJson->method = $method;
         if (!$id) {
             $responseJson->msg = 'Schrift nicht gefunden!';
             return false;
         }
-        $body = [
-            'font_id' => $id
-        ];
-        $apiFiles = apply_filters('post_scope_resource', 'file/install-font', $body);
-        if (!$apiFiles->status) {
-            $responseJson->msg = 'Schrift nicht gefunden!';
-            return false;
-        }
-
 
         $fontsDir = THEME_FONTS_DIR;
-        if (is_dir($fontsDir . $apiFiles->font_family)) {
+        if (is_dir($fontsDir . $font_name)) {
             $responseJson->msg = 'Schrift ist schon Installiert!';
             return false;
         }
-        if (!mkdir($fontsDir . $apiFiles->font_family, 0755, true)) {
-            $responseJson->msg = 'Erstellung der Verzeichnisse schlug fehl...';
-            return false;
-        }
-
-        foreach ($apiFiles->font_files as $tmp) {
-            $body = [
-                'font_file' => $tmp->font_file,
-                'font_family' => $apiFiles->font_family,
-            ];
-
-            $file = apply_filters('post_scope_resource', 'file/font', $body);
-            $filePath = $fontsDir . $apiFiles->font_family . DIRECTORY_SEPARATOR . $tmp->font_file;
-            $file = base64_decode($file->file);
-            @file_put_contents($filePath, $file);
-        }
 
         $body = [
-            'css_file' => $apiFiles->font_family . '.css',
-            'font_family' => $apiFiles->font_family,
+            'id' => $id,
+            'type' => 'font'
         ];
 
-        $file = apply_filters('post_scope_resource', 'file/font', $body);
-        @file_put_contents($fontsDir . $file->file_name, $file->file);
+        $zipFile = apply_filters('get_api_download', get_option('hupa_server_url').'download', $body);
+        if(!$zipFile){
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
+
+        $filePath = THEME_FONTS_DIR . $font_name.'.zip';
+        @file_put_contents($filePath, $zipFile);
+
+        WP_Filesystem();
+        $unZipFile = unzip_file( $filePath, THEME_FONTS_DIR);
+        if(!$unZipFile){
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
+
+        unlink($filePath);
+        $body = [
+            'id' => $id,
+            'type' => 'font_css',
+        ];
+
+        $cssFile = apply_filters('get_api_download', get_option('hupa_server_url').'download', $body);
+        @file_put_contents($fontsDir . $font_name.'.css', $cssFile);
+
         apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
 
         $responseJson->status = true;
         $responseJson->id = $id;
-        // $responseJson->install_fonts = apply_filters('get_font_family_select', false);
         $responseJson->msg = 'Schrift erfolgreich Installiert.';
-        //print_r($_POST);
         break;
 
     case'delete_font':

@@ -1,13 +1,27 @@
 # HUPA Theme
 hummelt und partner | Werbeagentur GmbH
 
-![release](https://img.shields.io/github/v/release/team-hummelt/hupa-starter)
-![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)
-![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)
+[![release](https://img.shields.io/github/v/release/team-hummelt/hupa-starter)](https://github.com/team-hummelt/hupa-starter)
+[![Hupa Release](https://img.shields.io/github/release-date/team-hummelt/hupa-starter)](https://github.com/team-hummelt/hupa-starter/releases/latest)
+[![GitHub](https://img.shields.io/github/license/team-hummelt/hupa-starter)](https://github.com/team-hummelt/hupa-starter/blob/master/LICENSE.txt)
 
+***
+* Contributors: jwiecker
+* Tags: Hupa Theme, Bootstrap
+* Requires at least: 5.8
+* Tested up to: 5.8
+* Stable tag: 1.0.7
+* Requires PHP: 8.0
+
+***
 ### \#1.0.7
 * Preloader Optionen hinzugefügt
 * Menu Logo gefixt
+* API Funktionen hinzugefügt
+* Plugin und Theme Download hinzugefügt
+* Font Download überarbeitet
+* Footer Galerie Container gefixt
+* Theme Optionen hinzugefügt
 
 ### \#1.0.6
 * Font-Download hinzugefügt

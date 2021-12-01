@@ -41,8 +41,8 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
             $img = false;
         }
 
-        if(!session_id()) {
-            session_start();
+        if(!@session_id()) {
+            @session_start();
         }
 
         // TODO PUBLIC localize Script

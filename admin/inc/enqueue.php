@@ -19,7 +19,6 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/hupa-starter-theme.js' ) );
 
         wp_enqueue_style( 'bootscore-style', get_stylesheet_uri(), array(), $modificated );
-
         // TODO ANIMATE
         wp_enqueue_style( 'hupa-starter-public-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $modificated );
         // TODO ICONS
@@ -29,6 +28,12 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         // TODO HUPA-STARTER-THEME Theme JS
         wp_enqueue_script( 'hupa-starter-script', THEME_ADMIN_URL . 'assets/theme-scripte/hupa-starter-theme.js', array(), $modificated, true );
 
+        if(!WP_POST_SELECTOR_AKTIV){
+            //JOB WOW JS
+            $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/wowjs/wow.min.js' ) );
+            wp_enqueue_script( 'hupa--theme-wowjs-script', get_template_directory_uri() . '/js/wowjs/wow.min.js', array(), $modificated, true );
+        }
+
         if( get_hupa_option('menu') == 5){
             $img = wp_get_attachment_image_src(  get_hupa_option('logo_image'), 'large' );
             $img = $img[0];
@@ -36,23 +41,29 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
             $img = false;
         }
 
-        @session_start();
+        if(!session_id()) {
+            session_start();
+        }
+
         // TODO PUBLIC localize Script
         global $post;
-        isset($_SESSION['gmaps']) ? $isGmaps = true : $isGmaps = false;
+        $_SESSION['gmaps'] ? $isGmaps = true : $isGmaps = false;
+        isset($post->ID) ? $postID = $post->ID : $postID = '';
+        isset($post->post_type) ? $post_type = $post->post_type : $post_type = '';
+        get_hupa_frontend('nav-img') ? $navImg = get_hupa_frontend('nav-img')->width : $navImg = false;
         wp_register_script( 'hupa-starter-public-js-localize', '', [], $hupa_version->get( 'Version' ), true );
         wp_enqueue_script( 'hupa-starter-public-js-localize' );
         wp_localize_script( 'hupa-starter-public-js-localize',
             'get_hupa_option',
             array(
-                'postID' => $post->ID,
+                'postID' => $postID,
                 'gmaps' => $isGmaps,
-                'post_type' => $post->post_type,
-                'ds_maps'   => get_hupa_frontend('ds-gmaps'),
+                'post_type' => $post_type,
+                'ds_maps'   =>  get_hupa_frontend('ds-gmaps'),
                 'admin_url' => THEME_ADMIN_URL,
                 'site_url'  => get_bloginfo( 'url' ),
                 'key' => base64_encode( get_hupa_option( 'map_apikey' ) ),
-                'img_width' => get_hupa_frontend('nav-img')->width,
+                'img_width' => $navImg,
                 'img' => $img
 
             )

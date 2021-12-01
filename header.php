@@ -68,7 +68,7 @@ $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
     <header id="masthead" class="site-header">
         <!--==================== TOP AREA ====================-->
 
-        <?php if($pageSettings->show_top_area):?>
+        <?php if(isset($pageSettings->show_top_area) && $pageSettings->show_top_area):?>
             <div id="top-area-wrapper" class="py-lg d-lg-flex d-none">
                 <div class="<?=$pageSettings->top_area_container ? 'container' : 'container-fluid'?> hupa-top-area d-lg-flex d-block flex-wrap justify-content-center align-items-center">
                     <?php if ( is_active_sidebar( 'top-menu-1' ) && get_hupa_tools('areainfo_')->aktiv) : ?>
@@ -85,15 +85,16 @@ $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
                         <nav id="top-area-nav" class="top-area-navigation  order-<?=get_hupa_tools('areamenu_')->position?> <?=get_hupa_tools('areamenu_')->css_class?>" role="navigation"
                              aria-label="<?php esc_attr_e( 'Hupa Top-Area Menu', 'bootscore' ); ?>">
                             <?php
-                            wp_nav_menu( array(
-                                'theme_location' => 'top-area-menu',
-                                'container'      => false,
-                                'menu_class'     => '',
-                                'fallback_cb'    => '__return_false',
-                                'items_wrap'     => '<ul id="top-area-navbar" class="justify-content-start navbar-nav %2$s">%3$s</ul>',
-                                'depth'          => 2,
-                                'walker'         => new Hupa_top_area_Walker()
-                            ) );
+                                if (has_nav_menu('top-area-menu')) {
+                                    wp_nav_menu(array(
+                                        'theme_location' => 'top-area-menu',
+                                        'container' => false,
+                                        'fallback_cb' => '__return_false',
+                                        'items_wrap' => '<ul id="top-area-navbar" class="justify-content-start navbar-nav %2$s">%3$s</ul>',
+                                        'depth' => 2,
+                                        'walker' => new Hupa_top_area_Walker()
+                                    ));
+                                }
                             ?>
                         </nav>
                     <?php endif; ?>

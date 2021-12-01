@@ -188,6 +188,22 @@ function change_font_install_select(e) {
     }
 }
 
+
+
+function change_wp_debug_log_aktiv(e) {
+    const data = {
+        'method': 'load_debug_log',
+    }
+    send_xhr_form_data(data, false);
+}
+
+function btn_delete_debug_log(e) {
+    const data = {
+        'method': 'delete_debug_log',
+    }
+    send_xhr_form_data(data, false);
+}
+
 let showMessageTimeOut;
 
 function message_fadeIn_opacity(collapseId) {
@@ -812,8 +828,8 @@ if (ThemeStarterModal) {
             }
         };
     });
-
 }
+
 
 let smallThemeSendModalBtn = document.getElementById("smallThemeSendModalBtn");
 if (smallThemeSendModalBtn) {

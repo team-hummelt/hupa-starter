@@ -15,8 +15,10 @@ function callback_hupa_theme_carousel( $attributes ) {
 function gutenberg_block_hupa_carousel_render_filter($attributes){
     if ($attributes ) {
         ob_start();
+        isset($attributes['selectedCarousel']) ? $selectCarousel = $attributes['selectedCarousel'] : $selectCarousel = '';
+        isset($attributes['className']) ? $className = $attributes['className'] : $className = '';
         ?>
-        <div class="carousel-wrapper carousel-<?=$attributes['selectedCarousel']?> <?=$attributes['className']?>">
+        <div class="carousel-wrapper carousel-<?=$selectCarousel?> <?=$className?>">
             <?php
             echo do_shortcode('[carousel id="' . $attributes['selectedCarousel'] . '"]');
             ?>

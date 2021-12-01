@@ -46,7 +46,6 @@ final class HupaRegisterStarterTheme {
 
         // TODO AJAX ADMIN AND PUBLIC RESPONSE HANDLE
         add_action( 'wp_ajax_HupaStarterHandle', array( $this, 'prefix_ajax_HupaStarterHandle' ) );
-        //add_action( 'wp_ajax_HupaStarterForm', array( $this, 'prefix_ajax_HupaStarterForm' ) );
 
         add_action( 'wp_ajax_nopriv_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
         add_action( 'wp_ajax_HupaStarterNoAdmin', array( $this, 'prefix_ajax_HupaStarterNoAdmin' ) );
@@ -83,7 +82,6 @@ final class HupaRegisterStarterTheme {
 
         // TODO THEME UPDATE DATABASE BY VERSION
         add_action( 'after_setup_theme', array( $this, 'hupa_starter_theme_update_database_columns' ) );
-
     }
 
     /**
@@ -94,13 +92,17 @@ final class HupaRegisterStarterTheme {
 
     public function register_hupa_starter_theme_admin_menu(): void {
         //startseite
-       add_menu_page(
+        $icon_base64 = 'PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjAgMjAiPgo8cGF0aCBmaWxsPSJibGFjayIgZD0iTTcuMSw1LjhDMy40LDUuOSwzLjQsMCw3LjEsMEMxMC45LDAsMTAuOSw1LjksNy4xLDUuOHogTTcuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzEwLjksMTkuOCwxMC45LDEzLjksNy4xLDEzLjl6IE0xNC4xLDExLjJjMS43LDAsMS43LTIuNywwLTIuN0MxMi4zLDguNSwxMi40LDExLjMsMTQuMSwxMS4yeiBNMTQuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzE3LjksMTkuOCwxNy45LDEzLjksMTQuMSwxMy45eiBNOC41LDkuOWMwLTEuNy0yLjctMS43LTIuNywwQzUuOCwxMS42LDguNSwxMS42LDguNSw5Ljl6IE0xNC4xLDQuM2MxLjcsMCwxLjctMi43LDAtMi43CkMxMi4zLDEuNiwxMi40LDQuMywxNC4xLDQuM3oiLz4KPC9zdmc+Cg==';
+        $icon_data_uri = 'data:image/svg+xml;base64,' . $icon_base64;
+        add_menu_page(
             __( 'HUPA Theme', 'bootscore' ),
             __( 'HUPA Theme', 'bootscore' ),
             'manage_options',
             'hupa-starter-home',
            '',
-            'dashicons-layout', 5
+           // 'dashicons-layout', 5
+            $icon_data_uri
+            , 5
         );
 
         $hook_suffix = add_submenu_page(
@@ -200,7 +202,21 @@ final class HupaRegisterStarterTheme {
             array($this, 'hupa_admin_starter_maps_settings'));
 
         add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
+
+
+        /** OPTIONS PAGE */
+            $hook_suffix = add_options_page(
+                __( 'HUPA Theme', 'bootscore' ),
+                __( 'HUPA Theme', 'bootscore' ),
+                'manage_options',
+                'hupa-theme-options',
+                array( $this, 'hupa_theme_options_page' )
+            );
+
+            add_action( 'load-' . $hook_suffix, array( $this, 'hupa_starter_theme_load_ajax_admin_options_script' ) );
     }
+
+
 
     /**
      * =====================================================
@@ -223,14 +239,12 @@ final class HupaRegisterStarterTheme {
         );
         $wp_admin_bar->add_node( $args );
 
-        /* $args[] = [
-             'id'     => 'hupa_updates',
-             'title'  => __( 'Theme updates', 'bootscore' ),
+        $args[] = [
+             'id'     => 'hupa_options',
+             'title'  => __( 'Theme Einstellungen', 'bootscore' ),
              'parent' => 'hupa_options_page',
-             'meta'   => [
-                 'class' => 'get_hupa_update'
-             ]
-         ];*/
+             'href'   => admin_url().'options-general.php?page=hupa-theme-options',
+         ];
 
         $args[] = [
             'id'     => 'hupa_contact',
@@ -300,6 +314,15 @@ final class HupaRegisterStarterTheme {
     public function hupa_admin_starter_maps_settings(): void {
         wp_enqueue_media();
         require 'starter-admin-pages/admin-gmaps-settings.php';
+    }
+
+    /**
+     * =========================================
+     * =========== ADMIN OPTION PAGE ===========
+     * =========================================
+     */
+    public function hupa_theme_options_page():void {
+      require 'starter-admin-pages/hupa-options-page.php';
     }
 
     /**
@@ -390,12 +413,13 @@ final class HupaRegisterStarterTheme {
                     'archives'              => __( 'Footer Archives', 'bootscore' )
                 ),
                 'public'              => true,
+                'publicly_queryable'  => false,
                 'show_in_rest'        => true,
                 'show_ui'             => true,
                 'show_in_menu'        => true,
-                'has_archive'         => true,
-                'show_in_nav_menus'   => true,
-                'exclude_from_search' => false,
+                'has_archive'         => false,
+                'show_in_nav_menus'   => false,
+                'exclude_from_search' => true,
                 'menu_icon'           => 'dashicons-welcome-widgets-menus',
                 'menu_position'       => 7,
                 'supports'            => array(
@@ -429,12 +453,13 @@ final class HupaRegisterStarterTheme {
                     'archives'              => __( 'Header Archives', 'bootscore' ),
                 ),
                 'public'              => true,
+                'publicly_queryable'  => false,
                 'show_in_rest'        => true,
                 'show_ui'             => true,
                 'show_in_menu'        => true,
-                'has_archive'         => true,
-                'show_in_nav_menus'   => true,
-                'exclude_from_search' => false,
+                'has_archive'         => false,
+                'show_in_nav_menus'   => false,
+                'exclude_from_search' => true,
                 'menu_icon'           => 'dashicons-welcome-widgets-menus',
                 'menu_position'       => 6,
                 'supports'            => array(
@@ -447,31 +472,6 @@ final class HupaRegisterStarterTheme {
             )
         );
     }
-
-    /**
-     * ===============================================
-     * =========== THEME PHP-MAILER CONFIG ===========
-     * ===============================================
-     */
-    public function hupa_starter_mailer_phpmailer_configure($phpmailer){
-        $phpmailer->isSMTP();
-        $phpmailer->Host = get_hupa_option('smtp_host');
-        $phpmailer->SMTPAuth = (bool) get_hupa_option('smtp_auth_check');
-        $phpmailer->Port = get_hupa_option('smtp_port');
-        $phpmailer->Username = get_hupa_option('email_benutzer');
-        $phpmailer->Password = get_hupa_option('email_passwort');
-        $phpmailer->SMTPSecure = get_hupa_option('smtp_secure');
-        $phpmailer->SMTPDebug = 0;
-        $phpmailer->CharSet = "utf-8";
-    }
-
-    public function starter_log_mailer_errors( $wp_error ){
-        $file = THEME_ADMIN_INC . 'log/mail-error.log';
-        $current = file_get_contents($file);
-        $current .= "Mailer Error: " . $wp_error->get_error_message() ."\n";
-        file_put_contents($file, $current, FILE_APPEND | LOCK_EX);
-    }
-
 
     /**
      * =====================================================

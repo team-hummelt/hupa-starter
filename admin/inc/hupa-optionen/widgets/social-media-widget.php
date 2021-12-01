@@ -44,10 +44,10 @@ class HupaSocialMediaWidget extends WP_Widget {
 			'2' => 'share-buttons',
 		};
 
-
         $shareData = new stdClass();
         $shareData->share_url = urlencode(get_permalink());
-        $metaTitle = get_post_meta( $post->ID , '_hupa_custom_title', true);
+        isset($post->ID) ? $postID = $post->ID : $postID = '';
+        $metaTitle = get_post_meta( $postID , '_hupa_custom_title', true);
         if($metaTitle){
             $shareData->share_title = $metaTitle;
         } else {
@@ -59,7 +59,6 @@ class HupaSocialMediaWidget extends WP_Widget {
 		echo $args->before_title . $header . $args->after_title;
 
 		$media = apply_filters( 'get_social_media', '' );
-
 		$html  = '<div id="'.$btnId.'" class="d-flex flex-wrap">';
 		foreach ( $media->record as $tmp ) {
 			if ( ! $tmp->top_check ) {

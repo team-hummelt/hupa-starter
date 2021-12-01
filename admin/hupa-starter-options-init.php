@@ -11,6 +11,7 @@ defined('ABSPATH') or die();
  * ============ REGISTER HUPA THEME ADMIN SETTINGS ============
  * ============================================================
  */
+
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 //AKTIVE PLUGINS
@@ -82,8 +83,6 @@ const THEME_ADMIN_INC = THEME_ADMIN_DIR . 'inc' . DIRECTORY_SEPARATOR;
 $upload_dir = wp_get_upload_dir();
 define("THEME_FONTS_DIR", $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'theme-fonts' . DIRECTORY_SEPARATOR);
 define("THEME_FONTS_URL", $upload_dir['baseurl'] .'/theme-fonts/');
-//ADMIN INC PATH
-//const THEME_FONTS_DIR = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR;
 
 //THEME AJAX RESPONSE PATH
 const THEME_AJAX_DIR = THEME_ADMIN_INC . 'starter-ajax' .DIRECTORY_SEPARATOR;

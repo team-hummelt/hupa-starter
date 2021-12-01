@@ -15,12 +15,8 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         $hupa_version = wp_get_theme();
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/tools/animate.min.css' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/font-awesome.css' ) );
-        $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/wowjs/wow.min.js' ) );
+        $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/hupa-gmaps-script.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/hupa-starter-theme.js' ) );
-
-        if(!WP_POST_SELECTOR_AKTIV){
-            $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/hupa-gmaps-script.js' ) );
-        }
 
         wp_enqueue_style( 'bootscore-style', get_stylesheet_uri(), array(), $modificated );
         // TODO ANIMATE
@@ -34,9 +30,9 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 
         if(!WP_POST_SELECTOR_AKTIV){
             //JOB WOW JS
+            $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/wowjs/wow.min.js' ) );
             wp_enqueue_script( 'hupa--theme-wowjs-script', get_template_directory_uri() . '/js/wowjs/wow.min.js', array(), $modificated, true );
         }
-
 
         if( get_hupa_option('menu') == 5){
             $img = wp_get_attachment_image_src(  get_hupa_option('logo_image'), 'large' );
@@ -45,13 +41,12 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
             $img = false;
         }
 
-        if(session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE) {
+        if(!session_id()) {
             session_start();
         }
 
         // TODO PUBLIC localize Script
         global $post;
-       // print_r($post);
         $_SESSION['gmaps'] ? $isGmaps = true : $isGmaps = false;
         isset($post->ID) ? $postID = $post->ID : $postID = '';
         isset($post->post_type) ? $post_type = $post->post_type : $post_type = '';

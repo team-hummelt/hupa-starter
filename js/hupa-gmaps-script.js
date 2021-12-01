@@ -123,10 +123,12 @@ window.addEventListener("load", function (event) {
     let api_key = window.atob(get_hupa_option.key);
     saveSession = sessionStorage.getItem("gmaps");
     if (!get_hupa_option.ds_maps  || saveSession || get_hupa_option.gmaps == '1' ) {
-        injectGoogleMapsApiScript({
-            key: api_key,
-            callback: 'hupa_gmaps_data',
-        });
+        if(gmaps_container){
+            injectGoogleMapsApiScript({
+                key: api_key,
+                callback: 'hupa_gmaps_data',
+            });
+        }
     }
 
     // Button Click Funktion

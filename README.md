@@ -10,10 +10,23 @@ hummelt und partner | Werbeagentur GmbH
 * Tags: Hupa Theme, Bootstrap
 * Requires at least: 5.8
 * Tested up to: 5.8
-* Stable tag: 1.0.7
+* Stable tag: 1.0.8
 * Requires PHP: 8.0
 
 ***
+### \#1.0.8
+* Option Seite hinzugefügt
+* Google-Maps Session-Fehler gefixt
+* Google-Maps Shortcode-Fehler gefixt
+* Custom-Header und Custom-Footer angepasst
+* Bootstrap-5-Navwalker gefixt
+* WP-Cache Settings hinzugefügt
+* Debug-Log hinzugefügt
+* Animate CSS und wow.js hinzugefügt
+* Navigation Bug gefixt
+* Externe-Plugins Download hinzugefügt
+* Carousel Fehler gefixt
+
 ### \#1.0.7
 * Preloader Optionen hinzugefügt
 * Menu Logo gefixt

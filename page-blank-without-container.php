@@ -1,13 +1,6 @@
 <?php
-/**
- * Template Name: Blank without container
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package Bootscore
- */
-$pageId = is_singular() ? get_the_ID() : 0;
-$pageSettings = apply_filters('get_page_meta_data', (int)$pageId);
+
+$pageSettings = apply_filters('get_page_meta_data', (int)get_the_ID());
 $pageSettings->title_css ? $titleCss = 'class="' . $pageSettings->title_css . '"' : $titleCss = '';
 get_header();
 ?>

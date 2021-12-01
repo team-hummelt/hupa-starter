@@ -11,6 +11,9 @@ $responseJson = new stdClass();
 $record       = new stdClass();
 //$responseJson->status = false;
 
+if(session_id() == '' || !isset($_SESSION) || session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $method = filter_input( INPUT_POST, 'method', FILTER_SANITIZE_STRING );
 
 switch ( $method ) {
@@ -81,11 +84,10 @@ switch ( $method ) {
     case'set_gmaps_session':
 
         $sessionStatus = filter_input( INPUT_POST, 'status', FILTER_VALIDATE_BOOLEAN );
-        @session_start();
         if($sessionStatus){
             $_SESSION['gmaps'] = true;
         } else {
-            unset($_SESSION['gmaps']);
+           unset($_SESSION['gmaps']);
         }
         break;
 
@@ -113,10 +115,11 @@ switch ( $method ) {
                 $iframe = str_replace($matches[0][0], 'width="' . $width. '" height="' . $height . '"', $iframe);
             }
         }
-        @session_start();
-        if(!isset($_SESSION['gmaps'])){
+
+        if(!$_SESSION['gmaps']){
             $_SESSION['gmaps'] = true;
         }
+
         $responseJson->status = true;
         $responseJson->iframe = $iframe;
         $responseJson->code = $shortcode;

@@ -584,7 +584,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
-                    $return['relative'] = 'position-relative ';
+                    $return['relative'] = '';
                     break;
                 case 2:
                     $return['block'] = 'start ps-lg-4';
@@ -593,7 +593,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = true;
-                    $return['relative'] = 'position-relative ';
+                    $return['relative'] = '';
                     break;
                 case 3:
                     $return['block'] = 'end';
@@ -611,7 +611,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = 'py-3';
                     $return['show_img'] = true;
-                    $return['relative'] = 'position-relative ';
+                    $return['relative'] = '';
                     break;
                 case 5:
                     $return['block'] = 'center';
@@ -620,7 +620,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     $return['container'] = '';
                     $return['height'] = '';
                     $return['show_img'] = false;
-                    $return['relative'] = 'position-relative';
+                    $return['relative'] = '';
                     break;
                 default:
                     return (object)[];
@@ -1081,7 +1081,6 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $record->custum_header = false;
             }
 
-
             //TODO CUSTOM FOOTER
             if ($record->select_footer) {
                 $postFooter = get_post($record->select_footer);
@@ -1110,7 +1109,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 //TODO Formular Custom Footer ShortCode
                 $regEx = '@\[bs-formular.*]@m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if (isset($matches)) {
+                if (isset($matches[0][0])) {
                     $doShortcode = do_shortcode($matches[0][0]);
                     $record->custum_footer = str_replace($matches[0][0], $doShortcode, $record->custum_footer);
                 } else {

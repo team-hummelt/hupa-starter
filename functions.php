@@ -16,7 +16,7 @@ require_once('admin/inc/update-checker/vendor/autoload.php');
 
 function hupa_register_theme_updater()
 {
-    if(get_hupa_option('update_aktiv')) {
+    if (get_hupa_option('update_aktiv')) {
         $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
             'https://github.com/team-hummelt/hupa-starter/',
             __FILE__,
@@ -26,33 +26,35 @@ function hupa_register_theme_updater()
     }
 }
 
-function load_woocommerce_function(){
+
+function load_woocommerce_function()
+{
     if (get_hupa_option('woocommerce_aktiv')) {
 // WooCommerce
         require get_template_directory() . '/woocommerce/woocommerce-functions.php';
 // WooCommerce END
     }
 }
+
 add_action('init', 'load_woocommerce_function');
 
 // Register Bootstrap 5 Nav Walker
-if (!function_exists('register_new_navwalker')) :
-    function register_new_navwalker()
-    {
 
-        require_once('inc/hupa-top-area-navwalker.php');
-        require_once('inc/class-bootstrap-5-navwalker.php');
-        // Register Menus
-        register_nav_menu('top-area-menu', 'Top Area Menu');
-        register_nav_menu('main-menu', 'Main menu');
-        register_nav_menu('footer-widget-menu', 'Footer Widget Menu');
-        register_nav_menu('footer-menu', 'Footer Bottom Menu');
-        register_nav_menu('mega-menu-eins', 'Mega Menu (eins)');
-        register_nav_menu('mega-menu-zwei', 'Mega Menu (zwei)');
-        register_nav_menu('mega-menu-drei', 'Mega Menu (drei)');
-        register_nav_menu('mega-menu-vier', 'Mega Menu (vier)');
-    }
-endif;
+function register_new_navwalker()
+{
+    require_once('inc/class-bootstrap-5-navwalker.php');
+    require_once('inc/hupa-top-area-navwalker.php');
+
+    // Register Menus
+    register_nav_menu('main-menu', 'Main menu');
+    register_nav_menu('top-area-menu', 'Top Area Menu');
+    register_nav_menu('footer-widget-menu', 'Footer Widget Menu');
+    register_nav_menu('footer-menu', 'Footer Bottom Menu');
+    register_nav_menu('mega-menu-eins', 'Mega Menu (eins)');
+    register_nav_menu('mega-menu-zwei', 'Mega Menu (zwei)');
+    register_nav_menu('mega-menu-drei', 'Mega Menu (drei)');
+    register_nav_menu('mega-menu-vier', 'Mega Menu (vier)');
+}
 add_action('after_setup_theme', 'register_new_navwalker');
 // Register Bootstrap 5 Nav Walker END
 
@@ -64,6 +66,7 @@ add_action('after_setup_theme', 'register_new_navwalker');
     }
     add_action( 'after_setup_theme', 'hupa_theme_register_nav_menu', 0 );
 }*/
+
 
 // Register Comment List
 if (!function_exists('register_comment_list')) :
@@ -331,7 +334,7 @@ function bootscore_scripts()
 {
     $hupa_version = wp_get_theme();
     // Get modification time. Enqueue files with modification date to prevent browser from loading cached scripts and styles when file content changes.
-   // $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
+    // $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
     $modificated = date('YmdHi', filemtime(get_stylesheet_directory() . '/style.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/theme.js'));
@@ -378,7 +381,7 @@ add_action('wp_enqueue_scripts', 'bootscore_scripts');
 function wpse_231597_style_loader_tag($tag)
 {
 
-  return preg_replace("/id='font-awesome-css'/", "id='fontawesome-css' online=\"if(media!='all')media='all'\"", $tag);
+    return preg_replace("/id='font-awesome-css'/", "id='fontawesome-css' online=\"if(media!='all')media='all'\"", $tag);
 
 }
 
@@ -565,8 +568,6 @@ function bs_after_primary()
 {
     do_action('bs_after_primary');
 }
-
-
 
 
 // Open links in comments in new tab

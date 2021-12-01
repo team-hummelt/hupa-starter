@@ -12,8 +12,10 @@ $responseJson = new stdClass();
 $record = new stdClass();
 $responseJson->status = false;
 $data = '';
+
 $method = filter_input(INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 global $hupa_api_handle;
+global $hupa_optionen_class;
 
 switch ($method) {
     case 'theme_form_handle':
@@ -489,11 +491,284 @@ switch ($method) {
                 apply_filters('update_hupa_options', apply_filters('arrayToObject', $google_maps_placeholder), 'google_maps_settings');
                 $responseJson->spinner = true;
                 break;
+
+            case 'theme_options_page':
+                filter_input(INPUT_POST, 'wp_cache', FILTER_SANITIZE_STRING) ? $wp_cache = 1 : $wp_cache = 0;
+                filter_input(INPUT_POST, 'wp_debug', FILTER_SANITIZE_STRING) ? $wp_debug = 1 : $wp_debug = 0;
+                filter_input(INPUT_POST, 'wp_debug_log', FILTER_SANITIZE_STRING) ? $wp_debug_log = 1 : $wp_debug_log = 0;
+                filter_input(INPUT_POST, 'hupa_wp_script_debug', FILTER_SANITIZE_STRING) ? $hupa_wp_script_debug = 1 : $hupa_wp_script_debug = 0;
+
+                filter_input(INPUT_POST, 'show_fatal_error', FILTER_SANITIZE_STRING) ? $show_fatal_error = 1 : $show_fatal_error = 0;
+                filter_input(INPUT_POST, 'mu_plugin', FILTER_SANITIZE_STRING) ? $mu_plugin = 1 : $mu_plugin = 0;
+
+                filter_input(INPUT_POST, 'db_repair', FILTER_SANITIZE_STRING) ? $db_repair = 1 : $db_repair = 0;
+                filter_input(INPUT_POST, 'rev_wp_aktiv', FILTER_SANITIZE_STRING) ? $rev_wp_aktiv = 1 : $rev_wp_aktiv = 0;
+                filter_input(INPUT_POST, 'trash_wp_aktiv', FILTER_SANITIZE_STRING) ? $trash_wp_aktiv = 1 : $trash_wp_aktiv = 0;
+                filter_input(INPUT_POST, 'wp_debug_display', FILTER_SANITIZE_STRING) ? $wp_debug_display = 1 : $wp_debug_display = 0;
+
+                filter_input(INPUT_POST, 'ssl_login_aktiv', FILTER_SANITIZE_STRING) ? $ssl_login_aktiv = 1 : $ssl_login_aktiv = 0;
+                filter_input(INPUT_POST, 'admin_ssl_login_aktiv', FILTER_SANITIZE_STRING) ? $admin_ssl_login_aktiv = 1 : $admin_ssl_login_aktiv = 0;
+
+                $revision_anzahl = filter_input(INPUT_POST, 'revision_anzahl', FILTER_VALIDATE_INT);
+                $revision_interval = filter_input(INPUT_POST, 'revision_interval', FILTER_VALIDATE_INT);
+                $trash_days = filter_input(INPUT_POST, 'trash_days', FILTER_VALIDATE_INT);
+
+                update_option('hupa_wp_cache', $wp_cache);
+                update_option('hupa_wp_debug', $wp_debug);
+                update_option('hupa_wp_debug_log', $wp_debug_log);
+                update_option('wp_debug_display', $wp_debug_display);
+                update_option('hupa_wp_script_debug', $hupa_wp_script_debug);
+
+                update_option('hupa_show_fatal_error', $show_fatal_error);
+                update_option('hupa_db_repair', $db_repair);
+
+                update_option('rev_wp_aktiv', $rev_wp_aktiv);
+                update_option('hupa_revision_anzahl', $revision_anzahl);
+                update_option('revision_interval', $revision_interval);
+
+                update_option('trash_wp_aktiv', $trash_wp_aktiv);
+                update_option('hupa_trash_days', $trash_days);
+
+                update_option('ssl_login_aktiv', $ssl_login_aktiv);
+                update_option('admin_ssl_login_aktiv', $admin_ssl_login_aktiv);
+
+                update_option('mu_plugin', $mu_plugin);
+
+
+                // JOB MU PLUGIN
+                if($mu_plugin){
+                  if(!$hupa_optionen_class->theme_activate_mu_plugin()) {
+                      $responseJson->msg = 'MU-Plugin konnte nicht erstellt werden!';
+                      return $responseJson;
+                  }
+                } else {
+                    $hupa_optionen_class->theme_deactivate_mu_plugin();
+                }
+
+                //JOB WP CACHE
+                if ($wp_cache) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_CACHE', 'WP CACHE', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_CACHE', 'WP CACHE', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB WP DEBUG
+                if ($wp_debug) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG', 'WP DEBUG', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_DEBUG', 'WP DEBUG', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB WP DEBUG LOG
+                if ($wp_debug_log) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG_LOG', 'WP DEBUG LOG', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_DEBUG_LOG', 'WP DEBUG LOG', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB WP DEBUG DISPLAY
+                if($wp_debug_display) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG_DISPLAY', 'WP DEBUG DISPLAY', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_DEBUG_DISPLAY', 'WP DEBUG DISPLAY', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB WP SCRIPT DEBUG
+                if($hupa_wp_script_debug) {
+                    $create = $hupa_optionen_class->add_create_config_put('SCRIPT_DEBUG', 'WP SCRIPT_DEBUG', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('SCRIPT_DEBUG', 'WP SCRIPT_DEBUG', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB SHOW FATAL ERROR
+                if ($show_fatal_error) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DISABLE_FATAL_ERROR_HANDLER', 'WP FATAL ERROR', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_DISABLE_FATAL_ERROR_HANDLER', 'WP FATAL ERROR', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB DB REPAIR
+                if ($db_repair) {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_ALLOW_REPAIR', 'WP REPAIR', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_ALLOW_REPAIR', 'WP REPAIR', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB REVISION Anzahl
+                if(!$rev_wp_aktiv){
+                    $create = $hupa_optionen_class->add_create_config_put('WP_POST_REVISIONS', 'POST REVISIONS', $revision_anzahl);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('WP_POST_REVISIONS', 'POST REVISIONS', $revision_anzahl);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB AUTOSAVE
+                if(!$rev_wp_aktiv){
+                    $create = $hupa_optionen_class->add_create_config_put('AUTOSAVE_INTERVAL', 'AUTOSAVE INTERVAL', $revision_interval);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('AUTOSAVE_INTERVAL', 'AUTOSAVE INTERVAL', $revision_interval);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB TRASH DAYS
+                if(!$trash_wp_aktiv) {
+                    $create = $hupa_optionen_class->add_create_config_put('EMPTY_TRASH_DAYS', 'TRASH DAYS', $trash_days);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('EMPTY_TRASH_DAYS', 'TRASH DAYS', $trash_days);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB SSL LOGIN
+                if($ssl_login_aktiv){
+                    $create = $hupa_optionen_class->add_create_config_put('FORCE_SSL_LOGIN', 'SSL LOGIN', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('FORCE_SSL_LOGIN', 'SSL LOGIN', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB ADMIN SSL LOGIN
+                if($admin_ssl_login_aktiv){
+                    $create = $hupa_optionen_class->add_create_config_put('FORCE_SSL_ADMIN', 'ADMIN SSL LOGIN', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                } else {
+                    $delete = $hupa_optionen_class->delete_config_put('FORCE_SSL_ADMIN', 'ADMIN SSL LOGIN', 1);
+                    if (!$delete->status) {
+                        $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+
+                $responseJson->spinner = true;
+                break;
         }
 
         $responseJson->status = true;
         $responseJson->msg = date('H:i:s', current_time('timestamp'));
         break;
+
+    case 'delete_debug_log':
+        $logFile = ABSPATH . 'wp-content' . DIRECTORY_SEPARATOR . 'debug.log';
+        if (is_file($logFile)) {
+            unlink($logFile);
+        }
+        $responseJson->status = true;
+        $responseJson->show_msg = true;
+        $responseJson->msg = 'Debug Log gelöscht!';
+        break;
+
+    case'get_debug_log':
+    case 'renew_debug_log':
+        $logFile = ABSPATH . 'wp-content' . DIRECTORY_SEPARATOR . 'debug.log';
+        if (is_file($logFile)) {
+            $lines = file($logFile);
+            $log = '';
+            $re = '@[]]?.+:\s\s@i';
+            $i = 0;
+            foreach ($lines as $line) {
+                strlen($line) < 250 ? $break = '' : $break = "\r\n";
+                if (preg_match($re, $line, $matches)) {
+                    $log .= "\r\n" . $line;
+                } else {
+                    $log .= "\t" . strip_tags(substr($line, 0, 250)) . $break;
+                }
+            }
+
+            $responseJson->log = $log;
+            $responseJson->status = true;
+            return $responseJson;
+        } else {
+            $responseJson->msg = 'keine Logdaten gefunden!';
+        }
+        break;
+
 
     case 'change_font_select':
         $font_family = filter_input(INPUT_POST, 'font_family', FILTER_SANITIZE_STRING);
@@ -1074,18 +1349,18 @@ switch ($method) {
             'type' => 'font'
         ];
 
-        $zipFile = apply_filters('get_api_download', get_option('hupa_server_url').'download', $body);
-        if(!$zipFile){
+        $zipFile = apply_filters('get_api_download', get_option('hupa_server_url') . 'download', $body);
+        if (!$zipFile) {
             $responseJson->msg = 'Download fehlgeschlagen!';
             return $responseJson;
         }
 
-        $filePath = THEME_FONTS_DIR . $font_name.'.zip';
+        $filePath = THEME_FONTS_DIR . $font_name . '.zip';
         @file_put_contents($filePath, $zipFile);
 
         WP_Filesystem();
-        $unZipFile = unzip_file( $filePath, THEME_FONTS_DIR);
-        if(!$unZipFile){
+        $unZipFile = unzip_file($filePath, THEME_FONTS_DIR);
+        if (!$unZipFile) {
             $responseJson->msg = 'Download fehlgeschlagen!';
             return $responseJson;
         }
@@ -1096,8 +1371,8 @@ switch ($method) {
             'type' => 'font_css',
         ];
 
-        $cssFile = apply_filters('get_api_download', get_option('hupa_server_url').'download', $body);
-        @file_put_contents($fontsDir . $font_name.'.css', $cssFile);
+        $cssFile = apply_filters('get_api_download', get_option('hupa_server_url') . 'download', $body);
+        @file_put_contents($fontsDir . $font_name . '.css', $cssFile);
 
         apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
 
@@ -1235,7 +1510,7 @@ switch ($method) {
             }
         }
 
-        if($dataArr){
+        if ($dataArr) {
             foreach ($dataArr['plugin'] as $tmp) {
                 $tmp->installiert = $hupa_api_handle->is_product_install($tmp->slug);
                 $retPlugin[] = $tmp;
@@ -1263,7 +1538,7 @@ switch ($method) {
         $responseJson->select = $_POST['select_container'];
         $responseJson->method = 'install_api_files';
         $id = filter_input(INPUT_POST, 'plugin_install_id', FILTER_VALIDATE_INT);
-        if(!$id) {
+        if (!$id) {
             $responseJson->msg = 'AJAX Fehler!';
             return $responseJson;
         }
@@ -1279,44 +1554,44 @@ switch ($method) {
 
 
         //JOB WARNING DOWNLOAD FILE
-           $body = [
-               'id' => $id,
-               'type' => 'plugin',
-           ];
+        $body = [
+            'id' => $id,
+            'type' => 'plugin',
+        ];
 
-          $zipFile = apply_filters('get_api_download', $fileData->download, $body);
-           if(!$zipFile){
-               $responseJson->msg = 'Download fehlgeschlagen!';
-               return $responseJson;
-           }
+        $zipFile = apply_filters('get_api_download', $fileData->download, $body);
+        if (!$zipFile) {
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
 
-           @file_put_contents($filePath, $zipFile);
-           WP_Filesystem();
-           $unZipFile = unzip_file( $filePath, $plugin_dir);
-           if(!$unZipFile){
-               $responseJson->msg = 'Download fehlgeschlagen!';
-               return $responseJson;
-           }
+        @file_put_contents($filePath, $zipFile);
+        WP_Filesystem();
+        $unZipFile = unzip_file($filePath, $plugin_dir);
+        if (!$unZipFile) {
+            $responseJson->msg = 'Download fehlgeschlagen!';
+            return $responseJson;
+        }
 
-           unlink($filePath);
-           $responseJson->status = true;
-           $responseJson->id = $id;
-           $responseJson->name = $fileData->bezeichnung;
-           $responseJson->slug = $fileData->slug;
-           $responseJson->msg = 'Plugin erfolgreich Installiert.';
+        unlink($filePath);
+        $responseJson->status = true;
+        $responseJson->id = $id;
+        $responseJson->name = $fileData->bezeichnung;
+        $responseJson->slug = $fileData->slug;
+        $responseJson->msg = 'Plugin erfolgreich Installiert.';
         break;
 
     case 'api_activate_plugin':
         $slug = filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
         $responseJson->selector = filter_input(INPUT_POST, 'selector', FILTER_SANITIZE_STRING);
-        if(!$slug){
+        if (!$slug) {
             $responseJson->msg = 'aktivierung fehlgeschlagen!';
             return $responseJson;
         }
-        $plugin = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . $slug.'.php';
-        $activate = activate_plugin( $plugin );
+        $plugin = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . $slug . '.php';
+        $activate = activate_plugin($plugin);
 
-        if ( is_wp_error( $activate ) ) {
+        if (is_wp_error($activate)) {
             $responseJson->msg = $activate->get_error_message();
             return $responseJson;
         }
@@ -1332,7 +1607,7 @@ switch ($method) {
         $responseJson->data_method = 'api_activate_theme';
         $pin = filter_input(INPUT_POST, 'download_pin', FILTER_SANITIZE_NUMBER_INT);
         $id = filter_input(INPUT_POST, 'child_install_id', FILTER_SANITIZE_NUMBER_INT);
-        if(!$pin || !$id){
+        if (!$pin || !$id) {
             $responseJson->msg = ' falsche Pin eingabe!';
             return $responseJson;
         }
@@ -1343,7 +1618,7 @@ switch ($method) {
         ];
 
         $fileData = apply_filters('post_scope_resource', 'file/install-theme', $body);
-        if(!$fileData->status) {
+        if (!$fileData->status) {
             $responseJson->msg = $fileData->error;
             return $responseJson;
         }
@@ -1354,18 +1629,18 @@ switch ($method) {
         ];
 
         $zipFile = apply_filters('get_api_download', $fileData->download, $body);
-        if(!$zipFile) {
+        if (!$zipFile) {
             $responseJson->msg = 'Download fehlgeschlagen!';
             return $responseJson;
         }
 
-        $theme_dir = get_theme_root() .DIRECTORY_SEPARATOR ;
+        $theme_dir = get_theme_root() . DIRECTORY_SEPARATOR;
         $filePath = $theme_dir . $fileData->file_name;
 
         @file_put_contents($filePath, $zipFile);
         WP_Filesystem();
-        $unZipFile = unzip_file( $filePath, $theme_dir);
-        if(!$unZipFile){
+        $unZipFile = unzip_file($filePath, $theme_dir);
+        if (!$unZipFile) {
             $responseJson->msg = 'Download fehlgeschlagen!';
             return $responseJson;
         }
@@ -1384,7 +1659,7 @@ switch ($method) {
         $slug = filter_input(INPUT_POST, 'slug', FILTER_SANITIZE_STRING);
         $responseJson->selector = filter_input(INPUT_POST, 'selector', FILTER_SANITIZE_STRING);
 
-        if(!$slug){
+        if (!$slug) {
             $responseJson->msg = 'aktivierung fehlgeschlagen!';
             return $responseJson;
         }

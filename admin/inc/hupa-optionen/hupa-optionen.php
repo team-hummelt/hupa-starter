@@ -74,7 +74,9 @@ require 'action/hupa-html-compression.php';
 //TODO UPDATE OPTIONEN CLASS
 require 'action/hupa-update-action.php';
 //WARNING JOB API HANDLE CLASS
-require 'api/class-api-handle.php';
+require 'Class/class-api-handle.php';
+//WARNING JOB OPTIONEN CLASS
+require 'Class/hupa-optionen-class.php';
 
 if(get_option("hupa_theme_version") == THEME_VERSION){
     do_action('validate_install_optionen');

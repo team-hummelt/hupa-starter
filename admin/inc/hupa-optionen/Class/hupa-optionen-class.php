@@ -109,8 +109,6 @@ final class HupaStarterThemeOptionen
 
     public function theme_activate_mu_plugin(){
 
-
-       //000-set-debug-level.php
         $muDir = ABSPATH . 'wp-content' . DIRECTORY_SEPARATOR . 'mu-plugins';
         if(!is_dir($muDir)){
             if(!mkdir($muDir, 0777 ,true)){
@@ -142,6 +140,7 @@ final class HupaStarterThemeOptionen
         error_reporting( E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR );';
         return preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $plugin));
     }
+
 
     public function readLastLine($file):string
     {

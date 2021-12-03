@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: _s 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2021-10-23 12:46+0200\n"
-"PO-Revision-Date: 2021-10-23 12:46+0200\n"
+"POT-Creation-Date: 2021-12-02 20:29+0100\n"
+"PO-Revision-Date: 2021-12-02 20:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -15,9 +15,50 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Loco-Version: 2.5.2; wp-5.7.2\n"
-"X-Poedit-KeywordsList: __;_e;esc_html;esc_html__;esc_att;esc_attr__\n"
+"X-Poedit-KeywordsList: __;_e;esc_html;esc_html__;esc_att;esc_html_e\n"
 "X-Poedit-Basepath: ../admin\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: inc/gutenberg-tools/google-maps/src/index.js:24
+#: inc/register-hupa-starter-optionen.php:168
+#: inc/register-hupa-starter-optionen.php:169
+msgid "Google Maps"
+msgstr "Google Maps"
+
+#: inc/gutenberg-tools/google-maps/src/index.js:41
+#: inc/gutenberg-tools/menu-select/src/index.js:42
+#: inc/gutenberg-tools/theme-carousel/src/index.js:33
+msgid " Gutenberg TOOLS BY Jens Wiecker"
+msgstr ""
+
+#: inc/gutenberg-tools/google-maps/src/index.js:42
+#, fuzzy
+#| msgid "Theme Google Maps"
+msgid "Gutenberg Google Maps"
+msgstr "Theme Google Maps"
+
+#: inc/gutenberg-tools/menu-select/src/index.js:24
+#, fuzzy
+#| msgid "Selector"
+msgid "Menu Select"
+msgstr "Selektor"
+
+#: inc/gutenberg-tools/menu-select/src/index.js:43
+msgid "Gutenberg Menu Select"
+msgstr ""
+
+#: inc/gutenberg-tools/theme-carousel/src/index.js:24
+#: inc/register-hupa-starter-optionen.php:133
+#: inc/register-hupa-starter-optionen.php:134
+#: inc/starter-admin-pages/admin-starter-theme-carousel.php:37
+msgid "Carousel"
+msgstr "Carousel"
+
+#: inc/gutenberg-tools/theme-carousel/src/index.js:34
+#, fuzzy
+#| msgid "Theme Carousel"
+msgid "Gutenberg Theme Carousel"
+msgstr "Theme Carousel"
 
 #: inc/hupa-gutenberg-sidebar/classic-meta-box/classic-meta-box.php:58
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/src/save/save-wichtig.js:249
@@ -113,9 +154,9 @@ msgstr "Header auswählen:"
 
 #: inc/hupa-gutenberg-sidebar/classic-meta-box/classic-meta-box.php:242
 #: inc/hupa-gutenberg-sidebar/classic-meta-box/classic-meta-box.php:263
-#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:60
-#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:82
-#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:92
+#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:58
+#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:80
+#: inc/hupa-gutenberg-sidebar/sidebar-rest-endpoint.php:90
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:185
 msgid "select"
 msgstr "auswählen"
@@ -265,7 +306,7 @@ msgstr ""
 #: inc/hupa-gutenberg-sidebar/js/index.js:1
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js:4684
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/src/index.js:750
-#: inc/starter-admin-pages/admin-starter-theme-home.php:815
+#: inc/starter-admin-pages/admin-starter-theme-home.php:828
 #, fuzzy
 #| msgid "Social Media"
 msgid "Soziale Medien"
@@ -274,12 +315,12 @@ msgstr "Soziale Medien"
 #: inc/hupa-gutenberg-sidebar/js/index.js:1
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js:4693
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/src/index.js:779
-#: inc/register-hupa-starter-optionen.php:330
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2369
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2495
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2613
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2717
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2836
+#: inc/register-hupa-starter-optionen.php:411
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2382
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2508
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2626
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2730
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2849
 msgid "Footer"
 msgstr "Footer"
 
@@ -355,7 +396,7 @@ msgid "Read more"
 msgstr "mehr"
 
 #: inc/hupa-optionen/action/social-media-hook.php:60
-#: inc/hupa-optionen/widgets/social-media-widget.php:68
+#: inc/hupa-optionen/widgets/social-media-widget.php:67
 msgid "Look what I found: "
 msgstr "Schau mal was ich gefunden habe: "
 
@@ -453,7 +494,7 @@ msgstr "benutzerdefinierter Pin"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:93
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:111
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:551
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:602
 msgid "Info text"
 msgstr "Infotext"
 
@@ -469,13 +510,13 @@ msgstr "Benutzerdefinierter Pin:"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:96
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:114
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:148
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:155
 msgid "Height"
 msgstr "Höhe"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:97
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:115
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:158
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:165
 msgid "Wide"
 msgstr "Breite"
 
@@ -531,7 +572,7 @@ msgid "Light theme"
 msgstr "helles Thema"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:133
-#: inc/hupa-optionen/filter/hupa-carousel-filter.php:463
+#: inc/hupa-optionen/filter/hupa-carousel-filter.php:485
 msgid "dark theme"
 msgstr "dunkles Thema"
 
@@ -657,7 +698,7 @@ msgid "Select image for slider."
 msgstr "Bild für Slider auswählen."
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:164
-#: inc/starter-admin-pages/admin-starter-theme-home.php:440
+#: inc/starter-admin-pages/admin-starter-theme-home.php:453
 msgid "Image size"
 msgstr "Bildgröße"
 
@@ -666,8 +707,9 @@ msgid "Specify the image size for output. (e.g. medium, large)"
 msgstr "Geben Sie die Bildgröße für die Ausgabe an. (z.B. medium, large)"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:166
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3069
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3854
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3082
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3862
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3915
 msgid "active"
 msgstr "aktiv"
 
@@ -733,86 +775,86 @@ msgid "First caption <small class=\"small\">(top)</small>"
 msgstr "Erste Beschriftung <small class=\"small\">(oben)</small>"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:180
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1023
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1152
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1269
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1386
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1503
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1619
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1736
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1862
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1974
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2073
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2175
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2277
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2383
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2508
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2626
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2730
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2848
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1036
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1165
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1282
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1399
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1516
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1632
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1749
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1875
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1987
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2086
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2188
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2290
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2396
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2521
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2639
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2743
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2861
 msgid "Font family"
 msgstr "Schriftfamilie"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:181
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1039
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1168
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1285
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1402
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1519
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1635
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1752
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1878
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1990
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2089
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2191
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2293
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2400
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2524
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2642
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2746
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2864
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1052
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1181
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1298
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1415
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1532
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1648
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1765
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1891
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2003
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2102
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2204
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2306
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2413
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2537
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2655
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2759
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2877
 msgid "Font style"
 msgstr "Schriftstil"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:182
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1055
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1184
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1301
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1418
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1535
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1651
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1770
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1895
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2007
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2106
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2208
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2310
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2418
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2542
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2660
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2764
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2882
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1068
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1197
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1314
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1431
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1548
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1664
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1783
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1908
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2020
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2119
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2221
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2323
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2431
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2555
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2673
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2777
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2895
 msgid "Font size"
 msgstr "Schriftgröße"
 
 #: inc/hupa-optionen/filter/ajax-language/ajax-language-filter.php:183
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1066
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1195
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1312
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1429
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1546
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1662
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1783
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1908
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2020
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2118
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2221
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2323
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2432
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2556
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2674
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2778
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2895
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1079
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1208
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1325
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1442
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1559
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1675
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1796
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1921
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2033
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2131
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2234
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2336
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2445
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2569
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2687
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2791
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2908
 msgid "row height"
 msgstr "Zeilenhöhe"
 
@@ -836,100 +878,117 @@ msgstr "Slider Baseline"
 msgid "Selector"
 msgstr "Selektor"
 
-#: inc/hupa-optionen/filter/hupa-carousel-filter.php:461
+#: inc/hupa-optionen/filter/hupa-carousel-filter.php:483
 msgid "no background"
 msgstr "kein Hintergrund"
 
-#: inc/hupa-optionen/filter/hupa-carousel-filter.php:462
+#: inc/hupa-optionen/filter/hupa-carousel-filter.php:484
 msgid "light theme"
 msgstr "helles Thema"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:621
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:642
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:658
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:674
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:639
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:660
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:676
 #: inc/hupa-optionen/filter/hupa-theme-option-filter.php:692
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:708
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:724
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:710
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:726
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:742
 msgid "Preset"
 msgstr "Voreinstellung"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:625
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:643
 msgid "Standard Menu"
 msgstr "Standard Menü"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:662
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:172
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:680
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:184
+#: inc/starter-admin-pages/hupa-options-page.php:347
 msgid "show"
 msgstr "anzeigen"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:666
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:684
+#: inc/starter-admin-pages/hupa-options-page.php:348
 msgid "hide"
 msgstr "ausblenden"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:678
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:696
 msgid "aktiv"
 msgstr ""
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:682
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:700
 msgid "nicht aktiv"
 msgstr ""
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:696
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:714
 msgid "Container"
 msgstr "Container"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:700
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:718
 #, fuzzy
 #| msgid "container-fluid"
 msgid "Container-Fluid"
 msgstr "container-fluid"
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:712
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:730
 msgid "Symbole"
 msgstr ""
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:716
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:578
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2061
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3538
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:734
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:629
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2074
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3572
 msgid "Button"
 msgstr ""
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:728
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:746
 msgid "farbig"
 msgstr ""
 
-#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:732
+#: inc/hupa-optionen/filter/hupa-theme-option-filter.php:750
 msgid "neutral"
 msgstr ""
 
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:560
-#: inc/hupa-optionen/widgets/social-media-widget.php:108
-#: inc/hupa-optionen/widgets/social-media-widget.php:111
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3969
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:104
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:105
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:114
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:115
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:123
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:124
+msgid "Sort"
+msgstr "Sortieren"
+
+#: inc/hupa-optionen/menu-order/class/class-order-helper.php:96
+#: inc/hupa-optionen/menu-order/class/class-order-helper.php:163
+#, php-format
+msgid "Use commas instead of %s to separate excluded terms."
+msgstr ""
+
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:611
+#: inc/hupa-optionen/widgets/social-media-widget.php:107
+#: inc/hupa-optionen/widgets/social-media-widget.php:110
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4048
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:34
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:46
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:51
 msgid "Social Media"
 msgstr "Soziale Medien"
 
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:569
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:620
 msgid "Top Area Menu"
 msgstr "Top Area Menü"
 
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:597
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:608
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:619
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:630
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:641
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:652
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:663
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:674
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:685
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:696
-#: inc/hupa-optionen/traits/HupaOptionTrait.php:707
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:115
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:648
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:659
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:670
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:681
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:692
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:703
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:714
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:725
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:736
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:747
+#: inc/hupa-optionen/traits/HupaOptionTrait.php:758
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:123
 msgid "Look what I found:"
 msgstr "Schau mal was ich gefunden habe:"
 
@@ -937,23 +996,23 @@ msgstr "Schau mal was ich gefunden habe:"
 msgid "Hupa Social Media"
 msgstr "Hupa Soziale Medien"
 
-#: inc/hupa-optionen/widgets/social-media-widget.php:118
+#: inc/hupa-optionen/widgets/social-media-widget.php:117
 msgid "Title"
 msgstr "Titel"
 
-#: inc/hupa-optionen/widgets/social-media-widget.php:130
+#: inc/hupa-optionen/widgets/social-media-widget.php:129
 msgid "Show icon"
 msgstr "Symbol anzeigen"
 
-#: inc/hupa-optionen/widgets/social-media-widget.php:135
+#: inc/hupa-optionen/widgets/social-media-widget.php:134
 msgid "Show button"
 msgstr "Button anzeigen"
 
-#: inc/hupa-optionen/widgets/social-media-widget.php:143
+#: inc/hupa-optionen/widgets/social-media-widget.php:142
 msgid "Show coloured symbols"
 msgstr "Farbige symbole anzeigen?"
 
-#: inc/hupa-optionen/widgets/social-media-widget.php:148
+#: inc/hupa-optionen/widgets/social-media-widget.php:147
 msgid "Add extra CSS class"
 msgstr "Extra CSS Klasse hinzufügen"
 
@@ -972,118 +1031,173 @@ msgstr "Client secret"
 msgid "Theme aktivieren"
 msgstr "Theme Optionen"
 
-#: inc/register-hupa-starter-optionen.php:102
-#: inc/register-hupa-starter-optionen.php:103
-#: inc/starter-admin-pages/admin-starter-theme-home.php:17
+#: inc/register-hupa-starter-optionen.php:98
+#: inc/register-hupa-starter-optionen.php:99
+#: inc/register-hupa-starter-optionen.php:211
+#: inc/register-hupa-starter-optionen.php:236
+msgid "HUPA Theme"
+msgstr "HUPA Theme"
+
+#: inc/register-hupa-starter-optionen.php:110
+#: inc/register-hupa-starter-optionen.php:111
+#: inc/starter-admin-pages/admin-starter-theme-home.php:18
+#: inc/starter-admin-pages/hupa-options-page.php:17
 msgid "Theme Settings"
 msgstr "Theme Settings"
 
-#: inc/register-hupa-starter-optionen.php:114
-#: inc/register-hupa-starter-optionen.php:115
+#: inc/register-hupa-starter-optionen.php:121
+#: inc/register-hupa-starter-optionen.php:122
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:39
 msgid "Theme Tools"
 msgstr "Theme Tools"
 
-#: inc/register-hupa-starter-optionen.php:126
-#: inc/register-hupa-starter-optionen.php:127
-#: inc/starter-admin-pages/admin-starter-theme-carousel.php:37
-msgid "Carousel"
-msgstr "Carousel"
+#: inc/register-hupa-starter-optionen.php:144
+#: inc/register-hupa-starter-optionen.php:145
+msgid "Installation"
+msgstr ""
 
-#: inc/register-hupa-starter-optionen.php:138
+#: inc/register-hupa-starter-optionen.php:155
 msgid "Licences"
 msgstr "Lizenzen"
 
-#: inc/register-hupa-starter-optionen.php:139
+#: inc/register-hupa-starter-optionen.php:156
 msgid "<b class=\"green_submenue\"> Licences ➤</b>"
 msgstr "<b class=\"green_submenue\"> Lizenzen ➤</b>"
 
-#: inc/register-hupa-starter-optionen.php:151
-#: inc/register-hupa-starter-optionen.php:152
-msgid "Theme Maps"
-msgstr "Theme Maps"
+#: inc/register-hupa-starter-optionen.php:178
+#: inc/register-hupa-starter-optionen.php:179
+#, fuzzy
+#| msgid "Google Maps"
+msgid "Google Maps API"
+msgstr "Google Maps"
 
-#: inc/register-hupa-starter-optionen.php:175
-msgid "HUPA Theme"
-msgstr "HUPA Theme"
+#: inc/register-hupa-starter-optionen.php:188
+#: inc/register-hupa-starter-optionen.php:189
+#: inc/starter-admin-pages/admin-iframe-maps.php:23
+#: inc/starter-admin-pages/admin-iframe-maps.php:29
+#: inc/starter-admin-pages/admin-iframe-maps.php:34
+#, fuzzy
+#| msgid "Google Maps"
+msgid "Google Maps I-Frame"
+msgstr "Google Maps"
 
-#: inc/register-hupa-starter-optionen.php:194
+#: inc/register-hupa-starter-optionen.php:198
+#: inc/register-hupa-starter-optionen.php:199
+#: inc/starter-admin-pages/admin-gmaps-settings.php:21
+#: inc/starter-admin-pages/admin-gmaps-settings.php:26
+#: inc/starter-admin-pages/admin-gmaps-settings.php:31
+msgid "Google Maps Settings"
+msgstr "Google Maps Settings"
+
+#: inc/register-hupa-starter-optionen.php:246
+msgid "Theme Einstellungen"
+msgstr ""
+
+#: inc/register-hupa-starter-optionen.php:253
 msgid "Contact"
 msgstr "Kontakt"
 
-#: inc/register-hupa-starter-optionen.php:204
+#: inc/register-hupa-starter-optionen.php:263
 msgid "Website"
 msgstr "Webseite"
 
-#: inc/register-hupa-starter-optionen.php:329
+#: inc/register-hupa-starter-optionen.php:410
 msgid "Custom Footer"
 msgstr "Custom Footer"
 
-#: inc/register-hupa-starter-optionen.php:331
+#: inc/register-hupa-starter-optionen.php:412
 msgid "Edit Footer"
 msgstr "Footer bearbeiten"
 
-#: inc/register-hupa-starter-optionen.php:332
+#: inc/register-hupa-starter-optionen.php:413
 msgid "Footer list navigation"
 msgstr "Footer-Listennavigation"
 
-#: inc/register-hupa-starter-optionen.php:334
+#: inc/register-hupa-starter-optionen.php:415
 msgid "Footer Archives"
 msgstr "Footer Archive"
 
-#: inc/register-hupa-starter-optionen.php:367
+#: inc/register-hupa-starter-optionen.php:450
 msgid "Custom Header"
 msgstr "Custom Header"
 
-#: inc/register-hupa-starter-optionen.php:368
+#: inc/register-hupa-starter-optionen.php:451
 msgid "Header"
 msgstr "Header"
 
-#: inc/register-hupa-starter-optionen.php:369
+#: inc/register-hupa-starter-optionen.php:452
 msgid "Edit Header"
 msgstr "Header bearbeiten"
 
-#: inc/register-hupa-starter-optionen.php:370
+#: inc/register-hupa-starter-optionen.php:453
 msgid "Header list navigation"
 msgstr "Header-Listennavigation"
 
-#: inc/register-hupa-starter-optionen.php:371
+#: inc/register-hupa-starter-optionen.php:454
 msgid "Create new header"
 msgstr "Neuen Header erstellen"
 
-#: inc/register-hupa-starter-optionen.php:372
+#: inc/register-hupa-starter-optionen.php:455
 msgid "Header Archives"
 msgstr "Header Archive"
 
-#: inc/register-hupa-starter-optionen.php:439
+#: inc/register-hupa-starter-optionen.php:485
 #, fuzzy
 #| msgid "Top Menu Info text"
 msgid "Top Area Menu Info text"
 msgstr "Top Menü Infotext"
 
-#: inc/register-hupa-starter-optionen.php:441
+#: inc/register-hupa-starter-optionen.php:487
 msgid "Area for info or contact information."
 msgstr "Bereich für Infos oder Kontaktinformationen."
 
-#: inc/register-hupa-starter-optionen.php:449
+#: inc/register-hupa-starter-optionen.php:495
 #, fuzzy
 #| msgid "Top Menu Social media"
 msgid "Top Area Menu Social media"
 msgstr "Top Menü soziale Medien"
 
-#: inc/register-hupa-starter-optionen.php:451
+#: inc/register-hupa-starter-optionen.php:497
 msgid "Area for social media icons."
 msgstr "Bereich für soziale Medien Icons."
 
-#: inc/register-hupa-starter-optionen.php:459
+#: inc/register-hupa-starter-optionen.php:505
 #, fuzzy
 #| msgid "Top Menu Button"
 msgid "Top Area Menu Button"
 msgstr "Top Menü Button"
 
-#: inc/register-hupa-starter-optionen.php:461
+#: inc/register-hupa-starter-optionen.php:507
 msgid "Area for button or search field."
 msgstr "Bereich für Button oder Suchfeld."
+
+#: inc/starter-admin-pages/admin-gmaps-settings.php:17
+#: inc/starter-admin-pages/admin-iframe-maps.php:19
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:20
+msgid "Theme Google Maps"
+msgstr "Theme Google Maps"
+
+#: inc/starter-admin-pages/admin-install-from-api.php:18
+msgid "Theme API Installation"
+msgstr ""
+
+#: inc/starter-admin-pages/admin-install-from-api.php:22
+#: inc/starter-admin-pages/hupa-options-page.php:21
+#, fuzzy
+#| msgid "Theme Maps"
+msgid "Theme"
+msgstr "Theme Maps"
+
+#: inc/starter-admin-pages/admin-install-from-api.php:23
+#: inc/starter-admin-pages/admin-install-from-api.php:28
+#: inc/starter-admin-pages/admin-install-from-api.php:33
+msgid "Installationen"
+msgstr ""
+
+#: inc/starter-admin-pages/admin-install-from-api.php:36
+#: inc/starter-admin-pages/admin-install-from-api.php:41
+msgid "Installierte Schriften"
+msgstr ""
 
 #: inc/starter-admin-pages/admin-post-slider-options.php:17
 msgid "Post Select Slider"
@@ -1113,7 +1227,7 @@ msgstr "Carousel Bezeichnung eingeben (max 50: Zeichen)"
 #: inc/starter-admin-pages/admin-post-slider-options.php:64
 #: inc/starter-admin-pages/admin-starter-theme-carousel.php:79
 #: inc/starter-admin-pages/admin-starter-theme-carousel.php:102
-#: inc/starter-admin-pages/admin-starter-theme-home.php:4015
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4104
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1141,572 +1255,578 @@ msgid "Create carousel"
 msgstr "Carousel erstellen"
 
 #: inc/starter-admin-pages/admin-starter-theme-carousel.php:115
-#: inc/starter-admin-pages/admin-starter-theme-home.php:4028
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4117
 msgid "Icon auswählen"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:21
+#: inc/starter-admin-pages/admin-starter-theme-home.php:22
 #: inc/starter-admin-pages/admin-starter-theme-maps.php:25
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:31
 #: inc/starter-admin-pages/hupa-starter-license.php:42
 #: inc/starter-admin-pages/hupa-starter-license.php:47
 msgid "Settings"
 msgstr "Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:22
-#: inc/starter-admin-pages/admin-starter-theme-home.php:28
+#: inc/starter-admin-pages/admin-starter-theme-home.php:23
+#: inc/starter-admin-pages/admin-starter-theme-home.php:29
 msgid "actual"
 msgstr "aktuell"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:35
+#: inc/starter-admin-pages/admin-starter-theme-home.php:36
 msgid "Hupa actual"
 msgstr "Hupa aktuell"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:38
-#: inc/starter-admin-pages/admin-starter-theme-home.php:42
+#: inc/starter-admin-pages/admin-starter-theme-home.php:39
+#: inc/starter-admin-pages/admin-starter-theme-home.php:43
 msgid "General"
 msgstr "Allgemein"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:45
+#: inc/starter-admin-pages/admin-starter-theme-home.php:46
 msgid "Font"
 msgstr "Schrift"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:51
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3932
+#: inc/starter-admin-pages/admin-starter-theme-home.php:52
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4011
 msgid "Fonts"
 msgstr "Schrift"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:54
-#: inc/starter-admin-pages/admin-starter-theme-home.php:60
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3941
+#: inc/starter-admin-pages/admin-starter-theme-home.php:55
+#: inc/starter-admin-pages/admin-starter-theme-home.php:61
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4020
 msgid "Colors"
 msgstr "Farben"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:63
-#: inc/starter-admin-pages/admin-starter-theme-home.php:67
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3950
+#: inc/starter-admin-pages/admin-starter-theme-home.php:64
+#: inc/starter-admin-pages/admin-starter-theme-home.php:68
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4029
 msgid "Theme options"
 msgstr "Theme Optionen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:71
-#: inc/starter-admin-pages/admin-starter-theme-home.php:76
+#: inc/starter-admin-pages/admin-starter-theme-home.php:72
+#: inc/starter-admin-pages/admin-starter-theme-home.php:77
 msgid "Infos"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:79
-#: inc/starter-admin-pages/admin-starter-theme-home.php:84
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3923
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3932
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3941
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3950
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3969
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3978
+#: inc/starter-admin-pages/admin-starter-theme-home.php:80
+#: inc/starter-admin-pages/admin-starter-theme-home.php:85
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4002
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4011
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4020
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4029
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4048
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4057
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4067
 msgid "Reset"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:101
+#: inc/starter-admin-pages/admin-starter-theme-home.php:102
 msgid "News and Updates"
 msgstr "News und Updates"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:118
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3923
+#: inc/starter-admin-pages/admin-starter-theme-home.php:131
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4002
 msgid "General Theme Settings"
 msgstr "Allgemeine Theme Einstellungen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:131
+#: inc/starter-admin-pages/admin-starter-theme-home.php:144
 msgid "Design"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:131
+#: inc/starter-admin-pages/admin-starter-theme-home.php:144
 msgid "Layout"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:140
+#: inc/starter-admin-pages/admin-starter-theme-home.php:153
 msgid "Layout Settings"
 msgstr "Layout Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:151
+#: inc/starter-admin-pages/admin-starter-theme-home.php:164
 msgid "Fixed Header"
 msgstr "Fixed Header"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:159
+#: inc/starter-admin-pages/admin-starter-theme-home.php:172
 msgid "Fixed Footer"
 msgstr "Fixed Footer"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:168
+#: inc/starter-admin-pages/admin-starter-theme-home.php:181
 msgid "Show Scroll To Top Button"
 msgstr "Scroll To Top Button anzeigen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:177
+#: inc/starter-admin-pages/admin-starter-theme-home.php:190
 msgid "Show edit link"
 msgstr "Bearbeiten Link anzeigen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:187
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2148
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2163
+#: inc/starter-admin-pages/admin-starter-theme-home.php:200
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2161
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2176
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:40
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:53
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:58
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:147
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:155
 msgid "Top Area"
 msgstr "Top Area"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:195
+#: inc/starter-admin-pages/admin-starter-theme-home.php:208
 #, fuzzy
 #| msgid "Top Area active"
 msgid "Top Area anzeigen"
 msgstr "Top Area aktiv"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:208
-#: inc/starter-admin-pages/admin-starter-theme-home.php:238
-#: inc/starter-admin-pages/admin-starter-theme-home.php:267
+#: inc/starter-admin-pages/admin-starter-theme-home.php:221
+#: inc/starter-admin-pages/admin-starter-theme-home.php:251
+#: inc/starter-admin-pages/admin-starter-theme-home.php:280
 msgid "container"
 msgstr "container"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:218
-#: inc/starter-admin-pages/admin-starter-theme-home.php:247
-#: inc/starter-admin-pages/admin-starter-theme-home.php:276
+#: inc/starter-admin-pages/admin-starter-theme-home.php:231
+#: inc/starter-admin-pages/admin-starter-theme-home.php:260
+#: inc/starter-admin-pages/admin-starter-theme-home.php:289
 msgid "container-fluid"
 msgstr "container-fluid"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:223
-#: inc/starter-admin-pages/admin-starter-theme-home.php:252
-#: inc/starter-admin-pages/admin-starter-theme-home.php:281
+#: inc/starter-admin-pages/admin-starter-theme-home.php:236
+#: inc/starter-admin-pages/admin-starter-theme-home.php:265
+#: inc/starter-admin-pages/admin-starter-theme-home.php:294
 msgid ""
 "<code>container-fluid</code>extends across the entire width of the browser."
 msgstr ""
 "<code>container-fluid</code> erstreckt sich über die gesamte Breite des "
 "Browsers."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:227
+#: inc/starter-admin-pages/admin-starter-theme-home.php:240
 #, fuzzy
 #| msgid "Container"
 msgid "Menu Container"
 msgstr "Container"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:257
+#: inc/starter-admin-pages/admin-starter-theme-home.php:270
 #, fuzzy
 #| msgid "Container"
 msgid "Main Container"
 msgstr "Container"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:287
+#: inc/starter-admin-pages/admin-starter-theme-home.php:300
 msgid "Main menu Settings"
 msgstr "Hauptmenü-Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:297
+#: inc/starter-admin-pages/admin-starter-theme-home.php:310
 msgid "Menü Center"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:305
+#: inc/starter-admin-pages/admin-starter-theme-home.php:318
 msgid "Menü links"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:313
+#: inc/starter-admin-pages/admin-starter-theme-home.php:326
 msgid "Menü rechts"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:322
+#: inc/starter-admin-pages/admin-starter-theme-home.php:335
 msgid "Logo mitte"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:330
+#: inc/starter-admin-pages/admin-starter-theme-home.php:343
 msgid "Handy Menu Settings"
 msgstr "Handy-Menü-Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:339
-#: inc/starter-admin-pages/admin-starter-theme-home.php:347
+#: inc/starter-admin-pages/admin-starter-theme-home.php:352
+#: inc/starter-admin-pages/admin-starter-theme-home.php:360
 msgid "Handy Menu"
 msgstr "Handy Menü"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:356
+#: inc/starter-admin-pages/admin-starter-theme-home.php:369
 msgid "Sonstige Einstellungen"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:365
+#: inc/starter-admin-pages/admin-starter-theme-home.php:378
 msgid "Preloader aktiv"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:389
+#: inc/starter-admin-pages/admin-starter-theme-home.php:402
 msgid "Logo upload and Settings"
 msgstr "Logo-Upload und Einstellungen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:395
+#: inc/starter-admin-pages/admin-starter-theme-home.php:408
 msgid "Image Upload"
 msgstr "Bilderupload"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:399
+#: inc/starter-admin-pages/admin-starter-theme-home.php:412
 msgid "Logo for Header"
 msgstr "Logo für Header"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:428
-#: inc/starter-admin-pages/admin-starter-theme-home.php:498
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:132
+#: inc/starter-admin-pages/admin-starter-theme-home.php:441
+#: inc/starter-admin-pages/admin-starter-theme-home.php:511
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:139
 msgid "Click here to select image"
 msgstr "Zur Bildauswahl hier klicken"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:435
-#: inc/starter-admin-pages/admin-starter-theme-home.php:505
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:138
+#: inc/starter-admin-pages/admin-starter-theme-home.php:448
+#: inc/starter-admin-pages/admin-starter-theme-home.php:518
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:145
 msgid "Remove image"
 msgstr "Bild löschen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:453
+#: inc/starter-admin-pages/admin-starter-theme-home.php:466
 msgid "Logo for Login"
 msgstr "Logo für Login"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:472
+#: inc/starter-admin-pages/admin-starter-theme-home.php:485
 msgid "Use header logo"
 msgstr "Header-Logo verwenden"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:512
+#: inc/starter-admin-pages/admin-starter-theme-home.php:525
 msgid "URL for Login Logo"
 msgstr "URL für Login Logo"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:531
+#: inc/starter-admin-pages/admin-starter-theme-home.php:544
 msgid "Seiten"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:531
+#: inc/starter-admin-pages/admin-starter-theme-home.php:544
 msgid "Einstellungen"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:542
+#: inc/starter-admin-pages/admin-starter-theme-home.php:555
 msgid "Ansicht für Beiträge und Beitragslisten"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:762
+#: inc/starter-admin-pages/admin-starter-theme-home.php:775
 #, fuzzy
 #| msgid "Slider Settings"
 msgid "Sitemap Settings"
 msgstr "Slider Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:789
+#: inc/starter-admin-pages/admin-starter-theme-home.php:802
 msgid "WooCommerce"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:900
+#: inc/starter-admin-pages/admin-starter-theme-home.php:913
 #, fuzzy
 #| msgid "Full width image"
 msgid "Fullwidth Page Paddings"
 msgstr "Bild in voller Breite"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:909
+#: inc/starter-admin-pages/admin-starter-theme-home.php:922
 msgid "Padding Top"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:920
+#: inc/starter-admin-pages/admin-starter-theme-home.php:933
 msgid "Padding Bottom"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:934
+#: inc/starter-admin-pages/admin-starter-theme-home.php:947
 msgid "Padding Left"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:945
+#: inc/starter-admin-pages/admin-starter-theme-home.php:958
 msgid "Padding Right"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:971
+#: inc/starter-admin-pages/admin-starter-theme-home.php:984
 msgid "Synchronize font folder"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:973
+#: inc/starter-admin-pages/admin-starter-theme-home.php:986
 msgid "After synchronisation, the page must be <b>reloaded</b>."
 msgstr "Nach dem synchronisieren muss die Seite <b>neu geladen</b> werden."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:980
+#: inc/starter-admin-pages/admin-starter-theme-home.php:993
 msgid "Folder synchronised!"
 msgstr "Ordner synchronisiert!"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:981
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3995
+#: inc/starter-admin-pages/admin-starter-theme-home.php:994
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4084
 msgid "The changes are visible after reloading the page."
 msgstr "Die Änderungen sind nach dem neu laden der Seite sichtbar."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:987
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3987
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1000
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4076
 msgid "Reload page"
 msgstr "Seite neu laden"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:995
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1008
 msgid "Headlines"
 msgstr "Überschriften"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1011
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1140
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1257
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1374
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1491
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1607
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1724
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1825
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2370
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2474
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2614
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2696
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1024
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1153
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1270
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1387
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1504
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1620
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1737
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1838
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2383
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2487
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2627
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2709
 msgid "Headline"
 msgstr "Überschrift"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1086
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1214
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1331
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1448
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1565
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1681
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1803
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1928
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2040
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2138
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2241
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2343
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2453
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2577
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2915
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1099
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1227
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1344
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1461
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1578
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1694
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1816
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1941
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2053
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2151
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2254
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2356
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2466
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2590
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2928
 msgid "Use standard font"
 msgstr "Standard-Schrift verwenden"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1094
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1222
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1339
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1456
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1573
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1689
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1812
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2461
-msgid "Display heading"
-msgstr "Display-Überschrift"
-
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1106
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1119
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1107
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1235
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1352
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1469
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1586
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1702
 #: inc/starter-admin-pages/admin-starter-theme-home.php:1825
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1941
 #: inc/starter-admin-pages/admin-starter-theme-home.php:2474
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2590
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2696
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2814
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2928
+msgid "Display heading"
+msgstr "Display-Überschrift"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1119
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1132
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1248
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1365
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1482
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1599
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1715
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1838
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1954
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2487
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2603
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2709
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2827
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2941
 msgid "Font colour"
 msgstr "Schriftfarbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1836
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1849
 msgid "Body | Menu | Button"
 msgstr "Body | Menu | Button"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1850
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2496
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2590
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1863
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2509
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2603
 msgid "Body"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1850
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1962
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2061
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2163
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2265
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2718
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2836
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1863
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1975
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2074
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2176
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2278
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2731
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2849
 msgid "Font settings"
 msgstr "Schrift-Einstellungen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:1962
+#: inc/starter-admin-pages/admin-starter-theme-home.php:1975
 msgid "Menu"
 msgstr "Menü"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2251
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2265
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2264
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2278
 msgid "Subtitle"
 msgstr "Untertitel"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2353
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2366
 msgid "Top Footer"
 msgstr "Top Footer"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2354
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2367
 #, fuzzy
 #| msgid "Edit Footer"
 msgid "Widget Footer"
 msgstr "Footer bearbeiten"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2355
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2368
 #, fuzzy
 #| msgid "Top Footer"
 msgid "Info Footer"
 msgstr "Top Footer"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2800
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2813
 msgid "Text decoration"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2956
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2968
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2969
+#: inc/starter-admin-pages/admin-starter-theme-home.php:2981
 msgid "Background colours"
 msgstr "Hintergrundfarben"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:2991
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3004
 msgid "<b>Navigation</b> background colour"
 msgstr "<b>Navigation</b> Hintergrundfarbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3009
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3022
 #, fuzzy
 #| msgid "Navigation Background Transparency"
 msgid "Navigation Background Opacity"
 msgstr "Navigation Hintergrund Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3025
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3038
 msgid "Footer colour"
 msgstr "Footer color"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3045
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3058
 #, fuzzy
 #| msgid "Left Sidebar"
 msgid "Widget Sidebar"
 msgstr "Linke Sidebar"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3071
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3084
 msgid "Widget Border anzeigen. "
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3103
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3105
+#, fuzzy
+#| msgid "Menu colours"
+msgid "Mega Menu color"
+msgstr "Menü-Farben"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3135
 msgid "Top Area colours"
 msgstr "Top Area Farben"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3143
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3175
 msgid "Top Area Background Opacity"
 msgstr "Top Area Background Opacity"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3168
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3200
 msgid "Menu colours"
 msgstr "Menü-Farben"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3177
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3209
 msgid "Menu Button"
 msgstr "Menü Button"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3185
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3217
 msgid "uppercase"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3187
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3219
 msgid "Menu Font in upper case. "
 msgstr "Menü Schrift in Großbuchstaben. "
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3221
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3253
 #, fuzzy
 #| msgid "Menu Button Background Transparency"
 msgid "Menu Button Background Opacity"
 msgstr "Menü Button Hintergrund Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3238
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3270
 msgid "Menu Button active"
 msgstr "Menü Button aktiv"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3272
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3304
 #, fuzzy
 #| msgid "Menu Button active Background Transparency"
 msgid "Menu Button active Background Opacity"
 msgstr "Menü Button aktiv Hintergrund Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3288
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3320
 msgid "Menu Button hover"
 msgstr "Menü Button hover"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3323
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3355
 #, fuzzy
 #| msgid "Menu Button hover Background Transparency"
 msgid "Menu Button hover Background Opacity"
 msgstr "Menü Button hover Hintergrund Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3339
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3371
 msgid "Main menu dropdown"
 msgstr "Hauptmenü Dropdown"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3373
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3405
 #, fuzzy
 #| msgid "DropDown Background Transparency"
 msgid "DropDown Background Opacity"
 msgstr "Dropdown Hintergrund Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3389
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3421
 msgid "Dropdown active"
 msgstr "Dropdown aktiv"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3422
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3456
 #, fuzzy
 #| msgid "DropDown Background active Transparency"
 msgid "DropDown Background active Opacity"
 msgstr "Dropdown Hintergrund aktiv Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3439
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3473
 #, fuzzy
 #| msgid "Dropdown Color"
 msgid "Dropdown hover"
 msgstr "Dropdown Color"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3471
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3505
 #, fuzzy
 #| msgid "DropDown Background hover Transparency"
 msgid "DropDown Background hover Opacity"
 msgstr "Dropdown Hintergrund hover Transparenz"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3496
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3530
 msgid "Login site"
 msgstr "Login-Seite"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3507
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3541
 msgid "Site"
 msgstr "Seite"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3580
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3614
 msgid "Link colours"
 msgstr "Link-Farbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3597
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3631
 msgid "Link color"
 msgstr "Link-Farbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3609
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3643
 msgid "Link active color"
 msgstr "Aktiver Link-Farbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3621
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3655
 msgid "Link hover color"
 msgstr "Link-Hover-Farbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3637
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3671
 #, fuzzy
 #| msgid "Show Scroll To Top Button"
 msgid "Scroll to Top Button"
 msgstr "Scroll To Top Button anzeigen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3654
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3688
 msgid "Background color"
 msgstr "Hintergrundfarben"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3666
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3700
 #, fuzzy
 #| msgid "Font colour"
 msgid "Icon color"
 msgstr "Schriftfarbe"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3683
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3717
 msgid "Wordpress settings"
 msgstr "WordPress Einstellungen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3693
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3727
 msgid "Theme Update"
 msgstr "Theme Update"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3701
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3735
 msgid "Update active"
 msgstr "Update aktiv"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3704
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3738
 msgid ""
 "If this option is deactivated, <b>no more updates</b> for the theme will be "
 "retrieved."
@@ -1714,15 +1834,15 @@ msgstr ""
 "Ist diese Option deaktiviert, werden <b>keine Updates</b> für das Theme mehr "
 "abgerufen."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3712
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3746
 msgid "Enable SVG upload"
 msgstr "SVG-Upload aktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3720
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3754
 msgid "SVG upload active"
 msgstr "SVG-Upload aktiv"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3723
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3757
 msgid ""
 "If this option is activated, <b>SVG graphics</b> can be uploaded with the "
 "WordPress media manager. "
@@ -1730,15 +1850,15 @@ msgstr ""
 "Ist diese Option aktiviert, können <b>SVG-Grafiken</b> mit dem WordPress-"
 "Medienmanager hochgeladen werden. "
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3730
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3764
 msgid "Disable Gutenberg Editor"
 msgstr "Gutenberg Editor deaktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3738
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3772
 msgid "Deactivate Editor"
 msgstr "Editor deaktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3741
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3775
 msgid ""
 "You have the possibility to <b>deactivate</b> the <b>Gutenberg Editor</b>. "
 "This option enables or disables the editor for <b>pages and posts</b>"
@@ -1747,41 +1867,41 @@ msgstr ""
 "b>. Mit dieser Option aktivieren oder deaktivieren Sie den Editor für "
 "<b>Seiten und Beiträge</b>"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3749
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3783
 msgid "Disable Gutenberg Widget Editor"
 msgstr "Gutenberg Widget Editor deaktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3757
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3791
 msgid "Deactivate Widget Editor"
 msgstr "Widget-Editor deaktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3760
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3794
 msgid "Activate or deactivate the Gutenberg <b>Widget Editor</b>."
 msgstr "Aktivieren oder deaktivieren Sie den Gutenberg <b>Widget Editor</b>."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3767
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3801
 msgid "Remove WordPress Version"
 msgstr "WordPress Version entfernen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3775
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3809
 msgid "Remove version"
 msgstr "Version entfernen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3778
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3812
 msgid "If active, the WordPress version is <b>hidden</b> in the FrontEnd."
 msgstr ""
 "Wenn aktiv, wird die WordPress-Version im Frontend <b>ausgeblendet</b>."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3785
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3819
 msgid "Remove emoji"
 msgstr "Emoji entfernen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3793
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3811
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3827
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3845
 msgid "remove"
 msgstr "entfernen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3796
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3830
 msgid ""
 "If this option is enabled the emoji source code will be <b>removed</b> from "
 "the front end."
@@ -1789,11 +1909,11 @@ msgstr ""
 "Ist diese Option aktiviert, wird der Emoji-Quellcode aus dem Frontend "
 "<b>entfernt</b>."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3803
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3837
 msgid "Remove WP block CSS"
 msgstr "WP-Block-CSS entfernen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3814
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3848
 msgid ""
 "If this option is activated, the CSS Gutenberg editor source code and "
 "WooCommerce CSS code is removed from the front end."
@@ -1801,121 +1921,155 @@ msgstr ""
 "Ist diese Option aktiv, wird der CSS Gutenberg-Editor-Quellcode und der "
 "WooCommerce-CSS-Code aus dem Frontend entfernt."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3821
-msgid "Lizenz Seite anzeigen "
-msgstr ""
-
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3830
-msgid "Seite anzeigen"
-msgstr ""
-
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3838
-#, fuzzy
-#| msgid "Login site"
-msgid "Login anzeigen"
-msgstr "Login-Seite"
-
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3846
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3854
 msgid "Optimize HTML"
 msgstr "HTML optimieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3857
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3865
 msgid ""
 "If this option is active, the <b>HTML source</b> code in the frontend will "
 "be optimized."
 msgstr ""
 "Ist diese Option aktiv, wird der <b>HTML-Quellcode</b> im Frontend optimiert."
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3873
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3872
+msgid "Lizenz Seite anzeigen "
+msgstr ""
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3881
+msgid "Seite anzeigen"
+msgstr ""
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3889
+#, fuzzy
+#| msgid "Login site"
+msgid "Login anzeigen"
+msgstr "Login-Seite"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3897
+#, fuzzy
+#| msgid "Hupa actual"
+msgid "Hupa aktuell Seite"
+msgstr "Hupa aktuell"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3907
+#, fuzzy
+#| msgid "Login site"
+msgid "anzeigen"
+msgstr "Login-Seite"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3932
 #, fuzzy
 #| msgid "Theme Tools"
 msgid "Theme Info"
 msgstr "Theme Tools"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3901
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3980
 #, fuzzy
 #| msgid "Theme Settings"
 msgid "Reset Settings"
 msgstr "Theme Settings"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3911
+#: inc/starter-admin-pages/admin-starter-theme-home.php:3990
 msgid "Reset all settings"
 msgstr "Alle Einstellungen zurücksetzen"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3958
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4037
 #, fuzzy
 #| msgid "Theme Tools"
 msgid "Reset Tools"
 msgstr "Theme Tools"
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3978
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4057
 msgid "Gmaps"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-home.php:3994
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4067
+#, fuzzy
+#| msgid "Maps Settings"
+msgid "Gmaps Settings"
+msgstr "Maps Einstellungen"
+
+#: inc/starter-admin-pages/admin-starter-theme-home.php:4083
 msgid "Settings reset!"
 msgstr "Einstellungen zurückgesetzt!"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:20
-msgid "Theme Google Maps"
-msgstr "Theme Google Maps"
-
 #: inc/starter-admin-pages/admin-starter-theme-maps.php:24
-msgid "Google Maps"
+#, fuzzy
+#| msgid "Google Maps"
+msgid "Google API Maps"
 msgstr "Google Maps"
 
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:31
+#, fuzzy
+#| msgid "Settings"
+msgid "API Settings"
+msgstr "Settings"
+
 #: inc/starter-admin-pages/admin-starter-theme-maps.php:36
-msgid "Maps Settings"
+#, fuzzy
+#| msgid "Maps Settings"
+msgid "Maps API Settings"
 msgstr "Maps Einstellungen"
 
 #: inc/starter-admin-pages/admin-starter-theme-maps.php:39
 #: inc/starter-admin-pages/admin-starter-theme-maps.php:43
-msgid "Manage pins"
+#, fuzzy
+#| msgid "Manage pins"
+msgid "Manage API pins"
 msgstr "Pins verwalten"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:61
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:66
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:82
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:89
 msgid "Activate privacy query"
 msgstr "Datenschutzabfrage aktivieren"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:91
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:98
 msgid "custom colour scheme"
 msgstr "benutzerdefiniertes Farbschema"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:101
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:108
 msgid "Standard Pin"
 msgstr "Standard Pin"
 
-#: inc/starter-admin-pages/admin-starter-theme-maps.php:174
+#: inc/starter-admin-pages/admin-starter-theme-maps.php:181
 msgid "Map colour scheme"
 msgstr "Map Farbschema"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:96
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:60
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:65
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:215
+#, fuzzy
+#| msgid "Header"
+msgid "Preloader"
+msgstr "Header"
+
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:104
 msgid "Posts"
 msgstr "Beiträge"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:104
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:112
 msgid "Top Area | Widget"
 msgstr "Top Area | Widget"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:112
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:120
 msgid "Share subject"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:121
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:129
 #, fuzzy
 #| msgid "Top Area | Widget"
 msgid "Url for Top Area or Widget"
 msgstr "Top Area | Widget"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:147
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:155
 msgid "sections"
 msgstr "Sektionen"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:150
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:158
 msgid ""
 "The position or order of the individual sections can be changed by "
 "<b>moving</b> the boxes."
@@ -1923,23 +2077,143 @@ msgstr ""
 "Die Position bzw. Reihenfolge der einzelnen Sektionen, kann durch "
 "<b>verschieben</b> der Boxen geändert werden."
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:158
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:167
 #, fuzzy
 #| msgid "Top Area Menu"
 msgid "Top Menu"
 msgstr "Top Area Menü"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:158
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:167
 msgid "Widget Box"
 msgstr ""
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:176
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:189
 msgid "Box CSS Class"
 msgstr "Box CSS Klasse"
 
-#: inc/starter-admin-pages/admin-starter-theme-tools.php:182
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:196
 msgid "Enter CSS class <b>without</b> point."
 msgstr "CSS Klasse <b>ohne</b> Punkt eingeben."
+
+#: inc/starter-admin-pages/admin-starter-theme-tools.php:215
+#, fuzzy
+#| msgid "Settings"
+msgid "settings"
+msgstr "Settings"
+
+#: inc/starter-admin-pages/hupa-options-page.php:22
+#: inc/starter-admin-pages/hupa-options-page.php:27
+#: inc/starter-admin-pages/hupa-options-page.php:32
+msgid "WP-Config"
+msgstr ""
+
+#: inc/starter-admin-pages/hupa-options-page.php:35
+#, fuzzy
+#| msgid "Slider Settings"
+msgid "Sortieren Settings"
+msgstr "Slider Settings"
+
+#: inc/starter-admin-pages/hupa-options-page.php:40
+#, fuzzy
+#| msgid "Slider Settings"
+msgid "Posts Sortieren Settings"
+msgstr "Slider Settings"
+
+#: inc/starter-admin-pages/hupa-options-page.php:354
+msgid "Minimum Level to use this plugin"
+msgstr "Mindestvoraussetzung für die Verwendung dieses Plugins"
+
+#: inc/starter-admin-pages/hupa-options-page.php:358
+msgid "User Role"
+msgstr "Benutzer Rolle"
+
+#: inc/starter-admin-pages/hupa-options-page.php:360
+msgid "Subscriber"
+msgstr "Abonnent"
+
+#: inc/starter-admin-pages/hupa-options-page.php:361
+msgid "Contributor"
+msgstr "Mitarbeiter"
+
+#: inc/starter-admin-pages/hupa-options-page.php:362
+msgid "Author"
+msgstr "Autor"
+
+#: inc/starter-admin-pages/hupa-options-page.php:363
+msgid "Editor"
+msgstr "Redakteur"
+
+#: inc/starter-admin-pages/hupa-options-page.php:364
+msgid "Administrator"
+msgstr "Administrator"
+
+#: inc/starter-admin-pages/hupa-options-page.php:373
+msgid "Automatic sorting"
+msgstr "Automatisches Sortieren"
+
+#: inc/starter-admin-pages/hupa-options-page.php:377
+msgid ""
+"If selected, the plugin will automatically change the WordPress queries to "
+"use the new order (no code update is required). If only certain queries "
+"should use the custom sorting, do not select this and add \"orderby\" => "
+"'menu_order' as a parameter to the queries."
+msgstr ""
+"Wenn ausgewählt, verändert das Plugin automatisch die WordPress-Abfragen, um "
+"die neue Reihenfolge zu benutzen ( Es ist keine Code-Aktualisierung "
+"erforderlich ) Falls nur bestimmte Anfragen die individuelle Sortierung "
+"benutzen sollen, wähle dies nicht und füge den Anfragen 'orderby' => "
+"'menu_order' als Parameter hinzu."
+
+#: inc/starter-admin-pages/hupa-options-page.php:384
+#, fuzzy
+#| msgid "Automatic sorting"
+msgid "Admin sorting"
+msgstr "Automatisches Sortieren"
+
+#: inc/starter-admin-pages/hupa-options-page.php:388
+msgid ""
+"This tick must be set so that the entries are displayed in the standard list "
+"view according to the set order."
+msgstr ""
+"Damit die Einträge in der Standard-Listenansicht nach gesetzter Reihenfolge "
+"angezeigt werden, muss dieser Haken gesetzt werden."
+
+#: inc/starter-admin-pages/hupa-options-page.php:395
+msgid "Use ASC/DESC parameters in query"
+msgstr "ASC/DESC-Parameter in Abfrage benutzen"
+
+#: inc/starter-admin-pages/hupa-options-page.php:399
+msgid ""
+"If the query contains an order parameter, use it. If the query order is set "
+"to DESC, the order is reversed."
+msgstr ""
+"Falls die Abfrage einen Ordnungsparameter beinhaltet, nutze diesen. Falls "
+"die Abfrage-Reihenfolge auf DESC gesetzt ist, wird die Reihenfolge umgekehrt."
+
+#: inc/starter-admin-pages/hupa-options-page.php:407
+msgid "Archive Drag & Drop"
+msgstr "Archiv Drag & Drop"
+
+#: inc/starter-admin-pages/hupa-options-page.php:411
+msgid ""
+"Allows sortable drag & drop functionality within the standard WordPress post "
+"type archives. Admin sorting must be active for this."
+msgstr ""
+"Erlaubt sortierbare Drag & Drop-Funktionalität innerhalb der Standard-"
+"WordPress-Beitragstyp-Archive. Admin-Sortierung muss dafür aktiv sein."
+
+#: inc/starter-admin-pages/hupa-options-page.php:419
+msgid "Next / Apply Previous Next / Previous Apply"
+msgstr "Nächste / Vorherige anwenden"
+
+#: inc/starter-admin-pages/hupa-options-page.php:423
+msgid "Apply the sort to the entire Next / Previous navigation."
+msgstr ""
+"Die Sortierung auf die gesamte Nächste / Vorherige Navigation anwenden."
+
+#: inc/starter-admin-pages/hupa-options-page.php:440
+msgid "Debug Log"
+msgstr ""
 
 #: inc/starter-admin-pages/hupa-starter-license.php:37
 msgid "Theme  Licences"
@@ -1953,7 +2227,7 @@ msgstr "Lizenz verwalten"
 msgid "Lizenzen"
 msgstr ""
 
-#: inc/starter-ajax/starter-backend-ajax.php:23
+#: inc/starter-ajax/starter-backend-ajax.php:26
 #, php-format
 msgid "Save <b class=\"text-danger\">failed</b> (transmission error) - %s"
 msgstr ""
@@ -2123,9 +2397,6 @@ msgstr ""
 #~ msgid "Pingback:"
 #~ msgstr "Pingback:"
 
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
-
 #, php-format
 #~ msgid "%s <span class=\"says d-none\">says:</span>"
 #~ msgstr "%s <span class=\"sagt d-none\">says:</span>"
@@ -2291,9 +2562,6 @@ msgstr ""
 
 #~ msgid "Select standard pin"
 #~ msgstr "Standard Pin auswählen"
-
-#~ msgid "Google Maps Settings"
-#~ msgstr "Google Maps Settings"
 
 #, fuzzy
 #~| msgid "Google Maps Settings"

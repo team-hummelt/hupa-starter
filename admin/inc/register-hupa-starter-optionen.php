@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) or die();
  */
 final class HupaRegisterStarterTheme {
     private static $hupa_option_instance;
+    private string $hupaIcon;
 
     /**
      * @return static
@@ -26,6 +27,10 @@ final class HupaRegisterStarterTheme {
         return self::$hupa_option_instance;
     }
 
+    public function __construct() {
+        $icon_base64 = 'PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjAgMjAiPgo8cGF0aCBmaWxsPSJibGFjayIgZD0iTTcuMSw1LjhDMy40LDUuOSwzLjQsMCw3LjEsMEMxMC45LDAsMTAuOSw1LjksNy4xLDUuOHogTTcuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzEwLjksMTkuOCwxMC45LDEzLjksNy4xLDEzLjl6IE0xNC4xLDExLjJjMS43LDAsMS43LTIuNywwLTIuN0MxMi4zLDguNSwxMi40LDExLjMsMTQuMSwxMS4yeiBNMTQuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzE3LjksMTkuOCwxNy45LDEzLjksMTQuMSwxMy45eiBNOC41LDkuOWMwLTEuNy0yLjctMS43LTIuNywwQzUuOCwxMS42LDguNSwxMS42LDguNSw5Ljl6IE0xNC4xLDQuM2MxLjcsMCwxLjctMi43LDAtMi43CkMxMi4zLDEuNiwxMi40LDQuMywxNC4xLDQuM3oiLz4KPC9zdmc+Cg==';
+        $this->hupaIcon = 'data:image/svg+xml;base64,' . $icon_base64;
+    }
     public function init_hupa_starter_theme(): void {
         // TODO CREATE / UPDATE DATABASE
         add_action( 'after_setup_theme', array( $this, 'hupa_starter_theme_update_db' ) );
@@ -92,8 +97,7 @@ final class HupaRegisterStarterTheme {
 
     public function register_hupa_starter_theme_admin_menu(): void {
         //startseite
-        $icon_base64 = 'PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjAgMjAiPgo8cGF0aCBmaWxsPSJibGFjayIgZD0iTTcuMSw1LjhDMy40LDUuOSwzLjQsMCw3LjEsMEMxMC45LDAsMTAuOSw1LjksNy4xLDUuOHogTTcuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzEwLjksMTkuOCwxMC45LDEzLjksNy4xLDEzLjl6IE0xNC4xLDExLjJjMS43LDAsMS43LTIuNywwLTIuN0MxMi4zLDguNSwxMi40LDExLjMsMTQuMSwxMS4yeiBNMTQuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzE3LjksMTkuOCwxNy45LDEzLjksMTQuMSwxMy45eiBNOC41LDkuOWMwLTEuNy0yLjctMS43LTIuNywwQzUuOCwxMS42LDguNSwxMS42LDguNSw5Ljl6IE0xNC4xLDQuM2MxLjcsMCwxLjctMi43LDAtMi43CkMxMi4zLDEuNiwxMi40LDQuMywxNC4xLDQuM3oiLz4KPC9zdmc+Cg==';
-        $icon_data_uri = 'data:image/svg+xml;base64,' . $icon_base64;
+
         add_menu_page(
             __( 'HUPA Theme', 'bootscore' ),
             __( 'HUPA Theme', 'bootscore' ),
@@ -101,7 +105,7 @@ final class HupaRegisterStarterTheme {
             'hupa-starter-home',
            '',
            // 'dashicons-layout', 5
-            $icon_data_uri
+            $this->hupaIcon
             , 5
         );
 
@@ -203,11 +207,10 @@ final class HupaRegisterStarterTheme {
 
         add_action('load-' . $hook_suffix, array($this, 'hupa_starter_theme_load_ajax_admin_options_script'));
 
-
         /** OPTIONS PAGE */
             $hook_suffix = add_options_page(
                 __( 'HUPA Theme', 'bootscore' ),
-                __( 'HUPA Theme', 'bootscore' ),
+                '<img class="menu_hupa" src="'. THEME_ADMIN_URL .'assets/images/hupa-white-sm.png" alt="" /> HUPA Theme' ,
                 'manage_options',
                 'hupa-theme-options',
                 array( $this, 'hupa_theme_options_page' )

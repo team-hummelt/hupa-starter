@@ -51,6 +51,13 @@
   color: #2bff76 !important;
 }
 
+.menu_hupa {
+  margin-right: 4px;
+  display: inline;
+  vertical-align: middle;
+  margin-top: -1px;
+}
+
 div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
   color: red !important;
 }

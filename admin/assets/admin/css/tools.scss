@@ -42,8 +42,8 @@
   color: #00acf5 !important;
 }
 
-#toplevel_page_hupa-starter-home ~ .green_submenue{
-  color: greenyellow!important;
+#toplevel_page_hupa-starter-home ~ .green_submenue {
+  color: greenyellow !important;
 }
 
 #menu-posts-starter_footer div.wp-menu-image.dashicons-before.dashicons-welcome-widgets-menus::before {
@@ -52,6 +52,13 @@
 
 #toplevel_page_hupa-starter-form div.wp-menu-image.dashicons-before.dashicons-email-alt::before {
   color: #2bff76 !important;
+}
+
+.menu_hupa {
+  margin-right: 4px;
+  display: inline;
+  vertical-align: middle;
+  margin-top: -1px;
 }
 
 //
@@ -68,10 +75,11 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
   }
 }
 
-.get_hupa_update div.ab-item.ab-empty-item,.get_hupa_contact div.ab-item.ab-empty-item {
-  cursor: pointer!important;
+.get_hupa_update div.ab-item.ab-empty-item, .get_hupa_contact div.ab-item.ab-empty-item {
+  cursor: pointer !important;
+
   &:hover {
-    color: #72aee6!important;
+    color: #72aee6 !important;
   }
 }
 

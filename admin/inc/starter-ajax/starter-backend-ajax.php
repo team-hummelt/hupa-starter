@@ -14,8 +14,10 @@ $responseJson->status = false;
 $data = '';
 
 $method = filter_input(INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+
 global $hupa_api_handle;
 global $hupa_optionen_class;
+global $hupa_menu_helper;
 
 switch ($method) {
     case 'theme_form_handle':
@@ -536,11 +538,11 @@ switch ($method) {
 
 
                 // JOB MU PLUGIN
-                if($mu_plugin){
-                  if(!$hupa_optionen_class->theme_activate_mu_plugin()) {
-                      $responseJson->msg = 'MU-Plugin konnte nicht erstellt werden!';
-                      return $responseJson;
-                  }
+                if ($mu_plugin) {
+                    if (!$hupa_optionen_class->theme_activate_mu_plugin()) {
+                        $responseJson->msg = 'MU-Plugin konnte nicht erstellt werden!';
+                        return $responseJson;
+                    }
                 } else {
                     $hupa_optionen_class->theme_deactivate_mu_plugin();
                 }
@@ -591,7 +593,7 @@ switch ($method) {
                 }
 
                 //JOB WP DEBUG DISPLAY
-                if($wp_debug_display) {
+                if ($wp_debug_display) {
                     $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG_DISPLAY', 'WP DEBUG DISPLAY', 1);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -606,7 +608,7 @@ switch ($method) {
                 }
 
                 //JOB WP SCRIPT DEBUG
-                if($hupa_wp_script_debug) {
+                if ($hupa_wp_script_debug) {
                     $create = $hupa_optionen_class->add_create_config_put('SCRIPT_DEBUG', 'WP SCRIPT_DEBUG', 1);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -651,7 +653,7 @@ switch ($method) {
                 }
 
                 //JOB REVISION Anzahl
-                if(!$rev_wp_aktiv){
+                if (!$rev_wp_aktiv) {
                     $create = $hupa_optionen_class->add_create_config_put('WP_POST_REVISIONS', 'POST REVISIONS', $revision_anzahl);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -666,7 +668,7 @@ switch ($method) {
                 }
 
                 //JOB AUTOSAVE
-                if(!$rev_wp_aktiv){
+                if (!$rev_wp_aktiv) {
                     $create = $hupa_optionen_class->add_create_config_put('AUTOSAVE_INTERVAL', 'AUTOSAVE INTERVAL', $revision_interval);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -681,7 +683,7 @@ switch ($method) {
                 }
 
                 //JOB TRASH DAYS
-                if(!$trash_wp_aktiv) {
+                if (!$trash_wp_aktiv) {
                     $create = $hupa_optionen_class->add_create_config_put('EMPTY_TRASH_DAYS', 'TRASH DAYS', $trash_days);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -696,7 +698,7 @@ switch ($method) {
                 }
 
                 //JOB SSL LOGIN
-                if($ssl_login_aktiv){
+                if ($ssl_login_aktiv) {
                     $create = $hupa_optionen_class->add_create_config_put('FORCE_SSL_LOGIN', 'SSL LOGIN', 1);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -711,7 +713,7 @@ switch ($method) {
                 }
 
                 //JOB ADMIN SSL LOGIN
-                if($admin_ssl_login_aktiv){
+                if ($admin_ssl_login_aktiv) {
                     $create = $hupa_optionen_class->add_create_config_put('FORCE_SSL_ADMIN', 'ADMIN SSL LOGIN', 1);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
@@ -725,13 +727,90 @@ switch ($method) {
                     }
                 }
 
+                $responseJson->spinner = true;
+                break;
 
+            case'theme_options_order':
+                $show_reorder_interfaces = array($_POST['show_reorder_interfaces']);
+                $show_reorder_interfaces = array_map('sanitize_key', $show_reorder_interfaces[0]);
+                $capability = filter_input(INPUT_POST, 'capability', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+                filter_input(INPUT_POST, 'autosort', FILTER_SANITIZE_STRING) ? $autosort = 1 : $autosort = '';
+                filter_input(INPUT_POST, 'adminsort', FILTER_SANITIZE_STRING) ? $adminsort = 1 : $adminsort = '';
+                filter_input(INPUT_POST, 'use_query_asc_desc', FILTER_SANITIZE_STRING) ? $use_query_asc_desc = 1 : $use_query_asc_desc = '';
+                filter_input(INPUT_POST, 'archive_drag_drop', FILTER_SANITIZE_STRING) ? $archive_drag_drop = 1 : $archive_drag_drop = '';
+                filter_input(INPUT_POST, 'navigation_sort_apply', FILTER_SANITIZE_STRING) ? $navigation_sort_apply = 1 : $navigation_sort_apply = '';
+
+                $options = [
+                    'show_reorder_interfaces' => $show_reorder_interfaces,
+                    'autosort' => intval($autosort),
+                    'adminsort' => intval($adminsort),
+                    'use_query_ASC_DESC' => intval($use_query_asc_desc),
+                    'archive_drag_drop' => intval($archive_drag_drop),
+                    'capability' => sanitize_key($capability),
+                    'navigation_sort_apply' => intval($navigation_sort_apply),
+                ];
+
+                update_option('hupa_sort_options', $options);
+                $responseJson->status = true;
                 $responseJson->spinner = true;
                 break;
         }
 
         $responseJson->status = true;
         $responseJson->msg = date('H:i:s', current_time('timestamp'));
+        break;
+
+    case 'hupa_post_order':
+        $post_type = filter_input(INPUT_POST, 'post_type', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $paged = filter_input(INPUT_POST, 'paged');
+        $elements = filter_input(INPUT_POST, 'elements', FILTER_SANITIZE_STRING);
+        $elements = preg_replace('/.*[^\d]/i', '', explode(',', $elements));
+        if (!$elements) {
+            return $responseJson;
+        }
+
+        global $wpdb, $userdata;
+        $mysql_query = $wpdb->prepare("SELECT ID FROM " . $wpdb->posts . " 
+                                                            WHERE post_type = %s AND post_status IN ('publish', 'pending', 'draft', 'private', 'future', 'inherit')
+                                                            ORDER BY menu_order, post_date DESC", $post_type);
+        $results = $wpdb->get_results($mysql_query);
+
+        if (!$results) {
+            return $responseJson;
+        }
+        $objects_ids = [];
+
+        foreach ($results as $result) {
+            $objects_ids[] = (int)$result->ID;
+        }
+
+        $objects_per_page = get_user_meta($userdata->ID, 'edit_' . $post_type . '_per_page', TRUE);
+
+        if (empty($objects_per_page)) {
+            $objects_per_page = 20;
+        }
+
+        $edit_start_at = $paged * $objects_per_page - $objects_per_page;
+        $index = 0;
+
+        for ($i = $edit_start_at; $i < ($edit_start_at + $objects_per_page); $i++) {
+            if (!isset($objects_ids[$i])) {
+                break;
+            }
+            $objects_ids[$i] = (int)$elements[$index];
+            $index++;
+        }
+
+        foreach ($objects_ids as $menu_order => $id) {
+            $data = array(
+                'menu_order' => $menu_order
+            );
+
+            $wpdb->update($wpdb->posts, $data, array('ID' => $id));
+            clean_post_cache($id);
+        }
+
+        $responseJson->status = true;
         break;
 
     case 'delete_debug_log':

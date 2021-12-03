@@ -47,7 +47,7 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 
         // TODO PUBLIC localize Script
         global $post;
-        $_SESSION['gmaps'] ? $isGmaps = true : $isGmaps = false;
+        isset($_SESSION['gmaps']) && $_SESSION['gmaps']  ? $isGmaps = true : $isGmaps = false;
         isset($post->ID) ? $postID = $post->ID : $postID = '';
         isset($post->post_type) ? $post_type = $post->post_type : $post_type = '';
         get_hupa_frontend('nav-img') ? $navImg = get_hupa_frontend('nav-img')->width : $navImg = false;

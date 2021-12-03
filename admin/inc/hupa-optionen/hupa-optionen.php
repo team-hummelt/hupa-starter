@@ -78,6 +78,10 @@ require 'Class/class-api-handle.php';
 //WARNING JOB OPTIONEN CLASS
 require 'Class/hupa-optionen-class.php';
 
+//WARNING JOB MENU ORDER
+require 'menu-order/hupa-menu-order-init.php';
+
+
 if(get_option("hupa_theme_version") == THEME_VERSION){
     do_action('validate_install_optionen');
 }

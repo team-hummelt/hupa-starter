@@ -1,0 +1,11 @@
+#the-list.hupa-sortable tr:hover {
+  cursor: move;
+}
+
+#the-list.hupa-sortable .sortable-ghost {
+  background-color: #b9ff2b;
+  border-radius: 0.25rem;
+  border: 4px solid #a1a1a1;
+  padding: 1rem;
+  z-index: 9999 !important;
+}

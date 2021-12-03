@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
     (function ($) {
+
+
+
+
         let start = new Date();
         start.setDate(start.getDate());
         start.setHours(0, 0, 0, 0)
@@ -83,6 +87,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
+          function get_site_params(search, input_url = '') {
+
+              let get_url;
+              if(input_url){
+                  get_url = input_url;
+              } else {
+                  get_url = window.location.href;
+              }
+              let url = new URL(get_url);
+              return url.searchParams.get(search);
+          }
 
     })(jQuery);
 

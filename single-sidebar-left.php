@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: Sidebar left
+ * Template Name: Sidebar Links
  * Template Post Type: post
  */
 defined('ABSPATH') or die();

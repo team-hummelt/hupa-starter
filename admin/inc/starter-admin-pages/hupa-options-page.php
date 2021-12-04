@@ -8,9 +8,6 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 global $hupa_api_handle;
-
-$t = THEME_ADMIN_DIR .'assets/images/loading-buffering.gif';
-echo base64_encode(file_get_contents($t));
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">

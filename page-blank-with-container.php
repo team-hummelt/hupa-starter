@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Blank with container
+ * Template Name: Blank mit container
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

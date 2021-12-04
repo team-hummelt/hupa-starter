@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+   //document.addEventListener('mouseup', onMouseUp, true); // {passive: true, capture: true}
+    let contBlueimp = document.getElementById("blueimp-gallery");
+
 
     (function ($) {
 
@@ -223,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
-// Preloader script
+        // Preloader script
         jQuery(window).load(function () {
             $("#preloader-wrapper").delay(1600).fadeOut('easing').remove();
         });
@@ -249,11 +252,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 },
                 afterLoad: function (element) {
                     let imageSrc = element.data('src');
-                    console.log('image "' + imageSrc + '" was loaded successfully');
+                    //console.log('image "' + imageSrc + '" was loaded successfully');
                 },
                 onError: function (element) {
                     let imageSrc = element.data('src');
-                    console.log('image "' + imageSrc + '" could not be loaded');
+                    //console.log('image "' + imageSrc + '" could not be loaded');
                 },
                 onFinishedAll: function () {
                     //console.log('finished loading all images');
@@ -302,5 +305,27 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
 
+        $.event.special.touchstart = {
+            setup: function( _, ns, handle ) {
+                this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });
+            }
+        };
+        $.event.special.touchmove = {
+            setup: function( _, ns, handle ) {
+                this.addEventListener("touchmove", handle, { passive: !ns.includes("noPreventDefault") });
+            }
+        };
+        $.event.special.wheel = {
+            setup: function( _, ns, handle ){
+                this.addEventListener("wheel", handle, { passive: true });
+            }
+        };
+        $.event.special.mousewheel = {
+            setup: function( _, ns, handle ){
+                this.addEventListener("mousewheel", handle, { passive: true });
+            }
+        };
+
     })(jQuery);
+
 });

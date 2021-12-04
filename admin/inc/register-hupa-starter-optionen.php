@@ -549,7 +549,7 @@ final class HupaRegisterStarterTheme {
         wp_enqueue_style( 'admin-fontawesome-5', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $hupa_theme->get( 'Version' ),false );
 
         // TODO ADMIN ICONS
-        wp_enqueue_style( 'hupa-starter-admin-icons-style', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $hupa_theme->get( 'Version' ), false );
+        wp_enqueue_style( 'hupa-starter-admin-icons', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $hupa_theme->get( 'Version' ), false );
 
         // TODO DASHBOARD STYLES
         wp_enqueue_style( 'hupa-starter-admin-dashboard-style', THEME_ADMIN_URL . 'assets/admin/css/admin-dashboard-style.css', array(), $hupa_theme->get( 'Version' ), false );

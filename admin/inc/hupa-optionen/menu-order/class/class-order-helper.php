@@ -70,6 +70,20 @@ final class HupaMenuOrderHelper
         return apply_filters('hupa/get_options', $options);
     }
 
+    public function hupa_get_duplicate_options()
+    {
+        $options = get_option('hupa_duplicate_options');
+        $defaults = array(
+            'show_duplicate_interfaces' => array(),
+            'capability' => 'manage_options',
+            'copy_draft' => 1
+        );
+
+        $options = wp_parse_args($options, $defaults);
+
+        return apply_filters('duplicate/get_options', $options);
+    }
+
 
     public function cpto_get_previous_post_where($where, $in_same_term, $excluded_terms)
     {

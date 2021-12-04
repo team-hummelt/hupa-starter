@@ -3,8 +3,6 @@
 namespace Hupa\MenuOrder;
 global $hupa_menu_helper;
 
-use stdClass;
-
 defined('ABSPATH') or die();
 
 
@@ -20,6 +18,7 @@ final class HupaMenuOrder
     private static $instance;
     protected $current_post_type;
 
+
     /**
      * @return static
      */
@@ -31,30 +30,62 @@ final class HupaMenuOrder
         return self::$instance;
     }
 
-
     public function __construct()
     {
+
         add_filter('init', array($this, 'on_init'));
         add_filter('pre_get_posts', array($this, 'pre_get_posts'));
         add_filter('posts_orderby', array($this, 'posts_orderby'), 99, 2);
-
     }
 
     public function init()
     {
-        add_action('admin_init', array($this, 'sortableRegisterFiles'), 11);
+        //add_action('admin_init', array($this, 'sortableRegisterFiles'), 11);
         add_action('admin_init', array($this, 'admin_init'), 10);
-        add_action('admin_menu', array($this, 'register_hupa_order_menu'));
+
+        //add_action('admin_menu', array($this, 'register_hupa_order_menu'));
 
         add_action('wp_ajax_HupaStarterAjax', array($this, 'prefix_ajax_HupaStarterAjax'));
         add_action('admin_enqueue_scripts', array($this, 'HupaArchiveDragDrop'), 10);
-
     }
 
+    public function duplicate_init()
+    {
+        add_action('admin_enqueue_scripts', array($this, 'HupaArchiveDuplicate'), 10);
+    }
+
+    public function HupaArchiveDuplicate()
+    {
+
+        global $hupa_menu_helper;
+        $options = $hupa_menu_helper->hupa_get_duplicate_options();
+
+        $screen = get_current_screen();
+
+        if (!isset($screen->post_type) || empty($screen->post_type)) {
+            return false;
+        }
+
+        if (isset($screen->taxonomy) && !empty($screen->taxonomy)) {
+            return false;
+        }
+
+        //check if post type is sortable
+        if (isset($options['show_duplicate_interfaces'][$screen->post_type]) && $options['show_duplicate_interfaces'][$screen->post_type] != 'show') {
+            return false;
+        }
+
+        add_filter('page_row_actions', 'hupa_duplicate_post_link', 10, 2);
+        add_filter('post_row_actions', 'hupa_duplicate_post_link', 10, 2);
+        global $wp_scripts;
+        $isLoaded = $wp_scripts->do_item('hupa-starter-admin-ajax');
+        if (!$isLoaded) {
+            $this->menu_options_scripts($screen);
+        }
+    }
 
     public function on_init()
     {
-
         include THEME_ADMIN_INC . 'hupa-optionen/menu-order/compatibility/the-events-calendar.php';
 
         if (is_admin()) {
@@ -74,88 +105,6 @@ final class HupaMenuOrder
         add_filter('get_next_post_sort', array($hupa_menu_helper, 'cpto_get_next_post_sort'));
     }
 
-    public function register_hupa_order_menu()
-    {
-        global $userdata;
-        global $hupa_menu_helper;
-        //put a menu for all custom_type
-        $post_types = get_post_types();
-
-        $options = $hupa_menu_helper->hupa_get_sort_options();
-        //get the required user capability
-        $capability = '';
-        if (isset($options['capability']) && !empty($options['capability'])) {
-            $capability = $options['capability'];
-        } else if (is_numeric($options['level'])) {
-            $capability = $hupa_menu_helper->get_current_user_level();
-        } else {
-            $capability = 'manage_options';
-        }
-
-        foreach ($post_types as $post_type_name) {
-            if ($post_type_name == 'page') {
-                continue;
-            }
-
-            if ($post_type_name == 'reply' || $post_type_name == 'topic') {
-                continue;
-            }
-
-            if (is_post_type_hierarchical($post_type_name)) {
-                continue;
-            }
-
-            $post_type_data = get_post_type_object($post_type_name);
-            if ($post_type_data->show_ui === FALSE) {
-                continue;
-            }
-
-            if (isset($options['show_reorder_interfaces'][$post_type_name]) && $options['show_reorder_interfaces'][$post_type_name] != 'show') {
-                continue;
-            }
-
-            $required_capability = apply_filters('pto/edit_capability', $capability, $post_type_name);
-
-            if ($post_type_name == 'post') {
-                add_submenu_page(
-                    'edit.php',
-                    __('Sort', 'bootscore'),
-                    __('Sort', 'bootscore'),
-                    $hupa_menu_helper->get_current_user_level(),
-                    'hupa-order-post-types-' . $post_type_name,
-                    array($this, 'hupaOrderSortPage')
-                );
-
-            } elseif ($post_type_name == 'attachment') {
-                add_submenu_page(
-                    'upload.php',
-                    __('Sort', 'bootscore'),
-                    __('Sort', 'bootscore'),
-                    $hupa_menu_helper->get_current_user_level(),
-                    'hupa-order-post-types-' . $post_type_name,
-                    array($this, 'hupaOrderSortPage'));
-
-            } else {
-                add_submenu_page(
-                    'edit.php?post_type=' . $post_type_name,
-                    __('Sort', 'bootscore'),
-                    __('Sort', 'bootscore'),
-                    $hupa_menu_helper->get_current_user_level(),
-                    'hupa-order-post-types-' . $post_type_name,
-                    array($this, 'hupaOrderSortPage')
-                );
-            }
-        }
-    }
-
-    public function sortableRegisterFiles()
-    {
-        if ($this->current_post_type != null) {
-            wp_register_style('HupaSortableStyleSheets', THEME_ADMIN_URL . 'assets/admin/css/sortable-style.css');
-            wp_enqueue_style('HupaSortableStyleSheets');
-        }
-    }
-
     /**
      * @return false|void
      */
@@ -171,8 +120,8 @@ final class HupaMenuOrder
         if ($options['adminsort'] != '1') {
             return false;
         }
-
         $screen = get_current_screen();
+
         if (!isset($screen->post_type) || empty($screen->post_type)) {
             return false;
         }
@@ -205,14 +154,18 @@ final class HupaMenuOrder
         if (isset($_GET['author'])) {
             return false;
         }
+        $this->menu_options_scripts($screen);
 
+    }
+
+    public function menu_options_scripts($screen)
+    {
+       global $userdata;
         //load required dependencies
         wp_enqueue_style('hupa-sortable-dd-style', THEME_ADMIN_URL . 'inc/hupa-optionen/menu-order/css/sortable-drag-and-drop-style.css');
-
         wp_enqueue_script('js-hupa-sortable-script', THEME_ADMIN_URL . 'assets/admin/js/tools/Sortable.min.js', array(), THEME_VERSION, true);
-        wp_enqueue_script('hupa-dashboard-jquery', THEME_ADMIN_URL . 'inc/hupa-optionen/menu-order/js/hupa-sortable-posts.js', array(), '', true);
+        wp_enqueue_script('hupa-dashboard-tools', THEME_ADMIN_URL . 'inc/hupa-optionen/menu-order/js/hupa-sortable-posts.js', array(), THEME_VERSION, true);
 
-        global $userdata;
         $title_nonce = wp_create_nonce('archive_sort_nonce_' . $userdata->ID);
         wp_register_script('hupa-starter-admin-ajax', '', [], '', true);
         wp_enqueue_script('hupa-starter-admin-ajax');
@@ -301,9 +254,9 @@ final class HupaMenuOrder
         if (isset($query->query_vars['post_type']) && ((is_array($query->query_vars['post_type']) && in_array("topic", $query->query_vars['post_type'])) || ($query->query_vars['post_type'] == "topic"))) {
             return $orderBy;
         }
-            //check for orderby GET paramether in which case return default data
-            if (isset($_GET['orderby']) && $_GET['orderby'] != 'menu_order') {
-                return $orderBy;
+        //check for orderby GET paramether in which case return default data
+        if (isset($_GET['orderby']) && $_GET['orderby'] != 'menu_order') {
+            return $orderBy;
         }
         //Avada orderby
         if (isset($_GET['product_orderby']) && $_GET['product_orderby'] != 'default') {
@@ -350,7 +303,7 @@ final class HupaMenuOrder
 
             if ($options['autosort'] == "1") {
                 if (trim($orderBy) == '') {
-                 $orderBy = "{$wpdb->posts}.menu_order " . $order;
+                    $orderBy = "{$wpdb->posts}.menu_order " . $order;
                 } else {
                     $orderBy = "{$wpdb->posts}.menu_order" . $order . ", " . $orderBy;
                 }
@@ -359,8 +312,77 @@ final class HupaMenuOrder
         return ($orderBy);
     }
 
-    public function hupaOrderSortPage()
+    public function register_hupa_order_menu()
     {
-        require  dirname(__DIR__) . '/sort-page/sort-page.php';
+        global $userdata;
+        global $hupa_menu_helper;
+        //put a menu for all custom_type
+        $post_types = get_post_types();
+
+        $options = $hupa_menu_helper->hupa_get_sort_options();
+        //get the required user capability
+        $capability = '';
+        if (isset($options['capability']) && !empty($options['capability'])) {
+            $capability = $options['capability'];
+        } else if (is_numeric($options['level'])) {
+            $capability = $hupa_menu_helper->get_current_user_level();
+        } else {
+            $capability = 'manage_options';
+        }
+
+        foreach ($post_types as $post_type_name) {
+            if ($post_type_name == 'page') {
+                continue;
+            }
+
+            if ($post_type_name == 'reply' || $post_type_name == 'topic') {
+                continue;
+            }
+
+            if (is_post_type_hierarchical($post_type_name)) {
+                continue;
+            }
+
+            $post_type_data = get_post_type_object($post_type_name);
+            if ($post_type_data->show_ui === FALSE) {
+                continue;
+            }
+
+            if (isset($options['show_reorder_interfaces'][$post_type_name]) && $options['show_reorder_interfaces'][$post_type_name] != 'show') {
+                continue;
+            }
+
+            $required_capability = apply_filters('pto/edit_capability', $capability, $post_type_name);
+
+            if ($post_type_name == 'post') {
+                $hook_suffix = add_submenu_page(
+                    'edit.php',
+                    __('Sort', 'bootscore'),
+                    __('Sort', 'bootscore'),
+                    $hupa_menu_helper->get_current_user_level(),
+                    'hupa-order-post-types-' . $post_type_name,
+                    array($this, 'hupaOrderSortPage')
+                );
+
+            } elseif ($post_type_name == 'attachment') {
+                $hook_suffix = add_submenu_page(
+                    'upload.php',
+                    __('Sort', 'bootscore'),
+                    __('Sort', 'bootscore'),
+                    $hupa_menu_helper->get_current_user_level(),
+                    'hupa-order-post-types-' . $post_type_name,
+                    array($this, 'hupaOrderSortPage'));
+
+            } else {
+                $hook_suffix = add_submenu_page(
+                    'edit.php?post_type=' . $post_type_name,
+                    __('Sort', 'bootscore'),
+                    __('Sort', 'bootscore'),
+                    $hupa_menu_helper->get_current_user_level(),
+                    'hupa-order-post-types-' . $post_type_name,
+                    array($this, 'hupaOrderSortPage')
+                );
+            }
+        }
     }
 }

@@ -8,6 +8,9 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 global $hupa_api_handle;
+
+$t = THEME_ADMIN_DIR .'assets/images/loading-buffering.gif';
+echo base64_encode(file_get_contents($t));
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">
@@ -37,7 +40,15 @@ global $hupa_api_handle;
                             data-bs-toggle="collapse" data-bs-target="#PostsSortSettings"
                             aria-expanded="false" aria-controls="PostsSortSettings"
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-arrows"></i>&nbsp;
-                        <?= __('Posts Sortieren Settings', 'bootscore') ?>
+                        <?= __('Beiträge | Seiten Sortieren', 'bootscore') ?>
+                    </button>
+
+                    <button data-site="<?=__('Posts | Pages Duplicate', 'bootscore')?> " type="button"
+                            data-load=""
+                            data-bs-toggle="collapse" data-bs-target="#PostsCopySettings"
+                            aria-expanded="false" aria-controls="PostsCopySettings"
+                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-arrows"></i>&nbsp;
+                        <?=__('Posts | Pages Duplicate', 'bootscore')?>
                     </button>
                 </div>
                 <hr>
@@ -319,14 +330,14 @@ global $hupa_api_handle;
                                 global $hupa_menu_helper;
                                 $options = $hupa_menu_helper->hupa_get_sort_options();
                                 $post_types = get_post_types();
-                                $ignore_post_types = ['reply','topic','report','status'];
+                                $ignore_post_types = ['reply','topic','report','status','wp_block'];
 
                                 foreach ($post_types as $post_type_name):
                                     if (in_array($post_type_name, $ignore_post_types)) {
                                         continue;
                                     }
                                     if (is_post_type_hierarchical($post_type_name)) {
-                                        continue;
+                                        //continue;
                                     }
                                     $post_type_data = get_post_type_object($post_type_name);
                                     if ($post_type_data->show_ui === FALSE) {
@@ -343,7 +354,7 @@ global $hupa_api_handle;
                                 <?php endforeach; ?>
                                 <hr>
                                 <h6>
-                                    <i class="font-blue fa fa-arrow-circle-down"></i> <?= esc_html__('Minimum Level to use this plugin', 'bootscore') ?>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i> <?= esc_html__('Minimum requirement for using this function', 'bootscore') ?>
                                 </h6>
                                 <hr>
                                 <label for="capabilitySelect"
@@ -354,7 +365,6 @@ global $hupa_api_handle;
                                     <option value="publish_posts" <?=isset($options['capability']) && $options['capability'] == "publish_posts" ? 'selected' : '' ?>><?= esc_html__('Author', 'bootscore') ?></option>
                                     <option value="publish_pages" <?=isset($options['capability']) && $options['capability'] == "publish_pages" ? 'selected' : '' ?>><?= esc_html__('Editor', 'bootscore') ?></option>
                                     <option value="manage_options" <?=!isset($options['capability']) || empty($options['capability']) || (isset($options['capability']) && $options['capability'] == "manage_options") ? 'selected' : '' ?>><?= esc_html__('Administrator', 'bootscore') ?></option>
-                                    <?php do_action('pto/admin/plugin_options/capability') ?>
                                 </select>
                                 <hr>
 
@@ -415,6 +425,81 @@ global $hupa_api_handle;
                             </form>
                         </div>
                     </div><!--endSortieren-->
+                    <!--//JOB WARNING Kopieren SITE-->
+                    <div class="collapse" id="PostsCopySettings"
+                         data-bs-parent="#settings_display_data">
+
+                        <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray" style="min-height: 55vh">
+                            <form class="sendAjaxThemeForm" action="#" method="post">
+                                <input type="hidden" name="method" value="theme_form_handle">
+                                <input type="hidden" name="handle" value="theme_options_duplicate">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <h5 class="card-title">
+                                        <i class="font-blue fa fa-wordpress"></i>&nbsp; <?=__('Posts | Pages Duplicate', 'bootscore')?>
+                                    </h5>
+                                    <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                </div>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i>
+                                    <?=__('Show or hide duplicate for existing post types', 'bootscore')?></h6>
+                                <hr>
+
+                                <?php
+                                global $hupa_menu_helper;
+                                $options = $hupa_menu_helper->hupa_get_duplicate_options();
+                                $post_types = get_post_types();
+                                $ignore_post_types = ['reply','attachment','topic','report','status','wp_block'];
+
+                                foreach ($post_types as $post_type_name):
+
+                                if (in_array($post_type_name, $ignore_post_types)) {
+                                    continue;
+                                }
+
+                                if (is_post_type_hierarchical($post_type_name)) {
+                                    //continue;
+                                }
+                                $post_type_data = get_post_type_object($post_type_name);
+                                if ($post_type_data->show_ui === FALSE) {
+                                    continue;
+                                } ?>
+                                    <div class="mb-3">
+                                        <label for="postTypeDuplicatorSelect"
+                                               class="form-label mb-1 strong-font-weight"><?= esc_html($post_type_data->labels->singular_name) ?></label>
+                                        <select id="postTypeDuplicatorSelect" name="show_duplicate_interfaces[<?=esc_attr($post_type_name)?>]" class="form-select">
+                                            <option value="show" <?= isset($options['show_duplicate_interfaces'][$post_type_name]) && $options['show_duplicate_interfaces'][$post_type_name] == 'show' ? ' selected' : ''; ?>><?= esc_html__("show", 'bootscore') ?></option>
+                                            <option value="hide" <?= isset($options['show_duplicate_interfaces'][$post_type_name]) && $options['show_duplicate_interfaces'][$post_type_name] == 'hide' ? ' selected' : '' ?>><?= esc_html__("hide", 'bootscore') ?></option>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i> <?= esc_html__('Minimum requirement for using this function', 'bootscore') ?>
+                                </h6>
+                                <hr>
+                                <label for="capabilityDuplicatorSelect"
+                                       class="form-label mb-1 strong-font-weight"><?= esc_html__('User Role', 'bootscore') ?></label>
+                                <select id="capabilityDuplicatorSelect" name="capability" class="form-select mb-3">
+                                    <option value="read" <?=isset($options['capability']) && $options['capability'] == "read" ? 'selected' : '' ?>><?= esc_html__('Subscriber', 'bootscore') ?></option>
+                                    <option value="edit_posts" <?=isset($options['capability']) && $options['capability'] == "edit_posts" ? 'selected' : '' ?>><?= esc_html__('Contributor', 'bootscore') ?></option>
+                                    <option value="publish_posts" <?=isset($options['capability']) && $options['capability'] == "publish_posts" ? 'selected' : '' ?>><?= esc_html__('Author', 'bootscore') ?></option>
+                                    <option value="publish_pages" <?=isset($options['capability']) && $options['capability'] == "publish_pages" ? 'selected' : '' ?>><?= esc_html__('Editor', 'bootscore') ?></option>
+                                    <option value="manage_options" <?=!isset($options['capability']) || empty($options['capability']) || (isset($options['capability']) && $options['capability'] == "manage_options") ? 'selected' : '' ?>><?= esc_html__('Administrator', 'bootscore') ?></option>
+                                </select>
+                                <hr>
+                                 <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="copy_draft" type="checkbox" role="switch"
+                                           id="KopieDraftChecked" <?=!$options['copy_draft']?:'checked'?> disabled>
+                                    <label class="form-check-label"
+                                           for="KopieDraftChecked"><?= esc_html__('Set copy to draft', 'bootscore') ?>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--PostsCopySettings End-->
+
+
                 </div><!--parent-->
             </div>
         </div>

@@ -15,6 +15,10 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         $hupa_version = wp_get_theme();
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/tools/animate.min.css' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/font-awesome.css' ) );
+
+        $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.min.js' ) );
+        $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js' ) );
+
         $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/hupa-gmaps-script.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/hupa-starter-theme.js' ) );
 
@@ -23,6 +27,10 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         wp_enqueue_style( 'hupa-starter-public-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $modificated );
         // TODO ICONS
         wp_enqueue_style( 'hupa-starter-public-icons-style', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $modificated );
+
+        // TODO jQuery LazyLoad
+        wp_enqueue_script( 'hupa-lazy-load', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.min.js', array(), $modificated, true );
+        wp_enqueue_script( 'hupa-lazy-load-plugins', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js', array(), $modificated, true );
 
         wp_enqueue_script( 'hupa-gmaps-script', get_template_directory_uri() . '/js/hupa-gmaps-script.js', array(), $modificated, true );
         // TODO HUPA-STARTER-THEME Theme JS

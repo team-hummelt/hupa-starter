@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: _s 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2021-12-02 20:29+0100\n"
-"PO-Revision-Date: 2021-12-02 20:29+0100\n"
+"POT-Creation-Date: 2021-12-03 16:26+0100\n"
+"PO-Revision-Date: 2021-12-03 16:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: Deutsch\n"
 "Language: de_DE\n"
@@ -20,8 +20,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: inc/gutenberg-tools/google-maps/src/index.js:24
-#: inc/register-hupa-starter-optionen.php:168
-#: inc/register-hupa-starter-optionen.php:169
+#: inc/register-hupa-starter-optionen.php:172
+#: inc/register-hupa-starter-optionen.php:173
 msgid "Google Maps"
 msgstr "Google Maps"
 
@@ -48,8 +48,8 @@ msgid "Gutenberg Menu Select"
 msgstr ""
 
 #: inc/gutenberg-tools/theme-carousel/src/index.js:24
-#: inc/register-hupa-starter-optionen.php:133
-#: inc/register-hupa-starter-optionen.php:134
+#: inc/register-hupa-starter-optionen.php:137
+#: inc/register-hupa-starter-optionen.php:138
 #: inc/starter-admin-pages/admin-starter-theme-carousel.php:37
 msgid "Carousel"
 msgstr "Carousel"
@@ -315,7 +315,7 @@ msgstr "Soziale Medien"
 #: inc/hupa-gutenberg-sidebar/js/index.js:1
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/build/index.js:4693
 #: inc/hupa-gutenberg-sidebar/sidebar-dev/src/index.js:779
-#: inc/register-hupa-starter-optionen.php:411
+#: inc/register-hupa-starter-optionen.php:412
 #: inc/starter-admin-pages/admin-starter-theme-home.php:2382
 #: inc/starter-admin-pages/admin-starter-theme-home.php:2508
 #: inc/starter-admin-pages/admin-starter-theme-home.php:2626
@@ -903,11 +903,13 @@ msgstr "Standard Menü"
 #: inc/hupa-optionen/filter/hupa-theme-option-filter.php:680
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:184
 #: inc/starter-admin-pages/hupa-options-page.php:347
+#: inc/starter-admin-pages/hupa-options-page.php:468
 msgid "show"
 msgstr "anzeigen"
 
 #: inc/hupa-optionen/filter/hupa-theme-option-filter.php:684
 #: inc/starter-admin-pages/hupa-options-page.php:348
+#: inc/starter-admin-pages/hupa-options-page.php:469
 msgid "hide"
 msgstr "ausblenden"
 
@@ -948,20 +950,29 @@ msgstr ""
 msgid "neutral"
 msgstr ""
 
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:104
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:105
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:114
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:115
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:123
-#: inc/hupa-optionen/menu-order/class/class-order-core.php:124
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:120
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:121
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:130
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:131
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:139
+#: inc/hupa-optionen/menu-order/class/class-order-core.php:140
 msgid "Sort"
 msgstr "Sortieren"
 
-#: inc/hupa-optionen/menu-order/class/class-order-helper.php:96
-#: inc/hupa-optionen/menu-order/class/class-order-helper.php:163
+#: inc/hupa-optionen/menu-order/class/class-order-helper.php:110
+#: inc/hupa-optionen/menu-order/class/class-order-helper.php:177
 #, php-format
 msgid "Use commas instead of %s to separate excluded terms."
 msgstr ""
+
+#: inc/hupa-optionen/menu-order/hupa-menu-order-init.php:160
+#, php-format
+msgid "%s duplicate"
+msgstr "%s duplizieren"
+
+#: inc/hupa-optionen/menu-order/hupa-menu-order-init.php:160
+msgid "Duplicate"
+msgstr "Duplizieren"
 
 #: inc/hupa-optionen/traits/HupaOptionTrait.php:611
 #: inc/hupa-optionen/widgets/social-media-widget.php:107
@@ -1031,48 +1042,48 @@ msgstr "Client secret"
 msgid "Theme aktivieren"
 msgstr "Theme Optionen"
 
-#: inc/register-hupa-starter-optionen.php:98
-#: inc/register-hupa-starter-optionen.php:99
-#: inc/register-hupa-starter-optionen.php:211
-#: inc/register-hupa-starter-optionen.php:236
+#: inc/register-hupa-starter-optionen.php:102
+#: inc/register-hupa-starter-optionen.php:103
+#: inc/register-hupa-starter-optionen.php:212
+#: inc/register-hupa-starter-optionen.php:237
 msgid "HUPA Theme"
 msgstr "HUPA Theme"
 
-#: inc/register-hupa-starter-optionen.php:110
-#: inc/register-hupa-starter-optionen.php:111
+#: inc/register-hupa-starter-optionen.php:114
+#: inc/register-hupa-starter-optionen.php:115
 #: inc/starter-admin-pages/admin-starter-theme-home.php:18
 #: inc/starter-admin-pages/hupa-options-page.php:17
 msgid "Theme Settings"
 msgstr "Theme Settings"
 
-#: inc/register-hupa-starter-optionen.php:121
-#: inc/register-hupa-starter-optionen.php:122
+#: inc/register-hupa-starter-optionen.php:125
+#: inc/register-hupa-starter-optionen.php:126
 #: inc/starter-admin-pages/admin-starter-theme-tools.php:39
 msgid "Theme Tools"
 msgstr "Theme Tools"
 
-#: inc/register-hupa-starter-optionen.php:144
-#: inc/register-hupa-starter-optionen.php:145
+#: inc/register-hupa-starter-optionen.php:148
+#: inc/register-hupa-starter-optionen.php:149
 msgid "Installation"
 msgstr ""
 
-#: inc/register-hupa-starter-optionen.php:155
+#: inc/register-hupa-starter-optionen.php:159
 msgid "Licences"
 msgstr "Lizenzen"
 
-#: inc/register-hupa-starter-optionen.php:156
+#: inc/register-hupa-starter-optionen.php:160
 msgid "<b class=\"green_submenue\"> Licences ➤</b>"
 msgstr "<b class=\"green_submenue\"> Lizenzen ➤</b>"
 
-#: inc/register-hupa-starter-optionen.php:178
-#: inc/register-hupa-starter-optionen.php:179
+#: inc/register-hupa-starter-optionen.php:182
+#: inc/register-hupa-starter-optionen.php:183
 #, fuzzy
 #| msgid "Google Maps"
 msgid "Google Maps API"
 msgstr "Google Maps"
 
-#: inc/register-hupa-starter-optionen.php:188
-#: inc/register-hupa-starter-optionen.php:189
+#: inc/register-hupa-starter-optionen.php:192
+#: inc/register-hupa-starter-optionen.php:193
 #: inc/starter-admin-pages/admin-iframe-maps.php:23
 #: inc/starter-admin-pages/admin-iframe-maps.php:29
 #: inc/starter-admin-pages/admin-iframe-maps.php:34
@@ -1081,93 +1092,93 @@ msgstr "Google Maps"
 msgid "Google Maps I-Frame"
 msgstr "Google Maps"
 
-#: inc/register-hupa-starter-optionen.php:198
-#: inc/register-hupa-starter-optionen.php:199
+#: inc/register-hupa-starter-optionen.php:202
+#: inc/register-hupa-starter-optionen.php:203
 #: inc/starter-admin-pages/admin-gmaps-settings.php:21
 #: inc/starter-admin-pages/admin-gmaps-settings.php:26
 #: inc/starter-admin-pages/admin-gmaps-settings.php:31
 msgid "Google Maps Settings"
 msgstr "Google Maps Settings"
 
-#: inc/register-hupa-starter-optionen.php:246
+#: inc/register-hupa-starter-optionen.php:247
 msgid "Theme Einstellungen"
 msgstr ""
 
-#: inc/register-hupa-starter-optionen.php:253
+#: inc/register-hupa-starter-optionen.php:254
 msgid "Contact"
 msgstr "Kontakt"
 
-#: inc/register-hupa-starter-optionen.php:263
+#: inc/register-hupa-starter-optionen.php:264
 msgid "Website"
 msgstr "Webseite"
 
-#: inc/register-hupa-starter-optionen.php:410
+#: inc/register-hupa-starter-optionen.php:411
 msgid "Custom Footer"
 msgstr "Custom Footer"
 
-#: inc/register-hupa-starter-optionen.php:412
+#: inc/register-hupa-starter-optionen.php:413
 msgid "Edit Footer"
 msgstr "Footer bearbeiten"
 
-#: inc/register-hupa-starter-optionen.php:413
+#: inc/register-hupa-starter-optionen.php:414
 msgid "Footer list navigation"
 msgstr "Footer-Listennavigation"
 
-#: inc/register-hupa-starter-optionen.php:415
+#: inc/register-hupa-starter-optionen.php:416
 msgid "Footer Archives"
 msgstr "Footer Archive"
 
-#: inc/register-hupa-starter-optionen.php:450
+#: inc/register-hupa-starter-optionen.php:451
 msgid "Custom Header"
 msgstr "Custom Header"
 
-#: inc/register-hupa-starter-optionen.php:451
+#: inc/register-hupa-starter-optionen.php:452
 msgid "Header"
 msgstr "Header"
 
-#: inc/register-hupa-starter-optionen.php:452
+#: inc/register-hupa-starter-optionen.php:453
 msgid "Edit Header"
 msgstr "Header bearbeiten"
 
-#: inc/register-hupa-starter-optionen.php:453
+#: inc/register-hupa-starter-optionen.php:454
 msgid "Header list navigation"
 msgstr "Header-Listennavigation"
 
-#: inc/register-hupa-starter-optionen.php:454
+#: inc/register-hupa-starter-optionen.php:455
 msgid "Create new header"
 msgstr "Neuen Header erstellen"
 
-#: inc/register-hupa-starter-optionen.php:455
+#: inc/register-hupa-starter-optionen.php:456
 msgid "Header Archives"
 msgstr "Header Archive"
 
-#: inc/register-hupa-starter-optionen.php:485
+#: inc/register-hupa-starter-optionen.php:486
 #, fuzzy
 #| msgid "Top Menu Info text"
 msgid "Top Area Menu Info text"
 msgstr "Top Menü Infotext"
 
-#: inc/register-hupa-starter-optionen.php:487
+#: inc/register-hupa-starter-optionen.php:488
 msgid "Area for info or contact information."
 msgstr "Bereich für Infos oder Kontaktinformationen."
 
-#: inc/register-hupa-starter-optionen.php:495
+#: inc/register-hupa-starter-optionen.php:496
 #, fuzzy
 #| msgid "Top Menu Social media"
 msgid "Top Area Menu Social media"
 msgstr "Top Menü soziale Medien"
 
-#: inc/register-hupa-starter-optionen.php:497
+#: inc/register-hupa-starter-optionen.php:498
 msgid "Area for social media icons."
 msgstr "Bereich für soziale Medien Icons."
 
-#: inc/register-hupa-starter-optionen.php:505
+#: inc/register-hupa-starter-optionen.php:506
 #, fuzzy
 #| msgid "Top Menu Button"
 msgid "Top Area Menu Button"
 msgstr "Top Menü Button"
 
-#: inc/register-hupa-starter-optionen.php:507
+#: inc/register-hupa-starter-optionen.php:508
 msgid "Area for button or search field."
 msgstr "Bereich für Button oder Suchfeld."
 
@@ -2114,44 +2125,55 @@ msgid "Sortieren Settings"
 msgstr "Slider Settings"
 
 #: inc/starter-admin-pages/hupa-options-page.php:40
-#, fuzzy
-#| msgid "Slider Settings"
-msgid "Posts Sortieren Settings"
-msgstr "Slider Settings"
+msgid "Beiträge | Seiten Sortieren"
+msgstr ""
+
+#: inc/starter-admin-pages/hupa-options-page.php:43
+#: inc/starter-admin-pages/hupa-options-page.php:48
+#: inc/starter-admin-pages/hupa-options-page.php:435
+msgid "Posts | Pages Duplicate"
+msgstr "Beiträge | Seiten Duplizieren"
 
 #: inc/starter-admin-pages/hupa-options-page.php:354
-msgid "Minimum Level to use this plugin"
-msgstr "Mindestvoraussetzung für die Verwendung dieses Plugins"
+#: inc/starter-admin-pages/hupa-options-page.php:475
+msgid "Minimum requirement for using this function"
+msgstr "Mindestvoraussetzung für die Verwendung dieser Funktion"
 
 #: inc/starter-admin-pages/hupa-options-page.php:358
+#: inc/starter-admin-pages/hupa-options-page.php:479
 msgid "User Role"
 msgstr "Benutzer Rolle"
 
 #: inc/starter-admin-pages/hupa-options-page.php:360
+#: inc/starter-admin-pages/hupa-options-page.php:481
 msgid "Subscriber"
 msgstr "Abonnent"
 
 #: inc/starter-admin-pages/hupa-options-page.php:361
+#: inc/starter-admin-pages/hupa-options-page.php:482
 msgid "Contributor"
 msgstr "Mitarbeiter"
 
 #: inc/starter-admin-pages/hupa-options-page.php:362
+#: inc/starter-admin-pages/hupa-options-page.php:483
 msgid "Author"
 msgstr "Autor"
 
 #: inc/starter-admin-pages/hupa-options-page.php:363
+#: inc/starter-admin-pages/hupa-options-page.php:484
 msgid "Editor"
 msgstr "Redakteur"
 
 #: inc/starter-admin-pages/hupa-options-page.php:364
+#: inc/starter-admin-pages/hupa-options-page.php:485
 msgid "Administrator"
 msgstr "Administrator"
 
-#: inc/starter-admin-pages/hupa-options-page.php:373
+#: inc/starter-admin-pages/hupa-options-page.php:372
 msgid "Automatic sorting"
 msgstr "Automatisches Sortieren"
 
-#: inc/starter-admin-pages/hupa-options-page.php:377
+#: inc/starter-admin-pages/hupa-options-page.php:376
 msgid ""
 "If selected, the plugin will automatically change the WordPress queries to "
 "use the new order (no code update is required). If only certain queries "
@@ -2164,13 +2186,13 @@ msgstr ""
 "benutzen sollen, wähle dies nicht und füge den Anfragen 'orderby' => "
 "'menu_order' als Parameter hinzu."
 
-#: inc/starter-admin-pages/hupa-options-page.php:384
+#: inc/starter-admin-pages/hupa-options-page.php:383
 #, fuzzy
 #| msgid "Automatic sorting"
 msgid "Admin sorting"
 msgstr "Automatisches Sortieren"
 
-#: inc/starter-admin-pages/hupa-options-page.php:388
+#: inc/starter-admin-pages/hupa-options-page.php:387
 msgid ""
 "This tick must be set so that the entries are displayed in the standard list "
 "view according to the set order."
@@ -2178,11 +2200,11 @@ msgstr ""
 "Damit die Einträge in der Standard-Listenansicht nach gesetzter Reihenfolge "
 "angezeigt werden, muss dieser Haken gesetzt werden."
 
-#: inc/starter-admin-pages/hupa-options-page.php:395
+#: inc/starter-admin-pages/hupa-options-page.php:394
 msgid "Use ASC/DESC parameters in query"
 msgstr "ASC/DESC-Parameter in Abfrage benutzen"
 
-#: inc/starter-admin-pages/hupa-options-page.php:399
+#: inc/starter-admin-pages/hupa-options-page.php:398
 msgid ""
 "If the query contains an order parameter, use it. If the query order is set "
 "to DESC, the order is reversed."
@@ -2190,11 +2212,11 @@ msgstr ""
 "Falls die Abfrage einen Ordnungsparameter beinhaltet, nutze diesen. Falls "
 "die Abfrage-Reihenfolge auf DESC gesetzt ist, wird die Reihenfolge umgekehrt."
 
-#: inc/starter-admin-pages/hupa-options-page.php:407
+#: inc/starter-admin-pages/hupa-options-page.php:405
 msgid "Archive Drag & Drop"
 msgstr "Archiv Drag & Drop"
 
-#: inc/starter-admin-pages/hupa-options-page.php:411
+#: inc/starter-admin-pages/hupa-options-page.php:409
 msgid ""
 "Allows sortable drag & drop functionality within the standard WordPress post "
 "type archives. Admin sorting must be active for this."
@@ -2202,16 +2224,24 @@ msgstr ""
 "Erlaubt sortierbare Drag & Drop-Funktionalität innerhalb der Standard-"
 "WordPress-Beitragstyp-Archive. Admin-Sortierung muss dafür aktiv sein."
 
-#: inc/starter-admin-pages/hupa-options-page.php:419
+#: inc/starter-admin-pages/hupa-options-page.php:416
 msgid "Next / Apply Previous Next / Previous Apply"
 msgstr "Nächste / Vorherige anwenden"
 
-#: inc/starter-admin-pages/hupa-options-page.php:423
+#: inc/starter-admin-pages/hupa-options-page.php:420
 msgid "Apply the sort to the entire Next / Previous navigation."
 msgstr ""
 "Die Sortierung auf die gesamte Nächste / Vorherige Navigation anwenden."
 
-#: inc/starter-admin-pages/hupa-options-page.php:440
+#: inc/starter-admin-pages/hupa-options-page.php:442
+msgid "Show or hide duplicate for existing post types"
+msgstr "Duplizieren für vorhandene Post Types anzeigen oder ausblenden"
+
+#: inc/starter-admin-pages/hupa-options-page.php:493
+msgid "Set copy to draft"
+msgstr "Kopie auf Entwurf einstellen"
+
+#: inc/starter-admin-pages/hupa-options-page.php:511
 msgid "Debug Log"
 msgstr ""
 
@@ -2227,7 +2257,7 @@ msgstr "Lizenz verwalten"
 msgid "Lizenzen"
 msgstr ""
 
-#: inc/starter-ajax/starter-backend-ajax.php:26
+#: inc/starter-ajax/starter-backend-ajax.php:28
 #, php-format
 msgid "Save <b class=\"text-danger\">failed</b> (transmission error) - %s"
 msgstr ""
@@ -2260,6 +2290,14 @@ msgstr ""
 #: inc/update-checker/vendor/yahnis-elsts/plugin-update-checker/Puc/v4p11/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Slider Settings"
+#~ msgid "Posts Sortieren Settings"
+#~ msgstr "Slider Settings"
+
+#~ msgid "Duplicate this item"
+#~ msgstr "Dieses Element duplizieren"
 
 #, fuzzy
 #~| msgid "Standard Pin"

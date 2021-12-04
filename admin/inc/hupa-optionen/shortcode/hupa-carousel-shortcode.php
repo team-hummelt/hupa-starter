@@ -165,7 +165,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             ob_start();
             ?>
             <div id="hupaCarousel<?= $carousel->id ?>"
-                 class="<?= $full_width ?>carousel<?= $carouselClass ?><?= $marginTop ?><?= $lazy ?>slide<?= $slide ?>"
+                 class="<?= $full_width ?>carousel<?= $carouselClass ?><?= $marginTop ?> slide<?= $slide ?>"
                  data-bs-ride="<?= $ride ?>">
                 <?php if ($countS > 1): ?>
                     <div class="<?= $carousel->indicator ? '' : 'd-none' ?> carousel-indicators">
@@ -219,7 +219,7 @@ if (!class_exists('HupaCarouselShortCode')) {
                     <div class="carousel-item <?= $active ?>" data-bs-interval="<?= $tmp->data_interval ?>">
                         <?php
                         if ($carousel->carousel_lazy_load && $active) :?>
-                            <img src="<?= $image[0] ?>" class="bgImage" alt="<?= $data_alt ?>"
+                            <img data-src="<?= $image[0] ?>" class="bgImage <?=$lazy?>" alt="<?= $data_alt ?>"
                                  style="height: <?= $carousel->container_height ?>;">
 
                         <?php endif;

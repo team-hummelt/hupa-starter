@@ -1,5 +1,35 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
+    /**
+     * @type {NodeListOf<Element>}
+     */
+    let hupaDuplicate = document.querySelectorAll('.hupa-post-duplicate-item');
+    if (hupaDuplicate) {
+        let duplicateNodes = Array.prototype.slice.call(hupaDuplicate, 0);
+        duplicateNodes.forEach(function (duplicateNodes) {
+            duplicateNodes.addEventListener("click", function (e) {
+                let postId = duplicateNodes.getAttribute('data-id');
+                let paged = get_site_params('paged');
+                if (typeof paged === 'undefined' || !paged) {
+                    paged = 1;
+                }
+                const data = {
+                    'method': 'hupa_duplicate_post',
+                    'post_type': sort_ajax_obj.post_type,
+                    'paged': paged,
+                    'postId': postId
+                }
+
+                sendXHRAjaxData(data, false);
+
+            });
+        });
+    }
+
+    /**
+     * Sortable
+     * @type {NodeListOf<Element>}
+     */
     let themeSortable = document.querySelectorAll("table.wp-list-table #the-list");
     if (themeSortable) {
         let sortNodes = Array.prototype.slice.call(themeSortable, 0);
@@ -9,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let elementArray = [];
             const sortable = Sortable.create(sortNodes, {
                 animation: 300,
-                handle: "tr",
+                handle: "td:nth-child(1n+3)",
                 ghostClass: 'sortable-ghost',
                 forceFallback: true,
                 scroll: true,
@@ -24,36 +54,58 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 onUpdate: function (evt) {
                     elementArray = [];
                     evt.to.childNodes.forEach(themeSortable => {
-                        if (themeSortable.nodeName == 'TR' ) {
+                        if (themeSortable.nodeName == 'TR') {
                             elementArray.push(themeSortable.id);
                         }
                     });
 
                     let paged = get_site_params('paged');
-                    if(typeof paged === 'undefined' || !paged) {
+                    if (typeof paged === 'undefined' || !paged) {
                         paged = 1;
                     }
 
-                    let xhr = new XMLHttpRequest();
-                    xhr.open('POST', sort_ajax_obj.ajax_url, true);
-                    let formData = new FormData();
-                    formData.append('method', 'hupa_post_order');
-                    formData.append('post_type', sort_ajax_obj.post_type );
-                    formData.append('paged', paged);
-                    formData.append('_ajax_nonce', sort_ajax_obj.nonce);
-                    formData.append('action', 'HupaStarterAjax');
-                    formData.append('elements', elementArray);
-                    xhr.send(formData);
-                    //Response
-                    xhr.onreadystatechange = function () {
-                        if (this.readyState === 4 && this.status === 200) {
-                            let data = JSON.parse(this.responseText);
+                    const data = {
+                        'method': 'hupa_post_order',
+                        'post_type': sort_ajax_obj.post_type,
+                        'paged': paged,
+                        'elements': elementArray
+                    }
 
-                        }
-                    };
+                    sendXHRAjaxData(data, false);
                 }
             });
         });
+    }
+
+    function sendXHRAjaxData(data, is_formular = true) {
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+        xhr.open('POST', sort_ajax_obj.ajax_url, true);
+
+        if (is_formular) {
+            let input = new FormData(data);
+            for (let [name, value] of input) {
+                formData.append(name, value);
+            }
+        } else {
+            for (let [name, value] of Object.entries(data)) {
+                formData.append(name, value);
+            }
+        }
+
+        formData.append('_ajax_nonce', sort_ajax_obj.nonce);
+        formData.append('action', 'HupaStarterAjax');
+        xhr.send(formData);
+
+        //Response
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data = JSON.parse(this.responseText);
+                if (data.reload) {
+                    location.reload();
+                }
+            }
+        }
     }
 
     function get_site_params(search = false, input_url = false) {

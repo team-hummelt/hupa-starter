@@ -19,8 +19,14 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.min.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js' ) );
 
+        $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/OwlCarousel/owl.carousel.min.js' ) );
+        $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/css/OwlCarousel/owl.carousel.min.css' ) );
+
         $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/hupa-gmaps-script.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/hupa-starter-theme.js' ) );
+
+
+
 
         wp_enqueue_style( 'bootscore-style', get_stylesheet_uri(), array(), $modificated );
         // TODO ANIMATE
@@ -31,6 +37,10 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         // TODO jQuery LazyLoad
         wp_enqueue_script( 'hupa-lazy-load', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.min.js', array(), $modificated, true );
         wp_enqueue_script( 'hupa-lazy-load-plugins', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js', array(), $modificated, true );
+
+        // TODO OWS Carousel
+        wp_enqueue_script( 'hupa-ows-carousel', get_template_directory_uri() . '/js/OwlCarousel/owl.carousel.min.js', array(), $modificated, true );
+        wp_enqueue_style( 'hupa-ows-carousel', get_template_directory_uri() . '/css/OwlCarousel/owl.carousel.min.css', array(), $modificated );
 
         wp_enqueue_script( 'hupa-gmaps-script', get_template_directory_uri() . '/js/hupa-gmaps-script.js', array(), $modificated, true );
         // TODO HUPA-STARTER-THEME Theme JS

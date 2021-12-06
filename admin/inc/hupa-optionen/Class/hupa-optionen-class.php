@@ -54,7 +54,6 @@ final class HupaStarterThemeOptionen
         delete_option('hupa_access_token');
         set_transient('show_theme_license_new_info', true, 5);
 
-
     }
 
     public function showThemeLizenzInfo() {

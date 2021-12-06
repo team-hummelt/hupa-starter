@@ -144,7 +144,7 @@ final class RegisterHupaStarter
             update_option('ssl_login_aktiv', 0);
             update_option('admin_ssl_login_aktiv', 0);
 
-            update_option('mu_plugin', 0);
+            //update_option('mu_plugin', 0);
 
         }
    }

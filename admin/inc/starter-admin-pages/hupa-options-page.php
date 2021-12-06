@@ -32,13 +32,21 @@ global $hupa_api_handle;
                         <?= __('WP-Config', 'bootscore') ?>
                     </button>
 
-                    <!--<button data-site="<?= __('Installierte Schriften', 'bootscore') ?>" type="button"
-                            data-load="loadInstallFonts"
-                            data-bs-toggle="collapse" data-bs-target="#InstallierteFonts"
-                            aria-expanded="false" aria-controls="InstallierteFonts"
-                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-font"></i>&nbsp;
-                        <?= __('Installierte Schriften', 'bootscore') ?>
-                    </button>-->
+                    <button data-site="<?= __('Sortieren Settings', 'bootscore') ?>" type="button"
+                            data-load=""
+                            data-bs-toggle="collapse" data-bs-target="#PostsSortSettings"
+                            aria-expanded="false" aria-controls="PostsSortSettings"
+                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-arrows"></i>&nbsp;
+                        <?= __('Beiträge | Seiten Sortieren', 'bootscore') ?>
+                    </button>
+
+                    <button data-site="<?=__('Posts | Pages Duplicate', 'bootscore')?> " type="button"
+                            data-load=""
+                            data-bs-toggle="collapse" data-bs-target="#PostsCopySettings"
+                            aria-expanded="false" aria-controls="PostsCopySettings"
+                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-arrows"></i>&nbsp;
+                        <?=__('Posts | Pages Duplicate', 'bootscore')?>
+                    </button>
                 </div>
                 <hr>
 
@@ -68,28 +76,29 @@ global $hupa_api_handle;
                                 <h6>WP-Debug</h6>
                                 <hr>
 
-                                    <div class="form-check form-switch mb-3 me-3">
-                                        <input class="form-check-input"
-                                               name="show_fatal_error" type="checkbox"
-                                               role="switch"
-                                               id="SwitchWPFatalError" <?= !get_option('hupa_show_fatal_error') ?: ' checked' ?>>
-                                        <label class="form-check-label" for="SwitchWPFatalError">Fatal Error anzeigen
-                                            <sup class="text-danger fw-bold">1*</sup></label>
-                                    </div>
+                                <div class="form-check form-switch mb-3 me-3">
+                                    <input class="form-check-input"
+                                           name="show_fatal_error" type="checkbox"
+                                           role="switch"
+                                           id="SwitchWPFatalError" <?= !get_option('hupa_show_fatal_error') ?: ' checked' ?>>
+                                    <label class="form-check-label" for="SwitchWPFatalError">Fatal Error anzeigen
+                                        <sup class="text-danger fw-bold">1*</sup></label>
+                                </div>
                                 <hr>
                                 <div class="d-flex flex-wrap ">
                                     <div class="form-check form-switch me-3">
-                                        <input  class="form-check-input"
+                                        <input class="form-check-input"
                                                name="wp_debug" type="checkbox" role="switch"
                                                id="SwitchWPDebug" <?= !get_option('hupa_wp_debug') ?: ' checked' ?>>
                                         <label class="form-check-label" for="SwitchWPDebug">WP-Debug</label>
                                     </div>
 
                                     <div class="form-check form-switch me-3">
-                                        <input  class="form-check-input"
-                                                name="hupa_wp_script_debug" type="checkbox" role="switch"
-                                                id="SwitchWPScriptDebug" <?= !get_option('hupa_wp_script_debug') ?: ' checked' ?>>
-                                        <label class="form-check-label" for="SwitchWPScriptDebug">WP-Script Debug</label>
+                                        <input class="form-check-input"
+                                               name="hupa_wp_script_debug" type="checkbox" role="switch"
+                                               id="SwitchWPScriptDebug" <?= !get_option('hupa_wp_script_debug') ?: ' checked' ?>>
+                                        <label class="form-check-label" for="SwitchWPScriptDebug">WP-Script
+                                            Debug</label>
                                     </div>
 
                                     <div class="form-check form-switch me-3">
@@ -98,7 +107,7 @@ global $hupa_api_handle;
                                                role="switch"
                                                id="SwitchWPDebugDisplay" <?= !get_option('wp_debug_display') ?: ' checked' ?>>
                                         <label class="form-check-label" for="SwitchWPDebugDisplay">WP-Debug Display
-                                            </label>
+                                        </label>
                                     </div>
 
                                     <div class="form-check form-switch me-3">
@@ -108,7 +117,7 @@ global $hupa_api_handle;
                                                role="switch"
                                                id="SwitchWPDebugLog" <?= !get_option('hupa_wp_debug_log') ?: ' checked' ?>>
                                         <label class="form-check-label" for="SwitchWPDebugLog">WP-Debug Log
-                                            </label>
+                                        </label>
                                     </div>
                                 </div>
                                 <hr>
@@ -117,7 +126,8 @@ global $hupa_api_handle;
                                     <fieldset
                                             class="my-2">
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" name="mu_plugin" type="checkbox" role="switch"
+                                            <input class="form-check-input" name="mu_plugin" type="checkbox"
+                                                   role="switch"
                                                    id="SwitchMUPlugin"
                                                 <?= !get_option('mu_plugin') ?: ' checked' ?>
                                                 <?= get_option('hupa_wp_debug_log') ?: ' disabled' ?>>
@@ -125,7 +135,9 @@ global $hupa_api_handle;
                                                 <sup class="text-danger fw-bold">2*</sup></label>
                                         </div>
                                         <div class="form-text">
-                                            Diese Option <b class="text-danger strong-font-weight"> nicht aktivieren</b> wenn <b class="strong-font-weight">Minify</b> Installiert ist und die <b class="strong-font-weight">CSS, JS oder HTMl</b>
+                                            Diese Option <b class="text-danger strong-font-weight"> nicht aktivieren</b>
+                                            wenn <b class="strong-font-weight">Minify</b> Installiert ist und die <b
+                                                    class="strong-font-weight">CSS, JS oder HTMl</b>
                                             Kompression <b class="strong-font-weight">aktiv</b> ist.
                                         </div>
 
@@ -149,34 +161,34 @@ global $hupa_api_handle;
                                 <hr>
                                 <?php
                                 //delete_option('hupa_revision_aktiv');
-                                $showRev = (int) get_option('hupa_revision_aktiv');
-                                $count_revision =  get_option('hupa_revision_anzahl');
+                                $showRev = (int)get_option('hupa_revision_aktiv');
+                                $count_revision = get_option('hupa_revision_anzahl');
                                 $revision_interval = get_option('hupa_revision_interval');
-                                $trash_days =  get_option('hupa_trash_days');
-                                is_integer($count_revision) ? (int) $revCount = get_option('hupa_revision_anzahl') : $revCount = 10;
-                                is_integer($revision_interval) ? (int) $revInterval = get_option('hupa_revision_interval') : $revInterval = 60;
-                                is_integer($trash_days) ? (int) $trashDays = get_option('hupa_trash_days') : $trashDays = 30;
+                                $trash_days = get_option('hupa_trash_days');
+                                is_integer($count_revision) ? (int)$revCount = get_option('hupa_revision_anzahl') : $revCount = 10;
+                                is_integer($revision_interval) ? (int)$revInterval = get_option('hupa_revision_interval') : $revInterval = 60;
+                                is_integer($trash_days) ? (int)$trashDays = get_option('hupa_trash_days') : $trashDays = 30;
                                 ?>
 
-                                    <div class="col-xl-4 col-lg-6 col-12  mb-3">
-                                        <label for="revisionCount" class="form-label mb-1">Anzahl der Revisionen
-                                            <sup class="text-danger fw-bold">3*</sup></label>
-                                        <input type="number" name="revision_anzahl" value="<?= $revCount ?>"
-                                               class="rev-settings form-control" id="revisionCount"
-                                               aria-describedby="revisionCountHelp"
-                                            <?= !get_option('rev_wp_aktiv') ?: ' readonly' ?>>
-                                        <div id="revisionCountHelp" class="form-text">Anzahl der maximal gespeicherter
-                                            Revisionen.
-                                        </div>
+                                <div class="col-xl-4 col-lg-6 col-12  mb-3">
+                                    <label for="revisionCount" class="form-label mb-1">Anzahl der Revisionen
+                                        <sup class="text-danger fw-bold">3*</sup></label>
+                                    <input type="number" name="revision_anzahl" value="<?= $revCount ?>"
+                                           class="rev-settings form-control" id="revisionCount"
+                                           aria-describedby="revisionCountHelp"
+                                        <?= !get_option('rev_wp_aktiv') ?: ' readonly' ?>>
+                                    <div id="revisionCountHelp" class="form-text">Anzahl der maximal gespeicherter
+                                        Revisionen.
                                     </div>
+                                </div>
 
-                                    <div class="col-xl-4 col-lg-6 col-12 mb-3">
-                                        <label for="revisionInterval" class="form-label mb-1">Revision Autosave Interval
-                                            <small class="small">(sec)</small></label>
-                                        <input type="number" name="revision_interval" value="<?= $revInterval ?>"
-                                               class="rev-settings form-control" id="revisionInterval"
-                                            <?= !get_option('rev_wp_aktiv') ?: ' readonly' ?>>
-                                    </div>
+                                <div class="col-xl-4 col-lg-6 col-12 mb-3">
+                                    <label for="revisionInterval" class="form-label mb-1">Revision Autosave Interval
+                                        <small class="small">(sec)</small></label>
+                                    <input type="number" name="revision_interval" value="<?= $revInterval ?>"
+                                           class="rev-settings form-control" id="revisionInterval"
+                                        <?= !get_option('rev_wp_aktiv') ?: ' readonly' ?>>
+                                </div>
 
                                 <div class="form-check form-switch mb-3">
                                     <input class="form-check-input"
@@ -184,20 +196,21 @@ global $hupa_api_handle;
                                            role="switch"
                                            id="wpUserRevision" <?= !get_option('rev_wp_aktiv') ?: ' checked' ?>>
                                     <label class="form-check-label" for="wpUserRevision">WordPress Settings benutzen
-                                        </label>
+                                    </label>
                                 </div>
-                                    <hr>
+                                <hr>
 
                                 <h6>Papierkorb</h6>
                                 <hr>
                                 <div class="col-xl-4 col-lg-6 col-12">
                                     <label for="trashDays" class="form-label mb-1">Papierkorb leeren
                                         <small class="small">(angabe in Tage)</small>
-                                        </label>
+                                    </label>
                                     <input type="number" name="trash_days" value="<?= $trashDays ?>"
                                            class="form-control" id="trashDays"
                                         <?= !get_option('trash_wp_aktiv') ?: ' readonly' ?>>
-                                    <div  class="form-text mb-3">Bei Eingabe <b class="text-primary strong-font-weight">0</b>
+                                    <div class="form-text mb-3">Bei Eingabe <b
+                                                class="text-primary strong-font-weight">0</b>
                                         wird der Papierkorb sofort geleert.
                                     </div>
 
@@ -220,7 +233,8 @@ global $hupa_api_handle;
                                                name="ssl_login_aktiv" type="checkbox"
                                                role="switch"
                                                id="SwitchSSLLogin" <?= !get_option('ssl_login_aktiv') ?: ' checked' ?>>
-                                        <label class="form-check-label" for="SwitchSSLLogin">SSL-Login erzwingen </label>
+                                        <label class="form-check-label" for="SwitchSSLLogin">SSL-Login
+                                            erzwingen </label>
                                     </div>
                                     <div class="form-check form-switch me-3">
                                         <input class="form-check-input"
@@ -228,7 +242,7 @@ global $hupa_api_handle;
                                                role="switch"
                                                id="SwitchAdminSSLLogin" <?= !get_option('admin_ssl_login_aktiv') ?: ' checked' ?>>
                                         <label class="form-check-label" for="SwitchAdminSSLLogin">SSL-Admin erzwingen
-                                            </label>
+                                        </label>
                                     </div>
                                 </div>
 
@@ -258,8 +272,10 @@ global $hupa_api_handle;
                                 <hr class="mt-1 mb-1">
                                 <div class="form-text mt-2">
                                     <b class="text-danger">2<sup>*</sup></b>
-                                    Ein Must-Use-Plugin wird geladen, bevor normale Plugins und das Theme geladen werden.
-                                    Bei aktivierung werden nur noch Fehler in die Log-Datei geschrieben. Warnungen oder Notizen werden ausgeblendet.
+                                    Ein Must-Use-Plugin wird geladen, bevor normale Plugins und das Theme geladen
+                                    werden.
+                                    Bei aktivierung werden nur noch Fehler in die Log-Datei geschrieben. Warnungen oder
+                                    Notizen werden ausgeblendet.
                                 </div>
                                 <hr class="mt-1 mb-1">
                                 <div class="form-text mt-2">
@@ -275,8 +291,10 @@ global $hupa_api_handle;
                                     Mit dieser Option können Sie die Datenbank von WordPress reparieren und auch die
                                     Inhalte optimieren. Dies kann notwendig werden, wenn die Website langsamer
                                     wird oder sich unerklärliche 404er-Fehler häufen.
-                                    Nach dem Aktivieren des Codes können Sie <a class="strong-font-weight" target="_blank" href="<?=site_url()?>/wp-admin/maint/repair.php">
-                                        <?=site_url()?>/wp-admin/maint/repair.php</a> die
+                                    Nach dem Aktivieren des Codes können Sie <a class="strong-font-weight"
+                                                                                target="_blank"
+                                                                                href="<?= site_url() ?>/wp-admin/maint/repair.php">
+                                        <?= site_url() ?>/wp-admin/maint/repair.php</a> die
                                     Reparatur und/oder Optimierung durchführen.
                                     <b class="text-danger strong-font-weight">
                                         Nach der Optimierung sollten Sie
@@ -286,6 +304,199 @@ global $hupa_api_handle;
                             </div>
                         </div>
                     </div><!--collapse-->
+                    <!--//JOB WARNING SORTIERE SITE-->
+                    <div class="collapse" id="PostsSortSettings"
+                         data-bs-parent="#settings_display_data">
+
+                        <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray" style="min-height: 55vh">
+                            <form class="sendAjaxThemeForm" action="#" method="post">
+                                <input type="hidden" name="method" value="theme_form_handle">
+                                <input type="hidden" name="handle" value="theme_options_order">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <h5 class="card-title">
+                                        <i class="font-blue fa fa-wordpress"></i>&nbsp; Sortieren Einstellungen
+                                    </h5>
+                                    <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                </div>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i>
+                                    Sortieren für vorhandene Post Types anzeigen oder ausblenden</h6>
+                                <hr>
+                                <?php
+                                global $hupa_menu_helper;
+                                $options = $hupa_menu_helper->hupa_get_sort_options();
+                                $post_types = get_post_types();
+                                $ignore_post_types = ['reply','topic','report','status','wp_block'];
+
+                                foreach ($post_types as $post_type_name):
+                                    if (in_array($post_type_name, $ignore_post_types)) {
+                                        continue;
+                                    }
+                                    if (is_post_type_hierarchical($post_type_name)) {
+                                        //continue;
+                                    }
+                                    $post_type_data = get_post_type_object($post_type_name);
+                                    if ($post_type_data->show_ui === FALSE) {
+                                        continue;
+                                    } ?>
+                                    <div class="mb-3">
+                                        <label for="postTypeSelect"
+                                               class="form-label mb-1 strong-font-weight"><?= esc_html($post_type_data->labels->singular_name) ?></label>
+                                        <select id="postTypeSelect" name="show_reorder_interfaces[<?=esc_attr($post_type_name)?>]" class="form-select">
+                                            <option value="show" <?= isset($options['show_reorder_interfaces'][$post_type_name]) && $options['show_reorder_interfaces'][$post_type_name] == 'show' ? ' selected' : ''; ?>><?= esc_html__("show", 'bootscore') ?></option>
+                                            <option value="hide" <?= isset($options['show_reorder_interfaces'][$post_type_name]) && $options['show_reorder_interfaces'][$post_type_name] == 'hide' ? ' selected' : '' ?>><?= esc_html__("hide", 'bootscore') ?></option>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i> <?= esc_html__('Minimum requirement for using this function', 'bootscore') ?>
+                                </h6>
+                                <hr>
+                                <label for="capabilitySelect"
+                                       class="form-label mb-1 strong-font-weight"><?= esc_html__('User Role', 'bootscore') ?></label>
+                                <select id="capabilitySelect" name="capability" class="form-select mb-3">
+                                    <option value="read" <?=isset($options['capability']) && $options['capability'] == "read" ? 'selected' : '' ?>><?= esc_html__('Subscriber', 'bootscore') ?></option>
+                                    <option value="edit_posts" <?=isset($options['capability']) && $options['capability'] == "edit_posts" ? 'selected' : '' ?>><?= esc_html__('Contributor', 'bootscore') ?></option>
+                                    <option value="publish_posts" <?=isset($options['capability']) && $options['capability'] == "publish_posts" ? 'selected' : '' ?>><?= esc_html__('Author', 'bootscore') ?></option>
+                                    <option value="publish_pages" <?=isset($options['capability']) && $options['capability'] == "publish_pages" ? 'selected' : '' ?>><?= esc_html__('Editor', 'bootscore') ?></option>
+                                    <option value="manage_options" <?=!isset($options['capability']) || empty($options['capability']) || (isset($options['capability']) && $options['capability'] == "manage_options") ? 'selected' : '' ?>><?= esc_html__('Administrator', 'bootscore') ?></option>
+                                </select>
+                                <hr>
+
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                           id="AutoSortChecked" name="autosort" <?=!$options['autosort'] ?: 'checked' ?>>
+                                    <label class="form-check-label"
+                                           for="AutoSortChecked"><?= esc_html__('Automatic sorting', 'bootscore') ?>
+                                        </label>
+                                </div>
+                                <div class="form-text mb-3">
+                                    <?= esc_html__('If selected, the plugin will automatically change the WordPress queries to use the new order (no code update is required). If only certain queries should use the custom sorting, do not select this and add "orderby" => \'menu_order\' as a parameter to the queries.', 'bootscore') ?>
+                                </div>
+                                <hr>
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="adminsort" type="checkbox" role="switch"
+                                           id="AdminSortChecked" <?=!$options['adminsort'] ?:'checked'?>>
+                                    <label class="form-check-label"
+                                           for="AdminSortChecked"><?= esc_html__('Admin sorting', 'bootscore') ?>
+                                        </label>
+                                </div>
+                                <div class="form-text mb-3">
+                                    <?= esc_html__('This tick must be set so that the entries are displayed in the standard list view according to the set order.', 'bootscore') ?>
+                                </div>
+                                <hr>
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="use_query_asc_desc" type="checkbox" role="switch"
+                                           id="AscDescChecked" <?=!$options['use_query_ASC_DESC']?:'checked'?>>
+                                    <label class="form-check-label"
+                                           for="AscDescChecked"><?= esc_html__('Use ASC/DESC parameters in query', 'bootscore') ?>
+                                    </label>
+                                </div>
+                                <div class="form-text mb-3">
+                                    <?= esc_html__('If the query contains an order parameter, use it. If the query order is set to DESC, the order is reversed.', 'bootscore') ?>
+                                </div>
+                                <hr>
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="archive_drag_drop" type="checkbox" role="switch"
+                                           id="ArchiveDragDropChecked" <?=!$options['archive_drag_drop']?:'checked'?>>
+                                    <label class="form-check-label"
+                                           for="ArchiveDragDropChecked"><?= esc_html__('Archive Drag & Drop', 'bootscore') ?>
+                                    </label>
+                                </div>
+                                <div class="form-text mb-3">
+                                    <?= esc_html__('Allows sortable drag & drop functionality within the standard WordPress post type archives. Admin sorting must be active for this.', 'bootscore') ?>
+                                </div>
+                                <hr>
+                                <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="navigation_sort_apply" type="checkbox" role="switch"
+                                           id="NextPreviousChecked" <?=!$options['navigation_sort_apply']?:'checked'?>>
+                                    <label class="form-check-label"
+                                           for="NextPreviousChecked"><?= esc_html__('Next / Apply Previous Next / Previous Apply', 'bootscore') ?>
+                                    </label>
+                                </div>
+                                <div class="form-text mb-3">
+                                    <?= esc_html__('Apply the sort to the entire Next / Previous navigation.', 'bootscore') ?>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--endSortieren-->
+                    <!--//JOB WARNING Kopieren SITE-->
+                    <div class="collapse" id="PostsCopySettings"
+                         data-bs-parent="#settings_display_data">
+
+                        <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray" style="min-height: 55vh">
+                            <form class="sendAjaxThemeForm" action="#" method="post">
+                                <input type="hidden" name="method" value="theme_form_handle">
+                                <input type="hidden" name="handle" value="theme_options_duplicate">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <h5 class="card-title">
+                                        <i class="font-blue fa fa-wordpress"></i>&nbsp; <?=__('Posts | Pages Duplicate', 'bootscore')?>
+                                    </h5>
+                                    <div class="ajax-status-spinner ms-auto d-inline-block mb-2 pe-2"></div>
+                                </div>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i>
+                                    <?=__('Show or hide duplicate for existing post types', 'bootscore')?></h6>
+                                <hr>
+
+                                <?php
+                                global $hupa_menu_helper;
+                                $options = $hupa_menu_helper->hupa_get_duplicate_options();
+                                $post_types = get_post_types();
+                                $ignore_post_types = ['reply','attachment','topic','report','status','wp_block'];
+
+                                foreach ($post_types as $post_type_name):
+
+                                if (in_array($post_type_name, $ignore_post_types)) {
+                                    continue;
+                                }
+
+                                if (is_post_type_hierarchical($post_type_name)) {
+                                    //continue;
+                                }
+                                $post_type_data = get_post_type_object($post_type_name);
+                                if ($post_type_data->show_ui === FALSE) {
+                                    continue;
+                                } ?>
+                                    <div class="mb-3">
+                                        <label for="postTypeDuplicatorSelect"
+                                               class="form-label mb-1 strong-font-weight"><?= esc_html($post_type_data->labels->singular_name) ?></label>
+                                        <select id="postTypeDuplicatorSelect" name="show_duplicate_interfaces[<?=esc_attr($post_type_name)?>]" class="form-select">
+                                            <option value="show" <?= isset($options['show_duplicate_interfaces'][$post_type_name]) && $options['show_duplicate_interfaces'][$post_type_name] == 'show' ? ' selected' : ''; ?>><?= esc_html__("show", 'bootscore') ?></option>
+                                            <option value="hide" <?= isset($options['show_duplicate_interfaces'][$post_type_name]) && $options['show_duplicate_interfaces'][$post_type_name] == 'hide' ? ' selected' : '' ?>><?= esc_html__("hide", 'bootscore') ?></option>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
+                                <hr>
+                                <h6>
+                                    <i class="font-blue fa fa-arrow-circle-down"></i> <?= esc_html__('Minimum requirement for using this function', 'bootscore') ?>
+                                </h6>
+                                <hr>
+                                <label for="capabilityDuplicatorSelect"
+                                       class="form-label mb-1 strong-font-weight"><?= esc_html__('User Role', 'bootscore') ?></label>
+                                <select id="capabilityDuplicatorSelect" name="capability" class="form-select mb-3">
+                                    <option value="read" <?=isset($options['capability']) && $options['capability'] == "read" ? 'selected' : '' ?>><?= esc_html__('Subscriber', 'bootscore') ?></option>
+                                    <option value="edit_posts" <?=isset($options['capability']) && $options['capability'] == "edit_posts" ? 'selected' : '' ?>><?= esc_html__('Contributor', 'bootscore') ?></option>
+                                    <option value="publish_posts" <?=isset($options['capability']) && $options['capability'] == "publish_posts" ? 'selected' : '' ?>><?= esc_html__('Author', 'bootscore') ?></option>
+                                    <option value="publish_pages" <?=isset($options['capability']) && $options['capability'] == "publish_pages" ? 'selected' : '' ?>><?= esc_html__('Editor', 'bootscore') ?></option>
+                                    <option value="manage_options" <?=!isset($options['capability']) || empty($options['capability']) || (isset($options['capability']) && $options['capability'] == "manage_options") ? 'selected' : '' ?>><?= esc_html__('Administrator', 'bootscore') ?></option>
+                                </select>
+                                <hr>
+                                 <div class="form-check form-switch mb-1">
+                                    <input class="form-check-input" name="copy_draft" type="checkbox" role="switch"
+                                           id="KopieDraftChecked" <?=!$options['copy_draft']?:'checked'?> disabled>
+                                    <label class="form-check-label"
+                                           for="KopieDraftChecked"><?= esc_html__('Set copy to draft', 'bootscore') ?>
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--PostsCopySettings End-->
+
+
                 </div><!--parent-->
             </div>
         </div>

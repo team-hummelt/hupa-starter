@@ -34,6 +34,34 @@ final class HupaStarterThemeOptionen
     public function __construct()
     {
 
+      //set_transient('show_theme_license_new_info', true, 5);
+       $this->showThemeLizenzInfo();
+        if(site_url() !== get_option('hupa_license_url')) {
+           $this->deactivate_hupa_product();
+        }
+    }
+
+    public function deactivate_hupa_product(){
+
+        $file = THEME_ADMIN_INC . 'register-hupa-starter-optionen.php';
+        if(is_file($file)) {
+            unlink($file);
+        }
+
+        delete_option('hupa_starter_product_install_authorize');
+        delete_option('hupa_product_client_id');
+        delete_option('hupa_product_client_secret');
+        delete_option('hupa_access_token');
+        set_transient('show_theme_license_new_info', true, 5);
+
+    }
+
+    public function showThemeLizenzInfo() {
+        if(get_transient('show_theme_license_new_info')) {
+            echo '<div class="error"><p>' .
+                'HUPA Theme ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.'.
+                '</p></div>';
+        }
     }
 
     public function add_wp_config_put($slash, $const ,$bool)
@@ -47,7 +75,6 @@ final class HupaStarterThemeOptionen
     public function wp_config_delete( $slash, $const,  $bool)
     {
         $config = file_get_contents (ABSPATH . "wp-config.php");
-        //$config = preg_replace ("/( ?)(define)( ?)(\()( ?)(['\"])$const(['\"])( ?)(,)( ?)(0|1|true|false)( ?)(\))( ?);/i", "", $config);
         $config = preg_replace ("@( ?)(define)( ?)(\()( ?)([\'\"])$const([\'\"])( ?)(,)( ?)(0|1|true|false|\d{1,10})( ?)(\))( ?);@i", "", $config);
         $config = $this->clean_lines_wp_config($config);
 
@@ -107,7 +134,8 @@ final class HupaStarterThemeOptionen
         return preg_replace('/^[\t ]*\n/im', '', $config);
     }
 
-    public function theme_activate_mu_plugin(){
+    public function theme_activate_mu_plugin(): bool
+    {
 
         $muDir = ABSPATH . 'wp-content' . DIRECTORY_SEPARATOR . 'mu-plugins';
         if(!is_dir($muDir)){

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Left Sidebar
+ * Template Name:Sidebar Links
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

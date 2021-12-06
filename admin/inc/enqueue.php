@@ -15,14 +15,32 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         $hupa_version = wp_get_theme();
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/tools/animate.min.css' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/font-awesome.css' ) );
+
+        $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.min.js' ) );
+        $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js' ) );
+
+        //$modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/OwlCarousel/owl.carousel.min.js' ) );
+        //$modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/css/OwlCarousel/owl.carousel.min.css' ) );
+        //$modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/css/OwlCarousel/owl.theme.default.min.css' ) );
+
         $modificated = date( 'YmdHi', filemtime( get_template_directory()  . '/js/hupa-gmaps-script.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/hupa-starter-theme.js' ) );
+
 
         wp_enqueue_style( 'bootscore-style', get_stylesheet_uri(), array(), $modificated );
         // TODO ANIMATE
         wp_enqueue_style( 'hupa-starter-public-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $modificated );
         // TODO ICONS
         wp_enqueue_style( 'hupa-starter-public-icons-style', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $modificated );
+
+        // TODO jQuery LazyLoad
+        wp_enqueue_script( 'hupa-lazy-load', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.min.js', array(), $modificated, true );
+        wp_enqueue_script( 'hupa-lazy-load-plugins', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js', array(), $modificated, true );
+
+        // TODO OWS Carousel
+        //wp_enqueue_script( 'hupa-owl-carousel', get_template_directory_uri() . '/js/OwlCarousel/owl.carousel.min.js', array(), $modificated, true );
+        //wp_enqueue_style( 'hupa-owl-carousel', get_template_directory_uri() . '/css/OwlCarousel/owl.carousel.min.css', array(), $modificated );
+        //wp_enqueue_style( 'hupa-owl-default-carousel', get_template_directory_uri() . '/css/OwlCarousel/owl.theme.default.min.css', array(), $modificated );
 
         wp_enqueue_script( 'hupa-gmaps-script', get_template_directory_uri() . '/js/hupa-gmaps-script.js', array(), $modificated, true );
         // TODO HUPA-STARTER-THEME Theme JS
@@ -47,7 +65,7 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 
         // TODO PUBLIC localize Script
         global $post;
-        $_SESSION['gmaps'] ? $isGmaps = true : $isGmaps = false;
+        isset($_SESSION['gmaps']) && $_SESSION['gmaps']  ? $isGmaps = true : $isGmaps = false;
         isset($post->ID) ? $postID = $post->ID : $postID = '';
         isset($post->post_type) ? $post_type = $post->post_type : $post_type = '';
         get_hupa_frontend('nav-img') ? $navImg = get_hupa_frontend('nav-img')->width : $navImg = false;
@@ -64,8 +82,8 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
                 'site_url'  => get_bloginfo( 'url' ),
                 'key' => base64_encode( get_hupa_option( 'map_apikey' ) ),
                 'img_width' => $navImg,
-                'img' => $img
-
+                'img' => $img,
+                'src_url' => get_template_directory_uri()
             )
         );
     }

@@ -10,10 +10,16 @@ hummelt und partner | Werbeagentur GmbH
 * Tags: Hupa Theme, Bootstrap
 * Requires at least: 5.8
 * Tested up to: 5.8
-* Stable tag: 1.0.8
+* Stable tag: 1.0.9
 * Requires PHP: 8.0
 
 ***
+### \#1.0.9
+* Dashboard Beiträge, Seiten, attachment Sortieren Funktion hinzugefügt
+* Beiträge und Seiten Duplizieren Funktion hinzugefügt
+* Optionen für Sortieren Funktion hinzugefügt
+* Optionen für Duplizieren Funtion hinzugefügt
+
 ### \#1.0.8
 * Option Seite hinzugefügt
 * Google-Maps Session-Fehler gefixt

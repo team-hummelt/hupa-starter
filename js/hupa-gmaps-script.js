@@ -120,6 +120,14 @@ function hupa_gmaps_data() {
 
 let saveSession;
 window.addEventListener("load", function (event) {
+
+    const url = get_hupa_option.src_url +'/js/lib/default-passive-events.js';
+    const Script = document.createElement('script');
+    Script.setAttribute('src', url);
+    Script.type = 'text/javascript';
+    document.head.appendChild(Script);
+
+
     let api_key = window.atob(get_hupa_option.key);
     saveSession = sessionStorage.getItem("gmaps");
     if (!get_hupa_option.ds_maps  || saveSession || get_hupa_option.gmaps == '1' ) {
@@ -181,3 +189,4 @@ const injectGoogleMapsApiScript = (options = {}) => {
     document.head.appendChild(script);
     googleMapsScriptIsInjected = true;
 };
+

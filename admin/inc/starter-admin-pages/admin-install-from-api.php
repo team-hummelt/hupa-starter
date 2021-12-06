@@ -8,6 +8,7 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 global $hupa_api_handle;
+
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">

@@ -37,6 +37,7 @@ if (!class_exists('StarterThemeUpdateAction')) {
         {
             //TODO LOGIN SEITE CUSTOMIZE
             add_action('validate_install_optionen', array($this, 'hupaValidateInstallOptionen'));
+
         }
 
         public function hupaValidateInstallOptionen()

@@ -122,7 +122,7 @@ final class RegisterHupaStarter
             delete_option('hupa_product_client_id');
             delete_option('hupa_product_client_secret');
             delete_option('hupa_access_token');
-            set_transient('show_theme_lizenz_info', true, 5);
+            set_transient('show_theme_license_info', true, 5);
 
             update_option('hupa_wp_cache', 0);
             update_option('hupa_wp_debug', 0);
@@ -144,7 +144,7 @@ final class RegisterHupaStarter
             update_option('ssl_login_aktiv', 0);
             update_option('admin_ssl_login_aktiv', 0);
 
-            update_option('mu_plugin', 0);
+            //update_option('mu_plugin', 0);
 
         }
    }
@@ -176,7 +176,7 @@ final class RegisterHupaStarter
     }
 
     public function showThemeLizenzInfo() {
-        if(get_transient('show_theme_lizenz_info')) {
+        if(get_transient('show_theme_license_info')) {
             echo '<div class="error"><p>' .
                 'HUPA Theme ungültige Lizenz: Zum Aktivieren geben Sie Ihre Zugangsdaten ein.'.
                 '</p></div>';

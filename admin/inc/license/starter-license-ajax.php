@@ -34,7 +34,7 @@ switch ($method) {
             $responseJson->if_authorize = true;
             return;
         }
-
+        update_option('hupa_license_url', site_url());
         update_option('hupa_server_url','https://start.hu-ku.com/theme-update/api/v2/');
         update_option( "hupa_product_client_id", $client_id );
         update_option( "hupa_product_client_secret", $client_secret );

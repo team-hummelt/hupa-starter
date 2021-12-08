@@ -380,6 +380,35 @@ final class HupaRegisterGutenbergSidebar {
 				}
 			)
 		);
+
+        //TODO CUSTOM BEITRAGS URL
+        register_meta(
+            'post',
+            '_hupa_show_custom_url',
+            array(
+                'type'              => 'boolean',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'default'           => false,
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
+        register_meta(
+            'post',
+            '_hupa_beitragsbild_url',
+            array(
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'single'            => true,
+                'show_in_rest'      => true,
+                'auth_callback'     => function () {
+                    return current_user_can( 'edit_posts' );
+                }
+            )
+        );
 	}
 
 	/**

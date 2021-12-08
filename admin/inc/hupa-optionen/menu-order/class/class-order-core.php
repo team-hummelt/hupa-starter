@@ -200,7 +200,7 @@ final class HupaMenuOrder
             }
         }
         //add compatibility filters and code
-        include THEME_ADMIN_INC . 'hupa-optionen/menu-order/compatibility/LiteSpeed_Cache.php';
+        //include THEME_ADMIN_INC . 'hupa-optionen/menu-order/compatibility/LiteSpeed_Cache.php';
     }
 
     public function pre_get_posts($query)

@@ -79,6 +79,7 @@ const CUSTOM_HEADER = true;
 
 //ADMIN INC PATH
 const THEME_ADMIN_INC = THEME_ADMIN_DIR . 'inc' . DIRECTORY_SEPARATOR;
+const THEME_API_LOG_DIR = THEME_ADMIN_INC . 'license' . DIRECTORY_SEPARATOR . 'api-log' . DIRECTORY_SEPARATOR;
 
 $upload_dir = wp_get_upload_dir();
 define("THEME_FONTS_DIR", $upload_dir['basedir'] . DIRECTORY_SEPARATOR . 'theme-fonts' . DIRECTORY_SEPARATOR);

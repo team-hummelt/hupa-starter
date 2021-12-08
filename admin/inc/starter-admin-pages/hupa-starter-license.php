@@ -15,17 +15,12 @@ $licenseInfo = apply_filters('post_scope_resource', 'license/'.site_url());
 
 if($licenseInfo->status && $licenseInfo->success) {
     $status = true;
-    if(site_url() !== $licenseInfo->install_url || !$licenseInfo->license){
-        $msg = 'Die URL der Installation ist <b>nicht</b> bekannt. Theme wurde <b>deaktiviert</b>.';
-        delete_option( "hupa_product_client_id" );
-        delete_option( "hupa_product_client_secret" );
-        update_option('hupa_starter_message',$msg);
-        delete_option('hupa_starter_product_install_authorize');
-    }
 }
 if($status && $licenseInfo->login_aktiv) {
     $loginAktiv = true;
 }
+
+
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">

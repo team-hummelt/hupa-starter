@@ -3,7 +3,7 @@
 namespace Hupa\Optionen;
 
 use stdClass;
-
+use  Hupa\ThemeLicense\HupaApiServerHandle;
 defined('ABSPATH') or die();
 
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
@@ -33,7 +33,6 @@ final class HupaStarterThemeOptionen
 
     public function __construct()
     {
-
       //set_transient('show_theme_license_new_info', true, 5);
        $this->showThemeLizenzInfo();
         if(site_url() !== get_option('hupa_license_url')) {
@@ -42,18 +41,21 @@ final class HupaStarterThemeOptionen
     }
 
     public function deactivate_hupa_product(){
+        $msg = 'Version: ' . THEME_VERSION . ' ungültige Lizenz URL: ' . site_url();
+        $this->apiSystemLog('url_error', $msg);
 
-        $file = THEME_ADMIN_INC . 'register-hupa-starter-optionen.php';
-        if(is_file($file)) {
-            unlink($file);
-        }
+    }
 
-        delete_option('hupa_starter_product_install_authorize');
-        delete_option('hupa_product_client_id');
-        delete_option('hupa_product_client_secret');
-        delete_option('hupa_access_token');
-        set_transient('show_theme_license_new_info', true, 5);
+    public function apiSystemLog($type, $message){
+        $body = [
+            'type' => $type,
+            'version' => THEME_VERSION,
+            'log_date' => date('m.d.Y H:i:s'),
+            'message' => $message
+        ];
 
+        $remoteApi = HupaApiServerHandle::init();
+        $sendErr = $remoteApi->hupaPOSTApiResource('error-log', $body);
     }
 
     public function showThemeLizenzInfo() {

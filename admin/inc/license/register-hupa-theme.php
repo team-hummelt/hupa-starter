@@ -144,7 +144,7 @@ final class RegisterHupaStarter
             update_option('ssl_login_aktiv', 0);
             update_option('admin_ssl_login_aktiv', 0);
 
-            //update_option('mu_plugin', 0);
+            update_option('mu_plugin', 0);
 
         }
    }
@@ -152,6 +152,10 @@ final class RegisterHupaStarter
     public function hupa_starter_theme_deactivated() {
        // delete_option('hupa_starter_product_install_authorize');
        // delete_option('hupa_product_client_secret');
+
+        global $hupa_optionen_class;
+        $msg = 'Version: ' . THEME_VERSION . ' Theme am '.date('d.m.Y \u\m H:i:s').' Uhr deaktiviert!';
+        $hupa_optionen_class->apiSystemLog(HUPA_THEME_SLUG.'_deaktiviert', $msg);
         delete_option('hupa_wp_cache');
         delete_option('hupa_wp_debug');
         delete_option('hupa_wp_debug_log');
@@ -171,7 +175,6 @@ final class RegisterHupaStarter
         delete_option('ssl_login_aktiv');
         delete_option('admin_ssl_login_aktiv');
 
-        delete_option('mu_plugin');
 
     }
 

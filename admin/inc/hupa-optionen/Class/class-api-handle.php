@@ -128,6 +128,10 @@ final class HupaStarterThemeAPI
         return password_hash($pin, PASSWORD_DEFAULT);
     }
 
+    public function api_error_log() {
+        $logDir = THEME_API_LOG_DIR;
+    }
+
 }
 
 global $hupa_api_handle;

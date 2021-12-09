@@ -16,6 +16,9 @@ hummelt und partner | Werbeagentur GmbH
 ***
 ### \#1.1.0
 * Lizenz Fehler gefixt
+* Login Redirect entfernt
+* Favicon aus Header entfernt
+* Seitentitel gefixt
 * Sidebar Custom Url für Beitragsbild hinzugefügt
 
 ### \#1.0.9

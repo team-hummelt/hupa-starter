@@ -33,14 +33,16 @@ final class HupaStarterThemeOptionen
 
     public function __construct()
     {
-      //set_transient('show_theme_license_new_info', true, 5);
-       $this->showThemeLizenzInfo();
-        if(site_url() !== get_option('hupa_license_url')) {
-           $this->deactivate_hupa_product();
-        }
+       if(is_user_logged_in() && is_admin()) {
+           $this->showThemeLizenzInfo();
+           if (site_url() !== get_option('hupa_license_url')) {
+               $this->deactivate_hupa_product();
+           }
+       }
     }
 
     public function deactivate_hupa_product(){
+
         $msg = 'Version: ' . THEME_VERSION . ' ungültige Lizenz URL: ' . site_url();
         $this->apiSystemLog('url_error', $msg);
 

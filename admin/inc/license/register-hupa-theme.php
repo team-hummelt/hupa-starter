@@ -119,9 +119,12 @@ final class RegisterHupaStarter
                unlink($file);
             }
             delete_option('hupa_starter_product_install_authorize');
+            delete_option('hupa_update_error_message');
+            delete_option('hupa_product_install_time');
             delete_option('hupa_product_client_id');
             delete_option('hupa_product_client_secret');
             delete_option('hupa_access_token');
+            delete_option('hupa_license_url');
             set_transient('show_theme_license_info', true, 5);
 
             update_option('hupa_wp_cache', 0);
@@ -161,6 +164,7 @@ final class RegisterHupaStarter
         delete_option('hupa_wp_debug_log');
         delete_option('wp_debug_display');
         delete_option('hupa_wp_script_debug');
+        delete_option('hupa_product_install_time');
 
         delete_option('hupa_show_fatal_error');
         delete_option('hupa_db_repair');

@@ -30,15 +30,18 @@ if(!file_exists($dir . $file)){
 
 $finfo = new finfo(FILEINFO_MIME_TYPE);
 $mimeType = $finfo->file($dir . $file);
-
+header("Content-Type: $mimeType");
 switch ($type){
     case '0':
-        header("Content-Type: $mimeType");
         readfile($dir . $file);
         break;
     case'1':
+        header('Pragma: public');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Content-Disposition: attachment; filename="' . $file . '"');
         header('Content-Length: ' . filesize($dir . $file));
+        header('Content-Transfer-Encoding: binary');
         readfile($dir . $file);
         break;
 }

@@ -11,4 +11,5 @@ defined( 'ABSPATH' ) or die();
 
 require 'hupa_client_api_wp_remote.php';
 require 'register-hupa-theme.php';
+require 'api-exec-class.php';
 require 'load-style.php';

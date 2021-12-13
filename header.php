@@ -20,9 +20,6 @@
         <meta name="HandheldFriendly" content="True">
         <link rel="profile" href="https://gmpg.org/xfn/11">
         <?= do_shortcode('[hupa-preloader]') ?>
-        <title>
-            <?php echo wp_title(''); ?>
-        </title>
         <!-- Loads the internal WP jQuery. Required if a 3rd party plugin loads jQuery in header instead in footer -->
         <?php wp_enqueue_script( 'jquery' ); ?>
         <?php wp_head(); ?>

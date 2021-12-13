@@ -11,15 +11,20 @@ defined('ABSPATH') or die();
 $status = false;
 $loginAktiv = false;
 $ifUrl = true;
-$licenseInfo = apply_filters('post_scope_resource', 'license/'.site_url());
 
-if($licenseInfo->status && $licenseInfo->success) {
+$body = [
+    'url' => site_url(),
+    'type' => 'get_all_license_data',
+    'theme_version' => THEME_VERSION,
+];
+$licenseInfo = apply_filters('post_scope_resource', 'license' , $body);
+
+if ($licenseInfo->status && $licenseInfo->success) {
     $status = true;
 }
-if($status && $licenseInfo->login_aktiv) {
+if ($status && $licenseInfo->login_aktiv) {
     $loginAktiv = true;
 }
-
 
 ?>
 <div class="wp-bs-starter-wrapper">
@@ -53,43 +58,47 @@ if($status && $licenseInfo->login_aktiv) {
                     <div class="collapse show" id="collapseSettingsLicenseSite"
                          data-bs-parent="#licence_display_data">
                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray" style="min-height: 50vh">
-                            <?php if(get_option('hupa_starter_message')): ?>
+                            <?php if (get_option('hupa_starter_message')): ?>
                                 <div class="alert alert-danger d-flex align-items-center" role="alert">
                                     <i class="fa fa-exclamation-triangle fa-2x me-2"></i>
                                     <div>
-                                        <?=get_option('hupa_starter_message')?>
+                                        <?= get_option('hupa_starter_message') ?>
                                     </div>
                                 </div>
                             <?php else: ?>
-                            <div class="d-flex flex-wrap align-items-center">
-                            <h5 class="card-title">
-                                <i class="font-blue fa fa-wordpress"></i>&nbsp;aktive Lizenzen <small class="small font-blue"><?= get_hupa_option('lizenz_login_aktiv') ? '('.$licenseInfo->email.')' : ''?></small>
-                            </h5>
-                                <?php if(get_hupa_option('lizenz_login_aktiv')): ?>
-                                <div class="ms-auto">
-                                    <a target="_blank" href="<?=$licenseInfo->login_url?>" style="color: #6c757d"
-                                       class="text-decoration-none"> <i class="font-blue fa fa-sign-in"></i>&nbsp; Account Login</a>
+                                <div class="d-flex flex-wrap align-items-center">
+                                    <h5 class="card-title">
+                                        <i class="font-blue fa fa-wordpress"></i>&nbsp;aktive Lizenzen <small
+                                                class="small font-blue"><?= get_hupa_option('lizenz_login_aktiv') ? '(' . $licenseInfo->email . ')' : '' ?></small>
+                                    </h5>
+                                    <?php if (get_hupa_option('lizenz_login_aktiv')): ?>
+                                        <div class="ms-auto">
+                                            <a target="_blank" href="<?= $licenseInfo->login_url ?>"
+                                               style="color: #6c757d"
+                                               class="text-decoration-none"> <i class="font-blue fa fa-sign-in"></i>&nbsp;
+                                                Account Login</a>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
-                                <?php endif; ?>
-                            </div>
-                            <hr>
-                            <div class="container">
-                                <div class="col-xl-10 offset-xl-1 pt-3">
-                                    <?php if($status):
-                                        foreach ($licenseInfo->data as $tmp):
-                                        ?>
-                                            <span class="strong-font-weight">Type:</span>
-                                            <?=$tmp->produkt_type?> |
-                                            <span class="strong-font-weight">Bezeichnung:</span>
-                                            <b class="font-blue"> <?=$tmp->product_bezeichnung?></b>
-                                               <span class="strong-font-weight"> | Version:</span>
-                                                <?=$tmp->last_ver?>
+                                <hr>
+                                <div class="container">
+                                    <div class="col-xl-10 offset-xl-1 pt-3">
+                                        <?php if ($status):
+                                            foreach ($licenseInfo->data as $tmp):
+                                                ?>
+                                                <span class="strong-font-weight">Type:</span>
+                                                <?= $tmp->produkt_type ?> |
+                                                <span class="strong-font-weight">Bezeichnung:</span>
+                                                <b class="font-blue"> <?= $tmp->product_bezeichnung ?></b>
+                                                <span class="strong-font-weight"> | Version:</span>
+                                                <?= $tmp->last_ver ?>
                                                 <small class="d-block small-title">
-                                                    aktiviert am <?=$tmp->license_date?> um <?=$tmp->license_time?></small>
-                                            <hr>
-                                    <?php endforeach; endif; ?>
+                                                    aktiviert am <?= $tmp->license_date ?>
+                                                    um <?= $tmp->license_time ?></small>
+                                                <hr>
+                                            <?php endforeach; endif; ?>
+                                    </div>
                                 </div>
-                            </div>
                             <?php endif; ?>
                         </div>
                     </div>

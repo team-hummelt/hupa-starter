@@ -46,15 +46,8 @@ if (!class_exists('HupaApiServerHandle')) {
             //TODO JOB VALIDATE SOURCE BY Authorization Code
             add_filter('get_resource_authorization_code', array($this, 'hupaInstallByAuthorizationCode'));
 
-
-            //TODO JOB SERVER URL ÄNDERN FALLS NÖTIG
-            add_filter('hupa_starter_update_server_url', array($this, 'hupaStarterUpdateServerUrl'));
         }
 
-        public function hupaStarterUpdateServerUrl($url)
-        {
-            update_option('hupa_server_url', $url);
-        }
 
         public function hupaGetApiUrl($scope): string
         {
@@ -97,7 +90,12 @@ if (!class_exists('HupaApiServerHandle')) {
             }
 
             update_option('hupa_access_token', $apiData->access_token);
-            return $this->hupaPOSTApiResource('install');
+
+            $body = [
+                'version' => THEME_VERSION,
+            ];
+
+            return $this->hupaPOSTApiResource('install', $body);
         }
 
         public function hupaPOSTApiResource($scope, $body=false)

@@ -574,3 +574,15 @@ if (!function_exists('bs_comment_links_in_new_tab')) :
 
     add_filter('comment_text', 'bs_comment_links_in_new_tab');
 endif;
+
+if ( ! function_exists( '_wp_render_title_tag' ) ) {
+    function hupa_starter_render_title()
+    {
+        ?>
+        <title>
+            <?php wp_title( '|', true, 'right' ); ?>
+        </title>
+        <?php
+    }
+    add_action( 'wp_head', 'hupa_starter_render_title' );
+}

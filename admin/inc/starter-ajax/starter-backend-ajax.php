@@ -461,7 +461,7 @@ switch ($method) {
 
                 $map_settings_bezeichnung = filter_input(INPUT_POST, 'map_settings_bezeichnung', FILTER_SANITIZE_STRING);
                 $map_btn_text = filter_input(INPUT_POST, 'map_btn_text', FILTER_SANITIZE_STRING);
-                $map_ds_text = filter_input(INPUT_POST, 'map_ds_text', FILTER_SANITIZE_STRING);
+                $map_ds_text = filter_input(INPUT_POST, 'map_ds_text');
 
                 $map_ds_id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
                 $map_img_id = filter_input(INPUT_POST, 'map_img_id', FILTER_SANITIZE_NUMBER_INT);
@@ -515,7 +515,7 @@ switch ($method) {
                     'map_link_color' => $map_link_color,
                     'map_ds_page' => $map_ds_page,
                     'map_ds_btn_text' => $map_btn_text,
-                    'map_ds_text' => $map_ds_text,
+                    'map_ds_text' => esc_textarea($map_ds_text),
                     'map_ds_id' => $map_ds_id,
                     'map_ds_bezeichnung' => $bezeichnung
                 ];

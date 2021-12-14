@@ -20,7 +20,9 @@ function gutenberg_block_hupa_tools_render_filter($attributes){
         <?php
         $attributes['cardWidth'] ? $cardWidth =  ' width="'.trim($attributes['cardWidth']).'"' : $cardWidth = '';
         $attributes['cardHeight'] ? $cardHeight =  ' height="'.trim($attributes['cardHeight']).'"': $cardHeight = '';
-        echo do_shortcode('[gmaps id="'.$attributes['selectedMap'].'" '.$cardWidth. $cardHeight.']');
+        $attributes['selectedDSMap'] ? $selectedDSMap = ' selecteddsmap="' . trim($attributes['selectedDSMap']).'"' :  $selectedDSMap = '';
+
+        echo do_shortcode('[gmaps id="'.$attributes['selectedMap'].'" '.$cardWidth . $cardHeight . $selectedDSMap . ']');
         ?>
           </div>
         <?php

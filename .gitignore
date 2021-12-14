@@ -2,6 +2,6 @@
 .github
 .vscode
 admin/inc/hupa-gutenberg-sidebar/sidebar-dev
-/admin/inc/gutenberg-tools/google-maps/src/
 /admin/inc/gutenberg-tools/theme-carousel/src/
 /admin/inc/gutenberg-tools/menu-select/src/
+/admin/inc/gutenberg-tools/google-maps/src/

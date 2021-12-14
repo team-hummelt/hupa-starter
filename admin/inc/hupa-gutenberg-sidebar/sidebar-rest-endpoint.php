@@ -127,6 +127,21 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
                  $cardArr[] = $mapsApi;
                  $cardArr = array_reverse($cardArr);
              }
+
+            global $hupa_optionen_global;
+            $gmSett     = [];
+            $gmSettings = $hupa_optionen_global->get_settings_by_args( 'google_maps_placeholder' );
+
+            if ( $gmSettings->status ) {
+                foreach ( $gmSettings->google_maps_placeholder as $tmp ) {
+                    $sett_items = [
+                        'id'   => $tmp->map_ds_id,
+                        'name' => $tmp->map_ds_bezeichnung
+                    ];
+                    $gmSett[]   = $sett_items;
+                }
+            }
+            $response->gm_settings = $gmSett;
             $response->maps = $cardArr;
             break;
 

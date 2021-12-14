@@ -407,7 +407,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
             }
         }
 
-        private function get_settings_by_args(string $row, bool $json = false): object
+        public function get_settings_by_args(string $row, bool $json = false): object
         {
             $return = new stdClass();
             global $wpdb;
@@ -424,6 +424,34 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 $return->$row = $result->$row;
             } else {
                 $return->$row = json_decode($result->$row);
+            }
+
+            return $return;
+        }
+
+        public function get_google_maps_settings_by_args($id = false): object
+        {
+            $return = new stdClass();
+            $return->status = false;
+            global $wpdb;
+            $table = $wpdb->prefix . $this->table_settings;
+            $result = $wpdb->get_row("SELECT google_maps_placeholder  FROM {$table}");
+            if (!$result) {
+                return $return;
+            }
+
+            $return->status = true;
+            $data = json_decode($result->google_maps_placeholder);
+            if(!$id) {
+              $return->record = $data;
+              return $return;
+            }
+
+            foreach ($data as $tmp) {
+                if($tmp->map_ds_id == $id) {
+                    $return->record = $tmp;
+                    return $return;
+                }
             }
 
             return $return;
@@ -539,7 +567,12 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
         public function getHupaDefaultSettings($args = false):object{
             $default = $this->get_theme_default_settings();
-            return apply_filters('arrayToObject', $default);
+            if($args){
+                $settings = $default[$args];
+            } else {
+                $settings = $default;
+            }
+            return apply_filters('arrayToObject', $settings);
         }
 
         private function hupa_update_hupa_tools_top_area($record): void
@@ -1241,6 +1274,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
         }
 
     }
-
-
 }
+
+global $hupa_optionen_global;
+$hupa_optionen_global = HupaStarterOptionFilter::init();

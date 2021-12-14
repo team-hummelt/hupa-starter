@@ -599,13 +599,13 @@ final class HupaRegisterStarterTheme {
         // TODO JS CAROUSEL
         wp_enqueue_script( 'js-hupa-carousel-script', THEME_ADMIN_URL . 'assets/admin/js/admin-carousel.js', array(), THEME_VERSION, true );
 
-        if($page == 'hupa-starter-iframe-maps') {
+        if($page == 'hupa-starter-iframe-maps' || $page == 'hupa-starter-maps-settings') {
             wp_enqueue_style( 'hupa-starter-admin-bs-data-table', THEME_ADMIN_URL . 'assets/admin/css/tools/dataTables.bootstrap5.min.css', array(), $hupa_theme->get( 'Version' ), false );
             wp_enqueue_script( 'js-hupa-data-table', THEME_ADMIN_URL . 'assets/admin/js/tools/data-table/jquery.dataTables.min.js', array(), THEME_VERSION, true );
             wp_enqueue_script( 'js-hupa-bs-data-table', THEME_ADMIN_URL . 'assets/admin/js/tools/data-table/dataTables.bootstrap5.min.js', array(), THEME_VERSION, true );
             wp_enqueue_script( 'js-hupa-maps-iframe', THEME_ADMIN_URL . 'assets/admin/js/google-iframe-jquery.js', array(), THEME_VERSION, true );
-        }
-        if($page == 'hupa-starter-maps-settings'){
+        //}
+       // if($page == 'hupa-starter-maps-settings'){
             wp_enqueue_script( 'js-hupa-maps-settings', THEME_ADMIN_URL . 'assets/admin/js/google-maps-settings.js', array(), THEME_VERSION, true );
         }
     }

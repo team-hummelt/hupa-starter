@@ -179,6 +179,57 @@ jQuery(document).ready(function ($) {
         }
     });
 
+
+    /**=========================================================
+     ================ LOAD GMAPS SETTINGS TABLE ================
+     ===========================================================
+     */
+
+    $('#TableGoogleDatenschutz').DataTable({
+        "language": {
+            "url": hupa_starter.data_table
+        },
+        "searching": false,
+        "lengthChange": false,
+        "columns": [
+            {
+                "width": "1%"
+            },
+            null,
+            {
+                "width": "8%"
+            },
+            {
+                "width": "8%"
+            }
+        ],
+        columnDefs: [{
+            orderable: false,
+            targets: ['_all']
+        },
+            {
+                targets: [1],
+                className: 'align-middle'
+            },
+            {
+                targets: [0,2,3],
+                className: 'align-middle text-center'
+            }
+        ],
+        "processing": true,
+        "serverSide": true,
+        "order": [],
+        "ajax": {
+            url: theme_ajax_obj.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'HupaStarterHandle',
+                '_ajax_nonce': theme_ajax_obj.nonce,
+                method: 'gmaps_datenschutz_data_table'
+            }
+        }
+    });
+
     /**=============================================
      ================ FORM Serialize ================
      ================================================

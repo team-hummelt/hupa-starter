@@ -54,30 +54,30 @@ trait HupaOptionTrait
     protected string $preloader_aktiv = 'preloader_aktiv';
     protected string $sitemap_post = 'sitemap_post';
     protected string $sitemap_page = 'sitemap_page';
-    protected string $woocommerce_aktiv ='woocommerce_aktiv';
-    protected string $woocommerce_sidebar ='woocommerce_sidebar';
-    protected string $social_type ='social_type';
-    protected string $social_symbol_color ='social_symbol_color';
-    protected string $social_extra_css ='social_extra_css';
-    protected string $social_kategorie ='social_kategorie';
-    protected string $social_author ='social_author';
-    protected string $social_archiv ='social_archiv';
-    protected string $social_farbig ='social_farbig';
+    protected string $woocommerce_aktiv = 'woocommerce_aktiv';
+    protected string $woocommerce_sidebar = 'woocommerce_sidebar';
+    protected string $social_type = 'social_type';
+    protected string $social_symbol_color = 'social_symbol_color';
+    protected string $social_extra_css = 'social_extra_css';
+    protected string $social_kategorie = 'social_kategorie';
+    protected string $social_author = 'social_author';
+    protected string $social_archiv = 'social_archiv';
+    protected string $social_farbig = 'social_farbig';
 
-    protected string $kategorie_template ='kategorie_template';
-    protected string $archiv_template ='archiv_template';
-    protected string $autoren_template ='autoren_template';
+    protected string $kategorie_template = 'kategorie_template';
+    protected string $archiv_template = 'archiv_template';
+    protected string $autoren_template = 'autoren_template';
 
-    protected string $post_kategorie ='post_kategorie';
-    protected string $post_date ='post_date';
-    protected string $post_autor ='post_author';
-    protected string $post_kommentar ='post_kommentar';
-    protected string $post_tags ='post_tags';
-    protected string $post_breadcrumb ='post_breadcrumb';
+    protected string $post_kategorie = 'post_kategorie';
+    protected string $post_date = 'post_date';
+    protected string $post_autor = 'post_author';
+    protected string $post_kommentar = 'post_kommentar';
+    protected string $post_tags = 'post_tags';
+    protected string $post_breadcrumb = 'post_breadcrumb';
 
-    protected string $kategorie_image ='kategorie_image';
-    protected string $archiv_image ='archiv_image';
-    protected string $author_image ='author_image';
+    protected string $kategorie_image = 'kategorie_image';
+    protected string $archiv_image = 'archiv_image';
+    protected string $author_image = 'author_image';
 
 
     /*========================================================
@@ -219,6 +219,7 @@ trait HupaOptionTrait
     protected string $map_color = 'map_color';
     protected string $map_pins = 'map_pins';
 
+
     /*==============================
     GOOGLE MAPS PLACEHOLDER SETTINGS
     ===============================*/
@@ -237,6 +238,10 @@ trait HupaOptionTrait
     protected string $map_link_underline = 'map_link_underline';
     protected string $map_link_color = 'map_link_color';
     protected string $map_ds_page = 'map_ds_page';
+    protected string $map_ds_btn_text = 'map_ds_btn_text';
+    protected string $map_ds_text = 'map_ds_text';
+    protected string $map_ds_id = 'map_ds_id';
+    protected string $map_ds_bezeichnung = 'map_ds_bezeichnung';
 
     /*=======================
     SOCIAl MEDIA
@@ -264,9 +269,7 @@ trait HupaOptionTrait
 
     protected function get_theme_default_settings(): array
     {
-
         return $this->settings_default_values = [
-
             /*===============================================
             ================= THEME GENERAL =================
             =================================================*/
@@ -580,21 +583,27 @@ trait HupaOptionTrait
             ================= GMAPS STANDARD SETTINGS =================
             ===========================================================*/
             'google_maps_placeholder' => [
-                $this->map_img_id => 0,
-                $this->map_bg_grayscale => 1,
-                $this->map_btn_bg => '#5192cd',
-                $this->map_btn_color => '#ffffff',
-                $this->map_btn_border_color => '#6c757d',
-                $this->map_btn_hover_bg => '#4175a4',
-                $this->map_btn_hover_color => '#ffffff',
-                $this->map_btn_hover_border => '#6c757d',
-                $this->map_box_bg => '#00000065',
-                $this->map_box_color => '#ffffff',
-                $this->map_box_border => '#cbcbcb',
-                $this->map_link_uppercase => 0,
-                $this->map_link_underline => 1,
-                $this->map_link_color => '#ffffff',
-                $this->map_ds_page => 0,
+                '0' => [
+                    $this->map_img_id => 0,
+                    $this->map_bg_grayscale => 1,
+                    $this->map_btn_bg => '#5192cd',
+                    $this->map_btn_color => '#ffffff',
+                    $this->map_btn_border_color => '#6c757d',
+                    $this->map_btn_hover_bg => '#4175a4',
+                    $this->map_btn_hover_color => '#ffffff',
+                    $this->map_btn_hover_border => '#6c757d',
+                    $this->map_box_bg => '#00000065',
+                    $this->map_box_color => '#ffffff',
+                    $this->map_box_border => '#cbcbcb',
+                    $this->map_link_uppercase => 0,
+                    $this->map_link_underline => 1,
+                    $this->map_link_color => '#ffffff',
+                    $this->map_ds_page => 0,
+                    $this->map_ds_btn_text => 'Anfahrtskarte einblenden',
+                    $this->map_ds_text => 'Ich akzeptiere die <a href="###LINK###" target="_blank">Datenschutzbestimmungen</a>',
+                    $this->map_ds_id => 1,
+                    $this->map_ds_bezeichnung => 'default GMaps Datenschutz'
+                ],
             ],
 
             'hupa_tools' => [

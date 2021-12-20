@@ -606,6 +606,8 @@ switch ($method) {
                 filter_input(INPUT_POST, 'wp_debug_log', FILTER_SANITIZE_STRING) ? $wp_debug_log = 1 : $wp_debug_log = 0;
                 filter_input(INPUT_POST, 'hupa_wp_script_debug', FILTER_SANITIZE_STRING) ? $hupa_wp_script_debug = 1 : $hupa_wp_script_debug = 0;
 
+                $wp_debug_radio = filter_input(INPUT_POST, 'debug', FILTER_VALIDATE_INT);
+
                 filter_input(INPUT_POST, 'show_fatal_error', FILTER_SANITIZE_STRING) ? $show_fatal_error = 1 : $show_fatal_error = 0;
                 filter_input(INPUT_POST, 'mu_plugin', FILTER_SANITIZE_STRING) ? $mu_plugin = 1 : $mu_plugin = 0;
 
@@ -620,6 +622,8 @@ switch ($method) {
                 $revision_anzahl = filter_input(INPUT_POST, 'revision_anzahl', FILTER_VALIDATE_INT);
                 $revision_interval = filter_input(INPUT_POST, 'revision_interval', FILTER_VALIDATE_INT);
                 $trash_days = filter_input(INPUT_POST, 'trash_days', FILTER_VALIDATE_INT);
+
+                update_option('wp_debug_radio', $wp_debug_radio);
 
                 update_option('hupa_wp_cache', $wp_cache);
                 update_option('hupa_wp_debug', $wp_debug);
@@ -670,15 +674,32 @@ switch ($method) {
 
                 //JOB WP DEBUG
                 if ($wp_debug) {
-                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG', 'WP DEBUG', 1);
+                   // $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG', 'WP DEBUG', 1);
                     if (!$create->status) {
                         $responseJson->msg = $create->msg;
                         return $responseJson;
                     }
                 } else {
-                    $delete = $hupa_optionen_class->delete_config_put('WP_DEBUG', 'WP DEBUG', 1);
+                   // $delete = $hupa_optionen_class->delete_config_put('WP_DEBUG', 'WP DEBUG', 1);
                     if (!$delete->status) {
                         $responseJson->msg = $delete->msg;
+                        return $responseJson;
+                    }
+                }
+
+                //JOB WP DEBUG RADIO
+                if ($wp_debug_radio == '1') {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG', 'WP DEBUG', 1);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
+                        return $responseJson;
+                    }
+                }
+
+                if ($wp_debug_radio == '2') {
+                    $create = $hupa_optionen_class->add_create_config_put('WP_DEBUG', 'WP DEBUG', 0);
+                    if (!$create->status) {
+                        $responseJson->msg = $create->msg;
                         return $responseJson;
                     }
                 }

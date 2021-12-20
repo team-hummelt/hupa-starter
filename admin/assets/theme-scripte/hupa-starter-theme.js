@@ -214,8 +214,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         'width': width,
                         'height': height
                     }
-
-                    console.log(data)
+                    sendXhrFormular(data, false);
                 });
             });
         }

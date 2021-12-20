@@ -54,30 +54,72 @@ trait HupaOptionTrait
     protected string $preloader_aktiv = 'preloader_aktiv';
     protected string $sitemap_post = 'sitemap_post';
     protected string $sitemap_page = 'sitemap_page';
-    protected string $woocommerce_aktiv ='woocommerce_aktiv';
-    protected string $woocommerce_sidebar ='woocommerce_sidebar';
-    protected string $social_type ='social_type';
-    protected string $social_symbol_color ='social_symbol_color';
-    protected string $social_extra_css ='social_extra_css';
-    protected string $social_kategorie ='social_kategorie';
-    protected string $social_author ='social_author';
-    protected string $social_archiv ='social_archiv';
-    protected string $social_farbig ='social_farbig';
+    protected string $woocommerce_aktiv = 'woocommerce_aktiv';
+    protected string $woocommerce_sidebar = 'woocommerce_sidebar';
+    protected string $social_type = 'social_type';
+    protected string $social_symbol_color = 'social_symbol_color';
+    protected string $social_extra_css = 'social_extra_css';
+    protected string $social_kategorie = 'social_kategorie';
+    protected string $social_author = 'social_author';
+    protected string $social_archiv = 'social_archiv';
+    protected string $social_farbig = 'social_farbig';
 
-    protected string $kategorie_template ='kategorie_template';
-    protected string $archiv_template ='archiv_template';
-    protected string $autoren_template ='autoren_template';
+    //Todo Archive Templates
 
-    protected string $post_kategorie ='post_kategorie';
-    protected string $post_date ='post_date';
-    protected string $post_autor ='post_author';
-    protected string $post_kommentar ='post_kommentar';
-    protected string $post_tags ='post_tags';
-    protected string $post_breadcrumb ='post_breadcrumb';
+    //Kategorie Template
+    protected string $kategorie_show_sidebar = 'kategorie_show_sidebar';
+    protected string $kategorie_select_sidebar = 'kategorie_select_sidebar';
+    protected string $kategorie_show_kategorie = 'kategorie_show_kategorie';
+    protected string $kategorie_show_post_date = 'kategorie_show_post_date';
+    protected string $kategorie_show_post_author = 'kategorie_show_post_author';
+    protected string $kategorie_show_post_kommentar = 'kategorie_show_post_kommentar';
+    protected string $kategorie_show_post_tags = 'kategorie_show_post_tags';
+    protected string $kategorie_show_image = 'kategorie_show_image';
+    protected string $kategorie_select_header = 'kategorie_select_header';
+    protected string $kategorie_select_footer = 'kategorie_select_footer';
 
-    protected string $kategorie_image ='kategorie_image';
-    protected string $archiv_image ='archiv_image';
-    protected string $author_image ='author_image';
+    //Archiv Template
+    protected string $archiv_show_sidebar = 'archiv_show_sidebar';
+    protected string $archiv_select_sidebar = 'archiv_select_sidebar';
+    protected string $archiv_show_kategorie = 'archiv_show_kategorie';
+    protected string $archiv_show_post_date = 'archiv_show_post_date';
+    protected string $archiv_show_post_author = 'archiv_show_post_author';
+    protected string $archiv_show_post_kommentar = 'archiv_show_post_kommentar';
+    protected string $archiv_show_post_tags = 'archiv_show_post_tags';
+    protected string $archiv_show_post_image = 'archiv_show_post_image';
+    protected string $archiv_select_header = 'archiv_select_header';
+    protected string $archiv_select_footer = 'archiv_select_footer';
+
+    //Autoren Template
+    protected string $autoren_show_sidebar = 'autoren_show_sidebar';
+    protected string $autoren_select_sidebar = 'autoren_select_sidebar';
+    protected string $autoren_show_kategorie = 'autoren_show_kategorie';
+    protected string $autoren_show_post_date = 'autoren_show_post_date';
+    protected string $autoren_show_post_author = 'autoren_show_post_author';
+    protected string $autoren_show_post_kommentar = 'autoren_show_post_kommentar';
+    protected string $autoren_show_post_tags = 'autoren_show_post_tags';
+    protected string $autoren_show_post_image = 'autoren_show_post_image';
+    protected string $autoren_select_header = 'autoren_select_header';
+    protected string $autoren_select_footer = 'autoren_select_footer';
+
+
+    protected string $kategorie_template = 'kategorie_template';
+    protected string $archiv_template = 'archiv_template';
+    protected string $autoren_template = 'autoren_template';
+
+    protected string $post_kategorie = 'post_kategorie';
+    protected string $post_date = 'post_date';
+    protected string $post_autor = 'post_author';
+    protected string $post_kommentar = 'post_kommentar';
+    protected string $post_tags = 'post_tags';
+    protected string $post_breadcrumb = 'post_breadcrumb';
+
+    protected string $kategorie_image = 'kategorie_image';
+    protected string $archiv_image = 'archiv_image';
+    protected string $author_image = 'author_image';
+
+    protected string $hupa_select_404 = 'hupa_select_404';
+
 
 
     /*========================================================
@@ -219,6 +261,7 @@ trait HupaOptionTrait
     protected string $map_color = 'map_color';
     protected string $map_pins = 'map_pins';
 
+
     /*==============================
     GOOGLE MAPS PLACEHOLDER SETTINGS
     ===============================*/
@@ -237,6 +280,10 @@ trait HupaOptionTrait
     protected string $map_link_underline = 'map_link_underline';
     protected string $map_link_color = 'map_link_color';
     protected string $map_ds_page = 'map_ds_page';
+    protected string $map_ds_btn_text = 'map_ds_btn_text';
+    protected string $map_ds_text = 'map_ds_text';
+    protected string $map_ds_id = 'map_ds_id';
+    protected string $map_ds_bezeichnung = 'map_ds_bezeichnung';
 
     /*=======================
     SOCIAl MEDIA
@@ -264,9 +311,7 @@ trait HupaOptionTrait
 
     protected function get_theme_default_settings(): array
     {
-
         return $this->settings_default_values = [
-
             /*===============================================
             ================= THEME GENERAL =================
             =================================================*/
@@ -302,6 +347,44 @@ trait HupaOptionTrait
                 $this->social_kategorie => 1,
                 $this->social_author => 1,
                 $this->kategorie_template => 1,
+
+                //TEMPLATES
+                $this->kategorie_show_sidebar = 0,
+                $this->kategorie_select_sidebar = 0,
+                $this->kategorie_show_kategorie = 1,
+                $this->kategorie_show_post_date = 1,
+                $this->kategorie_show_post_author = 1,
+                $this->kategorie_show_post_kommentar = 0,
+                $this->kategorie_show_post_tags = 0,
+                $this->kategorie_show_image = 0,
+                $this->kategorie_select_header = 0,
+                $this->kategorie_select_footer = 0,
+
+                $this->archiv_show_sidebar = 0,
+                $this->archiv_select_sidebar = 0,
+                $this->archiv_show_kategorie = 1,
+                $this->archiv_show_post_date = 1,
+                $this->archiv_show_post_author = 1,
+                $this->archiv_show_post_kommentar = 0,
+                $this->archiv_show_post_tags = 0,
+                $this->archiv_show_post_image = 0,
+                $this->archiv_select_header = 0,
+                $this->archiv_select_footer = 0,
+
+                $this->autoren_show_sidebar = 0,
+                $this->autoren_select_sidebar = 0,
+                $this->autoren_show_kategorie = 1,
+                $this->autoren_show_post_date = 1,
+                $this->autoren_show_post_author = 1,
+                $this->autoren_show_post_kommentar = 0,
+                $this->autoren_show_post_tags = 0,
+                $this->autoren_show_post_image = 0,
+                $this->autoren_select_header = 0,
+                $this->autoren_select_footer = 0,
+
+                $this->hupa_select_404 = 0,
+
+
                 $this->archiv_template => 1,
                 $this->autoren_template => 1,
                 $this->post_kategorie => 1,
@@ -580,21 +663,27 @@ trait HupaOptionTrait
             ================= GMAPS STANDARD SETTINGS =================
             ===========================================================*/
             'google_maps_placeholder' => [
-                $this->map_img_id => 0,
-                $this->map_bg_grayscale => 1,
-                $this->map_btn_bg => '#5192cd',
-                $this->map_btn_color => '#ffffff',
-                $this->map_btn_border_color => '#6c757d',
-                $this->map_btn_hover_bg => '#4175a4',
-                $this->map_btn_hover_color => '#ffffff',
-                $this->map_btn_hover_border => '#6c757d',
-                $this->map_box_bg => '#00000065',
-                $this->map_box_color => '#ffffff',
-                $this->map_box_border => '#cbcbcb',
-                $this->map_link_uppercase => 0,
-                $this->map_link_underline => 1,
-                $this->map_link_color => '#ffffff',
-                $this->map_ds_page => 0,
+                '0' => [
+                    $this->map_img_id => 0,
+                    $this->map_bg_grayscale => 1,
+                    $this->map_btn_bg => '#5192cd',
+                    $this->map_btn_color => '#ffffff',
+                    $this->map_btn_border_color => '#6c757d',
+                    $this->map_btn_hover_bg => '#4175a4',
+                    $this->map_btn_hover_color => '#ffffff',
+                    $this->map_btn_hover_border => '#6c757d',
+                    $this->map_box_bg => '#00000065',
+                    $this->map_box_color => '#ffffff',
+                    $this->map_box_border => '#cbcbcb',
+                    $this->map_link_uppercase => 0,
+                    $this->map_link_underline => 1,
+                    $this->map_link_color => '#ffffff',
+                    $this->map_ds_page => 0,
+                    $this->map_ds_btn_text => 'Anfahrtskarte einblenden',
+                    $this->map_ds_text => 'Ich akzeptiere die <a href="###LINK###" target="_blank">Datenschutzbestimmungen</a>',
+                    $this->map_ds_id => 1,
+                    $this->map_ds_bezeichnung => 'default GMaps Datenschutz'
+                ],
             ],
 
             'hupa_tools' => [
@@ -648,7 +737,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-facebook',
-                    $this->social_icon => 'fab fa-facebook-f',
+                    $this->social_icon => 'fa fa-facebook-f',
                     $this->position => 1
                 ],
                 'twitter' => [
@@ -659,7 +748,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-twitter',
-                    $this->social_icon => 'fab fa-twitter',
+                    $this->social_icon => 'fa fa-twitter',
                     $this->position => 2
                 ],
                 'whatsapp' => [
@@ -670,7 +759,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-whatsapp',
-                    $this->social_icon => 'fab fa-whatsapp',
+                    $this->social_icon => 'fa fa-whatsapp',
                     $this->position => 3
                 ],
                 'pinterest' => [
@@ -681,7 +770,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-pinterest',
-                    $this->social_icon => 'fab fa-pinterest-p',
+                    $this->social_icon => 'fa fa-pinterest-p',
                     $this->position => 4
                 ],
                 'linkedin' => [
@@ -692,7 +781,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-linkedin',
-                    $this->social_icon => 'fab fa-linkedin-in',
+                    $this->social_icon => 'fa fa-linkedin',
                     $this->position => 5
                 ],
                 'reddit' => [
@@ -703,7 +792,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-reddit',
-                    $this->social_icon => 'fab fa-reddit-alien',
+                    $this->social_icon => 'fa fa-reddit-alien',
                     $this->position => 6
                 ],
                 'tumblr' => [
@@ -714,7 +803,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-tumblr',
-                    $this->social_icon => 'fab fa-tumblr',
+                    $this->social_icon => 'fa fa-tumblr',
                     $this->position => 7
                 ],
                 'buffer' => [
@@ -747,7 +836,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-vk',
-                    $this->social_icon => 'fab fa-vk',
+                    $this->social_icon => 'fa fa-vk',
                     $this->position => 10
                 ],
                 'email' => [
@@ -758,7 +847,7 @@ trait HupaOptionTrait
                     $this->social_share_txt => __('Look what I found:', 'bootscore'),
                     $this->social_url => '',
                     $this->social_btn => 'btn-mail',
-                    $this->social_icon => 'fas fa-envelope',
+                    $this->social_icon => 'fa fa-envelope',
                     $this->position => 11
                 ],
                 'print' => [
@@ -767,7 +856,7 @@ trait HupaOptionTrait
                     $this->social_post_check => 0,
                     $this->social_top_check => 0,
                     $this->social_btn => 'btn-print',
-                    $this->social_icon => 'fas fa-print',
+                    $this->social_icon => 'fa fa-print',
                     $this->position => 12
                 ]
             ]

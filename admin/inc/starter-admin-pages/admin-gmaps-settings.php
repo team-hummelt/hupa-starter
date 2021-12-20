@@ -37,7 +37,27 @@ defined('ABSPATH') or die();
                     <div class="collapse show" id="collapseSettingsMapsSite"
                          data-bs-parent="#settings_display_data">
                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
-                            <form class="sendAjaxGMapsThemeForm" action="#" method="post">
+                            <button onclick="add_gmaps_settings(this)" type="button" class="btn btn-blue-outline btn-sm mb-2">neue Settings erstellen</button>
+
+                            <div class="saved-settings-wrapper">
+                                <div id="iframe-table" class="table-responsive">
+                                    <table id="TableGoogleDatenschutz" class="table table-striped table-bordered nowrap w-100">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th>Bezeichnung</th>
+                                            <th>Bearbeiten</th>
+                                            <th>Löschen</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="google_ds_settings" class="d-none"></div>
+
+
+                            <form class="sendAjaxGMapsThemeForm d-none" action="#" method="post">
                                 <input type="hidden" name="method" value="theme_form_handle">
                                 <input type="hidden" name="handle" value="theme_map_placeholder">
 
@@ -168,6 +188,24 @@ defined('ABSPATH') or die();
                                         <h6 class="ms-2 mt-1">Border</h6>
                                     </div>
                                 </div>
+                                <hr>
+                                <h6 class="pb-1"><i class="fa fa-arrow-circle-right"></i> Datenschutz Texte:
+                                </h6>
+                                <div class="col-xl-5 col-lg-6 col-12">
+                                    <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label mb-1">Button Text</label>
+                                    <input type="text" value="" name="map_btn_text" placeholder="z.B. Anfahrtskarte einblenden" class="form-control max-width26">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlTextarea1" class="form-label mb-1">Datenschutz akzeptieren Text</label>
+                                        <textarea class="form-control max-width26" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <div id="emailHelp" class="form-text">
+                                            Für den Datenschutz-Link kann als Platzhalter <code>###LINK###</code> verwendet werden. Wird kein
+                                            Platzhalter eingefügt, wird der Link nach dem Text eingefügt.
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <hr>
                                 <h6 class="pb-3"><i class="fa fa-arrow-circle-right"></i> Datenschutz Box:</h6>
@@ -232,6 +270,33 @@ defined('ABSPATH') or die();
                             </form>
                         </div><!--card-->
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="gMapSettingsDeleteModal" tabindex="-1" aria-labelledby="iframeDeleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-hupa">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-trash"></i> Goggle Maps Datenschutz löschen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="text-center">
+                        <b class="text-danger">Settings wirklich löschen?</b>
+                        <small class="d-block">Diese Aktion kann <b class="text-danger">nicht</b> rückgängig gemacht
+                            werden!</small>
+                    </h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal"><i
+                                class="text-danger fa fa-times"></i>&nbsp; Abbrechen
+                    </button>
+                    <button onclick="delete_install_gmaps_settings(this)" type="button" data-bs-dismiss="modal"
+                            class="btn_delete_gmaps_settings btn btn-danger">
+                        <i class="fa fa-trash-o"></i>&nbsp; löschen
+                    </button>
                 </div>
             </div>
         </div>

@@ -16,13 +16,15 @@ require_once('admin/inc/update-checker/vendor/autoload.php');
 
 function hupa_register_theme_updater()
 {
-    if (get_hupa_option('update_aktiv')) {
+    if (get_hupa_option('update_aktiv') && get_option('hupa_theme_server_api')['update_aktiv'] == '1') {
         $hupaStarterUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-            'https://github.com/team-hummelt/hupa-starter/',
+            get_option('hupa_theme_server_api')['update_url'],
             __FILE__,
-            'hupa-starter'
+            HUPA_THEME_SLUG
         );
-        $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+        if(get_option('hupa_theme_server_api')['update_type'] == '1'){
+            $hupaStarterUpdateChecker->getVcsApi()->enableReleaseAssets();
+        }
     }
 }
 
@@ -336,7 +338,7 @@ function bootscore_scripts()
     // Get modification time. Enqueue files with modification date to prevent browser from loading cached scripts and styles when file content changes.
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/bootstrap.min.css'));
     $modificated = date('YmdHi', filemtime(get_stylesheet_directory() . '/style.css'));
-    $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.css'));
+    //$modificated = date('YmdHi', filemtime(get_template_directory() . '/css/lib/fontawesome.css'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/theme.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/js/lib/bootstrap.bundle.min.js'));
     $modificated = date('YmdHi', filemtime(get_template_directory() . '/css/hupa-theme/auto-generate-theme.css'));
@@ -347,7 +349,7 @@ function bootscore_scripts()
     // Bootstrap
     wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/lib/bootstrap.min.css', array(), $modificated);
     // Fontawesome
-    wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $modificated);
+    //wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $modificated);
     //Autogenerate CSS
     wp_enqueue_style('theme-generate-style', get_template_directory_uri() . '/css/hupa-theme/auto-generate-theme.css', array(), $modificated);
     //Custom CSS

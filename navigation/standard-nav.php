@@ -8,11 +8,20 @@ defined( 'ABSPATH' ) or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  * https://www.hummelt-werbeagentur.de/
  */
+
+
 $pageSettings = apply_filters('get_page_meta_data', (int) get_the_ID());
 $pageSettings->show_menu ? $show = '' : $show = 'd-none';
 
+$id404 = get_hupa_option('hupa_select_404');
+if($id404 && is_404()) {
+    $showMenuMeta = get_post_meta(get_hupa_option('hupa_select_404'), '_hupa_show_menu', true);
+    is_404() && $showMenuMeta ? $show = '' : $show = 'd-none';
+}
+
 $menu = apply_filters('get_menu_auswahl', get_hupa_option('menu'));
 get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
+
 ?>
 <nav id="nav-main-starter"
      class="<?=$show?> hupa-box-shadow navbar-root navbar navbar-expand-lg <?=$menu->height?>  <?= ! get_hupa_option( 'fix_header' ) ?: 'fixed-top' ?>">

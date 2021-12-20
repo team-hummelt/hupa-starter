@@ -427,13 +427,13 @@ if (!class_exists('HupaStarterCarouselFilter')) {
         final public function hupa_create_slider_array($val, $img, $carousel): array
         {
 
-
-            $val->slide_button ? $slideButton = json_decode($val->slide_button) : $slideButton = false;
+            isset($val->slide_button) && $val->slide_button ? $slideButton = json_decode($val->slide_button) : $slideButton = false;
+            isset($val->img_size) && $val->img_size  ? $img_size = $val->img_size : $img_size = '';
             return [
                 'id' => $val->id,
                 'img_id' => html_entity_decode($val->img_id),
                 'img' => $img,
-                'img_size' => html_entity_decode($val->img_size),
+                'img_size' => html_entity_decode($img_size),
                 'font_color' => html_entity_decode($val->font_color),
                 'position' => $val->position,
                 'carousel' => $carousel,

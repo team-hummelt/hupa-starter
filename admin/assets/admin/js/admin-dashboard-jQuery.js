@@ -2,7 +2,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     (function ($) {
 
-
+        $(document).on('click', '#showSidebarCheck', function () {
+           let sideSelect = $('#SelectSidebar');
+           if($(this).prop('checked')){
+               sideSelect.prop('disabled', false);
+           } else {
+               sideSelect.prop('disabled', true);
+           }
+        });
 
 
         let start = new Date();
@@ -67,6 +74,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                 });
         });
+
+        $(document).on('click', '.change_template_sidebar', function () {
+            let idContainer = $('#' + $(this).attr('data-id'));
+            if($(this).prop('checked')){
+                idContainer.prop('disabled', false);
+            } else {
+                idContainer.prop('disabled', true);
+            }
+        })
+
 
         $(document).on('click', '#wpUserRevision', function () {
             $('.rev-settings').attr('readonly', function(_, attr){ return !attr});

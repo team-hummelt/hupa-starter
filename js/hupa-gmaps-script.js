@@ -146,8 +146,7 @@ window.addEventListener("load", function (event) {
         btnGmapsNodes.forEach(function (btnGmapsNodes) {
             btnGmapsNodes.addEventListener("click", function (e) {
                 btnGmapsNodes.blur();
-                let checkInput = btnGmapsNodes.parentNode;
-                let checkBox = checkInput.querySelector('.api-karte-check input');
+                let checkBox = btnGmapsNodes.form.querySelector('.gmaps-karte-check');
                 if (checkBox.checked) {
                     sessionStorage.setItem('gmaps', true);
                     let xhr = new XMLHttpRequest();

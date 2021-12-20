@@ -9,13 +9,54 @@ body .bs-formular-wrapper {
     font-family: FontAwesome, serif!important;
   }
 }
+.img-archive-left {
+  //max-width: 300px;
+  height: 265px;
+  object-fit: cover;
+}
 
 .top-button {
   pointer-events: none;
 }
 
+.tags-links.hupa-tags {
+  font-weight: 500;
+  font-style: normal;
+  a.badge {
+    font-style: normal;
+    font-weight: 500;
+    background-color: transparent!important;
+    transition: all 350ms;
+    padding:.45em .65em!important;
+    &:hover {
+      background-color: #0a58ca!important;
+      color: #fff!important;
+    }
+  }
+}
+
 #nav-main-starter {
   z-index: 1030;
+}
+
+.archive-wrapper {
+  .blog-post-title {
+    font-style: normal!important;
+    font-weight: initial;
+    a {
+      text-decoration: none!important;
+    }
+  }
+  .author.vcard a, .comments-link a{
+    text-decoration: none;
+    font-weight: normal;
+  }
+
+  .archive-card-txt {
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 #preloader-wrapper {

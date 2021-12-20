@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-   //document.addEventListener('mouseup', onMouseUp, true); // {passive: true, capture: true}
+    //document.addEventListener('mouseup', onMouseUp, true); // {passive: true, capture: true}
     let contBlueimp = document.getElementById("blueimp-gallery");
 
 
@@ -177,54 +177,79 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
 
-        $(document).on('click', '.api-karte-check', function () {
-            let check = $(this).children('input');
-            let btn = $('.hupa-gmaps-btn');
-            if (check.prop('checked')) {
-                check.prop('checked', false);
-                btn.addClass('disabled');
-                return false;
-            } else {
-                check.prop('checked', true);
-                btn.removeClass('disabled');
-                return false;
-            }
-        });
+        let gmDsCheck = document.querySelectorAll('.gmaps-karte-check');
+        if (gmDsCheck) {
+            let dsEvent = Array.prototype.slice.call(gmDsCheck, 0);
+            dsEvent.forEach(function (dsEvent) {
+                dsEvent.addEventListener("click", function (e) {
+                    dsEvent.blur();
+                    let parentButton = dsEvent.form.querySelector('button');
+                    if(dsEvent.checked){
+                        parentButton.classList.remove('disabled');
+                    } else {
+                        parentButton.classList.add('disabled');
+                    }
+                });
+            });
+        }
 
-        $(document).on('click', '.iframe-karte-check', function () {
-            let code = $(this).attr('data-id');
-            let check = $('.check' + code);
-            let btn = $('.btn' + code);
-            if (check.prop('checked')) {
-                check.prop('checked', false);
-                btn.addClass('disabled');
-                return false;
-            } else {
-                check.prop('checked', true);
-                btn.removeClass('disabled');
-                return false;
-            }
-        });
+        let gmDsButton = document.querySelectorAll('.hupa-iframe-btn');
+        if (gmDsButton) {
+            let dsBtnEvent = Array.prototype.slice.call(gmDsButton, 0);
+            dsBtnEvent.forEach(function (dsBtnEvent) {
+                dsBtnEvent.addEventListener("click", function (e) {
+                    dsBtnEvent.blur();
+                    let dsCheck =dsBtnEvent.form.querySelector('.form-check-input');
+                    if(!dsCheck.checked){
+                        return false;
+                    }
 
-        $(document).on('click', '.hupa-iframe-btn', function () {
-            $(this).trigger('blur');
-            let code = $(this).attr('data-id');
-            if ($('.check' + code).prop('checked')) {
-                $.post(theme_ajax_obj.ajax_url, {
-                    '_ajax_nonce': theme_ajax_obj.nonce,
-                    'action': 'HupaStarterNoAdmin',
-                    'method': 'get_iframe_card',
-                    'code': code,
-                    'width': $(this).attr('data-width'),
-                    'height': $(this).attr('data-height'),
-                }, function (data) {
+                    let code = dsBtnEvent.getAttribute('data-id');
+                    let width = dsBtnEvent.getAttribute('data-width');
+                    let height = dsBtnEvent.getAttribute('data-height');
+
+                    const data = {
+                        'method': 'get_iframe_card',
+                        'code': code,
+                        'width': width,
+                        'height': height
+                    }
+
+                    console.log(data)
+                });
+            });
+        }
+
+        function sendXhrFormular(data, is_formular = true) {
+            let xhr = new XMLHttpRequest();
+            let formData = new FormData();
+            xhr.open('POST', theme_ajax_obj.ajax_url, true);
+
+            if (is_formular) {
+                let input = new FormData(data);
+                for (let [name, value] of input) {
+                    formData.append(name, value);
+                }
+            } else {
+                for (let [name, value] of Object.entries(data)) {
+                    formData.append(name, value);
+                }
+            }
+
+            formData.append('_ajax_nonce', theme_ajax_obj.nonce);
+            formData.append('action', 'HupaStarterNoAdmin');
+            xhr.send(formData);
+            //Response
+            xhr.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let data = JSON.parse(this.responseText);
                     if (data.status) {
                         sessionStorage.setItem('gmaps', true);
                         $('.iframe' + data.code).html(data.iframe);
                     }
-                });
+                }
             }
-        });
+        }
 
         // Preloader script
         jQuery(window).load(function () {
@@ -235,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
          ========== CAROUSEL LAZY LOAD FUNCTION ===========
          ==================================================
          */
-       $(function () {
+        $(function () {
             let carousel = $(".carousel .carousel-item.active");
             let ifSrc = carousel.find("img[data-src]");
             ifSrc.Lazy({
@@ -265,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         let cHeight = 0;
-        $('.carousel').on('slide.bs.carousel', function(e) {
+        $('.carousel').on('slide.bs.carousel', function (e) {
             let $nextImage = $(e.relatedTarget).find('img');
             let $activeItem = $('.active.item', this);
             // prevents the slide decreasing in height before the image is loaded
@@ -293,9 +318,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             })
             // you might have more than one image per carousel item
-            $nextImage.each(function(){
+            $nextImage.each(function () {
                 let $this = $(this),
-                src = $this.data('src');
+                    src = $this.data('src');
                 // skip if the image is already loaded
                 if (typeof src !== "undefined" && src != "") {
                     $this.attr('src', src)
@@ -306,23 +331,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         $.event.special.touchstart = {
-            setup: function( _, ns, handle ) {
-                this.addEventListener("touchstart", handle, { passive: !ns.includes("noPreventDefault") });
+            setup: function (_, ns, handle) {
+                this.addEventListener("touchstart", handle, {passive: !ns.includes("noPreventDefault")});
             }
         };
         $.event.special.touchmove = {
-            setup: function( _, ns, handle ) {
-                this.addEventListener("touchmove", handle, { passive: !ns.includes("noPreventDefault") });
+            setup: function (_, ns, handle) {
+                this.addEventListener("touchmove", handle, {passive: !ns.includes("noPreventDefault")});
             }
         };
         $.event.special.wheel = {
-            setup: function( _, ns, handle ){
-                this.addEventListener("wheel", handle, { passive: true });
+            setup: function (_, ns, handle) {
+                this.addEventListener("wheel", handle, {passive: true});
             }
         };
         $.event.special.mousewheel = {
-            setup: function( _, ns, handle ){
-                this.addEventListener("mousewheel", handle, { passive: true });
+            setup: function (_, ns, handle) {
+                this.addEventListener("mousewheel", handle, {passive: true});
             }
         };
 

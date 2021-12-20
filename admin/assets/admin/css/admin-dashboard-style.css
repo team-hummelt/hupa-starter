@@ -1807,6 +1807,9 @@ body .wp-bs-starter-wrapper {
   padding: 2rem 0;
   /* ERROR MODAL */
 }
+.wp-bs-starter-wrapper .max-width25 {
+  max-width: 25em;
+}
 .wp-bs-starter-wrapper #debug-log {
   overflow: auto;
   /* font: 12px Monaco, "Courier New", Courier, Fixed !important;

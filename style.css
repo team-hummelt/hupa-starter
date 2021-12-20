@@ -4,7 +4,7 @@ Theme URI: https://www.hummelt-werbeagentur.de/leistungen/plugin-und-webapp-entw
 Author: hummelt und partner | Werbeagentur GmbH
 Author URI: https://www.hummelt-werbeagentur.de/
 Description: Ein leistungsstarkes WordPress Theme mit WooCommerce Unterstützung von <a href ="https://www.hummelt-werbeagentur.de/">Hummelt & Partner</a>. Das Theme hat eine große Auswahl an Kategorie-, Seiten-, Beitrags-, Autoren- und Archivvorlagen sowie Sidebar-, Header-, Footer- und 404-Widgets.
-Version: v1.1.1
+Version: v1.1.2
 Text Domain: bootscore
 Tags: hupa-theme, translation-ready, WooCommerce-ready
 Requires PHP: 8.0
@@ -411,8 +411,9 @@ html {
 }
 
 .alert::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+    font-family: "FontAwesome";
+    font-weight: normal;
+    font-style: normal;
     position: absolute;
     left: 1.25rem;
     top: 50%;
@@ -820,8 +821,8 @@ blockquote {
 }
 
 blockquote::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+    font-family: "FontAwesome";
+    font-weight: normal;
     content: "\f10d";
     font-size: xx-large;
     float: left;
@@ -834,8 +835,8 @@ blockquote::before {
 }
 
 figure.wp-block-pullquote blockquote:before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+    font-family: "FontAwesome";
+    font-weight: normal;
     content: "\f10d";
     font-size: xx-large;
     display: block;
@@ -849,8 +850,8 @@ q {
 }
 
 q::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
+    font-family: "FontAwesome";
+    font-weight: normal;
     content: "\f10d";
     font-size: 87.5%;
     margin-right: .5rem;

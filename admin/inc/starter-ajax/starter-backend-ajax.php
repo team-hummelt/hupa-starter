@@ -18,6 +18,7 @@ $method = filter_input(INPUT_POST, 'method', FILTER_SANITIZE_STRING, FILTER_FLAG
 global $hupa_api_handle;
 global $hupa_optionen_class;
 global $hupa_menu_helper;
+global $hupa_optionen_global;
 
 switch ($method) {
     case 'theme_form_handle':
@@ -183,6 +184,46 @@ switch ($method) {
                 $record->kategorie_template = filter_input(INPUT_POST, 'kategorie_template', FILTER_SANITIZE_NUMBER_INT);
                 $record->archiv_template = filter_input(INPUT_POST, 'archiv_template', FILTER_SANITIZE_NUMBER_INT);
                 $record->autoren_template = filter_input(INPUT_POST, 'autoren_template', FILTER_SANITIZE_NUMBER_INT);
+
+                //NEW TEMPLATES
+                //KATEGORIE
+                filter_input(INPUT_POST, 'kategorie_show_sidebar', FILTER_SANITIZE_STRING) ? $record->kategorie_show_sidebar = 1 : $record->kategorie_show_sidebar = 0;
+                $record->kategorie_select_sidebar = filter_input(INPUT_POST, 'kategorie_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'kategorie_show_image', FILTER_SANITIZE_STRING) ? $record->kategorie_show_image = 1 : $record->kategorie_show_image = 0;
+                filter_input(INPUT_POST, 'kategorie_show_kategorie', FILTER_SANITIZE_STRING) ? $record->kategorie_show_kategorie = 1 : $record->kategorie_show_kategorie = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_date', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_date = 1 : $record->kategorie_show_post_date = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_author', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_author = 1 : $record->kategorie_show_post_author = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_kommentar = 1 : $record->kategorie_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_tags', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_tags = 1 : $record->kategorie_show_post_tags = 0;
+                $record->kategorie_select_header = filter_input(INPUT_POST, 'kategorie_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->kategorie_select_footer = filter_input(INPUT_POST, 'kategorie_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //ARCHIVE
+                filter_input(INPUT_POST, 'archiv_show_sidebar', FILTER_SANITIZE_STRING) ? $record->archiv_show_sidebar = 1 : $record->archiv_show_sidebar = 0;
+                $record->archiv_select_sidebar = filter_input(INPUT_POST, 'archiv_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'archiv_show_post_image', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_image = 1 : $record->archiv_show_post_image = 0;
+                filter_input(INPUT_POST, 'archiv_show_kategorie', FILTER_SANITIZE_STRING) ? $record->archiv_show_kategorie = 1 : $record->archiv_show_kategorie = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_date', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_date = 1 : $record->archiv_show_post_date = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_author', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_author = 1 : $record->archiv_show_post_author = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_kommentar = 1 : $record->archiv_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_tags', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_tags = 1 : $record->archiv_show_post_tags = 0;
+                $record->archiv_select_header = filter_input(INPUT_POST, 'archiv_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->archiv_select_footer = filter_input(INPUT_POST, 'archiv_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //AUTHOR
+                filter_input(INPUT_POST, 'autoren_show_sidebar', FILTER_SANITIZE_STRING) ? $record->autoren_show_sidebar = 1 : $record->autoren_show_sidebar = 0;
+                $record->autoren_select_sidebar = filter_input(INPUT_POST, 'autoren_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'autoren_show_post_image', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_image = 1 : $record->autoren_show_post_image = 0;
+                filter_input(INPUT_POST, 'autoren_show_kategorie', FILTER_SANITIZE_STRING) ? $record->autoren_show_kategorie = 1 : $record->autoren_show_kategorie = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_date', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_date = 1 : $record->autoren_show_post_date = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_author', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_author = 1 : $record->autoren_show_post_author = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_kommentar = 1 : $record->autoren_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_tags', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_tags = 1 : $record->autoren_show_post_tags = 0;
+                $record->autoren_select_header = filter_input(INPUT_POST, 'autoren_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->autoren_select_footer = filter_input(INPUT_POST, 'autoren_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //404 Page
+                $record->hupa_select_404 = filter_input(INPUT_POST, 'hupa_select_404', FILTER_SANITIZE_NUMBER_INT);
 
                 filter_input(INPUT_POST, 'kategorie_image', FILTER_SANITIZE_STRING) ? $record->kategorie_image = 1 : $record->kategorie_image = 0;
                 filter_input(INPUT_POST, 'archiv_image', FILTER_SANITIZE_STRING) ? $record->archiv_image = 1 : $record->archiv_image = 0;
@@ -456,6 +497,13 @@ switch ($method) {
                 break;
 
             case 'theme_map_placeholder':
+                $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+
+                $map_settings_bezeichnung = filter_input(INPUT_POST, 'map_settings_bezeichnung', FILTER_SANITIZE_STRING);
+                $map_btn_text = filter_input(INPUT_POST, 'map_btn_text', FILTER_SANITIZE_STRING);
+                $map_ds_text = filter_input(INPUT_POST, 'map_ds_text');
+
+                $map_ds_id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
                 $map_img_id = filter_input(INPUT_POST, 'map_img_id', FILTER_SANITIZE_NUMBER_INT);
                 $map_ds_page = filter_input(INPUT_POST, 'map_ds_page', FILTER_SANITIZE_NUMBER_INT);
                 filter_input(INPUT_POST, 'map_bg_grayscale', FILTER_SANITIZE_STRING) ? $map_bg_grayscale = 1 : $map_bg_grayscale = 0;
@@ -472,6 +520,23 @@ switch ($method) {
                 filter_input(INPUT_POST, 'map_link_underline', FILTER_SANITIZE_STRING) ? $map_link_underline = 1 : $map_link_underline = 0;
                 $map_link_color = filter_input(INPUT_POST, 'map_link_color', FILTER_SANITIZE_STRING);
 
+                $random = apply_filters('get_hupa_random_id', 6, 0, 6);
+                $map_settings_bezeichnung ? $bezeichnung = $map_settings_bezeichnung : $bezeichnung = 'Datenschutz-' . $random;
+
+                if (!$map_ds_page) {
+                    $responseJson->msg = 'Bitte Datenschutz Seite auswählen!';
+                    return $responseJson;
+                }
+
+                if (!$map_btn_text) {
+                    $responseJson->msg = 'kein Button Text eingegeben!';
+                    return $responseJson;
+                }
+
+                if (!$map_ds_text) {
+                    $responseJson->msg = 'kein Datenschutz Text (akzeptieren) eingegeben!';
+                    return $responseJson;
+                }
 
                 $google_maps_placeholder = [
                     'map_img_id' => $map_img_id,
@@ -488,10 +553,51 @@ switch ($method) {
                     'map_link_uppercase' => $map_link_uppercase,
                     'map_link_underline' => $map_link_underline,
                     'map_link_color' => $map_link_color,
-                    'map_ds_page' => $map_ds_page
+                    'map_ds_page' => $map_ds_page,
+                    'map_ds_btn_text' => $map_btn_text,
+                    'map_ds_text' => esc_textarea($map_ds_text),
+                    'map_ds_id' => $map_ds_id,
+                    'map_ds_bezeichnung' => $bezeichnung
                 ];
-                apply_filters('update_hupa_options', apply_filters('arrayToObject', $google_maps_placeholder), 'google_maps_settings');
-                $responseJson->spinner = true;
+
+                $dbSettings = $hupa_optionen_global->get_settings_by_args('google_maps_placeholder');
+                if (!$dbSettings->status) {
+                    $responseJson->msg = 'kein Daten gefunden (DB: Error)!';
+                    return $responseJson;
+                }
+                switch ($type) {
+                    case 'insert':
+                        $ids = [];
+                        foreach ($dbSettings->google_maps_placeholder as $tmp) {
+                            $ids[] = $tmp->map_ds_id;
+                        }
+                        $lastId = max($ids);
+                        $google_maps_placeholder['map_ds_id'] = $lastId + 1;
+                        $dbArray = json_decode(json_encode($dbSettings->google_maps_placeholder), true);
+                        $dbArray[] = $google_maps_placeholder;
+                        $google_maps_placeholder = apply_filters('arrayToObject', $dbArray);
+                        break;
+                    case 'update':
+                        if(!$map_ds_id){
+                            $responseJson->msg = 'Daten konnten nicht gespeichert werden!';
+                            return $responseJson;
+                        }
+                            $settArr = [];
+                        foreach ($dbSettings->google_maps_placeholder as $tmp) {
+                            if($tmp->map_ds_id == $map_ds_id) {
+                                $tmp = $google_maps_placeholder;
+                            }
+                            $settArr[] = $tmp;
+                        }
+
+                        $google_maps_placeholder = $settArr;
+                        break;
+                }
+
+                apply_filters('update_hupa_options', $google_maps_placeholder, 'google_maps_settings');
+                $responseJson->msg = 'Einstellungen gespeichert';
+                $responseJson->loadTable = true;
+                $responseJson->method = $handle;
                 break;
 
             case 'theme_options_page':
@@ -777,6 +883,40 @@ switch ($method) {
         $responseJson->msg = date('H:i:s', current_time('timestamp'));
         break;
 
+    case 'delete_gmaps_settings':
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        if(!$id) {
+            $responseJson->msg = 'Ajax Übertragungsfehler!';
+            return $responseJson;
+        }
+
+        if($id == 1) {
+            $responseJson->msg = 'Die Default-Settings können nicht gelöscht werden!';
+            return $responseJson;
+        }
+
+        $dbSettings = $hupa_optionen_global->get_settings_by_args('google_maps_placeholder');
+
+        if (!$dbSettings->status) {
+            $responseJson->msg = 'Ajax Übertragungsfehler!';
+            return $responseJson;
+        }
+
+        $settingsArr = [];
+        foreach ($dbSettings->google_maps_placeholder as $tmp) {
+            if($tmp->map_ds_id == $id ){
+                continue;
+            }
+            $settingsArr[] = $tmp;
+        }
+        $google_maps_placeholder = apply_filters('arrayToObject', $settingsArr);
+        apply_filters('update_hupa_options', $google_maps_placeholder, 'google_maps_settings');
+        $responseJson->msg = 'Settings gelöscht';
+        $responseJson->loadTable = true;
+        $responseJson->method = $method;
+        $responseJson->status = true;
+        break;
+
     case'hupa_duplicate_post':
         $post_type = filter_input(INPUT_POST, 'post_type', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         $paged = filter_input(INPUT_POST, 'paged', FILTER_SANITIZE_NUMBER_INT);
@@ -828,15 +968,15 @@ switch ($method) {
 
             //TODO duplicate all post meta just in two SQL queries
             $post_meta_infos = $wpdb->get_results("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id={$postId}");
-            if (count($post_meta_infos)!=0) {
+            if (count($post_meta_infos) != 0) {
                 $sql_query = "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) ";
                 foreach ($post_meta_infos as $meta_info) {
                     $meta_key = $meta_info->meta_key;
-                    if( $meta_key == '_wp_old_slug' ) continue;
+                    if ($meta_key == '_wp_old_slug') continue;
                     $meta_value = addslashes($meta_info->meta_value);
-                    $sql_query_sel[]= "SELECT $new_post_id, '$meta_key', '$meta_value'";
+                    $sql_query_sel[] = "SELECT $new_post_id, '$meta_key', '$meta_value'";
                 }
-                $sql_query.= implode(" UNION ALL ", $sql_query_sel);
+                $sql_query .= implode(" UNION ALL ", $sql_query_sel);
                 $wpdb->query($sql_query);
             }
         } else {
@@ -1325,19 +1465,16 @@ switch ($method) {
         $btn_select = false;
         $btn_link = false;
         $if_url = false;
-
-        for ($i = 0; $i <= count($btnArg); $i++) {
-
-            $btn_text = filter_input(INPUT_POST, "btn_text_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $btn_url = filter_input(INPUT_POST, "url_$btnArg[$i]", FILTER_VALIDATE_URL);
-
-            $button_color = filter_input(INPUT_POST, "button_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $border_color = filter_input(INPUT_POST, "border_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $bg_color = filter_input(INPUT_POST, "button_bg_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-
-            $hover_color = filter_input(INPUT_POST, "color_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $hover_border = filter_input(INPUT_POST, "border_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $bg_hover = filter_input(INPUT_POST, "bg_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
+        if($btnArg):
+        for ($i = 0; $i < count($btnArg); $i++) {
+            isset($_POST["btn_text_$btnArg[$i]"]) ? $btn_text = $_POST["btn_text_$btnArg[$i]"] : $btn_text = '';
+            isset($_POST["url_$btnArg[$i]"]) ? $btn_url = filter_input(INPUT_POST, "url_$btnArg[$i]", FILTER_VALIDATE_URL) : $btn_url = '';
+            isset($_POST["button_color_$btnArg[$i]"]) ? $button_color = sanitize_text_field($_POST["button_color_$btnArg[$i]"]) : $button_color = '';
+            isset($_POST["border_color_$btnArg[$i]"]) ? $border_color = sanitize_text_field($_POST["border_color_$btnArg[$i]"]) : $border_color = '';
+            isset($_POST["button_bg_color_$btnArg[$i]"]) ? $bg_color = sanitize_text_field($_POST["button_bg_color_$btnArg[$i]"]) : $bg_color = '';
+            isset($_POST["color_hover_$btnArg[$i]"]) ? $hover_color = sanitize_text_field($_POST["color_hover_$btnArg[$i]"]) : $hover_color = '';
+            isset($_POST["border_hover_$btnArg[$i]"]) ? $hover_border = sanitize_text_field($_POST["border_hover_$btnArg[$i]"]) : $hover_border = '';
+            isset($_POST["bg_hover_$btnArg[$i]"]) ? $bg_hover = sanitize_text_field($_POST["bg_hover_$btnArg[$i]"]) : $bg_hover = '';
 
             isset($_POST["btn_icon_$btnArg[$i]"]) ? $icon = $_POST["btn_icon_$btnArg[$i]"] : $icon = false;
             isset($_POST["check_target_$btnArg[$i]"]) ? $btn_target = 1 : $btn_target = 0;
@@ -1384,6 +1521,7 @@ switch ($method) {
 
             $btArr[] = $btn_item;
         }
+        endif;
 
         if ($btArr) {
             $record->slider_button = json_encode($btArr);
@@ -1909,6 +2047,97 @@ switch ($method) {
             "data" => $data_arr,
         );
 
+        break;
+
+    case 'gmaps_datenschutz_data_table':
+        $query = '';
+        $columns = array(
+            "",
+            "",
+            "",
+            ""
+        );
+
+        $table = true;
+        $dbSettings = $hupa_optionen_global->get_settings_by_args('google_maps_placeholder');
+        if (!$dbSettings->status) {
+            $table = false;
+        }
+
+        $dbArray = json_decode(json_encode($dbSettings), true);
+        if (!key($dbArray['google_maps_placeholder']) == 0) {
+            $defaults = $hupa_optionen_global->getHupaDefaultSettings('google_maps_placeholder');
+            apply_filters('update_hupa_options', $defaults, 'google_maps_settings');
+        }
+
+        $dbSettings = $hupa_optionen_global->get_settings_by_args('google_maps_placeholder');
+        if (!$dbSettings->status) {
+            $table = false;
+        }
+
+        $data_arr = array();
+        if (!$table) {
+            return $responseJson = array(
+                "draw" => $_POST['draw'],
+                "recordsTotal" => 0,
+                "recordsFiltered" => 0,
+                "data" => $data_arr
+            );
+        }
+        $i = 1;
+
+        foreach ($dbSettings->google_maps_placeholder as $tmp) {
+            $input = '';
+
+            $tmp->map_ds_id == 1 ? $disabled = 'disabled' : $disabled = '';
+            $data_item = array();
+            $data_item[] = '<b>' . $i . '</b>';
+            $data_item[] = '<b class="strong-font-weight">' . $tmp->map_ds_bezeichnung . '</b>';
+            $data_item[] = '<button onclick="btn_edit_map_settings(this)" data-id="' . $tmp->map_ds_id . '" class="btn btn-blue-outline btn-sm"><i class="fa fa-edit"></i>&nbsp; Bearbeiten</button>';
+            $data_item[] = '<button type="button" data-bs-id="' . $tmp->map_ds_id . '" data-bs-toggle="modal" data-bs-target="#gMapSettingsDeleteModal" class="btn btn-outline-danger btn-sm ' . $disabled . '" ' . $disabled . '><i class="fa fa-trash"></i>&nbsp; löschen</button>';
+            $data_arr[] = $data_item;
+            $i++;
+        }
+
+        $dbArray = $array = json_decode(json_encode($dbSettings), true);
+        $count = count($dbArray['google_maps_placeholder']);
+        $responseJson = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $count,
+            "recordsFiltered" => $count,
+            "data" => $data_arr,
+        );
+        break;
+
+    case 'get_map_settings':
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $responseJson->method = $method;
+        if (!$id) {
+            $responseJson->msg = 'Ajax Übertragungsfehler!';
+            return false;
+        }
+
+        global $hupa_optionen_global;
+        $settings = $hupa_optionen_global->get_google_maps_settings_by_args($id);
+        if (!$settings->status) {
+            $responseJson->msg = 'Settings nicht gefunden!';
+            return false;
+        }
+        $imgId = $settings->record->map_img_id;
+        if($imgId){
+            $url = wp_get_attachment_image_src($imgId,'large');
+            $settings->record->img_url = $url[0];
+        }
+        $responseJson->pages = apply_filters('get_theme_pages', false);
+        $responseJson->record = $settings->record;
+        $responseJson->status = true;
+
+        break;
+
+    case 'get_map_settings_pages':
+        $responseJson->method = $method;
+        $responseJson->pages = apply_filters('get_theme_pages', false);
+        $responseJson->status = true;
         break;
 
     case 'gmaps_iframe_handle':

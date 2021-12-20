@@ -73,6 +73,10 @@ body .wp-bs-starter-wrapper {
 //WRAPPER
 .wp-bs-starter-wrapper {
 
+  .max-width25 {
+    max-width: 25em;
+  }
+
   #debug-log {
     overflow: auto;
    /* font: 12px Monaco, "Courier New", Courier, Fixed !important;

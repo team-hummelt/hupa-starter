@@ -85,13 +85,24 @@ global $hupa_api_handle;
                                         <sup class="text-danger fw-bold">1*</sup></label>
                                 </div>
                                 <hr>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="debug"
+                                           id="inlineRadio1" value="1" <?=get_option('wp_debug_radio') == '1' ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="inlineRadio1">WP-Debug aktiv</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="debug"
+                                           id="inlineRadio2" value="2" <?=get_option('wp_debug_radio') == '2' ? 'checked' : '' ?>>
+                                    <label class="form-check-label" for="inlineRadio2">WP-Debug nicht aktiv</label>
+                                </div>
+                                <hr>
                                 <div class="d-flex flex-wrap ">
-                                    <div class="form-check form-switch me-3">
+                                    <!--<div class="form-check form-switch me-3">
                                         <input class="form-check-input"
                                                name="wp_debug" type="checkbox" role="switch"
                                                id="SwitchWPDebug" <?= !get_option('hupa_wp_debug') ?: ' checked' ?>>
                                         <label class="form-check-label" for="SwitchWPDebug">WP-Debug</label>
-                                    </div>
+                                    </div>-->
 
                                     <div class="form-check form-switch me-3">
                                         <input class="form-check-input"

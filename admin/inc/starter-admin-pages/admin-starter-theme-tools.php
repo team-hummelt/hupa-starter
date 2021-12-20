@@ -8,23 +8,6 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-
-$args = array(
-    'post_type' => 'starter-footer',
-    'post_status' => 'publish',
-    'posts_per_page' => -1
-);
-$footer = new WP_Query($args);
-
-
-$args = array(
-    'post_type' => 'starter-header',
-    'post_status' => 'publish',
-    'posts_per_page' => -1
-);
-$header = new WP_Query($args);
-//echo substr(ABSPATH,0 ,strrpos(ABSPATH,'/'));
-
 ?>
 <div class="wp-bs-starter-wrapper my3">
     <div class="container">
@@ -69,8 +52,7 @@ $header = new WP_Query($args);
                 </div>
                 <hr>
                 <div id="settings_display_data">
-
-                    <!--  TODO JOB WARNING Social Media STARTSEITE -->
+                <!--  TODO JOB WARNING Social Media STARTSEITE -->
                     <div class="collapse show" id="collapseSettingsSocialStart"
                          data-bs-parent="#settings_display_data">
                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
@@ -84,7 +66,11 @@ $header = new WP_Query($args);
                                             <!--//TODO JOB SOCIAL MEDIA-->
                                             <?php
                                             $media = apply_filters('get_social_media', '');
-                                            if ($media->status): foreach ($media->record as $tmp): ?>
+                                            if ($media->status): foreach ($media->record as $tmp):
+                                                if($tmp->bezeichnung == 'Buffer' || $tmp->bezeichnung == 'Mix'){
+                                                    continue;
+                                                }
+                                                ?>
                                                 <div class="media<?= $tmp->id ?> col">
                                                     <div class="p-3 bg-light border shadow-sm py-2 h-100">
                                                         <h5 class="text-center text-muted py-2 mb-0"><?= $tmp->bezeichnung ?>

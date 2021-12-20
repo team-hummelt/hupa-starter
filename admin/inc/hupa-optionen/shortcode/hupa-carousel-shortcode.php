@@ -88,7 +88,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             $attributes = base64_decode($a['attributes']);
             $attributes = (array)json_decode($attributes);
             ob_start();
-            echo apply_filters('get_post_select_data_type', $attributes);
+            echo apply_filters('get_post_select_data_type','', $attributes);
             return ob_get_clean();
         }
 
@@ -253,8 +253,11 @@ if (!class_exists('HupaCarouselShortCode')) {
                             if ($btn): ?>
                                 <div <?= $btnPadding ?>>
                                     <?php
+                                   //print_r($btn);
                                     foreach ($btn as $bt):
-                                        if (!isset($bt->if_url)) {
+                                        if ($bt->if_url) {
+                                            $link = $bt->btn_link;
+                                        } else {
                                             $links = explode('#', $bt->btn_link);
                                             switch ($links[0]) {
                                                 case 'page':
@@ -266,8 +269,6 @@ if (!class_exists('HupaCarouselShortCode')) {
                                                 default:
                                                     $link = '';
                                             }
-                                        } else {
-                                            $link = $bt->btn_link;
                                         }
                                         $style = 'style=
                                                 "color: ' . $bt->button_color . ';

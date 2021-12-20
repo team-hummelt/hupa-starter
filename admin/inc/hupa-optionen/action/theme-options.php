@@ -35,7 +35,7 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
 			//TODO LOGIN SEITE CUSTOMIZE
 			add_action( 'login_enqueue_scripts', array( $this, 'set_hupa_login_logo' ) );
 			add_filter( 'login_headerurl', array( $this, 'hupa_theme_login_logo_url' ) );
-			add_filter( 'login_headertitle', array( $this, 'hupa_theme_login_logo_url_title' ) );
+			add_filter( 'login_headertext', array( $this, 'hupa_theme_login_logo_url_title' ) );
 			add_action( 'login_head', array( $this, 'set_login_head_style_css' ) );
 			add_action( 'login_enqueue_scripts', array( $this, 'enqueue_hupa_login_footer_script' ) );
 

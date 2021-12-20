@@ -44,7 +44,7 @@ global $hupa_api_handle;
                             data-load=""
                             data-bs-toggle="collapse" data-bs-target="#PostsCopySettings"
                             aria-expanded="false" aria-controls="PostsCopySettings"
-                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-arrows"></i>&nbsp;
+                            class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-copy"></i>&nbsp;
                         <?=__('Posts | Pages Duplicate', 'bootscore')?>
                     </button>
                 </div>

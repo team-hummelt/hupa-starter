@@ -74,7 +74,36 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
     }
   }
 }
+.hupa-public-wrapper {
+  .li-head {
+    font-size: 20px !important;
+  }
 
+  .h4-head {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  ul li:first-child:not(ol li) {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  ol li {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.2;
+  }
+  ol li:first-child {
+    padding-top: .5rem;
+  }
+
+  .subline {
+    font-size: 22px;
+    margin-bottom: .25rem;
+    display: block;
+  }
+}
 .get_hupa_update div.ab-item.ab-empty-item, .get_hupa_contact div.ab-item.ab-empty-item {
   cursor: pointer !important;
 

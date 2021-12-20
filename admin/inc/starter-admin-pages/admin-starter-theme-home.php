@@ -100,13 +100,13 @@ global $hupa_api_handle;
                             </div>
                             <hr>
                             <h4 class="text-center"><?= __('News and Updates', 'bootscore') ?></h4>
-                            <?php if(get_hupa_option('show_uhr_aktive')): ?>
-                            <div class="clock mb-3" id="homeStartClock"></div>
+                            <?php if (get_hupa_option('show_uhr_aktive')): ?>
+                                <div class="clock mb-3" id="homeStartClock"></div>
                             <?php endif; ?>
 
-                            <?php if(get_hupa_option('news_api_aktiv')) {
+                            <?php if (get_hupa_option('news_api_aktiv')) {
                                 $news = apply_filters('post_scope_resource', 'news');
-                                if($news->status) {
+                                if ($news->status) {
                                     echo $news->data;
                                 }
                             }
@@ -533,7 +533,7 @@ global $hupa_api_handle;
                                     </div>
                                 </div>
                                 <!--Design Layout END -->
-                                <!--TODO JOB Container Settings-->
+                                <!--TODO JOB Seiten Settings-->
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headerFontContainer">
                                         <button class="accordion-button collapsed" type="button"
@@ -555,210 +555,560 @@ global $hupa_api_handle;
                                                         <i class="font-blue fa fa-wordpress"></i>&nbsp;<?= __('Ansicht für Beiträge und Beitragslisten', 'bootscore'); ?>
                                                     </h5>
                                                 </div>
-
-                                                <h6>Vorlage für Kategorie Beitragslisten auswählen</h6>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie"
-                                                           class="form-check-input change-template" type="radio"
-                                                           name="kategorie_template" id="radioKategorieType1"
-                                                           value="1" <?= get_hupa_option('kategorie_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType1">Sidebar
-                                                        rechts</label>
+                                                <!--//JOB NEW TEMPLATES -->
+                                                <h5><i class="font-blue fa fa-arrow-circle-right"></i> Einstellungen für
+                                                    Kategorie Beitragslisten</h5>
+                                                <div class="form-check form-switch mt-3 me-3 mb-3">
+                                                    <input class="form-check-input change_template_sidebar"
+                                                           data-id="SelectSidebar" type="checkbox"
+                                                           name="kategorie_show_sidebar"
+                                                           id="showSidebarCheck" <?= !get_hupa_option('kategorie_show_sidebar') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="showSidebarCheck">Sidebar
+                                                        anzeigen</label>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie"
-                                                           class="form-check-input change-template" type="radio"
-                                                           name="kategorie_template" id="radioKategorieType2"
-                                                           value="2" <?= get_hupa_option('kategorie_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType2">Sidebar
-                                                        links</label>
+                                                <div class="mb-3">
+                                                    <label for="SelectSidebar" class="form-label">Sidebar
+                                                        auswählen</label>
+                                                    <select id="SelectSidebar" name="kategorie_select_sidebar"
+                                                            class="form-select" <?= get_hupa_option('kategorie_show_sidebar') ?: 'disabled' ?>>
+                                                        <option value="">auswählen...</option>
+                                                        <?php
+                                                        $sidebarSelect = apply_filters('get_registered_sidebar', false);
+                                                        foreach ($sidebarSelect as $tmp):
+                                                            get_hupa_option('kategorie_select_sidebar') == $tmp['value'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['value'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie"
-                                                           class="form-check-input change-template" type="radio"
-                                                           name="kategorie_template" id="radioKategorieType3"
-                                                           value="3" <?= get_hupa_option('kategorie_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType3">Grid
-                                                        Sidebar rechts gleiche Höhe</label>
+                                                <hr>
+                                                <div class="mb-3">
+                                                    <label for="SelectKatCustomHeader" class="form-label">Custom Header
+                                                        auswählen</label>
+                                                    <select id="SelectKatCustomHeader" name="kategorie_select_header"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $headerSelect = apply_filters('get_custom_header', false);
+                                                        foreach ($headerSelect as $tmp):
+                                                            get_hupa_option('kategorie_select_header') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie"
-                                                           class="form-check-input change-template" type="radio"
-                                                           name="kategorie_template" id="radioKategorieType4"
-                                                           value="4" <?= get_hupa_option('kategorie_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioKategorieType4">Grid
-                                                        gleiche Höhe</label>
+                                                <hr>
+                                                <div class="mb-3">
+                                                    <label for="SelectKatCustomFooter" class="form-label">Custom Footer
+                                                        auswählen</label>
+                                                    <select id="SelectKatCustomFooter" name="kategorie_select_footer"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $footerSelect = apply_filters('get_custom_footer', false);
+                                                        foreach ($footerSelect as $tmp):
+                                                            get_hupa_option('kategorie_select_footer') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="kategorie"
-                                                           class="form-check-input change-template" type="radio"
-                                                           name="kategorie_template" id="radioKategorieType5"
-                                                           value="5" <?= get_hupa_option('kategorie_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label"
-                                                           for="radioKategorieType5">Masonry</label>
-                                                </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
-                                                    zeigt sie die Beitragsliste in 100% Breite an.
-                                                </div>
-
+                                                <hr>
                                                 <div class="form-check form-switch mt-3 me-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                           name="kategorie_image"
-                                                           id="kategorieShowImg" <?= !get_hupa_option('kategorie_image') ?: 'checked' ?>>
+                                                           name="kategorie_show_image"
+                                                           id="kategorieShowImg" <?= !get_hupa_option('kategorie_show_image') ?: 'checked' ?>>
                                                     <label class="form-check-label" for="kategorieShowImg">Beitragsbild
                                                         anzeigen</label>
                                                 </div>
-                                                <hr>
-                                                <h6>Vorlage für Archiv Beitragslisten auswählen</h6>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="archiv_template" id="radioArchivType1"
-                                                           value="1" <?= get_hupa_option('archiv_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType1">Sidebar
-                                                        rechts</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="archiv_template" id="radioArchivType2"
-                                                           value="2" <?= get_hupa_option('archiv_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType2">Sidebar
-                                                        links</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="archiv_template" id="radioArchivType3"
-                                                           value="3" <?= get_hupa_option('archiv_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType3">Grid Sidebar
-                                                        rechts gleiche Höhe</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="archiv_template" id="radioArchivType4"
-                                                           value="4" <?= get_hupa_option('archiv_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioArchivType4">Grid gleiche
-                                                        Höhe</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="archiv" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="archiv_template" id="radioArchivType5"
-                                                           value="5" <?= get_hupa_option('archiv_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label"
-                                                           for="radioArchivType5">Masonry</label>
-                                                </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
-                                                    zeigt sie die Beitragsliste in 100% Breite an.
-                                                </div>
+                                                <h6 class="mt-3">Informationen für Kategorie & Beitragslisten
+                                                    anzeigen</h6>
 
-                                                <div class="form-check form-switch mt-3 me-3">
-                                                    <input class="form-check-input" type="checkbox"
-                                                           name="archiv_image"
-                                                           id="archivShowImg" <?= !get_hupa_option('archiv_image') ?: 'checked' ?>>
-                                                    <label class="form-check-label" for="archivShowImg">Beitragsbild
+                                                <div class="d-lg-flex d-block flex-wrap pt-2">
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_show_kategorie"
+                                                               id="postShowKategorieCheck" <?= !get_hupa_option('kategorie_show_kategorie') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postShowKategorieCheck">Kategorien
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_show_post_date"
+                                                               id="postKatShowDateCheck" <?= !get_hupa_option('kategorie_show_post_date') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKatShowDateCheck">Datum
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_show_post_author"
+                                                               id="postKatAuthorCheck" <?= !get_hupa_option('kategorie_show_post_author') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKatAuthorCheck">Author
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_show_post_kommentar"
+                                                               id="postKatKommentarCheck" <?= !get_hupa_option('kategorie_show_post_kommentar') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKatKommentarCheck">Kommentar
+                                                            anzeigen</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_show_post_tags"
+                                                               id="postKatTagsCheck" <?= !get_hupa_option('kategorie_show_post_tags') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postKatTagsCheck">Schlagworte
+                                                            anzeigen</label>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <!--//JOB TEMPLATES Kategorie END -->
+                                                <!--//JOB TEMPLATES Archiv -->
+                                                <h5><i class="font-blue fa fa-arrow-circle-right"></i> Einstellungen für
+                                                    Archiv Beitragslisten</h5>
+                                                <div class="form-check form-switch mt-3 me-3 mb-3">
+                                                    <input class="form-check-input change_template_sidebar"
+                                                           data-id="SelectArchivSidebar" type="checkbox"
+                                                           name="archiv_show_sidebar"
+                                                           id="showArchivSidebarCheck" <?= !get_hupa_option('archiv_show_sidebar') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="showArchivSidebarCheck">Sidebar
                                                         anzeigen</label>
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="SelectArchivSidebar" class="form-label">Sidebar
+                                                        auswählen</label>
+                                                    <select id="SelectArchivSidebar" name="archiv_select_sidebar"
+                                                            class="form-select" <?= get_hupa_option('archiv_show_sidebar') ?: 'disabled' ?>>
+                                                        <option value="">auswählen...</option>
+                                                        <?php
+                                                        $sidebarSelect = apply_filters('get_registered_sidebar', false);
+                                                        foreach ($sidebarSelect as $tmp):
+                                                            get_hupa_option('archiv_select_sidebar') == $tmp['value'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['value'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
                                                 <hr>
-
-                                                <h6>Vorlage für Autoren Beitragslisten auswählen</h6>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="autoren_template" id="radioAutorType1"
-                                                           value="1" <?= get_hupa_option('autoren_template') == '1' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType1">Sidebar
-                                                        rechts</label>
+                                                <div class="mb-3">
+                                                    <label for="SelectArchivCustomHeader" class="form-label">Custom
+                                                        Header auswählen</label>
+                                                    <select id="SelectArchivCustomHeader" name="archiv_select_header"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $headerSelect = apply_filters('get_custom_header', false);
+                                                        foreach ($headerSelect as $tmp):
+                                                            get_hupa_option('archiv_select_header') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="autoren_template" id="radioAutorType2"
-                                                           value="2" <?= get_hupa_option('autoren_template') == '2' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType2">Sidebar
-                                                        links</label>
+                                                <hr>
+                                                <div class="mb-3">
+                                                    <label for="SelectArchivCustomFooter" class="form-label">Custom
+                                                        Footer auswählen</label>
+                                                    <select id="SelectArchivCustomFooter" name="archiv_select_footer"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $footerSelect = apply_filters('get_custom_footer', false);
+                                                        foreach ($footerSelect as $tmp):
+                                                            get_hupa_option('archiv_select_footer') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="autoren_template" id="radioAuthorType3"
-                                                           value="3" <?= get_hupa_option('autoren_template') == '3' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAuthorType3">Grid Sidebar
-                                                        rechts gleiche Höhe</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="autoren_template" id="radioAutorType4"
-                                                           value="4" <?= get_hupa_option('autoren_template') == '4' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label" for="radioAutorType4">Grid gleiche
-                                                        Höhe</label>
-                                                </div>
-                                                <div class="form-check form-check-inline">
-                                                    <input data-type="autor" class="form-check-input change-template"
-                                                           type="radio"
-                                                           name="autoren_template" id="radioAutorType5"
-                                                           value="5" <?= get_hupa_option('autoren_template') == '5' ? 'checked' : '' ?>>
-                                                    <label class="form-check-label"
-                                                           for="radioAutorType5">Masonry</label>
-                                                </div>
-                                                <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
-                                                    zeigt sie die Beitragsliste in 100% Breite an.
-                                                </div>
+                                                <hr>
                                                 <div class="form-check form-switch mt-3 me-3">
                                                     <input class="form-check-input" type="checkbox"
-                                                           name="author_image"
-                                                           id="authorShowImg" <?= !get_hupa_option('author_image') ?: 'checked' ?>>
-                                                    <label class="form-check-label" for="authorShowImg">Beitragsbild
+                                                           name="archiv_show_post_image"
+                                                           id="ArchivShowImg" <?= !get_hupa_option('archiv_show_post_image') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="ArchivShowImg">Beitragsbild
                                                         anzeigen</label>
                                                 </div>
-                                                <hr>
-                                                <h6>Informationen für Beiträge und Beitragslisten anzeigen</h6>
-                                                <div class="d-lg-flex d-block flex-wrap">
+                                                <h6 class="mt-3">Informationen Archive anzeigen</h6>
+
+                                                <div class="d-lg-flex d-block flex-wrap pt-2">
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="post_kategorie"
-                                                               id="postKategorieCheck" <?= !get_hupa_option('post_kategorie') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="postKategorieCheck">Kategorien
+                                                               name="archiv_show_kategorie"
+                                                               id="postShowKatArchivCheck" <?= !get_hupa_option('archiv_show_kategorie') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postShowKatArchivCheck">Kategorien
                                                             anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="post_date"
-                                                               id="postDateCheck" <?= !get_hupa_option('post_date') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="postDateCheck">Datum
+                                                               name="archiv_show_post_date"
+                                                               id="postArchivShowDateCheck" <?= !get_hupa_option('archiv_show_post_date') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postArchivShowDateCheck">Datum
                                                             anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="post_autor"
-                                                               id="postAuthorCheck" <?= !get_hupa_option('post_autor') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="postAuthorCheck">Author
+                                                               name="archiv_show_post_author"
+                                                               id="postAutorAuthorCheck" <?= !get_hupa_option('archiv_show_post_author') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAutorAuthorCheck">Author
                                                             anzeigen</label>
                                                     </div>
 
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="post_kommentar"
-                                                               id="postKommentarCheck" <?= !get_hupa_option('post_kommentar') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="postKommentarCheck">Kommentar
+                                                               name="archiv_show_post_kommentar"
+                                                               id="postArchivKommentarCheck" <?= !get_hupa_option('archiv_show_post_kommentar') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postArchivKommentarCheck">Kommentar
                                                             anzeigen</label>
                                                     </div>
-
                                                     <div class="form-check form-switch me-3">
                                                         <input class="form-check-input" type="checkbox"
-                                                               name="post_tags"
-                                                               id="postTagsCheck" <?= !get_hupa_option('post_tags') ?: 'checked' ?>>
-                                                        <label class="form-check-label" for="postTagsCheck">Schlagworte
+                                                               name="archiv_show_post_tags"
+                                                               id="postArchivTagsCheck" <?= !get_hupa_option('archiv_show_post_tags') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postArchivTagsCheck">Schlagworte
                                                             anzeigen</label>
                                                     </div>
                                                 </div>
                                                 <hr>
+                                                <!--//JOB TEMPLATES Archiv END -->
 
+                                                <!--//JOB TEMPLATES Author -->
+                                                <h5><i class="font-blue fa fa-arrow-circle-right"></i> Einstellungen für
+                                                    Autoren Beitragslisten</h5>
+                                                <div class="form-check form-switch mt-3 me-3 mb-3">
+                                                    <input class="form-check-input change_template_sidebar"
+                                                           data-id="SelectAutorSidebar" type="checkbox"
+                                                           name="autoren_show_sidebar"
+                                                           id="showAutorSidebarCheck" <?= !get_hupa_option('autoren_show_sidebar') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="showAutorSidebarCheck">Sidebar
+                                                        anzeigen</label>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="SelectAutorSidebar" class="form-label">Sidebar
+                                                        auswählen</label>
+                                                    <select id="SelectAutorSidebar" name="autoren_select_sidebar"
+                                                            class="form-select" <?= get_hupa_option('autoren_show_sidebar') ?: 'disabled' ?>>
+                                                        <option value="">auswählen...</option>
+                                                        <?php
+                                                        $sidebarSelect = apply_filters('get_registered_sidebar', false);
+                                                        foreach ($sidebarSelect as $tmp):
+                                                            get_hupa_option('autoren_select_sidebar') == $tmp['value'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['value'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                                <div class="mb-3">
+                                                    <label for="SelectAutorCustomHeader" class="form-label">Custom
+                                                        Header auswählen</label>
+                                                    <select id="SelectAutorCustomHeader" name="autoren_select_header"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $headerSelect = apply_filters('get_custom_header', false);
+                                                        foreach ($headerSelect as $tmp):
+                                                            get_hupa_option('autoren_select_header') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                                <div class="mb-3">
+                                                    <label for="SelectAutorCustomFooter" class="form-label">Custom
+                                                        Footer auswählen</label>
+                                                    <select id="SelectAutorCustomFooter" name="autoren_select_footer"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $footerSelect = apply_filters('get_custom_footer', false);
+                                                        foreach ($footerSelect as $tmp):
+                                                            get_hupa_option('autoren_select_footer') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['label'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                                <div class="form-check form-switch mt-3 me-3">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           name="autoren_show_post_image"
+                                                           id="AutorShowImg" <?= !get_hupa_option('autoren_show_post_image') ?: 'checked' ?>>
+                                                    <label class="form-check-label" for="AutorShowImg">Beitragsbild
+                                                        anzeigen</label>
+                                                </div>
+                                                <h6 class="mt-3">Informationen für Autoren anzeigen</h6>
+
+                                                <div class="d-lg-flex d-block flex-wrap pt-2">
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="autoren_show_kategorie"
+                                                               id="postShowKatAutorCheck" <?= !get_hupa_option('autoren_show_kategorie') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postShowKatAutorCheck">Kategorien
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="autoren_show_post_date"
+                                                               id="postAutorShowDateCheck" <?= !get_hupa_option('autoren_show_post_date') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAutorShowDateCheck">Datum
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="autoren_show_post_author"
+                                                               id="postAutAuthorCheck" <?= !get_hupa_option('autoren_show_post_author') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAutAuthorCheck">Author
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="autoren_show_post_kommentar"
+                                                               id="postAutorKommentarCheck" <?= !get_hupa_option('autoren_show_post_kommentar') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAutorKommentarCheck">Kommentar
+                                                            anzeigen</label>
+                                                    </div>
+                                                    <div class="form-check form-switch me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="autoren_show_post_tags"
+                                                               id="postAutorTagsCheck" <?= !get_hupa_option('autoren_show_post_tags') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="postAutorTagsCheck">Schlagworte
+                                                            anzeigen</label>
+                                                    </div>
+                                                </div>
+
+                                                <!--//JOB TEMPLATES Author END -->
+
+                                                <fieldset class="d-none" disabled>
+                                                    <h6>Vorlage für Kategorie Beitragslisten auswählen</h6>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="kategorie"
+                                                               class="form-check-input change-template" type="radio"
+                                                               name="kategorie_template" id="radioKategorieType1"
+                                                               value="1" <?= get_hupa_option('kategorie_template') == '1' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioKategorieType1">Sidebar
+                                                            rechts</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="kategorie"
+                                                               class="form-check-input change-template" type="radio"
+                                                               name="kategorie_template" id="radioKategorieType2"
+                                                               value="2" <?= get_hupa_option('kategorie_template') == '2' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioKategorieType2">Sidebar
+                                                            links</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="kategorie"
+                                                               class="form-check-input change-template" type="radio"
+                                                               name="kategorie_template" id="radioKategorieType3"
+                                                               value="3" <?= get_hupa_option('kategorie_template') == '3' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioKategorieType3">Grid
+                                                            Sidebar rechts gleiche Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="kategorie"
+                                                               class="form-check-input change-template" type="radio"
+                                                               name="kategorie_template" id="radioKategorieType4"
+                                                               value="4" <?= get_hupa_option('kategorie_template') == '4' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioKategorieType4">Grid
+                                                            gleiche Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="kategorie"
+                                                               class="form-check-input change-template" type="radio"
+                                                               name="kategorie_template" id="radioKategorieType5"
+                                                               value="5" <?= get_hupa_option('kategorie_template') == '5' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label"
+                                                               for="radioKategorieType5">Masonry</label>
+                                                    </div>
+                                                    <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                        zeigt sie die Beitragsliste in 100% Breite an.
+                                                    </div>
+
+                                                    <div class="form-check form-switch mt-3 me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="kategorie_image"
+                                                               id="kategorieShowImg" <?= !get_hupa_option('kategorie_image') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="kategorieShowImg">Beitragsbild
+                                                            anzeigen</label>
+                                                    </div>
+                                                    <hr>
+                                                    <h6>Vorlage für Archiv Beitragslisten auswählen</h6>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="archiv"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="archiv_template" id="radioArchivType1"
+                                                               value="1" <?= get_hupa_option('archiv_template') == '1' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioArchivType1">Sidebar
+                                                            rechts</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="archiv"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="archiv_template" id="radioArchivType2"
+                                                               value="2" <?= get_hupa_option('archiv_template') == '2' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioArchivType2">Sidebar
+                                                            links</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="archiv"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="archiv_template" id="radioArchivType3"
+                                                               value="3" <?= get_hupa_option('archiv_template') == '3' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioArchivType3">Grid
+                                                            Sidebar
+                                                            rechts gleiche Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="archiv"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="archiv_template" id="radioArchivType4"
+                                                               value="4" <?= get_hupa_option('archiv_template') == '4' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioArchivType4">Grid
+                                                            gleiche
+                                                            Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="archiv"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="archiv_template" id="radioArchivType5"
+                                                               value="5" <?= get_hupa_option('archiv_template') == '5' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label"
+                                                               for="radioArchivType5">Masonry</label>
+                                                    </div>
+                                                    <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                        zeigt sie die Beitragsliste in 100% Breite an.
+                                                    </div>
+
+                                                    <div class="form-check form-switch mt-3 me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="archiv_image"
+                                                               id="archivShowImg" <?= !get_hupa_option('archiv_image') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="archivShowImg">Beitragsbild
+                                                            anzeigen</label>
+                                                    </div>
+                                                    <hr>
+
+                                                    <h6>Vorlage für Autoren Beitragslisten auswählen</h6>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="autor"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="autoren_template" id="radioAutorType1"
+                                                               value="1" <?= get_hupa_option('autoren_template') == '1' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioAutorType1">Sidebar
+                                                            rechts</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="autor"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="autoren_template" id="radioAutorType2"
+                                                               value="2" <?= get_hupa_option('autoren_template') == '2' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioAutorType2">Sidebar
+                                                            links</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="autor"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="autoren_template" id="radioAuthorType3"
+                                                               value="3" <?= get_hupa_option('autoren_template') == '3' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioAuthorType3">Grid
+                                                            Sidebar
+                                                            rechts gleiche Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="autor"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="autoren_template" id="radioAutorType4"
+                                                               value="4" <?= get_hupa_option('autoren_template') == '4' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label" for="radioAutorType4">Grid
+                                                            gleiche
+                                                            Höhe</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input data-type="autor"
+                                                               class="form-check-input change-template"
+                                                               type="radio"
+                                                               name="autoren_template" id="radioAutorType5"
+                                                               value="5" <?= get_hupa_option('autoren_template') == '5' ? 'checked' : '' ?>>
+                                                        <label class="form-check-label"
+                                                               for="radioAutorType5">Masonry</label>
+                                                    </div>
+                                                    <div class="form-text">Wenn keine Widgets in der Sidebar aktiv sind,
+                                                        zeigt sie die Beitragsliste in 100% Breite an.
+                                                    </div>
+                                                    <div class="form-check form-switch mt-3 me-3">
+                                                        <input class="form-check-input" type="checkbox"
+                                                               name="author_image"
+                                                               id="authorShowImg" <?= !get_hupa_option('author_image') ?: 'checked' ?>>
+                                                        <label class="form-check-label" for="authorShowImg">Beitragsbild
+                                                            anzeigen</label>
+                                                    </div>
+
+                                                </fieldset>
+                                                <hr>
+                                                <div class="d-none">
+                                                    <h6>Informationen für Beiträge und Beitragslisten anzeigen</h6>
+                                                    <div class="d-lg-flex d-block flex-wrap">
+                                                        <div class="form-check form-switch me-3">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="post_kategorie"
+                                                                   id="postKategorieCheck" <?= !get_hupa_option('post_kategorie') ?: 'checked' ?>>
+                                                            <label class="form-check-label" for="postKategorieCheck">Kategorien
+                                                                anzeigen</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch me-3">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="post_date"
+                                                                   id="postDateCheck" <?= !get_hupa_option('post_date') ?: 'checked' ?>>
+                                                            <label class="form-check-label" for="postDateCheck">Datum
+                                                                anzeigen</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch me-3">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="post_autor"
+                                                                   id="postAuthorCheck" <?= !get_hupa_option('post_autor') ?: 'checked' ?>>
+                                                            <label class="form-check-label" for="postAuthorCheck">Author
+                                                                anzeigen</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch me-3">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="post_kommentar"
+                                                                   id="postKommentarCheck" <?= !get_hupa_option('post_kommentar') ?: 'checked' ?>>
+                                                            <label class="form-check-label" for="postKommentarCheck">Kommentar
+                                                                anzeigen</label>
+                                                        </div>
+
+                                                        <div class="form-check form-switch me-3">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                   name="post_tags"
+                                                                   id="postTagsCheck" <?= !get_hupa_option('post_tags') ?: 'checked' ?>>
+                                                            <label class="form-check-label" for="postTagsCheck">Schlagworte
+                                                                anzeigen</label>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
                                                 <h6>Breadcrumb für Beiträge anzeigen</h6>
                                                 <div class="form-check form-switch me-3">
                                                     <input class="form-check-input" type="checkbox"
@@ -769,6 +1119,29 @@ global $hupa_api_handle;
                                                 </div>
                                             </div>
 
+
+                                            <!--//JOB WARNING 404 SELECT-->
+                                            <div class="col-lg-12">
+                                                <div class="bg-settings">
+                                                    <h5 class="fw-bold p-3 mb-0">
+                                                        <i class="font-blue fa fa-exclamation-triangle"></i>&nbsp;<?= __('404 Template', 'bootscore'); ?>
+                                                    </h5>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="Select404Page" class="form-label">404 Seite auswählen</label>
+                                                    <select id="Select404Page" name="hupa_select_404"
+                                                            class="form-select">
+                                                        <option value="0">auswählen...</option>
+                                                        <?php
+                                                        $pages = apply_filters('get_theme_pages', false);
+                                                        foreach ($pages as $tmp):
+                                                            get_hupa_option('hupa_select_404') == $tmp['id'] ? $katSideSel = 'selected' : $katSideSel = '';
+                                                            ?>
+                                                            <option value="<?= $tmp['id'] ?>" <?= $katSideSel ?>><?= $tmp['name'] ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-12">
                                                 <div class="bg-settings">
                                                     <h5 class="fw-bold p-3 mb-0">

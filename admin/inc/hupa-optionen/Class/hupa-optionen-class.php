@@ -34,6 +34,9 @@ final class HupaStarterThemeOptionen
     public function __construct()
     {
        if(is_user_logged_in() && is_admin()) {
+           if(!get_option('hupa_update_method')){
+               update_option('hupa_update_method', 'git');
+           }
            $this->showThemeLizenzInfo();
            if (site_url() !== get_option('hupa_license_url')) {
                $this->deactivate_hupa_product();

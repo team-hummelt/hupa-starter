@@ -66,6 +66,31 @@ div.wp-menu-image.dashicons-before.dashicons-admin-network::before {
   color: #e11d2a;
 }
 
+.hupa-public-wrapper .li-head {
+  font-size: 20px !important;
+}
+.hupa-public-wrapper .h4-head {
+  font-size: 18px;
+  font-weight: 500;
+}
+.hupa-public-wrapper ul li:first-child:not(ol li) {
+  font-size: 17px;
+  font-weight: 500;
+}
+.hupa-public-wrapper ol li {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+.hupa-public-wrapper ol li:first-child {
+  padding-top: 0.5rem;
+}
+.hupa-public-wrapper .subline {
+  font-size: 22px;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
 .get_hupa_update div.ab-item.ab-empty-item, .get_hupa_contact div.ab-item.ab-empty-item {
   cursor: pointer !important;
 }

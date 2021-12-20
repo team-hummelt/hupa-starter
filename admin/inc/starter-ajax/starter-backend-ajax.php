@@ -185,6 +185,46 @@ switch ($method) {
                 $record->archiv_template = filter_input(INPUT_POST, 'archiv_template', FILTER_SANITIZE_NUMBER_INT);
                 $record->autoren_template = filter_input(INPUT_POST, 'autoren_template', FILTER_SANITIZE_NUMBER_INT);
 
+                //NEW TEMPLATES
+                //KATEGORIE
+                filter_input(INPUT_POST, 'kategorie_show_sidebar', FILTER_SANITIZE_STRING) ? $record->kategorie_show_sidebar = 1 : $record->kategorie_show_sidebar = 0;
+                $record->kategorie_select_sidebar = filter_input(INPUT_POST, 'kategorie_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'kategorie_show_image', FILTER_SANITIZE_STRING) ? $record->kategorie_show_image = 1 : $record->kategorie_show_image = 0;
+                filter_input(INPUT_POST, 'kategorie_show_kategorie', FILTER_SANITIZE_STRING) ? $record->kategorie_show_kategorie = 1 : $record->kategorie_show_kategorie = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_date', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_date = 1 : $record->kategorie_show_post_date = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_author', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_author = 1 : $record->kategorie_show_post_author = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_kommentar = 1 : $record->kategorie_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'kategorie_show_post_tags', FILTER_SANITIZE_STRING) ? $record->kategorie_show_post_tags = 1 : $record->kategorie_show_post_tags = 0;
+                $record->kategorie_select_header = filter_input(INPUT_POST, 'kategorie_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->kategorie_select_footer = filter_input(INPUT_POST, 'kategorie_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //ARCHIVE
+                filter_input(INPUT_POST, 'archiv_show_sidebar', FILTER_SANITIZE_STRING) ? $record->archiv_show_sidebar = 1 : $record->archiv_show_sidebar = 0;
+                $record->archiv_select_sidebar = filter_input(INPUT_POST, 'archiv_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'archiv_show_post_image', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_image = 1 : $record->archiv_show_post_image = 0;
+                filter_input(INPUT_POST, 'archiv_show_kategorie', FILTER_SANITIZE_STRING) ? $record->archiv_show_kategorie = 1 : $record->archiv_show_kategorie = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_date', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_date = 1 : $record->archiv_show_post_date = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_author', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_author = 1 : $record->archiv_show_post_author = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_kommentar = 1 : $record->archiv_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'archiv_show_post_tags', FILTER_SANITIZE_STRING) ? $record->archiv_show_post_tags = 1 : $record->archiv_show_post_tags = 0;
+                $record->archiv_select_header = filter_input(INPUT_POST, 'archiv_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->archiv_select_footer = filter_input(INPUT_POST, 'archiv_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //AUTHOR
+                filter_input(INPUT_POST, 'autoren_show_sidebar', FILTER_SANITIZE_STRING) ? $record->autoren_show_sidebar = 1 : $record->autoren_show_sidebar = 0;
+                $record->autoren_select_sidebar = filter_input(INPUT_POST, 'autoren_select_sidebar', FILTER_SANITIZE_NUMBER_INT);
+                filter_input(INPUT_POST, 'autoren_show_post_image', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_image = 1 : $record->autoren_show_post_image = 0;
+                filter_input(INPUT_POST, 'autoren_show_kategorie', FILTER_SANITIZE_STRING) ? $record->autoren_show_kategorie = 1 : $record->autoren_show_kategorie = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_date', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_date = 1 : $record->autoren_show_post_date = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_author', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_author = 1 : $record->autoren_show_post_author = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_kommentar', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_kommentar = 1 : $record->autoren_show_post_kommentar = 0;
+                filter_input(INPUT_POST, 'autoren_show_post_tags', FILTER_SANITIZE_STRING) ? $record->autoren_show_post_tags = 1 : $record->autoren_show_post_tags = 0;
+                $record->autoren_select_header = filter_input(INPUT_POST, 'autoren_select_header', FILTER_SANITIZE_NUMBER_INT);
+                $record->autoren_select_footer = filter_input(INPUT_POST, 'autoren_select_footer', FILTER_SANITIZE_NUMBER_INT);
+
+                //404 Page
+                $record->hupa_select_404 = filter_input(INPUT_POST, 'hupa_select_404', FILTER_SANITIZE_NUMBER_INT);
+
                 filter_input(INPUT_POST, 'kategorie_image', FILTER_SANITIZE_STRING) ? $record->kategorie_image = 1 : $record->kategorie_image = 0;
                 filter_input(INPUT_POST, 'archiv_image', FILTER_SANITIZE_STRING) ? $record->archiv_image = 1 : $record->archiv_image = 0;
                 filter_input(INPUT_POST, 'author_image', FILTER_SANITIZE_STRING) ? $record->author_image = 1 : $record->author_image = 0;
@@ -1425,19 +1465,16 @@ switch ($method) {
         $btn_select = false;
         $btn_link = false;
         $if_url = false;
-
-        for ($i = 0; $i <= count($btnArg); $i++) {
-
-            $btn_text = filter_input(INPUT_POST, "btn_text_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $btn_url = filter_input(INPUT_POST, "url_$btnArg[$i]", FILTER_VALIDATE_URL);
-
-            $button_color = filter_input(INPUT_POST, "button_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $border_color = filter_input(INPUT_POST, "border_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $bg_color = filter_input(INPUT_POST, "button_bg_color_$btnArg[$i]", FILTER_SANITIZE_STRING);
-
-            $hover_color = filter_input(INPUT_POST, "color_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $hover_border = filter_input(INPUT_POST, "border_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
-            $bg_hover = filter_input(INPUT_POST, "bg_hover_$btnArg[$i]", FILTER_SANITIZE_STRING);
+        if($btnArg):
+        for ($i = 0; $i < count($btnArg); $i++) {
+            isset($_POST["btn_text_$btnArg[$i]"]) ? $btn_text = $_POST["btn_text_$btnArg[$i]"] : $btn_text = '';
+            isset($_POST["url_$btnArg[$i]"]) ? $btn_url = filter_input(INPUT_POST, "url_$btnArg[$i]", FILTER_VALIDATE_URL) : $btn_url = '';
+            isset($_POST["button_color_$btnArg[$i]"]) ? $button_color = sanitize_text_field($_POST["button_color_$btnArg[$i]"]) : $button_color = '';
+            isset($_POST["border_color_$btnArg[$i]"]) ? $border_color = sanitize_text_field($_POST["border_color_$btnArg[$i]"]) : $border_color = '';
+            isset($_POST["button_bg_color_$btnArg[$i]"]) ? $bg_color = sanitize_text_field($_POST["button_bg_color_$btnArg[$i]"]) : $bg_color = '';
+            isset($_POST["color_hover_$btnArg[$i]"]) ? $hover_color = sanitize_text_field($_POST["color_hover_$btnArg[$i]"]) : $hover_color = '';
+            isset($_POST["border_hover_$btnArg[$i]"]) ? $hover_border = sanitize_text_field($_POST["border_hover_$btnArg[$i]"]) : $hover_border = '';
+            isset($_POST["bg_hover_$btnArg[$i]"]) ? $bg_hover = sanitize_text_field($_POST["bg_hover_$btnArg[$i]"]) : $bg_hover = '';
 
             isset($_POST["btn_icon_$btnArg[$i]"]) ? $icon = $_POST["btn_icon_$btnArg[$i]"] : $icon = false;
             isset($_POST["check_target_$btnArg[$i]"]) ? $btn_target = 1 : $btn_target = 0;
@@ -1484,6 +1521,7 @@ switch ($method) {
 
             $btArr[] = $btn_item;
         }
+        endif;
 
         if ($btArr) {
             $record->slider_button = json_encode($btArr);

@@ -56,7 +56,7 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
             if (!session_id()) {
                 @session_start();
             }
-            if ($_SESSION['gmaps']) {
+            if (isset($_SESSION['gmaps']) && ($_SESSION['gmaps']) ) {
                 $this->gmaps = $_SESSION['gmaps'];
             } else {
                 $this->gmaps = false;

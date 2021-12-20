@@ -1446,12 +1446,48 @@ body .bs-formular-wrapper i.fa {
   font-family: FontAwesome, serif !important;
 }
 
+.img-archive-left {
+  height: 265px;
+  object-fit: cover;
+}
+
 .top-button {
   pointer-events: none;
 }
 
+.tags-links.hupa-tags {
+  font-weight: 500;
+  font-style: normal;
+}
+.tags-links.hupa-tags a.badge {
+  font-style: normal;
+  font-weight: 500;
+  background-color: transparent !important;
+  transition: all 350ms;
+  padding: 0.45em 0.65em !important;
+}
+.tags-links.hupa-tags a.badge:hover {
+  background-color: #0a58ca !important;
+  color: #fff !important;
+}
+
 #nav-main-starter {
   z-index: 1030;
+}
+
+.archive-wrapper .blog-post-title {
+  font-style: normal !important;
+  font-weight: initial;
+}
+.archive-wrapper .blog-post-title a {
+  text-decoration: none !important;
+}
+.archive-wrapper .author.vcard a, .archive-wrapper .comments-link a {
+  text-decoration: none;
+  font-weight: normal;
+}
+.archive-wrapper .archive-card-txt a {
+  text-decoration: none;
 }
 
 #preloader-wrapper {

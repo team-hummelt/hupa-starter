@@ -18,7 +18,7 @@ if ( ! function_exists( 'bootscore_category_badge' ) ) :
 			$i = 0;
             foreach( get_the_category() as $category ) {
 		      if ( 0 < $i ) $thelist .= ' ';
-						    $thelist .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" class="badge bg-secondary">' . $category->name.'</a>';
+						    $thelist .= '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" class="badge bg-light border fw-normal fst-normal">' . $category->name.'</a>';
 						    $i++;
             }
             echo $thelist;	
@@ -82,7 +82,7 @@ if ( ! function_exists( 'bootscore_author' ) ) :
 
 	function bootscore_author() {
 		$byline = sprintf(
-			esc_html_x( 'by %s', 'post author', 'bootscore' ),
+			esc_html__( 'by %s', 'bootscore'),
 			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 		);
 
@@ -160,7 +160,7 @@ if ( ! function_exists( 'bootscore_comment_count' ) ) :
 	 */
 	function bootscore_comment_count() {
 		if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo ' | <i class="far fa-comments"></i> <span class="comments-link">';
+			echo ' | <i class="fa fa-comments-o"></i> <span class="comments-link">';
 
 			/* translators: %s: Name of current post. Only visible to screen readers. */
 			// comments_popup_link( sprintf( __( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'bootscore' ), get_the_title() ) );
@@ -188,14 +188,14 @@ if ( ! function_exists( 'bootscore_tags' ) ) :
 			$tags_list = get_the_tag_list( '', ' ' );
 			if ( $tags_list ) {
 				/* translators: 1: list of tags. */
-				printf( '<div class="tags-links mt-2">' . esc_html__( 'Tagged %1$s', 'bootscore' ) . '</div>', $tags_list ); // WPCS: XSS OK.
+				printf( '<div class="tags-links hupa-tags mt-2">' . esc_html__( 'Tagged %1$s', 'bootscore' ) . '</div>', $tags_list ); // WPCS: XSS OK.
 			}
 		}
 	}
     add_filter( "term_links-post_tag", 'add_tag_class');
 
     function add_tag_class($links) {
-        return str_replace('<a href="', '<a class="badge bg-secondary" href="', $links);
+        return str_replace('<a href="', '<a class="badge bg-light border" href="', $links);
     }
 endif;
 // Tags End

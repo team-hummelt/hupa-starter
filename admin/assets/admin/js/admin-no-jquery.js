@@ -26,6 +26,9 @@ let clickAdminBarOptions = document.getElementById("wp-admin-bar-hupa_options_pa
 //RESET MESSAGE ALERT
 let resetMsgAlert = document.getElementById("reset-msg-alert");
 
+
+
+
 /*=================================================
 ========== TOGGLE SETTINGS COLLAPSE BTN  ==========
 ===================================================

@@ -1451,6 +1451,16 @@ body .bs-formular-wrapper i.fa {
   object-fit: cover;
 }
 
+.pagination a:focus, .pagination a:active, .pagination a.active {
+  outline: none !important;
+  box-shadow: none;
+}
+
+.btn:focus, .btn:active, .active.btn:active, .active.btn:focus {
+  outline: none !important;
+  box-shadow: none;
+}
+
 .top-button {
   pointer-events: none;
 }

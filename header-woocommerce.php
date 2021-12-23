@@ -43,14 +43,14 @@
                 <div class="container">
 
                     <button class="navbar-toggler border-0 focus-0 py-2 ps-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar">
-                        <i class="text-secondary fas fa-bars"></i>
+                        <i class="text-secondary fa fa-bars"></i>
                     </button>
 
                     <!-- Top Nav Search Mobile -->
                     <div class="top-nav-search-md d-lg-none ms-2">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary" type="button" id="dropdown-search" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-search"></i>
+                                <i class="fa fa-search"></i>
                             </button>
                             <div class="dropdown-search dropdown-menu position-fixed border-0 bg-light rounded-0 start-0 end-0" aria-labelledby="dropdown-search">
                                 <div class="container">
@@ -79,7 +79,7 @@
 
                     <div class="offcanvas offcanvas-start" tabindex="-1" data-bs-hideresize="true" id="offcanvas-navbar">
                         <div class="offcanvas-header cursor-pointer hover bg-light text-primary" data-bs-dismiss="offcanvas">
-                            <?php esc_html_e('Close menu' , 'bootscore'); ?> <i class="fas fa-chevron-right"></i>
+                            <?php esc_html_e('Close menu' , 'bootscore'); ?> <i class="fa fa-chevron-right"></i>
                         </div>
                         <div class="offcanvas-body">
                             <!-- Bootstrap 5 Nav Walker Main Menu -->
@@ -102,7 +102,7 @@
                     <div class="top-nav-search-lg d-none d-lg-block ms-2 order-lg-2">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary" type="button" id="dropdown-search" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-search"></i>
+                                <i class="fa fa-search"></i>
                             </button>
                             <div class="dropdown-search dropdown-menu position-fixed border-0 bg-light rounded-0 start-0 end-0" aria-labelledby="dropdown-search">
                                 <div class="container">
@@ -118,11 +118,11 @@
 
 
                     <button class="user-toggler right btn btn-outline-secondary ms-2 order-lg-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-user" aria-controls="offcanvas-user">
-                        <i class="fas fa-user"></i>
+                        <i class="fa fa-user"></i>
                     </button>
 
                     <button class="cart-toggler right btn btn-outline-secondary ms-2 order-lg-3 position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-cart" aria-controls="offcanvas-cart">
-                        <i class="fas fa-shopping-bag"></i>
+                        <i class="fa fa-shopping-bag"></i>
                         <?php if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				            $count = WC()->cart->cart_contents_count;
 				        ?>
@@ -142,7 +142,7 @@
             <!-- offcanvas user -->
             <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas-user">
                 <div class="offcanvas-header cursor-pointer hover bg-light text-primary" data-bs-dismiss="offcanvas">
-                    <?php esc_html_e('Close account' , 'bootscore'); ?> <i class="fas fa-chevron-right"></i>
+                    <?php esc_html_e('Close account' , 'bootscore'); ?> <i class="fa fa-chevron-right"></i>
                 </div>
                 <div class="offcanvas-body">
                     <div class="my-offcancas-account">
@@ -154,7 +154,7 @@
             <!-- offcanvas cart -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-cart">
                 <div class="offcanvas-header cursor-pointer hover bg-light text-primary" data-bs-dismiss="offcanvas">
-                    <i class="fas fa-chevron-left"></i> <?php esc_html_e('Continue shopping' , 'bootscore'); ?>
+                    <i class="fa fa-chevron-left"></i> <?php esc_html_e('Continue shopping' , 'bootscore'); ?>
                 </div>
                 <div class="offcanvas-body p-0">
                     <div class="cart-loader bg-white position-absolute end-0 bottom-0 start-0 d-flex align-items-center justify-content-center">

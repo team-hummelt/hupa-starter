@@ -102,7 +102,7 @@ if ( ! function_exists( 'bootscore_comments' ) ) :
 
 
 		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-			echo ' | <i class="far fa-comments"></i> <span class="comments-link">';
+			echo ' | <i class="fa fa-comments"></i> <span class="comments-link">';
 			comments_popup_link(
 				sprintf(
 					wp_kses(

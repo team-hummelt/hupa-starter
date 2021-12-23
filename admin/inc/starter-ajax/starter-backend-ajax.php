@@ -1445,16 +1445,16 @@ switch ($method) {
         $record->data_alt = filter_input(INPUT_POST, 'data_alt', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
 
         $record->font_color = filter_input(INPUT_POST, 'font_color', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        $record->first_caption = filter_input(INPUT_POST, 'first_caption', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $record->first_caption = filter_input(INPUT_POST, 'first_caption', FILTER_SANITIZE_STRING);
         $record->first_selector = filter_input(INPUT_POST, 'first_selector', FILTER_SANITIZE_NUMBER_INT);
-        $record->first_css = filter_input(INPUT_POST, 'first_css', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $record->first_css = filter_input(INPUT_POST, 'first_css', FILTER_SANITIZE_STRING);
         $first_font = filter_input(INPUT_POST, 'first_font', FILTER_SANITIZE_STRING);
         $first_style = filter_input(INPUT_POST, 'first_style', FILTER_SANITIZE_NUMBER_INT);
         $record->first_size = filter_input(INPUT_POST, 'first_size', FILTER_SANITIZE_NUMBER_INT);
         $record->first_height = filter_input(INPUT_POST, 'first_height', FILTER_SANITIZE_STRING);
         $record->first_ani = filter_input(INPUT_POST, 'first_ani', FILTER_SANITIZE_STRING);
 
-        $record->second_caption = filter_input(INPUT_POST, 'second_caption', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+        $record->second_caption = filter_input(INPUT_POST, 'second_caption', FILTER_SANITIZE_STRING);
         $record->second_css = filter_input(INPUT_POST, 'second_css', FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
         $second_font = filter_input(INPUT_POST, 'second_font', FILTER_SANITIZE_STRING);
         $second_style = filter_input(INPUT_POST, 'second_style', FILTER_SANITIZE_NUMBER_INT);

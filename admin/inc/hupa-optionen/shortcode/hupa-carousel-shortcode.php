@@ -199,16 +199,16 @@ if (!class_exists('HupaCarouselShortCode')) {
                     $selector = apply_filters('get_container_selector', false);
                     $firstSelector = $selector->{$tmp->first_selector};
                     $firstStyle = $firstFont->family . $firstFont->fontStyle . $firstFont->fontWeight
-                        . 'font-size:' . $this->px_to_rem($tmp->first_size) . '!important;'
-                        . 'color: ' . $tmp->font_color . '!important;'
+                        . 'font-size:' . $this->px_to_rem($tmp->first_size) . ';'
+                        . 'color: ' . $tmp->font_color . ';'
                         . 'padding: 1rem 1rem 0;'
-                        . 'line-height: ' . $tmp->first_height . '!important;';
+                        . 'line-height: ' . $tmp->first_height . ';';
 
                     $secondStyle = $secondFont->family . $secondFont->fontStyle . $secondFont->fontWeight
-                        . 'font-size:' . $this->px_to_rem($tmp->second_size) . '!important;'
-                        . 'color: ' . $tmp->font_color . '!important;'
+                        . 'font-size:' . $this->px_to_rem($tmp->second_size) . ';'
+                        . 'color: ' . $tmp->font_color . ';'
                         . 'padding: 0 .5rem .5rem .5rem;'
-                        . 'line-height: ' . $tmp->second_height . '!important;';
+                        . 'line-height: ' . $tmp->second_height . ';';
                     if (!$tmp->first_caption && !$tmp->second_caption) {
                         $btnPadding = 'style="padding: 1.5rem 0;"';
                     } else {

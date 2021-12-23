@@ -27,7 +27,7 @@ defined( 'ABSPATH' ) or die();
 			aria-controls="navbarSupportedContent"
 			aria-expanded="false"
 			aria-label="Toggle navigation">
-			<i class="fas fa-bars"></i>
+			<i class="fa fa-bars"></i>
 		</button>
 
 		<!-- Collapsible wrapper -->
@@ -61,10 +61,10 @@ defined( 'ABSPATH' ) or die();
 			<!-- Icons -->
 			<ul class="navbar-nav d-flex flex-row me-1">
 				<li class="nav-item me-3 me-lg-0">
-					<a class="nav-link" href="#"><i class="fas fa-shopping-cart"></i></a>
+					<a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i></a>
 				</li>
 				<li class="nav-item me-3 me-lg-0">
-					<a class="nav-link" href="#"><i class="fab fa-twitter"></i></a>
+					<a class="nav-link" href="#"><i class="fa fa-twitter"></i></a>
 				</li>
 			</ul>
 			<!-- Search -->

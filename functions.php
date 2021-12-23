@@ -410,7 +410,7 @@ if (!function_exists('wpsites_query')) :
     function wpsites_query($query)
     {
         if ($query->is_archive() && $query->is_main_query() && !is_admin()) {
-            $query->set('posts_per_page', 24);
+            $query->set('posts_per_page', 10);
         }
     }
 

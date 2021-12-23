@@ -55,7 +55,7 @@ get_hupa_option( 'handy' ) == 1 ? $handyMenu = 'menu1' : $handyMenu = 'menu2';
 		</div>
 		<button class="navbar-toggler border-0 focus-0 py-2 pe-0 ms-auto ms-lg-2" type="button" data-bs-toggle="offcanvas"
 		        data-bs-target="#offcanvas-navbar" aria-controls="offcanvas-navbar">
-			<i class="text-secondary fas fa-bars"></i>
+			<i class="text-secondary fa fa-bars"></i>
 		</button>
 		<div class="offcanvas <?=$handyMenu?> offcanvas-end" tabindex="-1" data-bs-hideresize="true" id="offcanvas-navbar">
            <div class="offcanvas-header">

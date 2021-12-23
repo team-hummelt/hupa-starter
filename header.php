@@ -28,12 +28,6 @@
 <body <?php body_class(); ?>>
 <?php
 $pageSettings = apply_filters('get_page_meta_data', get_the_ID());
-
-$id404 = get_hupa_option('hupa_select_404');
-if($id404 && is_404()) {
-    $showMenuMeta = get_post_meta(get_hupa_option('hupa_select_404'), '_hupa_select_top_area', true);
-    $pageSettings = apply_filters('get_page_meta_data', get_hupa_option('hupa_select_404'));
-}
 ?>
     <div id="to-top"></div>
 <div id="page" class="site">

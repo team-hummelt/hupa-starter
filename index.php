@@ -51,7 +51,7 @@
                                             </div>
                                             <div class="col-2 text-end">
                                                 <!-- Featured -->
-                                                <div class="badge bg-danger"><span class=""><i class="fas fa-star"></i></i></span></div>
+                                                <div class="badge bg-danger"><span class=""><i class="fa fa-star"></i></i></span></div>
                                             </div>
                                         </div>
                                         <!-- Title -->
@@ -138,6 +138,7 @@
                         </div>
                     </div>
                     <?php endwhile; ?>
+
                     <?php endif; ?>
     
                     <!-- Pagination -->

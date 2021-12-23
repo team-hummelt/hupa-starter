@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <label class="sr-only" for="woocommerce-product-search-field-<?php echo isset( $index ) ? absint( $index ) : 0; ?>"><?php esc_html_e( 'Search for:', 'woocommerce' ); ?></label>
         <input type="hidden" name="post_type" value="product" />
     
-            <button class="input-group-text btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+            <button class="input-group-text btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
      
     </div>
 </form>

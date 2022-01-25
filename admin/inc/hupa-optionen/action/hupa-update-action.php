@@ -1,6 +1,7 @@
 <?php
 
 namespace Hupa\StarterTheme;
+use Exception;
 use stdClass;
 
 defined('ABSPATH') or die();
@@ -63,7 +64,13 @@ if (!class_exists('StarterThemeUpdateAction')) {
 
                 $src = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR . 'Roboto';
                 $dest = THEME_FONTS_DIR;
-                shell_exec("cp -r $src $dest");
+                try {
+                    $this->recursive_copy($src, $dest);
+                } catch (Exception $e){
+
+                }
+
+                //shell_exec("cp -r $src $dest");
                 $css = file_get_contents(THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR .'Roboto.css', true);
                 file_put_contents(THEME_FONTS_DIR . 'Roboto.css', $css);
 
@@ -89,6 +96,31 @@ if (!class_exists('StarterThemeUpdateAction')) {
 
                 apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
             }
+        }
+
+        /**
+         * @throws Exception
+         */
+      public function recursive_copy($src, $dst) {
+
+            $dir = opendir($src);
+
+            if(!is_dir($dst)){
+                if( !mkdir($dst) ) {
+                    throw new Exception('Recursive Copy - Destination Ordner nicht gefunden gefunden.');
+                }
+            }
+            while(( $file = readdir($dir)) ) {
+                if (( $file != '.' ) && ( $file != '..' )) {
+                    if ( is_dir($src . DIRECTORY_SEPARATOR . $file) ) {
+                        $this->recursive_copy($src . DIRECTORY_SEPARATOR . $file, $dst . DIRECTORY_SEPARATOR . $file);
+                    }
+                    else {
+                        copy($src . DIRECTORY_SEPARATOR . $file,$dst . DIRECTORY_SEPARATOR . $file);
+                    }
+                }
+            }
+            closedir($dir);
         }
     }
 }

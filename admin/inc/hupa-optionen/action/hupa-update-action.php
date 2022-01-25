@@ -52,22 +52,15 @@ if (!class_exists('StarterThemeUpdateAction')) {
                 apply_filters('generate_theme_css', '');
             }
 
-
             $message = '';
             if(!is_dir(THEME_FONTS_DIR. DIRECTORY_SEPARATOR . 'Roboto')){
-                $robotoDir = THEME_FONTS_DIR. DIRECTORY_SEPARATOR . 'Roboto';
-                if (!mkdir($robotoDir, 0755, true)) {
-                    $message .= '#Erstellung der Verzeichnisse für die Fonts schlug fehl...';
-                    update_option('hupa_update_error_message', $message);
-                    return null;
-                }
-
                 $src = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR . 'Roboto';
-                $dest = THEME_FONTS_DIR;
+                $dest = THEME_FONTS_DIR . 'Roboto';
                 try {
-                    $this->recursive_copy($src, $dest);
-                } catch (Exception $e){
-
+                    $this->recursive_copy($src, $dest, true);
+                } catch (Exception $e) {
+                    do_action('hupa-theme/log','error', $e->getMessage());
+                    exit();
                 }
 
                 //shell_exec("cp -r $src $dest");
@@ -81,18 +74,18 @@ if (!class_exists('StarterThemeUpdateAction')) {
             if ($vers < 106) {
                 $slider = apply_filters('get_carousel_data','hupa_slider');
                 $update = new stdClass();
-               if($slider->status) {
-                   foreach ($slider->record as $tmp) {
-                       $update->first_font = 'Roboto';
-                       $update->first_style = 3;
-                       $update->second_font = 'Roboto';
-                       $update->second_style = 3;
-                       $update->id = $tmp->id;
-                       apply_filters('update_slider_family_style', $update);
-                   }
+                if($slider->status) {
+                    foreach ($slider->record as $tmp) {
+                        $update->first_font = 'Roboto';
+                        $update->first_style = 3;
+                        $update->second_font = 'Roboto';
+                        $update->second_style = 3;
+                        $update->id = $tmp->id;
+                        apply_filters('update_slider_family_style', $update);
+                    }
 
-                   apply_filters('generate_theme_css', '');
-               }
+                    apply_filters('generate_theme_css', '');
+                }
 
                 apply_filters('update_hupa_options', 'no-data', 'sync_font_folder');
             }
@@ -101,7 +94,7 @@ if (!class_exists('StarterThemeUpdateAction')) {
         /**
          * @throws Exception
          */
-      public function recursive_copy($src, $dst) {
+        public function recursive_copy($src, $dst, $delete = false) {
 
             $dir = opendir($src);
 
@@ -114,9 +107,15 @@ if (!class_exists('StarterThemeUpdateAction')) {
                 if (( $file != '.' ) && ( $file != '..' )) {
                     if ( is_dir($src . DIRECTORY_SEPARATOR . $file) ) {
                         $this->recursive_copy($src . DIRECTORY_SEPARATOR . $file, $dst . DIRECTORY_SEPARATOR . $file);
-                    }
-                    else {
+                    } else {
                         copy($src . DIRECTORY_SEPARATOR . $file,$dst . DIRECTORY_SEPARATOR . $file);
+                        if($delete){
+                            if(is_file($src . DIRECTORY_SEPARATOR . $file)){
+                                if(!unlink($src . DIRECTORY_SEPARATOR . $file)){
+                                    throw new Exception('Recursive Copy - Source konnte nicht gelöscht werden.');
+                                }
+                            }
+                        }
                     }
                 }
             }

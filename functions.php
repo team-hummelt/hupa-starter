@@ -7,8 +7,28 @@
  * @package Bootscore
  */
 
+add_action('hupa-theme/log', 'hupaThemeSystemLog', 0, 2);
+/**
+ * @throws Exception
+ */
+function hupaThemeSystemLog($type, $msg)
+{
+    $logDir = __DIR__ . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR;
+    if (!is_dir($logDir)) {
+        if (!mkdir($logDir, 0755, true)) {
+            throw new Exception('Error Log-Dir - Ordner konnte nicht erstellt werden.');
+        }
+    }
+    $logFile = $logDir . 'theme-log.log';
+    $new = $type . '|' . current_time('mysql') . '|' . $msg . "\r\n";
+    file_put_contents($logFile, $new, FILE_APPEND);
+
+}
+
+
 //TODO WARNING JOB THEME INIT
 require_once('admin/hupa-starter-options-init.php');
+
 
 //TODO THEME UPDATER
 //delete_option('hupa_starter_product_install_authorize');

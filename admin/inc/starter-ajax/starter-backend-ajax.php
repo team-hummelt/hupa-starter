@@ -1825,6 +1825,7 @@ switch ($method) {
         $dataArr = [];
         $retPlugin = [];
         $retTheme = [];
+
         if ($apiData->products_status) {
             foreach ($apiData->products as $key => $val) {
                 if ($key == 'Plugin') {

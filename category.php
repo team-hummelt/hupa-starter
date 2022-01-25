@@ -42,7 +42,7 @@ get_header();
                                             <div class="card-body">
                                                 <?php !get_hupa_option('kategorie_show_kategorie') ?: bootscore_category_badge(); ?>
                                                 <!-- Title -->
-                                                <h4 class="blog-post-title">
+                                                <h4 data-id="<?=get_the_ID()?>" <?php post_class("blog-post-title entry-title") ?>>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <?php
                                                         if ($pageSettings->showTitle) {
@@ -63,7 +63,7 @@ get_header();
                                                 <?php endif; ?>
                                                 <!-- Excerpt & Read more -->
                                                 <div class="archive-card-txt card-text fst-normal fw-normal mt-auto">
-                                                    <?php the_excerpt(); ?> <a class="read-more"
+                                                   <?php the_excerpt();?> <a class="read-more"
                                                                                href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                                 </div>
                                                 <?php if (get_hupa_option('social_kategorie')): ?>

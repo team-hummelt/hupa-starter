@@ -51,6 +51,10 @@
   color: #2bff76 !important;
 }
 
+#toplevel_page_bs-formular2 div.wp-menu-image.dashicons-before.dashicons-email-alt::before {
+  color: #ffbf31 !important;
+}
+
 .menu_hupa {
   margin-right: 4px;
   display: inline;

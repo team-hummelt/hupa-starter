@@ -110,6 +110,7 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
         }
 
         function wp_theme_custom_upload_dir($path){
+            if(isset($_POST['name'])):
             $extension = substr(strrchr($_POST['name'],'.'),1);
             if(!empty($path['error']) ||  $extension != 'pdf') { return $path; } //error or other filetype; do nothing.
             $customdir = '/pdf';
@@ -118,6 +119,7 @@ if ( ! class_exists( 'StarterThemeWPOptionen' ) ) {
             $path['subdir']  = $customdir;
             $path['path']   .= $customdir;
             $path['url']    .= $customdir;
+            endif;
             return $path;
         }
 

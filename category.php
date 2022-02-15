@@ -21,6 +21,7 @@ get_header();
         <div id="primary" class="content-area archive-wrapper container pt-5">
             <!-- Hook to add something nice -->
             <?php bs_after_primary(); ?>
+            <?php !get_hupa_option('post_breadcrumb') ?: the_breadcrumb(); ?>
             <header class="page-header mb-4">
                 <h1 class="fs-2"><?php single_cat_title(); ?></h1>
                 <?php the_archive_description('<div class="archive-description">', '</div>'); ?>
@@ -42,7 +43,7 @@ get_header();
                                             <div class="card-body">
                                                 <?php !get_hupa_option('kategorie_show_kategorie') ?: bootscore_category_badge(); ?>
                                                 <!-- Title -->
-                                                <h4 class="blog-post-title">
+                                                <h4 data-id="<?=get_the_ID()?>" <?php post_class("blog-post-title entry-title pt-2") ?>>
                                                     <a href="<?php the_permalink(); ?>">
                                                         <?php
                                                         if ($pageSettings->showTitle) {
@@ -62,8 +63,8 @@ get_header();
                                                     </small>
                                                 <?php endif; ?>
                                                 <!-- Excerpt & Read more -->
-                                                <div class="archive-card-txt card-text fst-normal fw-normal mt-auto">
-                                                    <?php the_excerpt(); ?> <a class="read-more"
+                                                <div class="archive-card-txt card-text fst-normal small fw-normal mt-auto">
+                                                   <?php the_excerpt();?> <a class="read-more"
                                                                                href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                                 </div>
                                                 <?php if (get_hupa_option('social_kategorie')): ?>
@@ -80,10 +81,9 @@ get_header();
                                 </div>
                             <?php endwhile; ?>
                         <?php endif; ?>
-
                         <!-- Pagination -->
                         <div>
-                            <?php bootscore_pagination(); ?>
+                            <?php hupa_theme_pagination(); ?>
                         </div>
                     </main><!-- #main -->
                 </div><!-- col -->

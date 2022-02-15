@@ -7,8 +7,27 @@
  * @package Bootscore
  */
 
+add_action('hupa-theme/log', 'hupaThemeSystemLog', 0, 2);
+/**
+ * @throws Exception
+ */
+function hupaThemeSystemLog($type, $msg)
+{
+    $logDir = __DIR__ . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'inc' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR;
+    if (!is_dir($logDir)) {
+        if (!mkdir($logDir, 0755, true)) {
+            throw new Exception('Error Log-Dir - Ordner konnte nicht erstellt werden.');
+        }
+    }
+    $logFile = $logDir . 'theme-log.log';
+    $new = $type . '|' . current_time('mysql') . '|' . $msg . "\r\n";
+    file_put_contents($logFile, $new, FILE_APPEND | LOCK_EX);
+}
+
+
 //TODO WARNING JOB THEME INIT
 require_once('admin/hupa-starter-options-init.php');
+
 
 //TODO THEME UPDATER
 //delete_option('hupa_starter_product_install_authorize');
@@ -195,7 +214,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'description' => esc_html__('Add widgets here.', 'bootscore'),
             'before_widget' => '<section id="%1$s" class="widget %2$s widget-sidebar card card-body mb-4">',
             'after_widget' => '</section>',
-            'before_title' => '<h2 class="widget-title card-title border-bottom py-2">',
+            'before_title' => '<h2 class="widget-title card-title fst-normal fw-normal border-bottom py-2">',
             'after_title' => '</h2>',
         ));
 
@@ -205,7 +224,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'description' => esc_html__('Add widgets here.', 'bootscore'),
             'before_widget' => '<section id="%1$s" class="widget %2$s widget-sidebar card card-body mb-4">',
             'after_widget' => '</section>',
-            'before_title' => '<h2 class="widget-title card-title border-bottom py-2">',
+            'before_title' => '<h2 class="widget-title card-title fst-normal fw-normal border-bottom py-2">',
             'after_title' => '</h2>',
         ));
 
@@ -215,7 +234,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'description' => esc_html__('Add widgets here.', 'bootscore'),
             'before_widget' => '<section id="%1$s" class="widget %2$s widget-sidebar card card-body mb-4">',
             'after_widget' => '</section>',
-            'before_title' => '<h2 class="widget-title card-title border-bottom py-2">',
+            'before_title' => '<h2 class="widget-title card-title fst-normal fw-normal border-bottom py-2">',
             'after_title' => '</h2>',
         ));
 
@@ -223,9 +242,9 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Sidebar 4', 'bootscore'),
             'id' => 'sidebar-4',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<section id="%1$s" class="widget %2$s widget-sidebar card card-body mb-4 bg-light">',
+            'before_widget' => '<section id="%1$s" class="widget %2$s widget-sidebar card card-body mb-4">',
             'after_widget' => '</section>',
-            'before_title' => '<h2 class="widget-title card-title border-bottom py-2">',
+            'before_title' => '<h2 class="widget-title card-title fst-normal fw-normal border-bottom py-2">',
             'after_title' => '</h2>',
         ));
 
@@ -236,9 +255,9 @@ if (!function_exists('bootscore_widgets_init')) :
                 'name' => esc_html__('WooCommerce Sidebar', 'bootscore'),
                 'id' => 'sidebar-4',
                 'description' => esc_html__('Add widgets here.', 'bootscore'),
-                'before_widget' => '<section id="%1$s" class="widget %2$s card card-body mb-4 bg-light border-0">',
+                'before_widget' => '<section id="%1$s" class="widget %2$s card card-body mb-4 border-0">',
                 'after_widget' => '</section>',
-                'before_title' => '<h2 class="widget-title card-title border-bottom py-2">',
+                'before_title' => '<h2 class="widget-title card-title fst-normal fw-normal border-bottom py-2">',
                 'after_title' => '</h2>',
             ));
         }
@@ -249,7 +268,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Top Footer', 'bootscore'),
             'id' => 'top-footer',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="top_footer mb-5">',
+            'before_widget' => '<div id="%1$s" class="top_footer %2$s mb-5">',
             'after_widget' => '</div>',
             'before_title' => '<h2 class="widget-title">',
             'after_title' => '</h2>'
@@ -261,7 +280,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Footer 1', 'bootscore'),
             'id' => 'footer-1',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="footer_widget mb-4">',
+            'before_widget' => '<div id="%1$s" class="footer_widget %2$s mb-4">',
             'after_widget' => '</div>',
             'before_title' => '<h2 class="widget-title h4">',
             'after_title' => '</h2>'
@@ -273,7 +292,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Footer 2', 'bootscore'),
             'id' => 'footer-2',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="footer_widget mb-4">',
+            'before_widget' => '<div id="%1$s" class="footer_widget %2$s mb-4">',
             'after_widget' => '</div>',
             'before_title' => '<h2 class="widget-title h4">',
             'after_title' => '</h2>'
@@ -285,7 +304,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Footer 3', 'bootscore'),
             'id' => 'footer-3',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="footer_widget mb-4">',
+            'before_widget' => '<div id="%1$s" class="footer_widget %2$s mb-4">',
             'after_widget' => '</div>',
             'before_title' => '<h2 class="widget-title h4">',
             'after_title' => '</h2>'
@@ -297,7 +316,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('Footer 4', 'bootscore'),
             'id' => 'footer-4',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="footer_widget mb-4">',
+            'before_widget' => '<div id="%1$s" class="footer_widget %2$s mb-4">',
             'after_widget' => '</div>',
             'before_title' => '<h2 class="widget-title h4">',
             'after_title' => '</h2>'
@@ -309,7 +328,7 @@ if (!function_exists('bootscore_widgets_init')) :
             'name' => esc_html__('404 Page', 'bootscore'),
             'id' => '404-page',
             'description' => esc_html__('Add widgets here.', 'bootscore'),
-            'before_widget' => '<div class="mb-4">',
+            'before_widget' => '<div id="%1$s" class="mb-4 %2$s">',
             'after_widget' => '</div>',
             'before_title' => '<h1 class="widget-title">',
             'after_title' => '</h1>'
@@ -323,7 +342,6 @@ if (!function_exists('bootscore_widgets_init')) :
 
 endif;
 // Widgets END
-
 
 // Shortcode in HTML-Widget
 add_filter('widget_text', 'do_shortcode');
@@ -347,7 +365,7 @@ function bootscore_scripts()
     // Style CSS
     wp_enqueue_style('bootscore-style', get_stylesheet_uri(), array(), $modificated);
     // Bootstrap
-    wp_enqueue_style('bootstrap', get_template_directory_uri() . '/css/lib/bootstrap.min.css', array(), $modificated);
+    wp_enqueue_style('bootstrap-style', get_template_directory_uri() . '/css/lib/bootstrap.min.css', array(), $modificated);
     // Fontawesome
     //wp_enqueue_style('fontawesome', get_template_directory_uri() . '/css/lib/fontawesome.css', array(), $modificated);
     //Autogenerate CSS
@@ -356,7 +374,7 @@ function bootscore_scripts()
     wp_enqueue_style('starter-theme-custom-style', get_template_directory_uri() . '/css/hupa-theme/theme-custom.css', array(), $modificated);
 
     // Bootstrap JS
-    wp_enqueue_script('bootstrap', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array(), $modificated, true);
+    wp_enqueue_script('bootstrap-script', get_template_directory_uri() . '/js/lib/bootstrap.bundle.min.js', array(), $modificated, true);
 
     // Theme JS
     wp_enqueue_script('bootscore-script', get_template_directory_uri() . '/js/theme.js', array(), $modificated, true);
@@ -378,7 +396,7 @@ add_action('wp_enqueue_scripts', 'bootscore_scripts');
 function wpse_231597_style_loader_tag($tag)
 {
 
-    return preg_replace("/id='font-awesome-css'/", "id='fontawesome-css' online=\"if(media!='all')media='all'\"", $tag);
+   // return preg_replace("/id='font-awesome-css'/", "id='fontawesome-css' online=\"if(media!='all')media='all'\"", $tag);
 
 }
 
@@ -403,23 +421,6 @@ if (defined('JETPACK__VERSION')) {
     require get_template_directory() . '/inc/jetpack.php';
 }
 
-
-// Amount of posts/products in category
-if (!function_exists('wpsites_query')) :
-
-    function wpsites_query($query)
-    {
-        if ($query->is_archive() && $query->is_main_query() && !is_admin()) {
-            $query->set('posts_per_page', 10);
-        }
-    }
-
-    add_action('pre_get_posts', 'wpsites_query');
-
-endif;
-// Amount of posts/products in category END
-
-
 // Pagination Categories
 function bootscore_pagination($pages = '', $range = 2)
 {
@@ -428,7 +429,6 @@ function bootscore_pagination($pages = '', $range = 2)
     if ($pages == '') {
         global $wp_query;
         $pages = $wp_query->max_num_pages;
-
         if (!$pages)
             $pages = 1;
     }
@@ -459,6 +459,55 @@ function bootscore_pagination($pages = '', $range = 2)
         echo '</ul>';
         echo '</nav>';
         // echo '<div class="pagination-info mb-5 text-center">[ <span class="text-muted">Page</span> '.$paged.' <span class="text-muted">of</span> '.$pages.' ]</div>';
+    }
+}
+
+// Amount of posts/products in category
+if (!function_exists('wpsites_query')) :
+
+    function wpsites_query($query)
+    {
+        if ($query->is_archive() && $query->is_main_query() && !is_admin()) {
+            $query->set('posts_per_page', 10);
+        }
+    }
+
+    add_action('pre_get_posts', 'wpsites_query');
+
+endif;
+
+function hupa_theme_pagination($pages = '', $range = 2)
+{
+    $showitems = ($range * 2) + 1;
+    $paged = 1;
+    if (get_query_var('paged')) $paged = get_query_var('paged');
+    global $wp_query;
+    if ($pages == '') {
+        $pages = $wp_query->max_num_pages;
+        if (!$pages)
+            $pages = 1;
+    }
+
+    $html = '';
+    if (1 != $pages) {
+        $paged == (int)$pages ? $last = 'disabled' : $last = '';
+        $paged == '1' ? $first = 'disabled' : $first = '';
+        $html .= '<nav id="theme-pagination" aria-label="Page navigation" role="navigation">';
+        $html .= '<span class="sr-only">Page navigation</span>';
+        $html .= '<ul class="pagination justify-content-center ft-wpbs mb-4">';
+        $html .= '<li class="page-item ' . $first . '"><a class="page-link" href="' . get_pagenum_link(1) . '" aria-label="First Page"><i class="fa fa-angle-double-left"></i></a></li>';
+        $html .= '<li class="page-item ' . $first . '"><a class="page-link" href="' . get_pagenum_link($paged - 1) . '" aria-label="Previous Page"><i class="fa fa-angle-left"></i></a></li>';
+        for ($i = 1; $i <= $pages; $i++) {
+            if (1 != $pages && (!($i >= $paged + $range + 1 || $i <= $paged - $range - 1) || $pages <= $showitems)) {
+                $html .= ($paged == $i) ? '<li class="page-item active"><span class="page-link"><span class="sr-only">Current Page </span>' . $i . '</span></li>' : '<li class="page-item"><a class="page-link" href="' . get_pagenum_link($i) . '"><span class="sr-only">Page </span>' . $i . '</a></li>';
+            }
+        }
+        $html .= '<li class="page-item ' . $last . '"><a class="page-link" href="' . get_pagenum_link($paged + 1) . '" aria-label="Next Page"><i class="fa fa-angle-right"></i> </a></li>';
+        $html .= '<li class="page-item ' . $last . '"><a class="page-link" href="' . get_pagenum_link($pages) . '" aria-label="Last Page"><i class="fa fa-angle-double-right"></i> </a></li>';
+        $html .= '</ul>';
+        $html .= '</nav>';
+        $html .= '<div class="pagination-info mb-5 text-center"> <span class="text-muted">( Seite</span> ' . $paged . ' <span class="text-muted">von ' . $pages . ' )</span></div>';
+        echo preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $html));
     }
 }
 

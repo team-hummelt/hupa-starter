@@ -7,7 +7,7 @@
  * @package Bootscore
  */
 $pageSettings = apply_filters('get_page_meta_data', (int)get_the_ID());
-$pageSettings->title_css ? $titleCss = 'class="' . $pageSettings->title_css . '"' : $titleCss = '';
+$pageSettings->title_css ? $titleCss = 'class="entry-title ' . $pageSettings->title_css . '"' : $titleCss = 'class="entry-title"';
 get_header();
 ?>
     <div class="site-content">

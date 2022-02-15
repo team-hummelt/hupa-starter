@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    //document.addEventListener('mouseup', onMouseUp, true); // {passive: true, capture: true}
-    let contBlueimp = document.getElementById("blueimp-gallery");
-
 
     (function ($) {
 
@@ -46,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let carouselMargin;
         let middleLogo = $('.middle-img');
         let topArea = $('#top-area-wrapper');
-        let isFixedHeader;
+        let isFixedHeader = '';
         let carouselItem = $('.header-carousel .carousel-item');
         let carouselImg = $('.header-carousel img.bgImage');
         let imgFullHeight = carouselImg.outerHeight() - topArea.outerHeight();
@@ -72,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         $(window).on("resize", function (event) {
-            //console.log( $(this).width() );
+            console.log( $(this).width() );
             let scroll = $(window).scrollTop();
             carouselMargin = header.innerHeight() - header.innerHeight();
             if (topArea[0] && carouselWrapper.hasClass('carousel-margin-top')) {
@@ -176,80 +173,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
-
-        let gmDsCheck = document.querySelectorAll('.gmaps-karte-check');
-        if (gmDsCheck) {
-            let dsEvent = Array.prototype.slice.call(gmDsCheck, 0);
-            dsEvent.forEach(function (dsEvent) {
-                dsEvent.addEventListener("click", function (e) {
-                    dsEvent.blur();
-                    let parentButton = dsEvent.form.querySelector('button');
-                    if(dsEvent.checked){
-                        parentButton.classList.remove('disabled');
-                    } else {
-                        parentButton.classList.add('disabled');
-                    }
-                });
-            });
-        }
-
-        let gmDsButton = document.querySelectorAll('.hupa-iframe-btn');
-        if (gmDsButton) {
-            let dsBtnEvent = Array.prototype.slice.call(gmDsButton, 0);
-            dsBtnEvent.forEach(function (dsBtnEvent) {
-                dsBtnEvent.addEventListener("click", function (e) {
-                    dsBtnEvent.blur();
-                    let dsCheck =dsBtnEvent.form.querySelector('.form-check-input');
-                    if(!dsCheck.checked){
-                        return false;
-                    }
-
-                    let code = dsBtnEvent.getAttribute('data-id');
-                    let width = dsBtnEvent.getAttribute('data-width');
-                    let height = dsBtnEvent.getAttribute('data-height');
-
-                    const data = {
-                        'method': 'get_iframe_card',
-                        'code': code,
-                        'width': width,
-                        'height': height
-                    }
-                    sendXhrFormular(data, false);
-                });
-            });
-        }
-
-        function sendXhrFormular(data, is_formular = true) {
-            let xhr = new XMLHttpRequest();
-            let formData = new FormData();
-            xhr.open('POST', theme_ajax_obj.ajax_url, true);
-
-            if (is_formular) {
-                let input = new FormData(data);
-                for (let [name, value] of input) {
-                    formData.append(name, value);
-                }
-            } else {
-                for (let [name, value] of Object.entries(data)) {
-                    formData.append(name, value);
-                }
-            }
-
-            formData.append('_ajax_nonce', theme_ajax_obj.nonce);
-            formData.append('action', 'HupaStarterNoAdmin');
-            xhr.send(formData);
-            //Response
-            xhr.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    let data = JSON.parse(this.responseText);
-                    if (data.status) {
-                        sessionStorage.setItem('gmaps', true);
-                        $('.iframe' + data.code).html(data.iframe);
-                    }
-                }
-            }
-        }
-
         // Preloader script
         jQuery(window).load(function () {
             $("#preloader-wrapper").delay(1600).fadeOut('easing').remove();
@@ -314,6 +237,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 afterLoad: function (element) {
                     let imageSrc = element.data('src');
                     //console.log('image "' + imageSrc + '" was loaded successfully');
+
                 }
             })
             // you might have more than one image per carousel item

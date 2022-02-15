@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name:Sidebar Links
+ * Template Name:Sidebar-Rechts
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -20,8 +20,7 @@ get_header();
                 <?php bs_after_primary(); ?>
                 <div class="row">
                     <!-- sidebar -->
-                    <?php get_sidebar(); ?>
-                    <div class="col-md-8 col-xxl-9 order-first order-md-last">
+                    <div class="col-md-8 col-xxl-9">
                         <main id="main" class="site-main">
                             <header class="entry-header">
                                 <?php the_post(); ?>
@@ -48,10 +47,9 @@ get_header();
                                 <?php hupa_social_media(); ?>
                             </footer>
                             <?php comments_template(); ?>
-
                         </main><!-- #main -->
-
                     </div><!-- col -->
+                    <?php get_sidebar(); ?>
                 </div><!-- row -->
             </div><!-- #primary -->
         </div><!-- #contenty -->

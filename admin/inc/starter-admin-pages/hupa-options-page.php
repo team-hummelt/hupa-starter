@@ -7,7 +7,6 @@ defined('ABSPATH') or die();
  * License: Commercial - goto https://www.hummelt-werbeagentur.de/
  * https://www.hummelt-werbeagentur.de/
  */
-global $hupa_api_handle;
 ?>
 <div class="wp-bs-starter-wrapper">
     <div class="container">

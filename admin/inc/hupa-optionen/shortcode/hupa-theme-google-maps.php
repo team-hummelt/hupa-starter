@@ -20,7 +20,6 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
     {
         //INSTANCE
         private static $instance;
-        private $gmaps;
         private object $gmSettings;
 
         /**
@@ -43,30 +42,24 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
 
         public function hupa_gmaps_shortcode($atts, $content, $tag): bool|string
         {
-            $a = shortcode_atts(array(
+            $atts = shortcode_atts(array(
                 'id' => '',
-                'height' => '',
-                'width' => '',
+                'height' => '450px',
+                'width' => '100%',
                 'selecteddsmap' => '1',
 
-            ), $atts);
+            ), $atts, 'gmaps');
 
             global $hupa_optionen_global;
             ob_start();
-            if (!session_id()) {
-                @session_start();
-            }
-            if (isset($_SESSION['gmaps']) && ($_SESSION['gmaps']) ) {
-                $this->gmaps = $_SESSION['gmaps'];
-            } else {
-                $this->gmaps = false;
-            }
 
-            $id = trim($a['id']);
+            $id = trim($atts['id']);
             if (!$id) {
                 return '';
             }
-            $mapDsId = $a['selecteddsmap'];
+            $mapDsId = $atts['selecteddsmap'];
+            $height = trim($atts['height']);
+            $width = trim($atts['width']);
 
             $ms = new stdClass();
             $ms->settingsId = $mapDsId;
@@ -97,7 +90,6 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                     $dsLink = str_replace('<a', '<a ###STYLE###', $dsLink);
                 }
                 $ms->map_ds_text = $dsLink;
-
             } else {
                 $ms->map_box_bg = get_hupa_option('map_box_bg');
                 $ms->map_bg_grayscale = get_hupa_option('map_bg_grayscale');
@@ -119,15 +111,11 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
             }
 
             $this->gmSettings = $ms;
-            // print_r($this->gmSettings);
             if ($ms->map_bg_grayscale) {
                 $imgStyle = 'filter: grayscale(100%); -webkit-filter: grayscale(100%);';
             } else {
                 $imgStyle = 'filter:unset"; -webkit-filter:unset;';
             }
-
-            $a['height'] ? $height = trim($a['height']) : $height = '400px';
-            $a['width'] ? $width = trim($a['width']) : $width = '650px';
 
             $mapStyle = new stdClass();
             $mapStyle->wrapper = 'style="width:' . $width . ';height:' . $height . ';"';
@@ -159,16 +147,12 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
             $mapStyle->btn = preg_replace(array('/<!--(.*)-->/Uis', "/[[:blank:]]+/"), array('', ' '), str_replace(array("\n", "\r", "\t"), '', $btn));
 
             if ($id == 'api-maps'):
+                $attributes = 'data-type="gmaps-api"';
                 ?>
-                <div class="hupa-gmaps-container" <?= $mapStyle->wrapper ?>>
-                    <?php
-                    if (get_hupa_option('map_datenschutz') && !$this->gmaps) {
-                        echo $this->get_datenschutz_template($mapStyle, 'hupa-gmaps-btn', 'api-karte-check');
-                    } ?>
+                <div class="hupa-api-gmaps-container d-none" <?= $mapStyle->wrapper ?>>
+                    <?= $this->get_datenschutz_template($mapStyle, $attributes); ?>
                 </div>
-                <?php
-                session_write_close();
-            endif;
+            <?php endif;
             if ($id != 'api-maps') {
                 $args = sprintf('WHERE shortcode="%s"', $id);
                 $iframeCard = apply_filters('get_gmaps_iframe', $args, false);
@@ -179,20 +163,15 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                 $iframe = html_entity_decode($card->iframe);
                 $iframe = stripslashes_deep($iframe);
                 ?>
-                <div class="gmaps-iframe-wrapper iframe<?= $id ?>">
+                <div data-ds="<?=(bool) $card->datenschutz?>" class="hupa-iframe-gmaps-container" <?=$mapStyle->wrapper?>>
                     <?php
-                    if ($a['height'] && $a['width']) {
-                        $regEx = '/width="\d{1,6}".*?height="\d{1,6}"/m';
-                        preg_match_all($regEx, $iframe, $matches);
-                        if (isset($matches[0][0])) {
-                            $iframe = str_replace($matches[0][0], 'width="' . trim($a['width']) . '" height="' . trim($a['height']) . '"', $iframe);
+                    $regEx = '~(http(s?)://)([a-z0-9]+\.)+[a-z]{2,4}(\.[a-z]{2,4})*(/[^ |"]+)~';
+                    preg_match($regEx, $iframe, $hit);
+                    if (isset($hit[5]) && !empty($hit[5])) {
+                        if (isset($card->datenschutz)) {
+                            $attributes = 'data-width="' . $width . '" data-height="' . $height . '" data-type="iframe" data-uri="'.$hit[5].'"';
+                            echo $this->get_datenschutz_template($mapStyle, $attributes);
                         }
-                    }
-                    if ($card->datenschutz && !$this->gmaps) {
-                        $data_id = 'data-id="' . $id . '" data-width="' . trim($a['width']) . '" data-height="' . trim($a['height']) . '"';
-                        echo $this->get_datenschutz_template($mapStyle, 'hupa-iframe-btn', 'iframe-karte-check', $data_id, $id);
-                    } else {
-                        echo $iframe;
                     } ?>
                 </div>
                 <?php
@@ -200,18 +179,15 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
             return ob_get_clean();
         }
 
-        private function get_datenschutz_template($mapStyle, $btn, $checkbox, $data_id = '', $code = ''): string
+        /**
+         * @param $mapStyle
+         * @param $attributes
+         * @return string
+         */
+        private function get_datenschutz_template($mapStyle, $attributes): string
         {
-            if ($code) {
-                $btnCode = 'btn' . $code;
-                $dataId = 'data-id="' . $code . '"';
-            } else {
-                $btnCode = '';
-                $dataId = '';
-            }
-
-            $randId = apply_filters('get_hupa_random_id',8,0,4);
-            if ( $this->gmSettings->map_img_id) {
+            $randId = apply_filters('get_hupa_random_id', 8, 0, 4);
+            if ($this->gmSettings->map_img_id) {
                 $bgImg = wp_get_attachment_image_src($this->gmSettings->map_img_id, 'full', false);
                 $bgImg = $bgImg[0];
             } else {
@@ -225,8 +201,8 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                <img src="' . $bgImg . '" class="map-placeholder-img"
                     alt="" ' . $mapStyle->image . '>
                <div class="ds-check-wrapper" ' . $mapStyle->box . '>
-                   <div class="wrapper flex-column d-flex align-items-center pt-3">
-                       <button type="button" ' . $data_id . ' class="' . $btnCode . ' btn-maps btn btn-secondary disabled ' . $btn . '" ' . $mapStyle->btn . '> ' . $this->gmSettings->map_ds_btn_text . '
+                   <div class="wrapper flex-fill flex-column d-flex align-items-center p-3">
+                       <button ' . $attributes . ' type="button" class="btn btn-secondary hupa-gmaps-ds-btn" ' . $mapStyle->btn . ' disabled> ' . $this->gmSettings->map_ds_btn_text . '
                        </button>
                        <div class="form-check mt-3">
                             <input class="form-check-input gmaps-karte-check" type="checkbox" id="gMapsDsCheck' . $randId . '">

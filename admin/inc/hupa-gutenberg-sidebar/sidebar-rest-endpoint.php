@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) or die();
 add_action( 'rest_api_init', 'hupa_rest_endpoint_api_handle' );
 
 function hupa_rest_endpoint_api_handle() {
-    register_rest_route( 'hupa-endpoint/v1', '/method/(?P<method>[\S]+)', [
+    @register_rest_route( 'hupa-endpoint/v1', '/method/(?P<method>[\S]+)', [
         'method'              => WP_REST_Server::EDITABLE,
         'permission_callback' => function () {
             return current_user_can( 'edit_posts' );

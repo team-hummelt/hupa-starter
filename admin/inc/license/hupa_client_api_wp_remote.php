@@ -104,7 +104,6 @@ if (!class_exists('HupaApiServerHandle')) {
             $error->status = false;
             $response = wp_remote_post(get_option('hupa_server_url') . $scope, $this->HupaApiPostArgs($body));
             if (is_wp_error($response)) {
-
                 $error->message = $response->get_error_message();
                 return $error;
             }

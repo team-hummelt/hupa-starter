@@ -46,6 +46,7 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
             add_filter( 'hupa_get_random_string', array( $this, 'load_random_string' ));
             add_filter( 'get_hupa_random_id', array( $this, 'getHupaGenerateRandomId' ), 10, 4);
             add_action( 'destroy_dir_recursive', array( $this, 'destroyDirRecursive' ));
+            add_filter( 'user_roles_select', array( $this, 'hupa_theme_user_roles_select' ));
 		}
 
 		/**
@@ -159,6 +160,17 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
                 }
             }
             return rmdir($dir);
+        }
+
+        public function hupa_theme_user_roles_select(): array {
+
+            return [
+                '1#read'           => esc_html__( 'Subscriber', 'bootscore' ),
+                '2#edit_posts'     => esc_html__( 'Contributor', 'bootscore' ),
+                '3#publish_posts'  => esc_html__( 'Author', 'bootscore' ),
+                '4#publish_pages'  => esc_html__( 'Editor', 'bootscore' ),
+                '5#manage_options' => esc_html__( 'Administrator', 'bootscore')
+            ];
         }
     }
 }

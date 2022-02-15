@@ -1593,35 +1593,29 @@ img.map-placeholder-img {
   border-radius: 0.25rem;
   z-index: 1;
   /*============================= CHECKBOX =========================*/
-  /* Hide the browser's default checkbox */
-  /* Create a custom checkbox */
-  /* On mouse-over, add a grey background color */
-  /* When the checkbox is checked, add a blue background */
-  /* Create the checkmark/indicator (hidden when not checked) */
-  /* Show the checkmark when checked */
-  /* Style the checkmark/indicator */
 }
-.ds-check-wrapper .btn-maps:not(.disabled) {
-  z-index: 1;
+.ds-check-wrapper .hupa-gmaps-ds-btn {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+.ds-check-wrapper .hupa-gmaps-ds-btn:not(:disabled) {
   background-color: #5192cd;
   border-color: #8faec9;
   transition: all 250ms ease-in-out;
 }
-.ds-check-wrapper .btn-maps:not(.disabled):hover {
+.ds-check-wrapper .hupa-gmaps-ds-btn:hover {
   background-color: #4175a4;
 }
-.ds-check-wrapper .btn-maps.disabled {
+.ds-check-wrapper .hupa-gmaps-ds-btn:disabled {
   background-color: #5192cd;
   color: #ffffff;
+  pointer-events: auto;
   cursor: not-allowed !important;
 }
-.ds-check-wrapper .ds-karte-check {
-  display: flex;
-  position: relative;
-  padding-left: 35px;
+.ds-check-wrapper .form-check label {
   cursor: pointer;
   font-size: 16px;
-  text-align: left;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1643,49 +1637,6 @@ img.map-placeholder-img {
 .ds-check-wrapper .datenschutz-check {
   background-color: rgba(181, 181, 181, 0);
   padding: 1rem 0.5rem;
-}
-.ds-check-wrapper .ds-karte-check input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-.ds-check-wrapper .checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 25px;
-  background-color: #cbcbcb;
-  transition: all 250ms !important;
-  -o-transition: all 250ms !important;
-  -webkit-transition: all 250ms !important;
-}
-.ds-check-wrapper .ds-karte-check:hover input ~ .checkmark {
-  background-color: #eeeeee;
-}
-.ds-check-wrapper .ds-karte-check input:checked ~ .checkmark {
-  background-color: #318dd7;
-}
-.ds-check-wrapper .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.ds-check-wrapper .ds-karte-check input:checked ~ .checkmark:after {
-  display: block;
-}
-.ds-check-wrapper .ds-karte-check .checkmark:after {
-  left: 9px;
-  top: 4px;
-  width: 7px;
-  height: 13px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
 }
 
 .loader-wrapper {
@@ -1899,6 +1850,68 @@ a.navbar-brand {
 
 .opacity-hide {
   opacity: 0;
+}
+
+#theme-pagination {
+  padding-top: 2.5rem;
+}
+#theme-pagination .page-item {
+  transition: all 250ms linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem !important;
+  height: 2rem !important;
+  margin: 0 0.05rem;
+}
+#theme-pagination .page-item .page-link {
+  display: block;
+  text-align: center;
+}
+#theme-pagination .page-item.disabled .page-link {
+  color: #d0d0d0 !important;
+}
+#theme-pagination a.page-link {
+  position: relative;
+  display: block;
+  color: #0075BF;
+  text-decoration: none;
+  background-color: transparent !important;
+  border: unset !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#theme-pagination .page-item.active {
+  background-color: #f8f8f8 !important;
+  border-radius: 9999px;
+}
+#theme-pagination .page-item.active .page-link {
+  z-index: 3;
+  color: #0075BF !important;
+  font-weight: 500 !important;
+  background-color: unset !important;
+  border: unset !important;
+}
+#theme-pagination .page-item:not(.disabled):not(.active):hover {
+  background-color: #f0f0f0 !important;
+  border-radius: 9999px;
+}
+#theme-pagination .pagination {
+  justify-content: start !important;
+}
+
+.single-pagination .page-item {
+  font-weight: 600;
+}
+.single-pagination .page-item a {
+  background-color: transparent !important;
+  border: unset !important;
+  color: #3b3b3b !important;
+}
+.single-pagination .page-item a:after {
+  content: "";
+}
+.single-pagination .page-item a:before {
+  content: "";
 }
 
 @media (max-width: 768px) {

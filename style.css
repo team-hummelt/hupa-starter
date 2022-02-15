@@ -4,11 +4,11 @@ Theme URI: https://www.hummelt-werbeagentur.de/leistungen/plugin-und-webapp-entw
 Author: hummelt und partner | Werbeagentur GmbH
 Author URI: https://www.hummelt-werbeagentur.de/
 Description: Ein leistungsstarkes WordPress Theme mit WooCommerce Unterstützung von <a href ="https://www.hummelt-werbeagentur.de/">Hummelt & Partner</a>. Das Theme hat eine große Auswahl an Kategorie-, Seiten-, Beitrags-, Autoren- und Archivvorlagen sowie Sidebar-, Header-, Footer- und 404-Widgets.
-Version: v1.1.2
+Version: v1.1.3
 Text Domain: bootscore
 Tags: hupa-theme, translation-ready, WooCommerce-ready
 Requires PHP: 8.0
-Tested up to: 5.7.2
+Tested up to: 5.9
 */
 
 /*--------------------------------------------------------------
@@ -45,6 +45,9 @@ Tested up to: 5.7.2
     cursor: pointer;
 }
 
+.pagination-info {
+    font-size: .8rem;
+}
 
 /* Expand-sm */
 @media (min-width: 576px) {

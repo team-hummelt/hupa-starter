@@ -14,6 +14,22 @@ body .wp-bs-starter-wrapper {
     transition: transform .2s;
 }
 
+.d-none {
+    display: none;
+}
+
+.components-form-toggle.is-disabled .components-form-toggle__track{
+ background-color: #797979;
+
+}
+
+.components-form-toggle.is-disabled .components-form-toggle__input{
+    pointer-events: none;
+}
+.components-form-toggle.is-disabled ~ .components-toggle-control__label {
+    pointer-events: none!important;
+}
+
 .components-panel__row.panel-row-column {
     flex-direction: column;
     align-items: flex-start;

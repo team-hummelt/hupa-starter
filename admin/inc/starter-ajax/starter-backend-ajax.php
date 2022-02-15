@@ -2239,4 +2239,28 @@ switch ($method) {
         $responseJson->msg = 'Preloader gespeichert!';
         break;
 
+    case'get_capabilities_settings':
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+        if(!$type){
+            return $responseJson;
+        }
+        $responseJson->type =  ucfirst($type);
+        $responseJson->select = apply_filters('user_roles_select','');
+        $responseJson->active = get_option('theme_capabilities')[$type];
+        $responseJson->status = true;
+        break;
+
+    case'update_capability':
+        $type = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING);
+        $value = filter_input(INPUT_POST, 'value', FILTER_SANITIZE_STRING);
+        if(!$type || !$value){
+            $responseJson->msg = 'Ajax Übertragungsfehler...';
+            return $responseJson;
+        }
+        $option = get_option('theme_capabilities');
+        $type = strtolower($type);
+        $option[$type] = $value;
+        update_option('theme_capabilities', $option);
+        $responseJson->status = true;
+        break;
 }

@@ -21,9 +21,15 @@ get_header();
         <div id="primary" class="content-area archive-wrapper  container pt-5">
             <!-- Hook to add something nice -->
             <?php bs_after_primary(); ?>
-            <header class="page-header mb-4">
-                <h1 class="fs-2"><?php single_cat_title(); ?></h1>
-                <?php the_archive_description('<div class="archive-description">', '</div>'); ?>
+
+            <header class="page-header mb-4 d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <?php echo get_avatar( get_the_author_meta('email'), '80', $default='', $alt='', array( 'class' => array( 'img-thumbnail rounded-circle' ) ) ); ?>
+                </div>
+                <div class="author-bio">
+                    <h3><?php the_author(); ?></h3>
+                    <?php the_author_meta('description'); ?>
+                </div>
             </header>
             <div class="row">
                 <div class="col">
@@ -42,7 +48,7 @@ get_header();
                                             <div class="card-body">
                                                 <?php !get_hupa_option('autoren_show_kategorie') ?: bootscore_category_badge(); ?>
                                                 <!-- Title -->
-                                                <h4 class="blog-post-title">
+                                                <h4 class="blog-post-title pt-3">
                                                     <a href="<?php the_permalink(); ?>">
                                                         <?php
                                                         if ($pageSettings->showTitle) {
@@ -63,7 +69,7 @@ get_header();
                                                 <?php endif; ?>
                                                 <!-- Excerpt & Read more -->
                                                 <div class="archive-card-txt card-text fst-normal fw-normal mt-auto">
-                                                    <?php the_excerpt(); ?> <a class="fst-normal fw-normal read-more"
+                                                    <?php the_excerpt(); ?> <a class="fst-normal small fw-normal read-more"
                                                                                href="<?php the_permalink(); ?>"><?php _e('Read more »', 'bootscore'); ?></a>
                                                 </div>
                                                 <?php if (get_hupa_option('social_kategorie')): ?>
@@ -82,7 +88,7 @@ get_header();
 
                         <!-- Pagination -->
                         <div>
-                            <?php bootscore_pagination(); ?>
+                            <?php hupa_theme_pagination(); ?>
                         </div>
                     </main><!-- #main -->
                 </div><!-- col -->

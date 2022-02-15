@@ -60,14 +60,14 @@ global $hupa_api_handle;
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-magic"></i>&nbsp;
                         <?= __('Colors', 'bootscore') ?>
                     </button>
-
+                    <?php $user = new WP_User(get_current_user_id()); if($user->roles[0] == 'administrator'):?>
                     <button data-site="<?= __('Theme options', 'bootscore') ?>" type="button"
                             data-bs-toggle="collapse" data-bs-target="#collapseSettingsOtherOption"
                             aria-expanded="true" aria-controls="collapseSettingsOtherOption"
                             class="btn-collapse btn btn-hupa btn-outline-secondary btn-sm"><i class="fa fa-gears"></i>&nbsp;
                         <?= __('Theme options', 'bootscore') ?>
                     </button>
-
+                    <?php endif; ?>
                     <div class="ms-auto">
                         <button data-site="<?= __('Infos', 'bootscore') ?>" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseSettingsInfoOption"
@@ -76,7 +76,7 @@ global $hupa_api_handle;
                                     class="fa fa-info-circle"></i>&nbsp;
                             <?= __('Infos', 'bootscore') ?>
                         </button>
-
+                        <?php $user = new WP_User(get_current_user_id()); if($user->roles[0] == 'administrator'):?>
                         <button data-site="<?= __('Reset', 'bootscore') ?>" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#collapseSettingsResetOption"
                                 aria-expanded="true" aria-controls="collapseSettingsResetOption"
@@ -84,6 +84,7 @@ global $hupa_api_handle;
                                     class="fa fa-random"></i>&nbsp;
                             <?= __('Reset', 'bootscore') ?>
                         </button>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <hr>
@@ -1164,11 +1165,11 @@ global $hupa_api_handle;
                                         </div>
                                     </div>
                                 </div><!--Item END-->
-
                             </div><!--Accordion END -->
                         </form>
                         <div class="ajax-status-spinner ps-2 pt-3"></div>
                     </div>
+
                     <!--  TODO JOB WARNING FONTS -->
                     <div class="collapse" id="collapseSettingsFontsSite" data-bs-parent="#settings_display_data">
                         <button
@@ -3904,18 +3905,50 @@ global $hupa_api_handle;
 
                     <!--  TODO JOB WARNING THEME OPTIONEN -->
                     <div class="collapse" id="collapseSettingsOtherOption" data-bs-parent="#settings_display_data">
-
                         <div class="border rounded mt-1 shadow-sm p-3 bg-custom-gray">
+                            <?php $user = new WP_User(get_current_user_id()); if($user->roles[0] == 'administrator'):?>
                             <hr>
                             <h5 class="card-title">
                                 <i class="font-blue fa fa-wordpress"></i>&nbsp; <?= __('Wordpress settings', 'bootscore') ?>
                             </h5>
                             <hr>
+                            <h6>
+                                <i class="font-blue fa fa-arrow-circle-down"></i>
+                                <?= esc_html__('Minimum requirement for the use of individual sections', 'bootscore') ?>
+                            </h6>
+                            <hr>
+                            <div class="d-flex flex-wrap capabilities">
+                                <button data-type="settings" type="button" class="btn btn-blue-outline btn-sm me-1">Theme Settings</button>
+                                <button data-type="tools" type="button" class="btn btn-blue-outline btn-sm me-1">Theme Tools</button>
+                                <button data-type="carousel" type="button" class="btn btn-blue-outline btn-sm me-1">Carousel</button>
+                                <button data-type="installation" type="button" class="btn btn-blue-outline btn-sm me-1">Installation</button>
+                                <button data-type="maps-api" type="button" class="btn btn-blue-outline btn-sm me-1">Google Maps API</button>
+                                <button data-type="maps-iframe" type="button" class="btn btn-blue-outline btn-sm me-1">Google Maps I-Frame</button>
+                                <button data-type="maps-settings" type="button" class="btn btn-blue-outline btn-sm me-1">Google Maps Settings</button>
+                                <!--<button data-type="header" type="button" class="btn btn-blue-outline btn-sm me-1">Custom Header</button>
+                                <button data-type="footer" type="button" class="btn btn-blue-outline btn-sm me-1">Custom Footer</button>-->
+                            </div>
+                                <div class="collapse pt-3" id="capabilities_settings">
+                               <div class="row g-3">
+                                    <div class="col-xl-6 col">
+                                        <div class="mb-3">
+                                            <label for="capabilitySelect"
+                                                   class="capabilitySelect form-label mb-1 strong-font-weight"><span id="rolleType"></span>  <?= esc_html__('User Role', 'bootscore') ?>
+                                            </label>
+                                            <select name="user_role"
+                                                    id="capabilitySelect" class="form-select no-blur">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            <?php endif; ?>
+                              <hr>
                             <form class="sendAjaxThemeForm" action="#" method="post">
                                 <input type="hidden" name="method" value="theme_form_handle">
                                 <input type="hidden" name="handle" value="theme_optionen">
-                                <div class="row g-3 pb-3">
 
+                                <div class="row g-3 pb-3">
                                     <div class="col-lg-12 pt-2">
                                         <h6>
                                             <i class="font-blue fa fa-refresh"></i>&nbsp;<?= __('Theme Update', 'bootscore'); ?>

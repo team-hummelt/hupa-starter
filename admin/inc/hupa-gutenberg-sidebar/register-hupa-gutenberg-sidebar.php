@@ -49,7 +49,7 @@ final class HupaRegisterGutenbergSidebar {
 	public function hupa_sidebar_meta_fields(): void {
 
 		//TODO CHECK Titel anzeigen
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_show_title',
 			array(
@@ -64,7 +64,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO Custom Titel eingeben
-		register_meta(
+		@register_meta(
 			'post', // object type, can be 'post', 'comment', 'term', 'user'
 			'_hupa_custom_title', // meta key
 			array(
@@ -80,7 +80,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO TITLE CUSTOM CSS
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_title_css',
 			array(
@@ -95,7 +95,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO SELECT MAIN MENU
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_select_menu',
 			array(
@@ -111,7 +111,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
         //TODO SELECT SIDEBAR
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_select_sidebar',
             array(
@@ -127,7 +127,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO CHECK SOZIAL MEDIA SHOW
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_show_social_media',
             array(
@@ -143,7 +143,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO SELECT SOCIAL TYPE
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_select_social_type',
             array(
@@ -159,7 +159,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO CHECK BOTTOM FOOTER
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_select_social_color',
             array(
@@ -175,7 +175,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO SOCIAL MEDIA CUSTOM CSS
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_social_media_css',
             array(
@@ -190,7 +190,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
 		//TODO SELECT HANDY MENU
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_select_handy_menu',
 			array(
@@ -206,7 +206,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO SELECT Top Area
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_select_top_area',
 			array(
@@ -222,7 +222,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO CHECK BOTTOM FOOTER
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_show_bottom_footer',
 			array(
@@ -238,7 +238,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
         //TODO CHECK SHOW TOP FOOTER
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_show_top_footer',
             array(
@@ -254,7 +254,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO CHECK SHOW WIDGET FOOTER
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_show_widgets_footer',
             array(
@@ -270,7 +270,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO CHECK STICKY WIDGET FOOTER
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_sticky_widgets_footer',
             array(
@@ -286,7 +286,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
 		//TODO SELECT HEADER
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_select_header',
 			array(
@@ -302,7 +302,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
         //TODO SELECT CONTAINER WIDTH
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_select_container',
             array(
@@ -318,7 +318,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO SELECT TOP AREA CONTAINER WIDTH
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_top_area_container',
             array(
@@ -334,7 +334,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
         //TODO SELECT MAIN CONTAINER WIDTH
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_main_container',
             array(
@@ -350,7 +350,7 @@ final class HupaRegisterGutenbergSidebar {
         );
 
 		//TODO SELECT FOOTER
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_select_footer',
 			array(
@@ -366,7 +366,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
 		//TODO CHECK SHOW MENU
-		register_meta(
+		@register_meta(
 			'post',
 			'_hupa_show_menu',
 			array(
@@ -382,7 +382,7 @@ final class HupaRegisterGutenbergSidebar {
 		);
 
         //TODO CUSTOM BEITRAGS URL
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_show_custom_url',
             array(
@@ -396,7 +396,7 @@ final class HupaRegisterGutenbergSidebar {
                 }
             )
         );
-        register_meta(
+        @register_meta(
             'post',
             '_hupa_beitragsbild_url',
             array(

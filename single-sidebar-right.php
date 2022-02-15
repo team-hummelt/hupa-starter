@@ -1,8 +1,9 @@
 <?php
 /*
- * Template Name: Sidebar Links
+ * Template Name: Sidebar Rechts
  * Template Post Type: post
  */
+
 defined('ABSPATH') or die();
 $pageId = is_singular() ? get_the_ID() : 0;
 $pageSettings = apply_filters('get_page_meta_data', (int)$pageId);
@@ -20,8 +21,7 @@ get_header(); ?>
             <?php !get_hupa_option('post_breadcrumb') ?: the_breadcrumb(); ?>
 
             <div class="row">
-                <?php get_sidebar(); ?>
-                <div class="col-md-8 col-xxl-9 order-first order-md-last">
+                <div class="col-md-8 col-xxl-9">
                     <main id="main" class="site-main">
                         <header class="entry-header">
                             <?php the_post(); ?>
@@ -67,6 +67,7 @@ get_header(); ?>
                         <?php comments_template(); ?>
                     </main><!-- #main -->
                 </div><!-- col -->
+                <?php get_sidebar(); ?>
             </div><!-- row -->
 
         </div><!-- #primary -->

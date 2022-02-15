@@ -224,6 +224,78 @@ function message_fadeIn_opacity(collapseId) {
     }
 }
 
+
+let capabilities = document.querySelectorAll('.capabilities .btn');
+let capabilitySelect = document.getElementById('capabilitySelect');
+if (capabilities) {
+    let collWrapper = document.getElementById('capabilities_settings');
+    let nodes = Array.prototype.slice.call(capabilities, 0);
+    nodes.forEach(function (nodes) {
+        nodes.addEventListener("click", function (e) {
+            let bsCollapse = new bootstrap.Collapse(collWrapper, {
+                toggle: false
+            });
+            let type = nodes.getAttribute('data-type');
+            let formData = {
+                'type': type,
+                'method': 'get_capabilities_settings'
+            }
+            send_xhr_form_data(formData, false, set_capabilities_callback);
+            if (nodes.classList.contains('active')) {
+                nodes.classList.remove('active');
+                bsCollapse.hide();
+            } else {
+                for (let i = 0; i < capabilities.length; i++) {
+                    capabilities[i].classList.remove('active');
+                }
+                nodes.classList.add('active');
+                bsCollapse.show();
+            }
+        });
+    });
+
+
+    function set_capabilities_callback() {
+        let data = JSON.parse(this.responseText);
+        if (data.status) {
+            let value = '';
+            capabilitySelect.innerHTML = '';
+            let rolleType = document.getElementById('rolleType');
+            rolleType.innerHTML = '';
+            capabilitySelect.setAttribute('data-type', data.type);
+            let html = ``;
+            let sel = '';
+            for (const [key, val] of Object.entries(data.select)) {
+                value = key.substr(2, key.length);
+                value == data.active ? sel = 'selected' : sel = '';
+                html += `<option value="${value}"${sel}>${val}</option>`;
+            }
+
+            rolleType.insertAdjacentHTML('afterbegin', data.type);
+            capabilitySelect.insertAdjacentHTML('afterbegin', html);
+        }
+    }
+}
+
+if(capabilitySelect){
+    capabilitySelect.addEventListener("change", function (e) {
+        console.log(this.value)
+        let formData = {
+            'method': 'update_capability',
+            'type' : this.getAttribute('data-type'),
+            'value': this.value
+        }
+        send_xhr_form_data(formData, false, update_capabilities_callback);
+    })
+}
+
+function update_capabilities_callback() {
+    let data = JSON.parse(this.responseText);
+    if (!data.status) {
+        warning_message(data.msg);
+    }
+}
+
 function show_message_collapse(id) {
     let SuccessCollapse = document.getElementById(id)
     let bsCollapse = new bootstrap.Collapse(SuccessCollapse, {
@@ -257,7 +329,7 @@ function set_theme_preloader(e) {
 ========================================
 */
 
-function send_xhr_form_data(data, is_formular = true) {
+function send_xhr_form_data(data, is_formular = true, callback = '') {
 
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
@@ -280,6 +352,10 @@ function send_xhr_form_data(data, is_formular = true) {
     //Response
     xhr.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
+            if (typeof callback === 'function') {
+                xhr.addEventListener("load", callback);
+                return false;
+            }
             let data = JSON.parse(this.responseText);
             if (data.spinner) {
                 show_ajax_spinner(data);

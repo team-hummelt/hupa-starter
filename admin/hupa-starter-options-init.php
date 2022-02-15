@@ -12,26 +12,40 @@ defined('ABSPATH') or die();
  * ============================================================
  */
 
-include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 //AKTIVE PLUGINS
-is_plugin_active( 'wp-post-selector/wp-post-selector.php' ) ? $postSelect = true : $postSelect = false;
-is_plugin_active( 'bs-formular/bs-formular.php' ) ? $bsFormular = true : $bsFormular = false;
-is_plugin_active( 'hupa-minify/hupa-minify.php' ) ? $hupaMinify = true : $hupaMinify = false;
+is_plugin_active('wp-post-selector/wp-post-selector.php') ? $postSelect = true : $postSelect = false;
+is_plugin_active('bs-formular/bs-formular.php') ? $bsFormular = true : $bsFormular = false;
+is_plugin_active('hupa-minify/hupa-minify.php') ? $hupaMinify = true : $hupaMinify = false;
 
 define("WP_POST_SELECTOR_AKTIV", $postSelect);
 define("BS_FORM_AKTIV", $bsFormular);
 define("HUPA_MINIFY_AKTIV", $hupaMinify);
+//delete_option('theme_capabilities');
+if (!get_option('theme_capabilities')) {
+    $capabilities = [
+        'settings' => 'manage_options',
+        'tools' => 'manage_options',
+        'carousel' => 'manage_options',
+        'installation' => 'manage_options',
+        'maps-api' => 'manage_options',
+        'maps-iframe' => 'manage_options',
+        'maps-settings' => 'manage_options',
+    ];
+
+    update_option('theme_capabilities', $capabilities);
+}
 
 
 $theme_data = wp_get_theme('hupa-starter');
 $child_data = wp_get_theme('hupa-starter-child');
-if ( $child_data->exists() ) {
-    $childVersion =  $child_data->get( 'Version' );
-    $ifChild =  true;
+if ($child_data->exists()) {
+    $childVersion = $child_data->get('Version');
+    $ifChild = true;
 } else {
-    $childVersion =  false;
-    $ifChild =  false;
+    $childVersion = false;
+    $ifChild = false;
 }
 
 

@@ -189,7 +189,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 sessionStorage.setItem('gmaps', true);
                 if(gmaps_container) {
-
                     injectGoogleMapsApiScript({
                         key: api_key,
                         callback: 'hupa_gmaps_data',
@@ -206,12 +205,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let nodeTarget = Array.prototype.slice.call(mapIframeContainer, 0);
             nodeTarget.forEach(function (nodeTarget) {
                 let mapContainer = nodeTarget.parentNode;
-                let uri = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-uri');
-                let width = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-width');
-                let height = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-height');
-                let isDs = nodeTarget.getAttribute('data-ds');
-                if (sessionStorage.getItem("gmaps") || isDs ){
-                    nodeTarget.innerHTML = get_hupa_iFrame(uri, width, height);
+                if(!mapContainer.getElementsByTagName('iframe').length){
+                    let uri = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-uri');
+                    let width = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-width');
+                    let height = mapContainer.querySelector('.hupa-gmaps-ds-btn').getAttribute('data-height');
+                    let isDs = nodeTarget.getAttribute('data-ds');
+                    if (sessionStorage.getItem("gmaps") || isDs == '0'){
+                        nodeTarget.innerHTML = get_hupa_iFrame(uri, width, height);
+                    }
                 }
             });
         }

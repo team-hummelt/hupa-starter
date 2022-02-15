@@ -163,15 +163,13 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
                 $iframe = html_entity_decode($card->iframe);
                 $iframe = stripslashes_deep($iframe);
                 ?>
-                <div data-ds="<?=(bool) $card->datenschutz?>" class="hupa-iframe-gmaps-container" <?=$mapStyle->wrapper?>>
+                <div data-ds="<?=$card->datenschutz?>" class="hupa-iframe-gmaps-container" <?=$mapStyle->wrapper?>>
                     <?php
                     $regEx = '~(http(s?)://)([a-z0-9]+\.)+[a-z]{2,4}(\.[a-z]{2,4})*(/[^ |"]+)~';
                     preg_match($regEx, $iframe, $hit);
                     if (isset($hit[5]) && !empty($hit[5])) {
-                        if (isset($card->datenschutz)) {
                             $attributes = 'data-width="' . $width . '" data-height="' . $height . '" data-type="iframe" data-uri="'.$hit[5].'"';
                             echo $this->get_datenschutz_template($mapStyle, $attributes);
-                        }
                     } ?>
                 </div>
                 <?php

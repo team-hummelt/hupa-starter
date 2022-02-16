@@ -116,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
               return url.searchParams.get(search);
           }
 
+
+
     })(jQuery);
 
 });

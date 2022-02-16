@@ -19,6 +19,7 @@ hummelt und partner | Werbeagentur GmbH
 * Ansicht für Beiträge, Block, Suche und Beitragslisten hinzugefügt
 * Fehler gefixt
 * Google Maps Datenschutz Session gefixt
+* Bootstrap Icons hinzugefügt
  
 ### \#1.1.2
 * Custom 404 Seite hinzugefügt

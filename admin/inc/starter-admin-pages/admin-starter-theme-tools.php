@@ -8,7 +8,7 @@ defined('ABSPATH') or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-apply_filters('make_bootstrap_icon_json','');
+
 ?>
 <div class="wp-bs-starter-wrapper my3">
     <div class="container">

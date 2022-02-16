@@ -14,7 +14,9 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
 
         $hupa_version = wp_get_theme();
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/tools/animate.min.css' ) );
-        $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/font-awesome.css' ) );
+       // $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/admin/css/font-awesome.css' ) );
+        $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/icons/bootstrap-icons/bootstrap-icons.css' ) );
+        $modificated = date( 'YmdHi', filemtime( get_template_directory() . '/icons/font-awesome-4.7.0/font-awesome.css' ) );
 
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.min.js' ) );
         $modificated = date( 'YmdHi', filemtime( THEME_ADMIN_DIR . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js' ) );
@@ -31,8 +33,8 @@ if ( ! function_exists( 'starter_theme_wordpress_public_style' ) ) {
         // TODO ANIMATE
         wp_enqueue_style( 'hupa-starter-public-animate', THEME_ADMIN_URL . 'assets/admin/css/tools/animate.min.css', array(), $modificated );
         // TODO ICONS
-        wp_enqueue_style( 'hupa-starter-public-icons-style', THEME_ADMIN_URL . 'assets/admin/css/font-awesome.css', array(), $modificated );
-
+        wp_enqueue_style( 'hupa-starter-bootstrap-icons-style', get_template_directory_uri() . '/icons/bootstrap-icons/bootstrap-icons.css', array(), $modificated );
+        wp_enqueue_style( 'hupa-starter-font-awesome-icons-style', get_template_directory_uri() . '/icons/font-awesome-4.7.0/font-awesome.css', array(), $modificated );
         // TODO jQuery LazyLoad
         wp_enqueue_script( 'hupa-lazy-load', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.min.js', array(), $modificated, true );
         wp_enqueue_script( 'hupa-lazy-load-plugins', THEME_ADMIN_URL . 'assets/theme-scripte/tools/jquery.lazy.plugins.min.js', array(), $modificated, true );

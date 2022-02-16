@@ -956,47 +956,49 @@ if (smallThemeSendModalBtn) {
     });
 }
 
+
 let iconSettingsInfoModal = document.getElementById('dialog-add-icon');
 if (iconSettingsInfoModal) {
     iconSettingsInfoModal.addEventListener('show.bs.modal', function (event) {
         let button = event.relatedTarget;
         let type = button.getAttribute('data-bs-type');
-        let formId = button.getAttribute('data-bs-id');
-        let xhr = new XMLHttpRequest();
-        let formData = new FormData();
-        xhr.open('POST', theme_ajax_obj.ajax_url, true);
-        formData.append('_ajax_nonce', theme_ajax_obj.nonce);
-        formData.append('action', 'HupaStarterHandle');
-        formData.append('method', 'get_fa_icons');
-        formData.append('type', type);
-        xhr.send(formData);
-
-        //Response
-        xhr.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let data = JSON.parse(this.responseText);
-                if (data.status) {
-                    let iconGrid = document.getElementById('icon-grid');
-                    let icons = data.record;
-                    let html = '<div class="icon-wrapper">';
-                    icons.forEach(function (icons) {
-                        html += `<div onclick="set_select_info_icon('${icons.title}', '${icons.code}', '${icons.icon}');"
-                              data-bs-dismiss="modal"   class="info-icon-item" title="${icons.code} | ${icons.title}">`;
-                        html += `<i  class="${icons.icon}"></i><small class="sm-icon">${icons.icon}</small>`;
-                        html += '</div>';
-                    });
-                    html += '</div>';
-                    iconGrid.innerHTML = html;
-                }
-            }
+        let shortCode = '';
+        let uri = '';
+        switch (type) {
+            case'fa-info':
+                    uri ='fa-icons.json';
+                    shortCode = 'fa';
+                break;
+            case'bi-info':
+                    uri = 'bs-icons.json';
+                    shortCode = 'bi';
+                break;
         }
+
+        let url = hupa_starter.admin_url;
+        fetch(`${url}inc/starter-ajax/tools/${uri}`)
+            .then(response => response.json(shortCode))
+            .then(data => {
+                let html = '<div class="icon-wrapper">';
+                data.forEach(function (data) {
+                    html += `<div onclick="set_select_info_icon('${data.title}', '${data.code}', '${data.icon}' , '${shortCode}');"
+                              data-bs-dismiss="modal"   class="info-icon-item" title="${data.code} | ${data.title}">`;
+                    html += `<i  class="${data.icon}"></i><small class="sm-icon">${data.icon}</small>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+                let iconGrid = document.getElementById('icon-grid');
+                iconGrid.innerHTML = html;
+            });
     });
 }
 
-function set_select_info_icon(title, unicode, icon) {
+function set_select_info_icon(title, unicode, icon, shortcode) {
+    let size = 'fa-2x';
+    //shortcode == 'fas' ? size = '' : size = 'fa-2x';
     document.getElementById('shortcode-info').innerHTML = `
         <i class="${icon} fa-4x d-block mb-2"></i>
-       <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon i="${title}"]</span>
+       <span class="d-block mb-1 mt-2"><b class="text-danger d-inline-block" style="min-width: 6rem;">Shortcode:</b> [icon ${shortcode}="${title}"]</span>
        <span class="d-block"><b class="text-danger d-inline-block" style="min-width: 6rem;">Unicode:</b> ${unicode}</span> 
         <hr class="mt-2 mb-1">
         <div class="form-text my-2"><i class="font-blue fa fa-info-circle"></i>
@@ -1007,21 +1009,17 @@ function set_select_info_icon(title, unicode, icon) {
         <b class="d-block">Beispiele</b>
         <hr class="mt-2 mb-2">
         <div class="d-flex flex-wrap">
-           <div class="d-block text-center me-2">
-               <i class="${icon} fa-2x d-block mb-1"></i>
-               [icon i="${title}"]     
-            </div>
              <div class="d-block text-center me-2">
-               <i class="${icon} fa-spin fa-2x d-block mb-1"></i>
-               [icon i="${title} fa-spin"]  
+               <i class="${icon} fa-spin ${size} d-block mb-1"></i>
+               [icon ${shortcode}="${title} fa-spin"]  
             </div>
               <div class="d-block text-center me-2">
-               <i class="${icon} text-danger fa-spin fa-2x d-block mb-1"></i>
-               [icon i="${title} fa-spin text-danger"]     
+               <i class="${icon} text-danger fa-spin ${size} d-block mb-1"></i>
+               [icon ${shortcode}="${title} fa-spin text-danger"]     
             </div>
              <div class="d-block mt-2 text-center me-2">
                <b class="d-block" style="margin-bottom: .65rem">${unicode}</b>
-               [icon i="${title}" code="true"]     
+               [icon ${shortcode}="${title}" code="true"]     
             </div>
         </div>`;
     document.getElementById('resetIcons').classList.remove('d-none');

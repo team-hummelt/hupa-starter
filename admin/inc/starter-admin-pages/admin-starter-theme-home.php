@@ -4163,17 +4163,27 @@ global $hupa_api_handle;
                             <h6 class="lh-1 mb-0"><i class="fa fa-arrow-circle-right"></i> Icon Shortcode:</h6>
                             <div class="form-text mb-3">Icon <b>auswählen</b> und Shortcode <b>Kopieren</b>.</div>
                             <button data-bs-toggle="modal"
-                                    data-bs-target="#dialog-add-icon" data-bs-type="info"
+                                    data-bs-target="#dialog-add-icon" data-bs-type="fa-info"
                                     class="show-theme-icons btn btn-outline-secondary btn-sm">
                                 <i class="fa fa-th"></i>&nbsp;
-                                Icon Übersicht
+                                Font-Awesome Übersicht
                             </button>
+
+                            <button data-bs-toggle="modal"
+                                    data-bs-target="#dialog-add-icon" data-bs-type="bi-info"
+                                    class="show-theme-icons btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-bootstrap"></i>&nbsp;
+                                Bootstrap-Icons Übersicht
+                            </button>
+                            <div class="d-block">
                             <button id="resetIcons" onclick="reset_show_theme_icons(this,'shortcode-info')"
-                                    class="btn btn-blue-outline btn-sm d-none">
+                                    class="btn btn-blue-outline mt-3 btn-sm d-none">
                                 <i class="fa fa-random"></i>&nbsp;
                                 Reset
                             </button>
+                            </div>
                             <hr>
+
                             <div class="pb-3" id="shortcode-info"></div>
                         </div>
 
@@ -4342,7 +4352,7 @@ global $hupa_api_handle;
             <div class="modal-content">
                 <div class="modal-header bg-hupa">
                     <h5 class="modal-title" id="exampleModalLabel"><?= __('Icon auswählen', 'bootscore'); ?></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="icon-grid"></div>

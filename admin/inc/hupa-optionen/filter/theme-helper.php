@@ -37,17 +37,20 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 		 */
 		public function __construct() {
 
-			//FILTER
-			//TODO HELPER ARRAY TO OBJECT
-			add_filter( 'arrayToObject', array( $this, 'hupaArrayToObject' ));
-			add_filter( 'px_to_rem', array( $this, 'hupa_px_to_rem' ));
-			add_filter( 'hupa_integer_to_hex', array( $this, 'hupa_integer_to_hex' ));
-			add_filter( 'wp_get_attachment', array( $this, 'hupa_wp_get_attachment' ));
-            add_filter( 'hupa_get_random_string', array( $this, 'load_random_string' ));
-            add_filter( 'get_hupa_random_id', array( $this, 'getHupaGenerateRandomId' ), 10, 4);
-            add_action( 'destroy_dir_recursive', array( $this, 'destroyDirRecursive' ));
-            add_filter( 'user_roles_select', array( $this, 'hupa_theme_user_roles_select' ));
-		}
+            //FILTER
+            //TODO HELPER ARRAY TO OBJECT
+            add_filter('arrayToObject', array($this, 'hupaArrayToObject'));
+            add_filter('px_to_rem', array($this, 'hupa_px_to_rem'));
+            add_filter('hupa_integer_to_hex', array($this, 'hupa_integer_to_hex'));
+            add_filter('wp_get_attachment', array($this, 'hupa_wp_get_attachment'));
+            add_filter('hupa_get_random_string', array($this, 'load_random_string'));
+            add_filter('get_hupa_random_id', array($this, 'getHupaGenerateRandomId'), 10, 4);
+            add_action('destroy_dir_recursive', array($this, 'destroyDirRecursive'));
+            add_filter('user_roles_select', array($this, 'hupa_theme_user_roles_select'));
+
+            add_filter('make_bootstrap_icon_json', array($this, 'create_bootstrap_icon_json'));
+
+        }
 
 		/**
 		 * @param $array
@@ -162,15 +165,60 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
             return rmdir($dir);
         }
 
-        public function hupa_theme_user_roles_select(): array {
+        public function hupa_theme_user_roles_select(): array
+        {
 
             return [
-                '1#read'           => esc_html__( 'Subscriber', 'bootscore' ),
-                '2#edit_posts'     => esc_html__( 'Contributor', 'bootscore' ),
-                '3#publish_posts'  => esc_html__( 'Author', 'bootscore' ),
-                '4#publish_pages'  => esc_html__( 'Editor', 'bootscore' ),
-                '5#manage_options' => esc_html__( 'Administrator', 'bootscore')
+                '1#read' => esc_html__('Subscriber', 'bootscore'),
+                '2#edit_posts' => esc_html__('Contributor', 'bootscore'),
+                '3#publish_posts' => esc_html__('Author', 'bootscore'),
+                '4#publish_pages' => esc_html__('Editor', 'bootscore'),
+                '5#manage_options' => esc_html__('Administrator', 'bootscore')
             ];
+        }
+
+        public function create_bootstrap_icon_json()
+        {
+            $reg_bs_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'bsIcons.json';
+            $bs_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'bs-icons.json';
+            $json_file = file_get_contents($reg_bs_json);
+            $json_file = json_decode($json_file);
+            $jsonArr = [];
+            if($json_file) {
+                foreach ($json_file as $j){
+                    $json_item = [
+                        'title' => $j[0]->content,
+                        'code' => $j[1]->content,
+                        'icon' => "bi bi-{$j[0]->content}"
+                    ];
+                    $jsonArr[] = $json_item;
+                }
+            }
+            $jsonArr = json_encode($jsonArr,JSON_UNESCAPED_SLASHES);
+            file_put_contents($bs_json, $jsonArr);
+
+            $cheatSet =  $reg_bs_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'FontAwesomeCheats.txt';
+            $fa_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'fa-icons.json';
+            $cheatSet = file_get_contents($cheatSet);
+
+            $regEx = '/fa.*?\s/m';
+            preg_match_all($regEx, $cheatSet, $matches, PREG_SET_ORDER, 0);
+
+            $ico_arr = [];
+            foreach ($matches as $tmp) {
+                $icon = trim($tmp[0]);
+                $regExp = sprintf('/%s.+?\[?x(.*?);\]/m', $icon);
+                preg_match_all($regExp, $cheatSet, $matches1, PREG_SET_ORDER, 0);
+                $ico_item = array(
+                    'icon' => 'fa ' . $icon,
+                    'title' => substr($icon, strpos($icon, '-') + 1),
+                    'code' => $matches1[0][1]
+                );
+                $ico_arr[] = $ico_item;
+            }
+
+            $ico_arr = json_encode($ico_arr,JSON_UNESCAPED_SLASHES);
+            file_put_contents($fa_json, $ico_arr);
         }
     }
 }

@@ -41,47 +41,63 @@ if ( ! class_exists( 'HupaIconsShortCode' ) ) {
         {
             $a = shortcode_atts(array(
                 'i' => '',
-                'code' => ''
+                'code' => 'true'
             ), $atts);
+            $icon = [];
+            $keys = array_keys($atts);
+            $types = ['fa','bi','i'];
+            isset($atts['code']) ? $code = $atts['code'] : $code = false;
+            if(in_array($keys[0], $types)){
+                $icon = [
+                    'classes' => trim($atts[$keys[0]]),
+                    'code' => $code,
+                    'type' => $keys[0]
 
-            if (!$a['i']) {
+                ];
+            }
+            if(!$icon){
                 return '';
             }
-
-            $trimIcon = trim($a['i']);
             ob_start();
-            if($a['code']){
-                $icon = $this->get_hupa_icon($trimIcon);
-                echo $icon['code'];
-            } else {
-                echo '<i class="hupa-icon fa fa-'.$trimIcon.'"></i>';
-            }
+               $this->get_hupa_icon($icon);
             return ob_get_clean();
         }
 
-        private function get_hupa_icon($search):array{
-
-            $file = THEME_AJAX_DIR . 'tools/FontAwesomeCheats.txt';
-            $cheatSet = file_get_contents($file, true);
-            $regEx = '/fa.*?\s/m';
-            preg_match_all($regEx, $cheatSet, $matches, PREG_SET_ORDER, 0);
-            if (!isset($matches)) {
-                return [];
+        private function get_hupa_icon($search){
+            $dir = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR;
+            $file = '';
+            $iconSet = '';
+            $icon = '';
+            $types = explode(' ', $search['classes']);
+            switch ($search['type']){
+                case 'bi':
+                       $file = $dir . 'bs-icons.json';
+                       $iconSet = 'bi';
+                    break;
+                case 'i':
+                case 'fa':
+                $file = $dir . 'fa-icons.json';
+                $iconSet = 'fa';
+                    break;
             }
-            foreach ($matches as $tmp) {
-                $icon = trim($tmp[0]);
-                $regExp = sprintf('/%s.+?\[?x(.*?);\]/m', $icon);
-                preg_match_all($regExp, $cheatSet, $matches1, PREG_SET_ORDER, 0);
-                $title = substr($icon, strpos($icon, '-') + 1);
-                if($search == $title) {
-                    return array(
-                        'icon' => 'fa ' . $icon,
-                        'title' => $title,
-                        'code' => $matches1[0][1]
-                    );
-                }
+            if(!is_file($file)){
+                echo '';
             }
-            return  [];
+            $cheatSet = json_decode(file_get_contents($file, true));
+            foreach ($cheatSet as $tmp) {
+              if($tmp->title == $types[0]) {
+                  if(isset($search['icon'])) {
+                      $icon = $tmp->code;
+                  } else {
+                      unset($types[0]);
+                      $classes = implode(' ', $types);
+                      $types ? $sep = ' ' : $sep = '';
+                      $icon = '<i class="'. $iconSet . ' ' . $iconSet . '-' . $tmp->title . $sep . $classes.'"></i>';
+                  }
+                   break;
+               }
+            }
+            echo trim($icon);
         }
     }
 

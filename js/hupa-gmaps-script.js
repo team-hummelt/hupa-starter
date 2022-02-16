@@ -15,9 +15,7 @@ window.addEventListener("load", function (event) {
             callback: 'hupa_gmaps_data',
         });
         return false;
-    } else {
-        gmaps_container.classList.remove('d-none')
-    }
+   }
 });//loadFunction
 
 function hupa_gmaps_data() {

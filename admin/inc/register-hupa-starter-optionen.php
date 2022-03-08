@@ -40,6 +40,20 @@ final class HupaRegisterStarterTheme {
 
     public function __construct()
     {
+        if (!get_option('theme_capabilities')) {
+            $capabilities = [
+                'settings' => 'manage_options',
+                'tools' => 'manage_options',
+                'carousel' => 'manage_options',
+                'installation' => 'manage_options',
+                'maps-api' => 'manage_options',
+                'maps-iframe' => 'manage_options',
+                'maps-settings' => 'manage_options',
+            ];
+
+            update_option('theme_capabilities', $capabilities);
+        }
+
         $icon_base64 = 'PHN2ZyAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMjAgMjAiPgo8cGF0aCBmaWxsPSJibGFjayIgZD0iTTcuMSw1LjhDMy40LDUuOSwzLjQsMCw3LjEsMEMxMC45LDAsMTAuOSw1LjksNy4xLDUuOHogTTcuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzEwLjksMTkuOCwxMC45LDEzLjksNy4xLDEzLjl6IE0xNC4xLDExLjJjMS43LDAsMS43LTIuNywwLTIuN0MxMi4zLDguNSwxMi40LDExLjMsMTQuMSwxMS4yeiBNMTQuMSwxMy45Yy0zLjgtMC4xLTMuOCw1LjksMCw1LjgKQzE3LjksMTkuOCwxNy45LDEzLjksMTQuMSwxMy45eiBNOC41LDkuOWMwLTEuNy0yLjctMS43LTIuNywwQzUuOCwxMS42LDguNSwxMS42LDguNSw5Ljl6IE0xNC4xLDQuM2MxLjcsMCwxLjctMi43LDAtMi43CkMxMi4zLDEuNiwxMi40LDQuMywxNC4xLDQuM3oiLz4KPC9zdmc+Cg==';
         $this->hupaIcon = 'data:image/svg+xml;base64,' . $icon_base64;
     }

@@ -99,7 +99,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
             add_filter('get_content_custom_footer', array($this, 'getContentCustomFooter'));
         }
 
-        final public function hupa_get_hupa_option($option): string|array|object
+        final public function hupa_get_hupa_option($option)
         {
             global $wpdb;
             $table = $wpdb->prefix . $this->table_settings;
@@ -412,7 +412,8 @@ if (!class_exists('HupaStarterOptionFilter')) {
             }
         }
 
-        public function set_social_media_default() {
+        public function set_social_media_default()
+        {
             $default = $this->get_theme_default_settings();
             global $wpdb;
             $table = $wpdb->prefix . $this->table_social;
@@ -473,13 +474,13 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
             $return->status = true;
             $data = json_decode($result->google_maps_placeholder);
-            if(!$id) {
-              $return->record = $data;
-              return $return;
+            if (!$id) {
+                $return->record = $data;
+                return $return;
             }
 
             foreach ($data as $tmp) {
-                if($tmp->map_ds_id == $id) {
+                if ($tmp->map_ds_id == $id) {
                     $return->record = $tmp;
                     return $return;
                 }
@@ -596,9 +597,10 @@ if (!class_exists('HupaStarterOptionFilter')) {
             );
         }
 
-        public function getHupaDefaultSettings($args = false):object{
+        public function getHupaDefaultSettings($args = false): object
+        {
             $default = $this->get_theme_default_settings();
-            if($args){
+            if ($args) {
                 $settings = $default[$args];
             } else {
                 $settings = $default;
@@ -942,32 +944,54 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $mainSelectContainer = get_post_meta($id, '_hupa_main_container', true);
             $optionOptionContainer = get_hupa_option('main_container');
             if ($mainSelectContainer != 0) {
-                $record->main_container = match ($mainSelectContainer) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+
+                switch ($mainSelectContainer) {
+                    case '1':
+                        $record->main_container = 1;
+                        break;
+                    case'2':
+                        $record->main_container = 0;
+                        break;
+                }
+
             } else {
-                $record->main_container = match ($optionOptionContainer) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+                switch ($optionOptionContainer) {
+                    case '1':
+                        $record->main_container = 1;
+                        break;
+                    case'2':
+                        $record->main_container = 0;
+                        break;
+                }
             };
 
             //MENU CONTAINER
+
             $selectMenuContainer = get_post_meta($id, '_hupa_select_container', true);
             $optionMenuContainer = get_hupa_option('menu_container');
 
             //MENU CONTAINER
+
+
             if ($selectMenuContainer != 0) {
-                $record->menu_container = match ($selectMenuContainer) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+                switch ($selectMenuContainer) {
+                    case '1':
+                        $record->menu_container = 1;
+                        break;
+                    case'2':
+                        $record->menu_container = 0;
+                        break;
+                }
+
             } else {
-                $record->menu_container = match ($optionMenuContainer) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+                switch ($optionMenuContainer) {
+                    case '1':
+                        $record->menu_container = 1;
+                        break;
+                    case'2':
+                        $record->menu_container = 0;
+                        break;
+                }
             }
 
             //TopArea Show
@@ -980,15 +1004,24 @@ if (!class_exists('HupaStarterOptionFilter')) {
             $stickyFooterSelect = get_post_meta($id, '_hupa_sticky_widgets_footer', true);
             //TOP AREA
             if ($topAreaContainerSelect != 0) {
-                $record->top_area_container = match ($topAreaContainerSelect) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+                switch ($topAreaContainerSelect) {
+                    case '1':
+                        $record->top_area_container = 1;
+                        break;
+                    case'2':
+                        $record->top_area_container = 0;
+                        break;
+                }
+
             } else {
-                $record->top_area_container = match ($topAreaContainerOption) {
-                    '1' => 1,
-                    '2' => 0,
-                };
+                switch ($topAreaContainerOption) {
+                    case '1':
+                        $record->top_area_container = 1;
+                        break;
+                    case'2':
+                        $record->top_area_container = 0;
+                        break;
+                }
             }
 
             $selectSocialColor = get_post_meta($id, '_hupa_select_social_color', true);
@@ -1084,7 +1117,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 } else {
                     $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
                     preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                    if($matches) {
+                    if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
                             $json->className ? $doFormClass = $json->className : $doFormClass = '';
@@ -1117,15 +1150,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
                 $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if($matches) {
+                if ($matches) {
                     foreach ($matches as $tmp) {
                         $json = json_decode($tmp[1]);
                         isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                         $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
 
-                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
-                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
-                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $json->cardWidth ? $cardWidth = ' width="' . trim($json->cardWidth) . '"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight = ' height="' . trim($json->cardHeight) . '"' : $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="' . $json->selectedMap . '" ' . $cardWidth . $cardHeight . ']') . '</div>';;
                         $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
                     }
                 }
@@ -1178,10 +1211,10 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 } else {
                     $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
                     preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                    if($matches) {
+                    if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
-                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                             $classStart = '<div class="bootstrap-formular ' . $doFormClass . '">';
                             $doShortcode = $classStart . do_shortcode('[bs-formular id="' . $json->selectedFormular . '"]') . '</div>';
                             $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
@@ -1211,15 +1244,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
                 $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if($matches) {
+                if ($matches) {
                     foreach ($matches as $tmp) {
                         $json = json_decode($tmp[1]);
                         isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                         $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
 
-                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
-                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
-                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $json->cardWidth ? $cardWidth = ' width="' . trim($json->cardWidth) . '"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight = ' height="' . trim($json->cardHeight) . '"' : $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="' . $json->selectedMap . '" ' . $cardWidth . $cardHeight . ']') . '</div>';;
                         $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
                     }
                 }
@@ -1256,7 +1289,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 case'btn-tumblr':
                     return 'https://www.tumblr.com/share/link?url=' . $data->share_url . '&amp;title=' . $data->share_title;
                 case'btn-buffer':
-                   // return 'https://bufferapp.com/add?url=' . $data->share_url . '&amp;text=' . $data->share_title;
+                    // return 'https://bufferapp.com/add?url=' . $data->share_url . '&amp;text=' . $data->share_title;
                 case'btn-mix':
                     return 'https://www.stumbleupon.com/submit?url=' . $data->share_url . '&amp;text=' . $data->share_title;
                 case'btn-vk':
@@ -1303,50 +1336,53 @@ if (!class_exists('HupaStarterOptionFilter')) {
             fclose($fp);
         }
 
-        public function getCustomHeader(){
+        public function getCustomHeader()
+        {
             //HEADER SELECT
             $headerArgs = array(
-                'post_type'      => 'starter_header',
-                'post_status'    => 'publish',
-                'posts_per_page' => - 1
+                'post_type' => 'starter_header',
+                'post_status' => 'publish',
+                'posts_per_page' => -1
             );
-            $header     = new WP_Query( $headerArgs );
-            $headerArr  = [];
-            foreach ( $header->posts as $tmp ) {
+            $header = new WP_Query($headerArgs);
+            $headerArr = [];
+            foreach ($header->posts as $tmp) {
 
-                $headerItem  = [
+                $headerItem = [
                     'id' => $tmp->ID,
                     'label' => $tmp->post_title
                 ];
                 $headerArr[] = $headerItem;
             }
 
-            sort( $headerArr );
-            return apply_filters('hupaArrayToObject',$headerArr);
+            sort($headerArr);
+            return apply_filters('hupaArrayToObject', $headerArr);
         }
 
-        public function getCustomFooter(){
+        public function getCustomFooter()
+        {
 
             $footerArgs = array(
-                'post_type'      => 'starter_footer',
-                'post_status'    => 'publish',
-                'posts_per_page' => - 1
+                'post_type' => 'starter_footer',
+                'post_status' => 'publish',
+                'posts_per_page' => -1
             );
-            $footer     = new WP_Query( $footerArgs );
-            $footerArr  = [];
-            foreach ( $footer->posts as $tmp ) {
-                $footerItem  = [
+            $footer = new WP_Query($footerArgs);
+            $footerArr = [];
+            foreach ($footer->posts as $tmp) {
+                $footerItem = [
                     'id' => $tmp->ID,
                     'label' => $tmp->post_title
                 ];
                 $footerArr[] = $footerItem;
             }
 
-            sort( $footerArr );
-            return apply_filters('hupaArrayToObject',$footerArr);
+            sort($footerArr);
+            return apply_filters('hupaArrayToObject', $footerArr);
         }
 
-        public function getContentCustomHeader($id):object{
+        public function getContentCustomHeader($id): object
+        {
             //TODO CUSTOM HEADER
             $record = new stdClass();
             if ($id && get_post($id)) {
@@ -1382,7 +1418,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 } else {
                     $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
                     preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                    if($matches) {
+                    if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
                             $json->className ? $doFormClass = $json->className : $doFormClass = '';
@@ -1415,15 +1451,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
                 $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
                 preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
-                if($matches) {
+                if ($matches) {
                     foreach ($matches as $tmp) {
                         $json = json_decode($tmp[1]);
                         isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                         $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
 
-                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
-                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
-                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $json->cardWidth ? $cardWidth = ' width="' . trim($json->cardWidth) . '"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight = ' height="' . trim($json->cardHeight) . '"' : $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="' . $json->selectedMap . '" ' . $cardWidth . $cardHeight . ']') . '</div>';;
                         $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
                     }
                 }
@@ -1445,7 +1481,8 @@ if (!class_exists('HupaStarterOptionFilter')) {
             return $record;
         }
 
-        public function getContentCustomFooter($id):object{
+        public function getContentCustomFooter($id): object
+        {
             //TODO CUSTOM FOOTER
             $record = new stdClass();
             if ($id && get_post($id)) {
@@ -1480,7 +1517,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                 } else {
                     $regEx = '/<!.*bootstrap-formula.*({.*}).*>/m';
                     preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                    if($matches) {
+                    if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
                             $json->className ? $doFormClass = $json->className : $doFormClass = '';
@@ -1513,15 +1550,15 @@ if (!class_exists('HupaStarterOptionFilter')) {
 
                 $regEx = '/<!.*theme-google-maps.*({.*}).*>/m';
                 preg_match_all($regEx, $record->custum_footer, $matches, PREG_SET_ORDER, 0);
-                if($matches) {
+                if ($matches) {
                     foreach ($matches as $tmp) {
                         $json = json_decode($tmp[1]);
                         isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                         $classStart = '<div class="hupa-gmaps ' . $doFormClass . '">';
 
-                        $json->cardWidth ? $cardWidth =  ' width="'.trim($json->cardWidth).'"' : $cardWidth = '';
-                        $json->cardHeight ? $cardHeight =  ' height="'.trim($json->cardHeight).'"': $cardHeight = '';
-                        $doShortcode = $classStart . do_shortcode('[gmaps id="'.$json->selectedMap.'" '.$cardWidth. $cardHeight.']') . '</div>';;
+                        $json->cardWidth ? $cardWidth = ' width="' . trim($json->cardWidth) . '"' : $cardWidth = '';
+                        $json->cardHeight ? $cardHeight = ' height="' . trim($json->cardHeight) . '"' : $cardHeight = '';
+                        $doShortcode = $classStart . do_shortcode('[gmaps id="' . $json->selectedMap . '" ' . $cardWidth . $cardHeight . ']') . '</div>';;
                         $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
                     }
                 }

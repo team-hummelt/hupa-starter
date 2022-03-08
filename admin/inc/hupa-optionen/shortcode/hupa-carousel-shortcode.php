@@ -46,7 +46,7 @@ if (!class_exists('HupaCarouselShortCode')) {
 
         }
 
-        public function hupa_preloader_shortcode($atts, $content, $tag): bool|string
+        public function hupa_preloader_shortcode($atts, $content, $tag)
         {
             $a = shortcode_atts(array(
                 'color' => '#a4a4a4',
@@ -75,7 +75,7 @@ if (!class_exists('HupaCarouselShortCode')) {
         }
 
 
-        public function post_selector_slider_shortcode($atts, $content, $tag): bool|string
+        public function post_selector_slider_shortcode($atts, $content, $tag)
         {
             $a = shortcode_atts(array(
                 'attributes' => '',
@@ -92,7 +92,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             return ob_get_clean();
         }
 
-        public function post_selector_galerie_shortcode($atts, $content, $tag): bool|string
+        public function post_selector_galerie_shortcode($atts, $content, $tag)
         {
             $a = shortcode_atts(array(
                 'attributes' => '',
@@ -109,7 +109,7 @@ if (!class_exists('HupaCarouselShortCode')) {
             return ob_get_clean();
         }
 
-        public function hupa_carousel_shortcode($atts, $content, $tag): bool|string
+        public function hupa_carousel_shortcode($atts, $content, $tag)
         {
 
             $a = shortcode_atts(array(
@@ -147,17 +147,29 @@ if (!class_exists('HupaCarouselShortCode')) {
             $carousel->data_animate == 2 ? $slide = ' carousel-fade' : $slide = '';
             $carousel->full_width ? $full_width = ' hupa-full-row ' : $full_width = '';
 
-            $controlColor = match ($carousel->select_bg) {
-                '0' => '',
-                '1' => 'slider_navigation_light',
-                '2' => 'slider_navigation_dark',
-            };
+            switch($carousel->select_bg){
+                case '0':
+                    $controlColor = '';
+                    break;
+                case '1':
+                    $controlColor = 'slider_navigation_light';
+                    break;
+                case'2':
+                    $controlColor = 'slider_navigation_dark';
+                    break;
+            }
 
-            $bgCaption = match ($carousel->caption_bg) {
-                '0' => '',
-                '1' => 'slider_caption_bg_light',
-                '2' => 'slider_caption_bg_dark',
-            };
+            switch($carousel->caption_bg){
+                case '0':
+                    $bgCaption = '';
+                    break;
+                case '1':
+                    $bgCaption = 'slider_caption_bg_light';
+                    break;
+                case'2':
+                    $bgCaption = 'slider_caption_bg_dark';
+                    break;
+            }
 
             $carousel->margin_aktiv ? $marginTop = 'carousel-margin-top' : $marginTop = '';
             $countS = count((array)$slider);

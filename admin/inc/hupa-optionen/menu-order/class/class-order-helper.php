@@ -35,7 +35,7 @@ final class HupaMenuOrderHelper
 
     }
 
-    public function get_current_user_level($return = FALSE): int|string
+    public function get_current_user_level($return = FALSE)
     {
         global $userdata;
 
@@ -106,7 +106,7 @@ final class HupaMenuOrderHelper
 
             if (!empty($excluded_terms) && !is_array($excluded_terms)) {
                 // back-compat, $excluded_terms used to be $excluded_terms with IDs separated by " and "
-                if (str_contains($excluded_terms, ' and ')) {
+                if (strpos($excluded_terms, ' and ')) {
                     _deprecated_argument(__FUNCTION__, '3.3', sprintf(esc_html__('Use commas instead of %s to separate excluded terms.'), "'and'"));
                     $excluded_terms = explode(' and ', $excluded_terms);
                 } else {
@@ -173,7 +173,7 @@ final class HupaMenuOrderHelper
 
             if (!empty($excluded_terms) && !is_array($excluded_terms)) {
                 // back-compat, $excluded_terms used to be $excluded_terms with IDs separated by " and "
-                if (str_contains($excluded_terms, ' and ')) {
+                if (strpos($excluded_terms, ' and ')) {
                     _deprecated_argument(__FUNCTION__, '3.3', sprintf(esc_html__('Use commas instead of %s to separate excluded terms.'), "'and'"));
                     $excluded_terms = explode(' and ', $excluded_terms);
                 } else {

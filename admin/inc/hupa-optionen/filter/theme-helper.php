@@ -5,7 +5,7 @@ namespace Hupa\StarterTheme;
 use Exception;
 use JetBrains\PhpStorm\ArrayShape;
 
-defined( 'ABSPATH' ) or die();
+defined('ABSPATH') or die();
 /**
  * ADMIN THEME HELPER CLASS
  * @package Hummelt & Partner WordPress Theme
@@ -14,28 +14,31 @@ defined( 'ABSPATH' ) or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-if ( ! class_exists( 'HupaStarterHelper' ) ) {
-	add_action( 'after_setup_theme', array( 'Hupa\\StarterTheme\\HupaStarterHelper', 'init' ), 0 );
+if (!class_exists('HupaStarterHelper')) {
+    add_action('after_setup_theme', array('Hupa\\StarterTheme\\HupaStarterHelper', 'init'), 0);
 
-	class HupaStarterHelper {
-		//INSTANCE
-		private static $theme_helper_instance;
+    class HupaStarterHelper
+    {
+        //INSTANCE
+        private static $theme_helper_instance;
 
-		/**
-		 * @return static
-		 */
-		public static function init(): self {
-			if ( is_null( self::$theme_helper_instance ) ) {
-				self::$theme_helper_instance = new self;
-			}
+        /**
+         * @return static
+         */
+        public static function init(): self
+        {
+            if (is_null(self::$theme_helper_instance)) {
+                self::$theme_helper_instance = new self;
+            }
 
-			return self::$theme_helper_instance;
-		}
+            return self::$theme_helper_instance;
+        }
 
-		/**
-		 * HupaStarterHelper constructor.
-		 */
-		public function __construct() {
+        /**
+         * HupaStarterHelper constructor.
+         */
+        public function __construct()
+        {
 
             //FILTER
             //TODO HELPER ARRAY TO OBJECT
@@ -52,60 +55,56 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
 
         }
 
-		/**
-		 * @param $array
-		 *
-		 * @return object
-		 */
-		final public function hupaArrayToObject($array): object
-		{
-			foreach ($array as $key => $value)
-				if (is_array($value)) $array[$key] = self::hupaArrayToObject($value);
-			return (object)$array;
-		}
+        /**
+         * @param $array
+         *
+         * @return object
+         */
+        final public function hupaArrayToObject($array): object
+        {
+            foreach ($array as $key => $value)
+                if (is_array($value)) $array[$key] = self::hupaArrayToObject($value);
+            return (object)$array;
+        }
 
-		/**
-		 * @param $px
-		 *
-		 * @return string
-		 */
-		final public function hupa_px_to_rem( $px ): string {
-			$record = 0.625 * $px / 10;
-			return $record . 'rem';
-		}
+        /**
+         * @param $px
+         *
+         * @return string
+         */
+        final public function hupa_px_to_rem($px): string
+        {
+            $record = 0.625 * $px / 10;
+            return $record . 'rem';
+        }
 
-		/**
-		 * @param $number
-		 *
-		 * @return string
-		 */
-		final public function hupa_integer_to_hex($number):string
-		{
-			$value =  $number * 255 / 100;
-			$opacity = dechex((int) $value);
-			return str_pad($opacity, 2, 0, STR_PAD_RIGHT);
-		}
+        /**
+         * @param $number
+         *
+         * @return string
+         */
+        final public function hupa_integer_to_hex($number): string
+        {
+            $value = $number * 255 / 100;
+            $opacity = dechex((int)$value);
+            return str_pad($opacity, 2, 0, STR_PAD_RIGHT);
+        }
 
-		#[ArrayShape( [ 'alt'         => "mixed",
-		                'caption'     => "string",
-		                'description' => "string",
-		                'href'        => "false|string|\WP_Error",
-		                'src'         => "string",
-		                'title'       => "string"
-		] )] final public function hupa_wp_get_attachment($attachment_id ): object {
+        final public function hupa_wp_get_attachment($attachment_id): object
+        {
 
-			$attachment = get_post( $attachment_id );
-			$attach = array(
-				'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-				'caption' => $attachment->post_excerpt,
-				'description' => $attachment->post_content,
-				'href' => get_permalink( $attachment->ID ),
-				'src' => $attachment->guid,
-				'title' => $attachment->post_title
-			);
+            $attachment = get_post($attachment_id);
+            $attach = array(
+                'alt' => get_post_meta($attachment->ID, '_wp_attachment_image_alt', true),
+                'caption' => $attachment->post_excerpt,
+                'description' => $attachment->post_content,
+                'href' => get_permalink($attachment->ID),
+                'src' => $attachment->guid,
+                'title' => $attachment->post_title
+            );
 
-			return (object) $attach;
-		}
+            return (object)$attach;
+        }
 
         /**
          * @throws Exception
@@ -149,7 +148,7 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
             return str_shuffle($stack);
         }
 
-       public function destroyDirRecursive($dir): bool
+        public function destroyDirRecursive($dir): bool
         {
             if (!is_dir($dir) || is_link($dir))
                 return unlink($dir);
@@ -157,9 +156,9 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
             foreach (scandir($dir) as $file) {
                 if ($file == "." || $file == "..")
                     continue;
-                if (!$this->destroyDirRecursive($dir."/".$file)) {
-                    chmod($dir."/".$file, 0777);
-                    if (!$this->destroyDirRecursive($dir."/".$file)) return false;
+                if (!$this->destroyDirRecursive($dir . "/" . $file)) {
+                    chmod($dir . "/" . $file, 0777);
+                    if (!$this->destroyDirRecursive($dir . "/" . $file)) return false;
                 }
             }
             return rmdir($dir);
@@ -184,8 +183,8 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
             $json_file = file_get_contents($reg_bs_json);
             $json_file = json_decode($json_file);
             $jsonArr = [];
-            if($json_file) {
-                foreach ($json_file as $j){
+            if ($json_file) {
+                foreach ($json_file as $j) {
                     $json_item = [
                         'title' => $j[0]->content,
                         'code' => $j[1]->content,
@@ -194,10 +193,10 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
                     $jsonArr[] = $json_item;
                 }
             }
-            $jsonArr = json_encode($jsonArr,JSON_UNESCAPED_SLASHES);
+            $jsonArr = json_encode($jsonArr, JSON_UNESCAPED_SLASHES);
             file_put_contents($bs_json, $jsonArr);
 
-            $cheatSet =  $reg_bs_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'FontAwesomeCheats.txt';
+            $cheatSet = $reg_bs_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'FontAwesomeCheats.txt';
             $fa_json = THEME_AJAX_DIR . 'tools' . DIRECTORY_SEPARATOR . 'fa-icons.json';
             $cheatSet = file_get_contents($cheatSet);
 
@@ -217,7 +216,7 @@ if ( ! class_exists( 'HupaStarterHelper' ) ) {
                 $ico_arr[] = $ico_item;
             }
 
-            $ico_arr = json_encode($ico_arr,JSON_UNESCAPED_SLASHES);
+            $ico_arr = json_encode($ico_arr, JSON_UNESCAPED_SLASHES);
             file_put_contents($fa_json, $ico_arr);
         }
     }

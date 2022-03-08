@@ -193,7 +193,7 @@ final class HupaMenuOrder
 
     public function admin_init()
     {
-        if (isset($_GET['page']) && str_starts_with($_GET['page'], 'order-post-types-')) {
+        if (isset($_GET['page']) && strpos($_GET['page'],'order-post-types-')) {
             $this->current_post_type = get_post_type_object(str_replace('order-post-types-', '', $_GET['page']));
             if ($this->current_post_type == null) {
                 wp_die('Invalid post type');
@@ -286,7 +286,7 @@ final class HupaMenuOrder
 
                 //temporary ignore ACF group and admin ajax calls, should be fixed within ACF plugin sometime later
                 if (is_object($post) && $post->post_type == "acf-field-group"
-                    || (defined('DOING_AJAX') && isset($_REQUEST['action']) && str_starts_with($_REQUEST['action'], 'acf/'))) {
+                    || (defined('DOING_AJAX') && isset($_REQUEST['action']) && strpos($_REQUEST['action'], 'acf/'))) {
                     return $orderBy;
                 }
                 if (isset($_POST['query']) && isset($_POST['query']['post__in']) && is_array($_POST['query']['post__in']) && count($_POST['query']['post__in']) > 0) {

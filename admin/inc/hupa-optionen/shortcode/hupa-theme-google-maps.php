@@ -40,7 +40,7 @@ if (!class_exists('HupaGoogleMapsShortCode')) {
 
         }
 
-        public function hupa_gmaps_shortcode($atts, $content, $tag): bool|string
+        public function hupa_gmaps_shortcode($atts, $content, $tag)
         {
             $atts = shortcode_atts(array(
                 'id' => '',

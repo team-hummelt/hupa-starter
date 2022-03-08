@@ -45,7 +45,6 @@ if ( ! class_exists( 'HupaSocialButtonShortCode' ) ) {
                 return '';
             }
 
-
             global $post;
             if(is_singular() || is_home()){
                 $share_url = urlencode(get_permalink());
@@ -62,10 +61,16 @@ if ( ! class_exists( 'HupaSocialButtonShortCode' ) ) {
                 $type = '2';
                 $isColor = true;
                 $cssClass = '';
-                $btnId = match ( $type ) {
-                    '1' => 'share-symbol',
-                    '2' => 'share-buttons',
-                };
+                switch($type){
+                    case '1':
+                        $btnId = 'share-symbol';
+                        break;
+                    case '2':
+                        $btnId = 'share-buttons';
+                        break;
+                    default:
+                        $btnId = 'share-symbol';
+                }
 
                 !$isColor && $btnId == 'share-symbol'  ? $color = 'gray' : $color = '';
 

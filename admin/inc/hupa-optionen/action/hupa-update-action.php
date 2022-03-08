@@ -56,6 +56,8 @@ if (!class_exists('StarterThemeUpdateAction')) {
             if(!is_dir(THEME_FONTS_DIR. DIRECTORY_SEPARATOR . 'Roboto')){
                 $src = THEME_ADMIN_INC . 'theme-fonts' . DIRECTORY_SEPARATOR . 'Roboto';
                 $dest = THEME_FONTS_DIR . 'Roboto';
+
+
                 try {
                     $this->recursive_copy($src, $dest, true);
                 } catch (Exception $e) {
@@ -99,7 +101,7 @@ if (!class_exists('StarterThemeUpdateAction')) {
             $dir = opendir($src);
 
             if(!is_dir($dst)){
-                if( !mkdir($dst) ) {
+                if( !mkdir($dst, 0755, true) ) {
                     throw new Exception('Recursive Copy - Destination Ordner nicht gefunden gefunden.');
                 }
             }

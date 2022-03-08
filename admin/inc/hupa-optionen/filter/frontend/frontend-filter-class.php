@@ -48,9 +48,9 @@ if ( ! class_exists( 'HupaStarterFrontEndFilter' ) ) {
 		 * @param $type
 		 * @param string $args
 		 *
-		 * @return object|string|array|bool
+		 * @return bool|object|string
 		 */
-		final public function hupa_get_hupa_frontend( $type, string $args):object|string|array|bool  {
+		final public function hupa_get_hupa_frontend( $type, string $args)  {
 			$return = '';
 			switch ($type){
 				case 'ds-gmaps':

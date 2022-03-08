@@ -51,10 +51,12 @@ if (!class_exists('HupaApiServerHandle')) {
 
         public function hupaGetApiUrl($scope): string
         {
-            return match ($scope) {
-                'authorize_url' => get_option('hupa_server_url') . 'authorize?response_type=code&client_id=' . get_option('hupa_product_client_id'),
-                default => '',
-            };
+            switch($scope){
+                case'authorize_url':
+                    $return = get_option('hupa_server_url') . 'authorize?response_type=code&client_id=' . get_option('hupa_product_client_id');
+                break;
+            }
+            return $return;
         }
 
         public function hupaInstallByAuthorizationCode($authorization_code): object

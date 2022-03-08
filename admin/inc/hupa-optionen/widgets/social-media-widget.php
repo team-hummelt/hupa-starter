@@ -38,11 +38,14 @@ class HupaSocialMediaWidget extends WP_Widget {
 		$cssClass = empty( $instance->cssClass ) ? '' : $instance->cssClass;
 		$isColor  = empty( $instance->isColor ) ? '' : $instance->isColor;
 		$type = empty( $instance->type ) ? '' : $instance->type;
-
-		$btnId = match ( $type ) {
-			'1' => 'share-symbol',
-			'2' => 'share-buttons',
-		};
+        switch($type){
+            case '1':
+                $btnId = 'share-symbol';
+                break;
+            case '2':
+                $btnId = 'share-buttons';
+                break;
+        }
 
         $shareData = new stdClass();
         $shareData->share_url = urlencode(get_permalink());

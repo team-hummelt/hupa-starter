@@ -1214,7 +1214,7 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     if ($matches) {
                         foreach ($matches as $tmp) {
                             $json = json_decode($tmp[1]);
-                            $json->className ? $doFormClass = $json->className : $doFormClass = '';
+                            isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                             $classStart = '<div class="bootstrap-formular ' . $doFormClass . '">';
                             $doShortcode = $classStart . do_shortcode('[bs-formular id="' . $json->selectedFormular . '"]') . '</div>';
                             $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);

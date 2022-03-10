@@ -1128,6 +1128,25 @@ if (!class_exists('HupaStarterOptionFilter')) {
                     }
                 }
 
+                $regEx = '/<!.*theme-menu-select.*({.*}).*>/m';
+                preg_match_all($regEx, $record->custum_header, $menuSelect, PREG_SET_ORDER, 0);
+                if($menuSelect){
+                    foreach ($menuSelect as $tmp) {
+                        if(isset($tmp[1]) && !empty($tmp[1])){
+                            $selectJson = json_decode($tmp[1]);
+                            isset($selectJson->selectedMenu) && $selectJson->selectedMenu ? $selectedMenu = trim($selectJson->selectedMenu) : $selectedMenu = '';
+                            isset($selectJson->menuWrapper) && $selectJson->menuWrapper ? $menuWrapper = trim($selectJson->menuWrapper) : $menuWrapper = '';
+                            isset($selectJson->menuUlClass) && $selectJson->menuUlClass ? $menuUlClass = trim($selectJson->menuUlClass) : $menuUlClass = '';
+                            isset($selectJson->menuLiClass) && $selectJson->menuLiClass ? $menuLiClass = trim($selectJson->menuLiClass) : $menuLiClass = '';
+                            if(!$selectedMenu){
+                                continue;
+                            }
+                            $doShortcode =  do_shortcode('[select-menu selectedMenu="' . $selectedMenu . '" menuWrapper="'.$menuWrapper.'" menuUlClass="'.$menuUlClass.'" menuLiClass="'.$menuLiClass.'"]');
+                            $record->custum_header = str_replace($tmp[0], $doShortcode, $record->custum_header);
+                        }
+                    }
+                }
+
                 if (WP_POST_SELECTOR_AKTIV) {
                     $regEx = '/<!.*theme-post-selector.*({.*}).*>/m';
                     preg_match_all($regEx, $record->custum_header, $matches, PREG_SET_ORDER, 0);
@@ -1197,6 +1216,25 @@ if (!class_exists('HupaStarterOptionFilter')) {
                             isset($json->className) && $json->className ? $doFormClass = $json->className : $doFormClass = '';
                             $classStart = '<div class="theme-carousel ' . $doFormClass . '">';
                             $doShortcode = $classStart . do_shortcode('[carousel id=' . $json->selectedCarousel . ']') . '</div>';
+                            $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
+                        }
+                    }
+                }
+
+                $regEx = '/<!.*theme-menu-select.*({.*}).*>/m';
+                preg_match_all($regEx, $record->custum_footer, $menuSelect, PREG_SET_ORDER, 0);
+                if($menuSelect){
+                    foreach ($menuSelect as $tmp) {
+                        if(isset($tmp[1]) && !empty($tmp[1])){
+                            $selectJson = json_decode($tmp[1]);
+                            isset($selectJson->selectedMenu) && $selectJson->selectedMenu ? $selectedMenu = $selectJson->selectedMenu : $selectedMenu = '';
+                            isset($selectJson->menuWrapper) && $selectJson->menuWrapper ? $menuWrapper = $selectJson->menuWrapper : $menuWrapper = '';
+                            isset($selectJson->menuUlClass) && $selectJson->menuUlClass ? $menuUlClass = $selectJson->menuUlClass : $menuUlClass = '';
+                            isset($selectJson->menuLiClass) && $selectJson->menuLiClass ? $menuLiClass = $selectJson->menuLiClass : $menuLiClass = '';
+                            if(!$selectedMenu){
+                                continue;
+                            }
+                            $doShortcode =  do_shortcode('[select-menu selectedMenu="' . $selectedMenu . '" menuWrapper="'.$menuWrapper.'" menuUlClass="'.$menuUlClass.'" menuLiClass="'.$menuLiClass.'"]');
                             $record->custum_footer = str_replace($tmp[0], $doShortcode, $record->custum_footer);
                         }
                     }

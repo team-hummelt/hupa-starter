@@ -25,18 +25,13 @@ final class HupaRegisterGutenbergTools {
     }
 
     public function init_hupa_gutenberg_tools(): void {
-        //TODO HUPA GUTENBERG TOOLS
+        //JOB HUPA GUTENBERG TOOLS
 
-        //TODO JOB GOOGLE MAPS
-        //add_action( 'init', array( $this, 'gutenberg_block_theme_carousel_register' ) );
         add_action( 'init', array( $this, 'gutenberg_block_google_maps_register' ) );
         add_action( 'enqueue_block_editor_assets', array( $this, 'hupa_theme_editor_hupa_carousel_scripts' ) );
         add_action( 'enqueue_block_editor_assets', array( $this, 'hupa_theme_editor_hupa_tools_scripts' ) );
         add_action( 'enqueue_block_editor_assets', array( $this, 'hupa_theme_editor_menu_scripts' ) );
-        //TODO JOB THEME CAROUSEL
 
-        //TODO REMOVE REST BY NOT LOGGED IN
-        //add_action( 'init', array( $this, 'hupa_tools_removes_api_endpoints_for_not_logged_in' ) );
     }
 
     /**
@@ -125,22 +120,6 @@ final class HupaRegisterGutenbergTools {
             [], '' );
     }
 
-    /**
-     * ================================================
-     * =========== REMOVE REST API ENDPOINT ===========
-     * ================================================
-     */
-    public function hupa_tools_removes_api_endpoints_for_not_logged_in(): void {
-        if ( ! is_user_logged_in() ) {
-            // Removes WordPress endpoints:
-       //     remove_action( 'rest_api_init', 'create_initial_rest_routes', 99 );
-
-            // Removes Woocommerce endpoints
-            if ( function_exists( 'WC' ) ) {
-         //       remove_action( 'rest_api_init', array( WC()->api, 'register_rest_routes' ), 10 );
-            }
-        }
-    }
 }
 
 $hupa_register_gutenberg_tools = HupaRegisterGutenbergTools::tools_instance();

@@ -52,6 +52,7 @@ class bootstrap_5_menu_select_walker extends Walker_Nav_menu
         $classes[] = $args->link_before;
         $classes[] = 'menu-item';
         $classes[] = 'menu-item-' . $item->ID;
+        $classes[] = $args->li_class;
         if ($depth && $args->walker->has_children) {
             $classes[] = 'dropend';
         }

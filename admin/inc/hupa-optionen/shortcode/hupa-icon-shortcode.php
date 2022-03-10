@@ -35,6 +35,19 @@ if ( ! class_exists( 'HupaIconsShortCode' ) ) {
 
         public function __construct() {
             add_shortcode( 'icon', array( $this, 'hupa_icons_shortcode' ) );
+            add_shortcode( 'select-menu', array( $this, 'hupa_select_menu_shortcode' ) );
+        }
+
+        public function hupa_select_menu_shortcode($atts, $content, $tag ) {
+            $a = shortcode_atts(array(
+                'selectedMenu' => '',
+                'menuWrapper' => '',
+                'menuUlClass' => '',
+                'menuLiClass' => '',
+            ), $atts);
+            ob_start();
+            do_action('render_menu_select_output', $atts);
+            return ob_get_clean();
         }
 
         public function hupa_icons_shortcode($atts, $content, $tag )

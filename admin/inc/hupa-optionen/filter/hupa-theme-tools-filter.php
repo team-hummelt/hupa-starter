@@ -4,6 +4,7 @@
 namespace Hupa\StarterTheme;
 
 
+use bootstrap_5_menu_select_walker;
 use stdClass;
 
 defined('ABSPATH') or die();
@@ -141,14 +142,19 @@ if (!class_exists('HupaStarterToolsFilter')) {
             if (!$attr->selectedMenu) {
                 echo '';
             }
+            isset($attr->className) && $attr->className ? $className = $attr->className : $className = '';
+            isset($attr->menuUlClass) && $attr->menuUlClass ? $menuUlClass = $attr->menuUlClass : $menuUlClass = '';
+            isset($attr->menuLiClass) && $attr->menuLiClass ? $menuLiClass = $attr->menuLiClass : $menuLiClass = '';
+
             wp_nav_menu(array(
                 'theme_location' => $attr->selectedMenu,
                 'container' => false,
-                'menu_class' => $attr->className,
+                'menu_class' => $className,
+                'li_class' => $menuLiClass,
                 'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul class="custom-menu-wrapper %2$s">%3$s</ul>',
+                'items_wrap' => '<ul class="'.$menuUlClass. ' custom-menu-wrapper %2$s">%3$s</ul>',
                 'depth' => 6,
-                'walker' => new \bootstrap_5_menu_select_walker()
+                'walker' => new bootstrap_5_menu_select_walker()
             ));
         }
 

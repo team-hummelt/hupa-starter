@@ -164,12 +164,12 @@ function hupa_starter_rest_endpoint_get_response( $request ): WP_REST_Response {
 
         case 'get_menu_data':
             $menArr = [];
-            foreach (get_registered_nav_menus() as $key => $val) {
+            foreach ( get_registered_nav_menus() as $key => $val ) {
                 $menu_items = [
-                    'id' => $key,
+                    'id'   => $key,
                     'name' => $val
                 ];
-                $menArr[] = $menu_items;
+                $menArr[]   = $menu_items;
             }
             $response->themeMenu = $menArr;
             break;

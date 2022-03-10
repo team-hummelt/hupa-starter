@@ -7,16 +7,23 @@ defined( 'ABSPATH' ) or die();
  * https://www.hummelt-werbeagentur.de/
  */
 
-//Google Maps
+//Menu Select
 function callback_hupa_menu_select( $attributes ) {
-	return apply_filters( 'gutenberg_block_menu_select_render', $attributes);
+    return apply_filters( 'gutenberg_block_menu_select_render', $attributes);
 }
 
 function gutenberg_block_menu_select_render_filter($attributes){
 
-	if ($attributes ) {
-		ob_start();
-         do_action('render_menu_select_output', $attributes);
-		return ob_get_clean();
-	}
+    if ($attributes ) {
+        ob_start();
+        $selectJson = apply_filters('arrayToObject', $attributes);
+        isset($selectJson->selectedMenu) && $selectJson->selectedMenu ? $selectedMenu = trim($selectJson->selectedMenu) : $selectedMenu = '';
+        isset($selectJson->menuWrapper) && $selectJson->menuWrapper ? $menuWrapper = trim($selectJson->menuWrapper) : $menuWrapper = '';
+        isset($selectJson->menuUlClass) && $selectJson->menuUlClass ? $menuUlClass = trim($selectJson->menuUlClass) : $menuUlClass = '';
+        isset($selectJson->menuLiClass) && $selectJson->menuLiClass ? $menuLiClass = trim($selectJson->menuLiClass) : $menuLiClass = '';
+        if($selectedMenu){
+            echo do_shortcode('[select-menu selectedMenu="' . $selectedMenu . '" menuWrapper="'.$menuWrapper.'" menuUlClass="'.$menuUlClass.'" menuLiClass="'.$menuLiClass.'"]');
+        }
+        return ob_get_clean();
+    }
 }

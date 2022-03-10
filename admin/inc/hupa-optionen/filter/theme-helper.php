@@ -50,6 +50,7 @@ if (!class_exists('HupaStarterHelper')) {
             add_filter('get_hupa_random_id', array($this, 'getHupaGenerateRandomId'), 10, 4);
             add_action('destroy_dir_recursive', array($this, 'destroyDirRecursive'));
             add_filter('user_roles_select', array($this, 'hupa_theme_user_roles_select'));
+            add_filter('hupaObject2array', array($this, 'object2array_recursive'));
 
             add_filter('make_bootstrap_icon_json', array($this, 'create_bootstrap_icon_json'));
 
@@ -218,6 +219,11 @@ if (!class_exists('HupaStarterHelper')) {
 
             $ico_arr = json_encode($ico_arr, JSON_UNESCAPED_SLASHES);
             file_put_contents($fa_json, $ico_arr);
+        }
+
+        public function object2array_recursive($object)
+        {
+            return json_decode(json_encode($object), true);
         }
     }
 }

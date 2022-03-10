@@ -17,6 +17,7 @@ hummelt und partner | Werbeagentur GmbH
 ### \#1.1.4
 * Aktivierungsfehler gefixt
 * Theme mit PHP 7.4 kompatibel
+* Menu Select für Header und Footer hinzugefügt
 
 ### \#1.1.3
 * Mindestanforderung für die Nutzung der einzelnen Abschnitte hinzugefügt

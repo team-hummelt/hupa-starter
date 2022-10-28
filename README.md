@@ -9,9 +9,11 @@ hummelt und partner | Werbeagentur GmbH
 * Contributors: jwiecker
 * Tags: Hupa Theme, Bootstrap
 * Requires at least: 5.6
-* Tested up to: 5.9.1
+* Tested up to: 6.0.3
 * Stable tag: 1.1.4
 * Requires PHP: 7.4
+
+
 
 ***
 ### \#1.1.4

@@ -80,5 +80,4 @@ function changeBeitragsListenTemplate($id, $type) {
         $file = file_get_contents($newList, true);
         file_put_contents($template, $file, LOCK_EX);
     }
-
 }

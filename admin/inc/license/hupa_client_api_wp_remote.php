@@ -127,7 +127,7 @@ if (!class_exists('HupaApiServerHandle')) {
                 return $error;
             }
             $apiData = json_decode($response['body']);
-            if($apiData->success){
+            if(isset($apiData->success) && $apiData->success){
                 $apiData->status = true;
                 return $apiData;
             }

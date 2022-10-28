@@ -139,23 +139,22 @@ if (!class_exists('HupaStarterToolsFilter')) {
         {
 
             $attr = (object)$attr;
-            if (!$attr->selectedMenu) {
-                echo '';
-            }
-            isset($attr->className) && $attr->className ? $className = $attr->className : $className = '';
-            isset($attr->menuUlClass) && $attr->menuUlClass ? $menuUlClass = $attr->menuUlClass : $menuUlClass = '';
-            isset($attr->menuLiClass) && $attr->menuLiClass ? $menuLiClass = $attr->menuLiClass : $menuLiClass = '';
+            if (isset($attr->selectedMenu) && $attr->selectedMenu) {
+                isset($attr->className) && $attr->className ? $className = $attr->className : $className = '';
+                isset($attr->menuUlClass) && $attr->menuUlClass ? $menuUlClass = $attr->menuUlClass : $menuUlClass = '';
+                isset($attr->menuLiClass) && $attr->menuLiClass ? $menuLiClass = $attr->menuLiClass : $menuLiClass = '';
 
-            wp_nav_menu(array(
-                'theme_location' => $attr->selectedMenu,
-                'container' => false,
-                'menu_class' => $className,
-                'li_class' => $menuLiClass,
-                'fallback_cb' => '__return_false',
-                'items_wrap' => '<ul class="'.$menuUlClass. ' custom-menu-wrapper %2$s">%3$s</ul>',
-                'depth' => 6,
-                'walker' => new bootstrap_5_menu_select_walker()
-            ));
+                wp_nav_menu(array(
+                    'theme_location' => $attr->selectedMenu,
+                    'container' => false,
+                    'menu_class' => $className,
+                    'li_class' => $menuLiClass,
+                    'fallback_cb' => '__return_false',
+                    'items_wrap' => '<ul class="' . $menuUlClass . ' custom-menu-wrapper %2$s">%3$s</ul>',
+                    'depth' => 6,
+                    'walker' => new bootstrap_5_menu_select_walker()
+                ));
+            }
         }
 
         public function getThemePreloader($args, $id = false): object

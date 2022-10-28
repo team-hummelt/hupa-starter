@@ -1921,7 +1921,7 @@ body .wp-bs-starter-wrapper {
 }
 .wp-bs-starter-wrapper .li-font-list li:before {
   font-family: "FontAwesome", sans-serif;
-  content: "";
+  content: "\f00c";
   position: absolute;
   width: 1rem;
   height: 1rem;
@@ -2498,7 +2498,7 @@ body .wp-bs-starter-wrapper {
 .wp-bs-starter-wrapper .btn-add-slider-icon:before {
   position: relative;
   font-family: FontAwesome, serif;
-  content: "";
+  content: "\f196";
   display: inline-block;
   padding-right: 0.3rem;
   top: 0.1rem;
